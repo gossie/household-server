@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/household/api/shoppingLists")
+@RequestMapping("/api/shoppingLists")
 @ExposesResourceFor(ShoppingListDTO.class)
 @RequiredArgsConstructor
 public class ShoppingListController {

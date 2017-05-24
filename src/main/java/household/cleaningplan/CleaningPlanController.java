@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/household/api/cleaningPlans")
+@RequestMapping("/api/cleaningPlans")
 @ExposesResourceFor(CleaningPlanDTO.class)
 @RequiredArgsConstructor
 public class CleaningPlanController {

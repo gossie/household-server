@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/household/api/cookbooks")
+@RequestMapping("/api/cookbooks")
 @ExposesResourceFor(CookbookDTO.class)
 @RequiredArgsConstructor
 public class CookbookController {
