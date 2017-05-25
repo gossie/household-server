@@ -13,7 +13,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @ToString
-public class User extends AbstractEntity {
+public class UserEntity extends AbstractEntity {
 
 	private String email;
 	private String firstname;
