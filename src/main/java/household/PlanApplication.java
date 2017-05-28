@@ -40,51 +40,60 @@ public class PlanApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PlanApplication.class, args);
 	}
-
+	
+	
 	@Bean
-	public CommandLineRunner shoppingListInitializer(ShoppingListRepository shoppingListRepository) {
-		return args ->  {
-			ShoppingListItem item1 = new ShoppingListItem("Grillgut", false);
-			ShoppingListItem item2 = new ShoppingListItem("Duschgel", false);
-			ShoppingListItem item3 = new ShoppingListItem("Knoblauchzehen", false);
-			ShoppingListItem item4 = new ShoppingListItem("Koriander (Gewürz)", true);
-			ShoppingListItem item5 = new ShoppingListItem("Ingwer", false);
-			ShoppingListItem item6 = new ShoppingListItem("Tomaten", false);
-			ShoppingListItem item7 = new ShoppingListItem("Cream of coconut", false);
-			ShoppingListItem item8 = new ShoppingListItem("Blattspinat", false);
-			ShoppingListItem item9 = new ShoppingListItem("Zitronen", false);
-			ShoppingListItem item10 = new ShoppingListItem("Kohlensäure", false);
-			ShoppingList shoppingList = new ShoppingList(asList(item1, item2, item3, item4, item5, item6, item7, item8, item9, item10));
-			shoppingListRepository.save(shoppingList);
+	public CommandLineRunner householdInitializer(HouseholdRepository householdRepository, ShoppingListRepository shoppingListRepository, CleaningPlanRepository cleaningPlanRepository, FoodPlanRepository foodPlanRepository, CookbookRepository cookbookRepository) {
+		return args -> {
+			initializeShoppingList(shoppingListRepository);
+			initializeCleaningPlan(cleaningPlanRepository);
+			initializeFoodStuff(cookbookRepository, foodPlanRepository);
+			
+			FoodPlan foodPlan = foodPlanRepository.findOne(1L);
+			CleaningPlan cleaningPlan = cleaningPlanRepository.findOne(1L);
+			ShoppingList shoppingList = shoppingListRepository.findOne(1L);
+			Cookbook cookbook = cookbookRepository.findOne(1L);
+			Household household = new Household(shoppingList, cleaningPlan, foodPlan, cookbook);
+			
+			householdRepository.save(household);
 		};
+	}
+
+	private void initializeShoppingList(ShoppingListRepository shoppingListRepository) {
+		ShoppingListItem item1 = new ShoppingListItem("Grillgut", false);
+		ShoppingListItem item2 = new ShoppingListItem("Duschgel", false);
+		ShoppingListItem item3 = new ShoppingListItem("Knoblauchzehen", false);
+		ShoppingListItem item4 = new ShoppingListItem("Koriander (Gewürz)", true);
+		ShoppingListItem item5 = new ShoppingListItem("Ingwer", false);
+		ShoppingListItem item6 = new ShoppingListItem("Tomaten", false);
+		ShoppingListItem item7 = new ShoppingListItem("Cream of coconut", false);
+		ShoppingListItem item8 = new ShoppingListItem("Blattspinat", false);
+		ShoppingListItem item9 = new ShoppingListItem("Zitronen", false);
+		ShoppingListItem item10 = new ShoppingListItem("Kohlensäure", false);
+		ShoppingList shoppingList = new ShoppingList(asList(item1, item2, item3, item4, item5, item6, item7, item8, item9, item10));
+		shoppingListRepository.save(shoppingList);
 	}
 	
 	@SuppressWarnings("deprecation")
-	@Bean
-	public CommandLineRunner cleaningPlanInitializer(CleaningPlanRepository cleaningPlanRepository) {
-		return args -> {
-			Chore item1 = new Chore("Bett beziehen", new Date(117, 2, 31).getTime(), new Repeat(2, TimeUnit.WEEKS));
-			Chore item2 = new Chore("Gelber Sack", new Date(117, 2, 30).getTime(), new Repeat(1, TimeUnit.WEEKS));
-			Chore item3 = new Chore("Staubsaugen", new Date(117, 2, 31).getTime(), new Repeat(1, TimeUnit.WEEKS));
-			Chore item4 = new Chore("Bad putzen", new Date(117, 2, 31).getTime(), new Repeat(1, TimeUnit.WEEKS));
-			Chore item5 = new Chore("Wäsche waschen", new Date(117, 2, 31).getTime(), new Repeat(84, TimeUnit.HOURS));
-			Chore item6 = new Chore("Boden wischen", new Date(117, 2, 10).getTime(), new Repeat(1, TimeUnit.WEEKS));
-			Chore item7 = new Chore("Staub wischen", new Date(117, 2, 31).getTime(), new Repeat(84, TimeUnit.HOURS));
-			Chore item8 = new Chore("Küche putzen", new Date(117, 2, 31).getTime(), new Repeat(1, TimeUnit.WEEKS));
-			Chore item9 = new Chore("Müll", new Date(117, 3, 1).getTime(), new Repeat(2, TimeUnit.WEEKS));
-			Chore item10 = new Chore("Klo putzen", new Date(117, 2, 31).getTime(), new Repeat(1, TimeUnit.WEEKS));
-			Chore item11 = new Chore("Blumen gießen", new Date(117, 3, 1).getTime(), new Repeat(3, TimeUnit.DAYS));
-			CleaningPlan cleaningPlan = new CleaningPlan(asList(item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11));
-			cleaningPlanRepository.save(cleaningPlan);
-		};
+	public void initializeCleaningPlan(CleaningPlanRepository cleaningPlanRepository) {
+		Chore item1 = new Chore("Bett beziehen", new Date(117, 2, 31).getTime(), new Repeat(2, TimeUnit.WEEKS));
+		Chore item2 = new Chore("Gelber Sack", new Date(117, 2, 30).getTime(), new Repeat(1, TimeUnit.WEEKS));
+		Chore item3 = new Chore("Staubsaugen", new Date(117, 2, 31).getTime(), new Repeat(1, TimeUnit.WEEKS));
+		Chore item4 = new Chore("Bad putzen", new Date(117, 2, 31).getTime(), new Repeat(1, TimeUnit.WEEKS));
+		Chore item5 = new Chore("Wäsche waschen", new Date(117, 2, 31).getTime(), new Repeat(84, TimeUnit.HOURS));
+		Chore item6 = new Chore("Boden wischen", new Date(117, 2, 10).getTime(), new Repeat(1, TimeUnit.WEEKS));
+		Chore item7 = new Chore("Staub wischen", new Date(117, 2, 31).getTime(), new Repeat(84, TimeUnit.HOURS));
+		Chore item8 = new Chore("Küche putzen", new Date(117, 2, 31).getTime(), new Repeat(1, TimeUnit.WEEKS));
+		Chore item9 = new Chore("Müll", new Date(117, 3, 1).getTime(), new Repeat(2, TimeUnit.WEEKS));
+		Chore item10 = new Chore("Klo putzen", new Date(117, 2, 31).getTime(), new Repeat(1, TimeUnit.WEEKS));
+		Chore item11 = new Chore("Blumen gießen", new Date(117, 3, 1).getTime(), new Repeat(3, TimeUnit.DAYS));
+		CleaningPlan cleaningPlan = new CleaningPlan(asList(item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11));
+		cleaningPlanRepository.save(cleaningPlan);
 	}
 	
-	@Bean
-	public CommandLineRunner foodInitializer(CookbookRepository recipeRepository, FoodPlanRepository foodPlanRepository) {
-		return args -> {
-			initializeCookbook(recipeRepository);
-			initializeFoodplan(foodPlanRepository, recipeRepository);
-		};
+	public void initializeFoodStuff(CookbookRepository cookbookRepository, FoodPlanRepository foodPlanRepository) {
+		initializeCookbook(cookbookRepository);
+		initializeFoodplan(foodPlanRepository, cookbookRepository);
 	}
 	
 	private void initializeCookbook(CookbookRepository cookbookRepository) {
@@ -142,7 +151,7 @@ public class PlanApplication {
 		
 		cookbookRepository.save(new Cookbook(recipes));
 	}
-
+	
 	public void initializeFoodplan(FoodPlanRepository foodPlanRepository, CookbookRepository cookbookRepository) {
 		Map<String, Meal> meals = new HashMap<>();
 		meals.put("monday", new Meal("Hegarty's"));
@@ -154,18 +163,5 @@ public class PlanApplication {
 		meals.put("sunday", new Meal(""));
 		
 		foodPlanRepository.save(new FoodPlan(meals));
-	}
-	
-	@Bean
-	public CommandLineRunner householdInitializer(HouseholdRepository householdRepository, ShoppingListRepository shoppingListRepository, CleaningPlanRepository cleaningPlanRepository, FoodPlanRepository foodPlanRepository, CookbookRepository cookbookRepository) {
-		return args -> {
-			FoodPlan foodPlan = foodPlanRepository.findOne(1L);
-			CleaningPlan cleaningPlan = cleaningPlanRepository.findOne(1L);
-			ShoppingList shoppingList = shoppingListRepository.findOne(1L);
-			Cookbook cookbook = cookbookRepository.findOne(1L);
-			Household household = new Household(shoppingList, cleaningPlan, foodPlan, cookbook);
-			
-			householdRepository.save(household);
-		};
 	}
 }
