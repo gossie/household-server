@@ -27,7 +27,6 @@ import household.cookbook.Recipe;
 import household.foodplan.FoodPlan;
 import household.foodplan.FoodPlanRepository;
 import household.foodplan.Meal;
-import household.household.Household;
 import household.household.HouseholdRepository;
 import household.shoppinglist.ShoppingList;
 import household.shoppinglist.ShoppingListItem;
@@ -45,17 +44,17 @@ public class PlanApplication {
 	@Bean
 	public CommandLineRunner householdInitializer(HouseholdRepository householdRepository, ShoppingListRepository shoppingListRepository, CleaningPlanRepository cleaningPlanRepository, FoodPlanRepository foodPlanRepository, CookbookRepository cookbookRepository) {
 		return args -> {
-			initializeShoppingList(shoppingListRepository);
-			initializeCleaningPlan(cleaningPlanRepository);
-			initializeFoodStuff(cookbookRepository, foodPlanRepository);
-			
-			FoodPlan foodPlan = foodPlanRepository.findOne(1L);
-			CleaningPlan cleaningPlan = cleaningPlanRepository.findOne(1L);
-			ShoppingList shoppingList = shoppingListRepository.findOne(1L);
-			Cookbook cookbook = cookbookRepository.findOne(1L);
-			Household household = new Household(shoppingList, cleaningPlan, foodPlan, cookbook);
-			
-			householdRepository.save(household);
+//			initializeShoppingList(shoppingListRepository);
+//			initializeCleaningPlan(cleaningPlanRepository);
+//			initializeFoodStuff(cookbookRepository, foodPlanRepository);
+//			
+//			FoodPlan foodPlan = foodPlanRepository.findOne(1L);
+//			CleaningPlan cleaningPlan = cleaningPlanRepository.findOne(1L);
+//			ShoppingList shoppingList = shoppingListRepository.findOne(1L);
+//			Cookbook cookbook = cookbookRepository.findOne(1L);
+//			Household household = new Household(shoppingList, cleaningPlan, foodPlan, cookbook);
+//			
+//			householdRepository.save(household);
 		};
 	}
 
