@@ -4,6 +4,7 @@ import static household.household.HouseholdAssert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class HouseholdServiceTest {
@@ -21,6 +22,12 @@ public class HouseholdServiceTest {
 		Household result = householdService.getHousehold(7L);
 		
 		assertThat(result).isSameAs(expected);
+	}
+
+	@Test
+	@Ignore
+	public void testCreateHousehold() throws Exception {
+		throw new RuntimeException("not yet implemented");
 	}
 
 }
