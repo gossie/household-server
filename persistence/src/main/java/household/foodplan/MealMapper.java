@@ -1,18 +1,16 @@
 package household.foodplan;
 
-import org.springframework.stereotype.Component;
-
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-@Component
+@RequiredArgsConstructor(access=AccessLevel.PACKAGE)
 public class MealMapper {
 
-	public MealEntity map(Meal meal) {
+	MealEntity map(Meal meal) {
 		return new MealEntity(meal.getId(), meal.getName());
 	}
 	
-	public Meal map(MealEntity meal) {
+	Meal map(MealEntity meal) {
 		return new Meal(meal.getId(), meal.getName());
 	}
 }

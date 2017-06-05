@@ -21,7 +21,7 @@ public class FoodPlanResourceProcessor implements ResourceProcessor<Resource<Foo
 		resource.add(entityLinks.linkForSingleResource(FoodPlanDTO.class, foodPlanDTO.getDatabaseId()).withSelfRel());
 		resource.add(entityLinks.linkForSingleResource(FoodPlanDTO.class, foodPlanDTO.getDatabaseId()).slash("/meals").withRel("clear"));
 		
-		FoodPlanEntity foodPlan = foodPlanRepository.findOne(foodPlanDTO.getDatabaseId());
+		FoodPlan foodPlan = foodPlanRepository.determineFoodPlan(foodPlanDTO.getDatabaseId());
 		foodPlan.getMeals().entrySet().forEach(entry -> {
 			entry.getValue().getRecipe().ifPresent(r -> {
 				foodPlanDTO.getMeals().get(entry.getKey()).add(entityLinks.linkForSingleResource(RecipeDTO.class, r.getId()).withRel("recipe"));

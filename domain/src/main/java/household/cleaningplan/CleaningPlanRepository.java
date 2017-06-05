@@ -6,4 +6,6 @@ public interface CleaningPlanRepository {
 
 	CleaningPlan saveCleaningPlan(CleaningPlan cleaningPlan);
 
+	CleaningPlan createCleaningPlan();
+
 }

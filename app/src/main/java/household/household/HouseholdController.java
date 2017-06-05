@@ -12,6 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import household.cleaningplan.CleaningPlan;
+import household.cleaningplan.CleaningPlanService;
+import household.cookbook.Cookbook;
+import household.cookbook.CookbookService;
+import household.foodplan.FoodPlan;
+import household.foodplan.FoodPlanService;
+import household.shoppinglist.ShoppingList;
+import household.shoppinglist.ShoppingListService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -20,13 +28,23 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class HouseholdController {
 
+	private final ShoppingListService shoppingListService;
+	private final CleaningPlanService cleaningPlanService;
+	private final FoodPlanService foodPlanService;
+	private final CookbookService cookbookService;
+	
 	private final HouseholdService householdService;
-	private final HouseholdMapper householdMapper;
+	private final HouseholdDTOMapper householdMapper;
 	private final HouseholdResourceProcessor householdResourceProcessor;
 	
-	@PostMapping(consumes={DEFAULT_MEDIA_TYPE})
+	@PostMapping(produces={DEFAULT_MEDIA_TYPE})
 	public HttpEntity<Resource<HouseholdDTO>> createHousehold() {
-		return ResponseEntity.ok(createResource(householdService.createHousehold()));
+		ShoppingList shoppingList = shoppingListService.createShoppingList();
+		CleaningPlan cleaningPlan = cleaningPlanService.createCleaningPlan();
+		FoodPlan foodPlan = foodPlanService.createFoodPlan();
+		Cookbook cookbook = cookbookService.createCookbook();
+		
+		return ResponseEntity.ok(createResource(householdService.createHousehold(shoppingList, cleaningPlan, foodPlan, cookbook)));
 	}
 	
 	@GetMapping(path="/{id}", produces={DEFAULT_MEDIA_TYPE})
@@ -34,7 +52,7 @@ public class HouseholdController {
 		return ResponseEntity.ok(createResource(householdService.getHousehold(id)));
 	}
 	
-	private Resource<HouseholdDTO> createResource(HouseholdEntity household) {
+	private Resource<HouseholdDTO> createResource(Household household) {
 		Resource<HouseholdDTO> resource = new Resource<HouseholdDTO>(householdMapper.map(household));
 		return householdResourceProcessor.process(resource);
 	}

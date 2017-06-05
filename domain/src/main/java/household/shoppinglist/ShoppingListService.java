@@ -30,4 +30,8 @@ public class ShoppingListService {
 		shoppingList.update(shoppingListItem);
 		return shoppingListRepository.saveShoppingList(shoppingList);
 	}
+
+	public ShoppingList createShoppingList() {
+		return shoppingListRepository.createShoppingList();
+	}
 }

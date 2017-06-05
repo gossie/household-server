@@ -24,11 +24,11 @@ public class HouseholdResourceProcessor implements ResourceProcessor<Resource<Ho
 		
 		resource.add(entityLinks.linkForSingleResource(HouseholdDTO.class, householdDTO.getDatabaseId()).withSelfRel());
 		
-		HouseholdEntity household = householdRepository.findOne(householdDTO.getDatabaseId());
-		resource.add(entityLinks.linkForSingleResource(ShoppingListDTO.class, household.getShoppingList().getId()).withRel("shoppingList"));
-		resource.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, household.getCleaningPlan().getId()).withRel("cleaningPlan"));
-		resource.add(entityLinks.linkForSingleResource(FoodPlanDTO.class, household.getFoodPlan().getId()).withRel("foodPlan"));
-		resource.add(entityLinks.linkForSingleResource(CookbookDTO.class, household.getCookbook().getId()).withRel("cookbook"));
+		Household household = householdRepository.determineHousehold(householdDTO.getDatabaseId());
+		resource.add(entityLinks.linkForSingleResource(ShoppingListDTO.class, household.getShoppingListId()).withRel("shoppingList"));
+		resource.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, household.getCleaningPlanId()).withRel("cleaningPlan"));
+		resource.add(entityLinks.linkForSingleResource(FoodPlanDTO.class, household.getFoodPlanId()).withRel("foodPlan"));
+		resource.add(entityLinks.linkForSingleResource(CookbookDTO.class, household.getCookbookId()).withRel("cookbook"));
 		
 		return resource;
 	}

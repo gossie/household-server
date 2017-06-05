@@ -1,18 +1,16 @@
 package household.shoppinglist;
 
-import org.springframework.stereotype.Component;
-
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-@Component
-public class ShoppingListItemMapper {
+@RequiredArgsConstructor(access=AccessLevel.PACKAGE)
+class ShoppingListItemMapper {
 
-	public ShoppingListItemEntity map(ShoppingListItem shoppingListItem) {
+	ShoppingListItemEntity map(ShoppingListItem shoppingListItem) {
 		return new ShoppingListItemEntity(shoppingListItem.getId(), shoppingListItem.getName(), shoppingListItem.isSelected());
 	}
 	
-	public ShoppingListItem map(ShoppingListItemEntity shoppingListItem) {
+	ShoppingListItem map(ShoppingListItemEntity shoppingListItem) {
 		return new ShoppingListItem(shoppingListItem.getId(), shoppingListItem.getName(), shoppingListItem.isSelected());
 	}
 }

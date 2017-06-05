@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FoodPlanController {
 	
-	private final FoodPlanMapper foodPlanMapper;
+	private final FoodPlanDTOMapper foodPlanMapper;
 	private final FoodPlanService foodPlanService;
 	private final FoodPlanResourceProcessor foodPlanResourceProcessor;
 	
@@ -41,7 +41,7 @@ public class FoodPlanController {
 		return ResponseEntity.ok(createResource(foodPlanService.clear(id)));
 	}
 	
-	private Resource<FoodPlanDTO> createResource(FoodPlanEntity foodPlan) {
+	private Resource<FoodPlanDTO> createResource(FoodPlan foodPlan) {
 		Resource<FoodPlanDTO> resource = new Resource<FoodPlanDTO>(foodPlanMapper.map(foodPlan));
 		return foodPlanResourceProcessor.process(resource);
 	}

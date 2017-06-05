@@ -1,6 +1,6 @@
 package household.cleaningplan;
 
-public enum TimeUnit {
+enum TimeUnit {
 	
 	WEEKS(1000 * 60 * 60 * 24 * 7),
 	DAYS(1000 * 60 * 60 * 24),

@@ -3,21 +3,27 @@ package household.cookbook;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.stereotype.Component;
-
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-@Component
-public class CookbookMapper {
+@RequiredArgsConstructor(access=AccessLevel.PACKAGE)
+class CookbookMapper {
 
 	private final RecipeMapper recipeMapper;
 	
-	public Cookbook map(CookbookEntity cookbook) {
+	Cookbook map(CookbookEntity cookbook) {
 		List<Recipe> recipes = cookbook.getRecipes().stream()
 				.map(recipeMapper::map)
 				.collect(Collectors.toList());
 		
 		return new Cookbook(cookbook.getId(), recipes );
+	}
+	
+	CookbookEntity map(Cookbook cookbook) {
+		List<RecipeEntity> recipes = cookbook.getRecipes().stream()
+				.map(recipeMapper::map)
+				.collect(Collectors.toList());
+		
+		return new CookbookEntity(cookbook.getId(), recipes);
 	}
 }

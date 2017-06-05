@@ -7,6 +7,7 @@ import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,13 +16,13 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@NoArgsConstructor(force=true)
-@RequiredArgsConstructor
+@NoArgsConstructor(access=AccessLevel.PACKAGE, force=true)
+@RequiredArgsConstructor(access=AccessLevel.PACKAGE)
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class RepeatEntity {
+class RepeatEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

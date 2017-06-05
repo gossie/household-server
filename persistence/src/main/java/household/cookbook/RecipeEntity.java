@@ -12,17 +12,18 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@NoArgsConstructor(force=true)
-@AllArgsConstructor
+@NoArgsConstructor(access=AccessLevel.PACKAGE, force=true)
+@AllArgsConstructor(access=AccessLevel.PACKAGE)
 @Getter
 @ToString
-public class RecipeEntity {
+class RecipeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,19 +39,19 @@ public class RecipeEntity {
 		this.name = name;
 	}
 
-	public RecipeEntity minify() {
+	RecipeEntity minify() {
 		return new RecipeEntity(getId(), name);
 	}
 
-	public void setName(String name) {
+	void setName(String name) {
 		this.name = name;
 	}
 
-	public void setDescription(String description) {
+	void setDescription(String description) {
 		this.description = description;
 	}
 
-	public void setIngredients(List<IngredientEntity> ingredients) {
+	void setIngredients(List<IngredientEntity> ingredients) {
 		this.ingredients = new ArrayList<>(ingredients);
 	}
 }

@@ -22,4 +22,8 @@ public class FoodPlanService {
 		saved.update(foodPlan);
 		return foodPlanRepository.saveFoodPlan(saved);
 	}
+
+	public FoodPlan createFoodPlan() {
+		return foodPlanRepository.createFoodPlan();		
+	}
 }

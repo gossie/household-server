@@ -23,7 +23,7 @@ import lombok.ToString;
 @AllArgsConstructor(access=AccessLevel.PACKAGE)
 @Getter
 @ToString
-public class CleaningPlanEntity {
+class CleaningPlanEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,16 +32,16 @@ public class CleaningPlanEntity {
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<ChoreEntity> chores = new ArrayList<>();
 
-	public void addChore(ChoreEntity chore) {
+	void addChore(ChoreEntity chore) {
 		chore.setLastPerformed(0);
 		chores.add(chore);
 	}
 
-	public void removeChore(long choreId) {
+	void removeChore(long choreId) {
 		chores.removeIf(c -> c.getId().longValue() == choreId);
 	}
 	
-	public void update(ChoreEntity input) {
+	void update(ChoreEntity input) {
 		chores.stream()
 				.filter(c -> c.getName().equals(input.getName()))
 				.findFirst()

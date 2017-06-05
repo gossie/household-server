@@ -16,6 +16,11 @@ public class CleaningPlanEntityAssert extends AbstractAssert<CleaningPlanEntityA
 		return new CleaningPlanEntityAssert(actual);
 	}
 	
+	public CleaningPlanEntityAssert hasId(Long id) {
+		assertEquals(id, actual.getId());
+		return this;
+	}
+	
 	public CleaningPlanEntityAssert hasSize(int amount) {
 		assertEquals(amount, actual.getChores().size());
 		return this;

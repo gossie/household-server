@@ -13,17 +13,18 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@NoArgsConstructor(force=true)
-@AllArgsConstructor
+@NoArgsConstructor(access=AccessLevel.PACKAGE, force=true)
+@AllArgsConstructor(access=AccessLevel.PACKAGE)
 @Getter
 @ToString
-public class FoodPlanEntity {
+class FoodPlanEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,11 +34,11 @@ public class FoodPlanEntity {
 	@OneToMany(cascade=CascadeType.ALL)
 	private Map<String, MealEntity> meals = new HashMap<>();
 
-	public void clear() {
+	void clear() {
 		meals.values().forEach(MealEntity::clear);
 	}
 
-	public void update(FoodPlanEntity foodPlan) {
+	void update(FoodPlanEntity foodPlan) {
 		foodPlan.getMeals().entrySet().stream().forEach(e -> meals.put(e.getKey(), e.getValue()));
 	}
 }

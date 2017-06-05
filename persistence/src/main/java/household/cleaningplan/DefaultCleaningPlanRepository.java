@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor(access=AccessLevel.PACKAGE)
-public class DefaultCleaningPlanRepository implements CleaningPlanRepository {
+class DefaultCleaningPlanRepository implements CleaningPlanRepository {
 	
 	private final CleaningPlanEntityRepository cleaningPlanEntityRepository;
 	private final CleaningPlanMapper cleaningPlanMapper;
@@ -18,8 +18,12 @@ public class DefaultCleaningPlanRepository implements CleaningPlanRepository {
 	public CleaningPlan saveCleaningPlan(CleaningPlan cleaningPlan) {
 		CleaningPlanEntity cleaningPlanEntity = cleaningPlanMapper.map(cleaningPlan);
 		
-		
 		return cleaningPlanMapper.map(cleaningPlanEntityRepository.save(cleaningPlanEntity));
+	}
+
+	@Override
+	public CleaningPlan createCleaningPlan() {
+		return cleaningPlanMapper.map(cleaningPlanEntityRepository.save(new CleaningPlanEntity()));
 	}
 
 }

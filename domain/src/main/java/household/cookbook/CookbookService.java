@@ -33,5 +33,9 @@ public class CookbookService {
 		cookbook.editRecipe(recipeId, recipe);
 		return cookbookRepository.saveCookbook(cookbook).minify();
 	}
+
+	public Cookbook createCookbook() {
+		return cookbookRepository.createCookbook();
+	}
 	
 }

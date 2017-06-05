@@ -3,12 +3,10 @@ package household.foodplan;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.springframework.stereotype.Component;
-
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-@Component
+@RequiredArgsConstructor(access=AccessLevel.PACKAGE)
 public class FoodPlanMapper {
 
 	private final MealMapper mealMapper;

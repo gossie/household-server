@@ -7,6 +7,11 @@ public class Repeat extends AbstractModel {
 	private final int number;
 	private TimeUnit timeUnit = TimeUnit.DAYS;
 	
+	Repeat(Long id, int number) {
+		super(id);
+		this.number = number;
+	}
+	
 	Repeat(Long id, int number, TimeUnit timeUnit) {
 		super(id);
 		this.number = number;

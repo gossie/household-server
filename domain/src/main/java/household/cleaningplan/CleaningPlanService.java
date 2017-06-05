@@ -29,4 +29,8 @@ public class CleaningPlanService {
 		return cleaningPlanRepository.saveCleaningPlan(cleaningPlan);
 	}
 
+	public CleaningPlan createCleaningPlan() {
+		return cleaningPlanRepository.createCleaningPlan();	
+	}
+
 }

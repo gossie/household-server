@@ -15,11 +15,7 @@ public class HouseholdService {
 		return householdRepository.determineHousehold(householdId);
 	}
 
-	public Household createHousehold() {
-		ShoppingList shoppingList = null;
-		CleaningPlan cleaningPlan = null;
-		FoodPlan foodPlan = null;
-		Cookbook cookbook = null;
-		return householdRepository.saveHousehold(new Household(null, shoppingList, cleaningPlan, foodPlan, cookbook));
+	public Household createHousehold(ShoppingList shoppingList, CleaningPlan cleaningPlan, FoodPlan foodPlan, Cookbook cookbook) {
+		return householdRepository.saveHousehold(new Household(null, shoppingList.getId(), cleaningPlan.getId(), foodPlan.getId(), cookbook.getId()));
 	}
 }

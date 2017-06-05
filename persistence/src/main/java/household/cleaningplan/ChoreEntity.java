@@ -19,7 +19,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@NoArgsConstructor(force=true)
+@NoArgsConstructor(access=AccessLevel.PACKAGE, force=true)
 @AllArgsConstructor(access=AccessLevel.PACKAGE)
 @Getter
 @Setter
@@ -35,7 +35,7 @@ class ChoreEntity {
 	@OneToOne(cascade=CascadeType.ALL)
 	private RepeatEntity repeat;
 	
-	public Optional<RepeatEntity> getRepeat() {
+	Optional<RepeatEntity> getRepeat() {
 		return Optional.ofNullable(repeat);
 	}
 }

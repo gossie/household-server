@@ -6,4 +6,6 @@ public interface CookbookRepository {
 
 	Cookbook saveCookbook(Cookbook cookbook);
 
+	Cookbook createCookbook();
+
 }

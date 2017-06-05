@@ -23,7 +23,7 @@ import lombok.ToString;
 @AllArgsConstructor(access=AccessLevel.PACKAGE)
 @Getter
 @ToString
-public class ShoppingListEntity {
+class ShoppingListEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,15 +32,15 @@ public class ShoppingListEntity {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
 	private List<ShoppingListItemEntity> shoppingListItems = new ArrayList<>();
 
-	public void clearSelectedItems() {
+	void clearSelectedItems() {
 		shoppingListItems.removeIf(ShoppingListItemEntity::isSelected);
 	}
 
-	public void addShoppingListItem(ShoppingListItemEntity shoppingListItem) {
+	void addShoppingListItem(ShoppingListItemEntity shoppingListItem) {
 		shoppingListItems.add(shoppingListItem);
 	}
 	
-	public void update(ShoppingListItemEntity shoppingListItem) {
+	void update(ShoppingListItemEntity shoppingListItem) {
 		shoppingListItems.stream()
 				.filter(item -> item.getName().equals(shoppingListItem.getName()))
 				.findFirst()

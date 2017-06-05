@@ -1,39 +1,35 @@
 package household.household;
 
 import household.AbstractModel;
-import household.cleaningplan.CleaningPlan;
-import household.cookbook.Cookbook;
-import household.foodplan.FoodPlan;
-import household.shoppinglist.ShoppingList;
 
 public class Household extends AbstractModel {
 	
-	private ShoppingList shoppingList;
-	private CleaningPlan cleaningPlan;
-	private FoodPlan foodPlan;
-	private Cookbook cookbook;
+	private Long shoppingListId;
+	private Long cleaningPlanId;
+	private Long foodPlanId;
+	private Long cookbookId;
 	
-	Household(Long id, ShoppingList shoppingList, CleaningPlan cleaningPlan, FoodPlan foodPlan, Cookbook cookbook) {
+	Household(Long id, Long shoppingList, Long cleaningPlan, Long foodPlan, Long cookbook) {
 		super(id);
-		this.shoppingList = shoppingList;
-		this.cleaningPlan = cleaningPlan;
-		this.foodPlan = foodPlan;
-		this.cookbook = cookbook;
+		this.shoppingListId = shoppingList;
+		this.cleaningPlanId = cleaningPlan;
+		this.foodPlanId = foodPlan;
+		this.cookbookId = cookbook;
 	}
 
-	public ShoppingList getShoppingList() {
-		return shoppingList;
+	public Long getShoppingListId() {
+		return shoppingListId;
 	}
 
-	public CleaningPlan getCleaningPlan() {
-		return cleaningPlan;
+	public Long getCleaningPlanId() {
+		return cleaningPlanId;
 	}
 
-	public FoodPlan getFoodPlan() {
-		return foodPlan;
+	public Long getFoodPlanId() {
+		return foodPlanId;
 	}
 
-	public Cookbook getCookbook() {
-		return cookbook;
+	public Long getCookbookId() {
+		return cookbookId;
 	}
 }

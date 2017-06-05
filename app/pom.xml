@@ -29,6 +29,11 @@
             <artifactId>plan-domain</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>household</groupId>
+            <artifactId>plan-persistence</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -47,11 +52,11 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-<!--         <dependency> -->
-<!--             <groupId>com.h2database</groupId> -->
-<!--             <artifactId>h2</artifactId> -->
-<!--             <scope>runtime</scope> -->
-<!--         </dependency> -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 <!--         <dependency> -->
 <!--             <groupId>com.zaxxer</groupId> -->
 <!--             <artifactId>HikariCP</artifactId> -->
@@ -75,6 +80,17 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+        	<groupId>org.springframework.security</groupId>
+        	<artifactId>spring-security-test</artifactId>
+        	<scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>household</groupId>
+            <artifactId>plan-domain-test-utils</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

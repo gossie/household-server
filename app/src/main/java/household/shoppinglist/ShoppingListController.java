@@ -25,8 +25,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ShoppingListController {
 	
-	private final ShoppingListItemMapper shoppingListItemMapper;
-	private final ShoppingListMapper shoppingListMapper;
+	private final ShoppingListItemDTOMapper shoppingListItemMapper;
+	private final ShoppingListDTOMapper shoppingListMapper;
 	private final ShoppingListService shoppingListService;
 	private final ShoppingListResourceProcessor shoppingListResourceProcessor;
 	
@@ -47,11 +47,11 @@ public class ShoppingListController {
 	
 	@PostMapping(path="/{id}/shoppingListItems", consumes={DEFAULT_MEDIA_TYPE}, produces={DEFAULT_MEDIA_TYPE})
 	public ResponseEntity<Resource<ShoppingListDTO>> addItem(@PathVariable Long id, @RequestBody List<ShoppingListItemDTO> shoppingListItems) {
-		List<ShoppingListItemEntity> entities = shoppingListItems.stream().map(shoppingListItemMapper::map).collect(Collectors.toList());
+		List<ShoppingListItem> entities = shoppingListItems.stream().map(shoppingListItemMapper::map).collect(Collectors.toList());
 		return ResponseEntity.ok(createResource(shoppingListService.addShoppingListItems(id, entities)));
 	}
 	
-	private Resource<ShoppingListDTO> createResource(ShoppingListEntity shoppingList) {
+	private Resource<ShoppingListDTO> createResource(ShoppingList shoppingList) {
 		Resource<ShoppingListDTO> resource = new Resource<ShoppingListDTO>(shoppingListMapper.map(shoppingList));
 		return shoppingListResourceProcessor.process(resource);
 	}

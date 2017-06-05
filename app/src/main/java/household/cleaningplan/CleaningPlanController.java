@@ -23,8 +23,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CleaningPlanController {
 	
-	private final CleaningPlanMapper cleaningPlanMapper;
-	private final ChoreMapper choreMapper;
+	private final CleaningPlanDTOMapper cleaningPlanMapper;
+	private final ChoreDTOMapper choreMapper;
 	private final CleaningPlanService cleaningPlanService;
 	private final CleaningPlanResourceProcessor cleaningPlanResourceProcessor;
 	
@@ -48,7 +48,7 @@ public class CleaningPlanController {
 		return ResponseEntity.ok(createResource(cleaningPlanService.removeChore(cleaningPlanId, choreId)));
 	}
 	
-	private Resource<CleaningPlanDTO> createResource(CleaningPlanEntity cleaningPlan) {
+	private Resource<CleaningPlanDTO> createResource(CleaningPlan cleaningPlan) {
 		Resource<CleaningPlanDTO> resource = new Resource<CleaningPlanDTO>(cleaningPlanMapper.map(cleaningPlan));
 		return cleaningPlanResourceProcessor.process(resource);
 	}

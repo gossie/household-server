@@ -1,14 +1,12 @@
 package household.household;
 
-import org.springframework.stereotype.Component;
+class HouseholdMapper {
 
-import lombok.RequiredArgsConstructor;
-
-@Component
-@RequiredArgsConstructor
-public class HouseholdMapper {
-
-	public Household map(HouseholdEntity household) {
-		return new Household(household.getId(), null, null, null, null);
+	Household map(HouseholdEntity household) {
+		return new Household(household.getId(), household.getShoppingListId(), household.getCleaningPlanId(), household.getFoodPlanId(), household.getCookbookId());
+	}
+	
+	HouseholdEntity map(Household household) {
+		return new HouseholdEntity(household.getId(), household.getShoppingListId(), household.getCleaningPlanId(), household.getFoodPlanId(), household.getCookbookId());
 	}
 }
