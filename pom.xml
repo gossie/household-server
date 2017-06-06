@@ -29,6 +29,7 @@
         <module>domain</module>
         <module>domain-test-utils</module>
         <module>persistence</module>
+        <module>rest</module>
         <module>app</module>
     </modules>
     
