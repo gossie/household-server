@@ -16,15 +16,13 @@ import lombok.RequiredArgsConstructor;
 public class HouseholdResourceProcessor implements ResourceProcessor<Resource<HouseholdDTO>> {
 
 	private final EntityLinks entityLinks;
-	private final HouseholdRepository householdRepository;
 	
 	@Override
 	public Resource<HouseholdDTO> process(Resource<HouseholdDTO> resource) {
-		HouseholdDTO householdDTO = resource.getContent();
+		HouseholdDTO household = resource.getContent();
 		
-		resource.add(entityLinks.linkForSingleResource(HouseholdDTO.class, householdDTO.getDatabaseId()).withSelfRel());
+		resource.add(entityLinks.linkForSingleResource(HouseholdDTO.class, household.getDatabaseId()).withSelfRel());
 		
-		Household household = householdRepository.determineHousehold(householdDTO.getDatabaseId());
 		resource.add(entityLinks.linkForSingleResource(ShoppingListDTO.class, household.getShoppingListId()).withRel("shoppingList"));
 		resource.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, household.getCleaningPlanId()).withRel("cleaningPlan"));
 		resource.add(entityLinks.linkForSingleResource(FoodPlanDTO.class, household.getFoodPlanId()).withRel("foodPlan"));

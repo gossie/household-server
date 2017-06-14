@@ -6,13 +6,13 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Component
-public class MealDTOMapper {
+class MealDTOMapper {
 
-	public Meal map(MealDTO meal) {
+	Meal map(MealDTO meal) {
 		return new Meal(null, meal.getName());
 	}
 	
-	public MealDTO map(Meal meal) {
+	MealDTO map(Meal meal) {
 		return new MealDTO(meal.getId(), meal.getName());
 	}
 }

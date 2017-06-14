@@ -9,11 +9,11 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Component
-public class CookbookDTOMapper {
+class CookbookDTOMapper {
 
 	private final RecipeDTOMapper recipeMapper;
 	
-	public CookbookDTO map(Cookbook cookbook) {
+	CookbookDTO map(Cookbook cookbook) {
 		List<RecipeDTO> recipes = cookbook.getRecipes().stream()
 				.map(recipeMapper::map)
 				.collect(Collectors.toList());

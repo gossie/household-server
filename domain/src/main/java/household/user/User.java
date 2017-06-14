@@ -6,6 +6,7 @@ public class User extends AbstractModel {
 
 	private final String email;
 	private String password;
+	private Long householdId;
 	
 	User(Long id, String email, String password) {
 		super(id);
@@ -25,4 +26,11 @@ public class User extends AbstractModel {
 		this.password = password;
 	}
 
+	public Long getHouseholdId() {
+		return householdId;
+	}
+	
+	public void setHouseholdId(Long householdId) {
+		this.householdId = householdId;
+	}
 }

@@ -9,17 +9,17 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Component
-public class FoodPlanDTOMapper {
+class FoodPlanDTOMapper {
 
 	private final MealDTOMapper mealMapper;
 	
-	public FoodPlan map(FoodPlanDTO foodPlan) {
+	FoodPlan map(FoodPlanDTO foodPlan) {
 		Map<String, Meal> meals = foodPlan.getMeals().entrySet().stream()
 				.collect(Collectors.toMap(entry -> entry.getKey(), entry -> mealMapper.map(entry.getValue())));
 		return new FoodPlan(foodPlan.getDatabaseId(), meals);
 	}
 	
-	public FoodPlanDTO map(FoodPlan foodPlan) {
+	FoodPlanDTO map(FoodPlan foodPlan) {
 		Map<String, MealDTO> meals = foodPlan.getMeals().entrySet().stream()
 				.collect(Collectors.toMap(entry -> entry.getKey(), entry -> mealMapper.map(entry.getValue())));
 		return new FoodPlanDTO(foodPlan.getId(), meals);
