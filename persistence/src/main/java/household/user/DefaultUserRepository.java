@@ -2,6 +2,7 @@ package household.user;
 
 import java.util.List;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.google.common.base.Preconditions;
@@ -27,6 +28,16 @@ class DefaultUserRepository implements UserRepository {
 		List<UserEntity> users = userEntityRepository.findByEmail(email);
 		Preconditions.checkState(users.size() == 1, "found %s users with email %s", users.size(), email);
 		return userMapper.map(users.get(0));
+	}
+
+	@Override
+	public User determineCurrentUser() {
+		return determineUser(SecurityContextHolder.getContext().getAuthentication().getName());
+	}
+
+	@Override
+	public User saveUser(User user) {
+		return userMapper.map(userEntityRepository.save(userMapper.map(user)));
 	}
 
 }

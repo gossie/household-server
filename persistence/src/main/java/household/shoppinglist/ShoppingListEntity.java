@@ -10,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +25,6 @@ class ShoppingListEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@JsonIgnore
 	private final Long id;
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
 	private List<ShoppingListItemEntity> shoppingListItems = new ArrayList<>();

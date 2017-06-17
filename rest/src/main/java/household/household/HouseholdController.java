@@ -20,6 +20,8 @@ import household.foodplan.FoodPlan;
 import household.foodplan.FoodPlanService;
 import household.shoppinglist.ShoppingList;
 import household.shoppinglist.ShoppingListService;
+import household.user.User;
+import household.user.UserService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -28,6 +30,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class HouseholdController {
 
+	private final UserService userService;
 	private final ShoppingListService shoppingListService;
 	private final CleaningPlanService cleaningPlanService;
 	private final FoodPlanService foodPlanService;
@@ -43,8 +46,13 @@ public class HouseholdController {
 		CleaningPlan cleaningPlan = cleaningPlanService.createCleaningPlan();
 		FoodPlan foodPlan = foodPlanService.createFoodPlan();
 		Cookbook cookbook = cookbookService.createCookbook();
+
+		Household household = householdService.createHousehold(shoppingList, cleaningPlan, foodPlan, cookbook);
+		User currentUser = userService.getCurrentUser();
+		currentUser.setHouseholdId(household.getId());
+		userService.updateUser(currentUser);
 		
-		return ResponseEntity.ok(createResource(householdService.createHousehold(shoppingList, cleaningPlan, foodPlan, cookbook)));
+		return ResponseEntity.ok(createResource(household));
 	}
 	
 	@GetMapping(path="/{id}", produces={DEFAULT_MEDIA_TYPE})

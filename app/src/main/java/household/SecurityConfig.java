@@ -2,6 +2,7 @@ package household;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -48,14 +49,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .withUser("user").password("Zb&VWN-~;PWh").roles("USER")
 //                .and()
 //                .withUser("admin").password("#3AF6!87}Ry%").roles("ADMIN");
-		
+//		auth.jdbcAuthentication();
 		auth.userDetailsService(userDetailsService);
         auth.authenticationProvider(authenticationProvider);
     }
 	
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().fullyAuthenticated();
+        http.authorizeRequests().mvcMatchers(HttpMethod.POST, "/api/users").permitAll().anyRequest().fullyAuthenticated();
         http.httpBasic();
         http.csrf().disable();
     }

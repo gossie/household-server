@@ -6,4 +6,8 @@ public interface UserRepository {
 	
 	User determineUser(String email);
 
+	User determineCurrentUser();
+
+	User saveUser(User user);
+
 }

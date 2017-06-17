@@ -1,11 +1,14 @@
 package household.user;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.OneToMany;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -24,9 +27,14 @@ class UserEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@JsonIgnore
 	private final Long id;
 	private final String email;
 	private String password;
 	private Long householdId;
+	@OneToMany(cascade=CascadeType.ALL)
+	private final List<InvitationEntity> invitations = new ArrayList<>();
+	
+	public void addInvitation(InvitationEntity invitation) {
+		invitations.add(invitation);
+	}
 }

@@ -1,5 +1,9 @@
 package household.user;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import household.AbstractModel;
 
 public class User extends AbstractModel {
@@ -7,11 +11,13 @@ public class User extends AbstractModel {
 	private final String email;
 	private String password;
 	private Long householdId;
+	private final List<Invitation> invitations;
 	
 	User(Long id, String email, String password) {
 		super(id);
 		this.email = email;
 		this.password = password;
+		this.invitations = new ArrayList<>();
 	}
 	
 	public String getEmail() {
@@ -32,5 +38,13 @@ public class User extends AbstractModel {
 	
 	public void setHouseholdId(Long householdId) {
 		this.householdId = householdId;
+	}
+	
+	public List<Invitation> getInvitations() {
+		return Collections.unmodifiableList(invitations);
+	}
+
+	public void addInvitation(Invitation invitation) {
+		invitations.add(invitation);
 	}
 }
