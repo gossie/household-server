@@ -1,10 +1,13 @@
 package household.user;
 
-public class Invitation {
+import household.AbstractModel;
+
+public class Invitation extends AbstractModel {
 
 	private final Long householdId;
 	
-	Invitation(Long householdId) {
+	Invitation(Long id, Long householdId) {
+	    super(id);
 		this.householdId = householdId;
 	}
 	

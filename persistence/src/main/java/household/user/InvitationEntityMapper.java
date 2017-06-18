@@ -1,0 +1,16 @@
+package household.user;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+class InvitationEntityMapper {
+	
+	public Invitation map(InvitationEntity invitation) {
+		return new Invitation(invitation.getId(), invitation.getHouseholdId());
+	}
+
+	public InvitationEntity map(Invitation invitation) {
+		return new InvitationEntity(invitation.getId(), invitation.getHouseholdId());
+	}
+
+}

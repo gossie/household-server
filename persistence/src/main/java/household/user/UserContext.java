@@ -15,8 +15,13 @@ public class UserContext {
 	private UserEntityRepository userEntityRepository;
 	
 	@Bean
+	public InvitationEntityMapper invitationMapper() {
+		return new InvitationEntityMapper();
+	}
+	
+	@Bean
 	public UserMapper userMapper() {
-		return new UserMapper();
+		return new UserMapper(invitationMapper());
 	}
 	
 	@Bean

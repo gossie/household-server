@@ -75,6 +75,17 @@ public class PlanApplicationIT {
 		assertThat(determineLink(json, "cookbook")).isNotNull();
 		
 		
+		MockHttpServletResponse invitationResponse = mvc
+				.perform(post("/api/users/1/invitations")
+						.with(httpBasic("user1@email.com", "12345678"))
+						.contentType("application/vnd.household.v1+json")
+						.content("{\"email\":\"user2@email.com\"}"))
+				.andReturn()
+				.getResponse();
+		
+		assertThat(invitationResponse.getStatus()).isEqualTo(200);
+		
+		
 //		MockHttpServletResponse changeUser2Response = mvc
 //				.perform(put("/api/users/user2@email.com")
 //						.with(httpBasic("user2@email.com", "87654321"))
@@ -86,7 +97,7 @@ public class PlanApplicationIT {
 		
 		
 		MockHttpServletResponse getUser1Response = mvc
-				.perform(get("/api/users/user1@email.com")
+				.perform(get("/api/users/1")
 						.with(httpBasic("user1@email.com", "12345678")))
 		        .andReturn()
 		        .getResponse();
@@ -97,7 +108,7 @@ public class PlanApplicationIT {
 		assertThat(determineLink(json, "household")).isNotNull();
 		
 		MockHttpServletResponse getUser2Response = mvc
-				.perform(get("/api/users/user2@email.com")
+				.perform(get("/api/users/2")
 						.with(httpBasic("user2@email.com", "87654321")))
 		        .andReturn()
 		        .getResponse();

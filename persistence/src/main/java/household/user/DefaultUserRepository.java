@@ -24,6 +24,12 @@ class DefaultUserRepository implements UserRepository {
 	}
 
 	@Override
+	public User determineUser(Long userId) {
+		UserEntity user = userEntityRepository.findOne(userId);
+		return userMapper.map(user);
+	}
+
+	@Override
 	public User determineUser(String email) {
 		List<UserEntity> users = userEntityRepository.findByEmail(email);
 		Preconditions.checkState(users.size() == 1, "found %s users with email %s", users.size(), email);

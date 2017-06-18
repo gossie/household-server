@@ -9,6 +9,7 @@ import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,16 +36,23 @@ public class UserController {
 		return ResponseEntity.ok(createResource(createUser));
 	}
 	
-	@PostMapping(path="/{email:.+}/invitations")
-	@ResponseStatus(value = HttpStatus.OK)
-	public void invite(@PathVariable String email, @RequestBody Long householdId) {
-		userService.invite(email, householdId);
+	@GetMapping(path="/{userId}", produces=DEFAULT_MEDIA_TYPE)
+	public HttpEntity<Resource<UserDTO>> getUser(@PathVariable Long userId) {
+		User user = userService.determineUser(userId);
+		return ResponseEntity.ok(createResource(user));
 	}
 	
-	@GetMapping(path="/{email:.+}", produces=DEFAULT_MEDIA_TYPE)
-	public HttpEntity<Resource<UserDTO>> getUser(@PathVariable String email) {
-		User user = userService.determineUser(email);
-		return ResponseEntity.ok(createResource(user));
+	@PostMapping(path="/{userId}/invitations", consumes=DEFAULT_MEDIA_TYPE)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void invite(@PathVariable Long userId, @RequestBody InvitationRequestDTO invitation) {
+		User invitingUser = userService.determineUser(userId);
+		userService.invite(invitation.getEmail(), invitingUser.getHouseholdId());
+	}
+	
+	@DeleteMapping(path="/{userId}/invitations/{invitationId}")
+	@ResponseStatus(value = HttpStatus.OK)
+	public void rejectInvitation(@PathVariable Long userId, @PathVariable Long invitationId) {
+		userService.rejectInvitation(userId, invitationId);
 	}
 	
 	private Resource<UserDTO> createResource(User user) {

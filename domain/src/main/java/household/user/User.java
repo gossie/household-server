@@ -47,4 +47,8 @@ public class User extends AbstractModel {
 	public void addInvitation(Invitation invitation) {
 		invitations.add(invitation);
 	}
+
+	public void removeInvitation(Long invitationId) {
+		invitations.removeIf(invitation -> invitationId.equals(invitation.getId()));
+	}
 }

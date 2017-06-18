@@ -15,8 +15,8 @@ public class UserService {
 	    return userRepository.determineCurrentUser();
 	}
 
-	public User determineUser(String email) {
-		return userRepository.determineUser(email);
+	public User determineUser(Long userId) {
+		return userRepository.determineUser(userId);
 	}
 
 	public void updateUser(User user) {
@@ -25,7 +25,12 @@ public class UserService {
 
 	public void invite(String email, Long householdId) {
 		User user = userRepository.determineUser(email);
-		user.addInvitation(new Invitation(householdId));
+		user.addInvitation(new Invitation(null, householdId));
 		userRepository.saveUser(user);
+	}
+
+	public void rejectInvitation(Long userId, Long invitationId) {
+		User user = userRepository.determineUser(userId);
+		user.removeInvitation(invitationId);
 	}
 }
