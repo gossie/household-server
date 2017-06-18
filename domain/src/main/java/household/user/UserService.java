@@ -32,5 +32,6 @@ public class UserService {
 	public void rejectInvitation(Long userId, Long invitationId) {
 		User user = userRepository.determineUser(userId);
 		user.removeInvitation(invitationId);
+		userRepository.saveUser(user);
 	}
 }

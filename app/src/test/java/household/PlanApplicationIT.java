@@ -2,11 +2,13 @@ package household;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,54 +30,79 @@ public class PlanApplicationIT {
 	@Autowired
 	private FilterChainProxy filterChainProxy;
 	
-	@Test
-	public void contextLoads() throws Exception {
-		MockMvc mvc = MockMvcBuilders
+	private MockMvc mvc;
+	
+	@Before
+	public void setUp() {
+		mvc = MockMvcBuilders
 				.webAppContextSetup(context)
 				.addFilters(filterChainProxy)
 				.build();
+	}
+	
+	@Test
+	public void contextLoads() throws Exception {
+		JSONObject user1 = createUser("user1@email.com", "12345678");
+		assertThat(user1.getString("email")).isEqualTo("user1@email.com");
 		
-		MockHttpServletResponse createUserResponse = mvc
+		JSONObject user2 = createUser("user2@email.com", "87654321");
+		assertThat(user2.getString("email")).isEqualTo("user2@email.com");
+		
+		JSONObject household = createHousehold("user1@email.com", "12345678");
+		assertThat(determineLink(household, "shoppingList")).isNotNull();
+		assertThat(determineLink(household, "cleaningPlan")).isNotNull();
+		assertThat(determineLink(household, "foodPlan")).isNotNull();
+		assertThat(determineLink(household, "cookbook")).isNotNull();
+		
+		invite();
+		
+		user1 = getUser(1L, "user1@email.com", "12345678");
+		assertThat(determineLink(user1, "household")).isNotNull();
+		
+		user2 = getUser(2L, "user2@email.com", "87654321");
+		assertThat(user2.getJSONArray("invitations").length()).isEqualTo(1);
+		
+		rejectInvitation(2L, 1L, "user2@email.com", "87654321");
+		
+		user2 = getUser(2L, "user2@email.com", "87654321");
+		assertThat(user2.getJSONArray("invitations").length()).isEqualTo(0);
+		
+		invite();
+		
+		user2 = getUser(2L, "user2@email.com", "87654321");
+		assertThat(user2.getJSONArray("invitations").length()).isEqualTo(1);
+		
+//		acceptInvitation(2L, 1L, "user2@email.com", "87654321")
+	}
+
+	private JSONObject createUser(String email, String password) throws Exception {
+		MockHttpServletResponse response = mvc
 				.perform(post("/api/users")
 						.contentType("application/vnd.household.v1+json")
-						.content("{\"email\":\"user1@email.com\", \"password\":\"12345678\"}"))
+						.content("{\"email\":\"" + email + "\", \"password\":\"" + password + "\"}"))
 		        .andReturn()
 		        .getResponse();
 
-		assertThat(createUserResponse.getStatus()).isEqualTo(200);
+		assertThat(response.getStatus()).isEqualTo(200);
 		
-		JSONObject json = new JSONObject(createUserResponse.getContentAsString());
-		assertThat(json.getString("email")).isEqualTo("user1@email.com");
-		
-		createUserResponse = mvc
-				.perform(post("/api/users")
-						.contentType("application/vnd.household.v1+json")
-						.content("{\"email\":\"user2@email.com\", \"password\":\"87654321\"}"))
-		        .andReturn()
-		        .getResponse();
-
-		assertThat(createUserResponse.getStatus()).isEqualTo(200);
-		
-		json = new JSONObject(createUserResponse.getContentAsString());
-		assertThat(json.getString("email")).isEqualTo("user2@email.com");
-		
-		MockHttpServletResponse createHouseholdResponse = mvc
+		return new JSONObject(response.getContentAsString());
+	}
+	
+	private JSONObject createHousehold(String email, String password) throws Exception {
+		MockHttpServletResponse response = mvc
 				.perform(post("/api/households")
-						.with(httpBasic("user1@email.com", "12345678"))
+						.with(httpBasic(email, password))
 						.contentType("application/vnd.household.v1+json"))
 		        .andReturn()
 		        .getResponse();
 
-		assertThat(createHouseholdResponse.getStatus()).isEqualTo(200);
+		assertThat(response.getStatus()).isEqualTo(200);
 		
-		json = new JSONObject(createHouseholdResponse.getContentAsString());
-		assertThat(determineLink(json, "shoppingList")).isNotNull();
-		assertThat(determineLink(json, "cleaningPlan")).isNotNull();
-		assertThat(determineLink(json, "foodPlan")).isNotNull();
-		assertThat(determineLink(json, "cookbook")).isNotNull();
-		
-		
-		MockHttpServletResponse invitationResponse = mvc
+		return new JSONObject(response.getContentAsString());
+	}
+	
+	private void invite() throws Exception {
+		MockHttpServletResponse response = mvc
 				.perform(post("/api/users/1/invitations")
 						.with(httpBasic("user1@email.com", "12345678"))
 						.contentType("application/vnd.household.v1+json")
@@ -83,40 +110,39 @@ public class PlanApplicationIT {
 				.andReturn()
 				.getResponse();
 		
-		assertThat(invitationResponse.getStatus()).isEqualTo(200);
+		assertThat(response.getStatus()).isEqualTo(200);
+	}
+	
+	private JSONObject getUser(Long id, String email, String password) throws Exception {
+		MockHttpServletResponse response = mvc
+				.perform(get("/api/users/" + id)
+						.with(httpBasic(email, password)))
+		        .andReturn()
+		        .getResponse();
+
+		assertThat(response.getStatus()).isEqualTo(200);
 		
-		
-//		MockHttpServletResponse changeUser2Response = mvc
-//				.perform(put("/api/users/user2@email.com")
-//						.with(httpBasic("user2@email.com", "87654321"))
-//						.content("1"))
+		return new JSONObject(response.getContentAsString());
+	}
+	
+	private void rejectInvitation(long userId, long invitationId, String email, String password) throws Exception {
+		MockHttpServletResponse response = mvc
+				.perform(delete("/api/users/" + userId + "/invitations/" + invitationId)
+						.with(httpBasic(email, password)))
+		        .andReturn()
+		        .getResponse();
+
+		assertThat(response.getStatus()).isEqualTo(200);
+	}
+	
+	private void acceptInvitation(long userId, long invitationId, String email, String password) throws Exception {
+//		MockHttpServletResponse response = mvc
+//				.perform(delete("/api/users/" + userId + "/invitations/" + invitationId)
+//						.with(httpBasic(email, password)))
 //		        .andReturn()
 //		        .getResponse();
 //
-//		assertThat(changeUser2Response.getStatus()).isEqualTo(200);
-		
-		
-		MockHttpServletResponse getUser1Response = mvc
-				.perform(get("/api/users/1")
-						.with(httpBasic("user1@email.com", "12345678")))
-		        .andReturn()
-		        .getResponse();
-
-		assertThat(getUser1Response.getStatus()).isEqualTo(200);
-		
-		json = new JSONObject(getUser1Response.getContentAsString());
-		assertThat(determineLink(json, "household")).isNotNull();
-		
-		MockHttpServletResponse getUser2Response = mvc
-				.perform(get("/api/users/2")
-						.with(httpBasic("user2@email.com", "87654321")))
-		        .andReturn()
-		        .getResponse();
-
-		assertThat(getUser2Response.getStatus()).isEqualTo(200);
-		
-		json = new JSONObject(getUser2Response.getContentAsString());
-//		assertThat(determineLink(json, "household")).isNotNull();
+//		assertThat(response.getStatus()).isEqualTo(200);
 	}
 	
 	private String determineLink(JSONObject json, String rel) throws Exception {
