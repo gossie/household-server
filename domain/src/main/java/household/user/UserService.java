@@ -11,7 +11,7 @@ public class UserService {
 		return userRepository.createUser(user);
 	}
 	
-	public User getCurrentUser() {
+	public User determineCurrentUser() {
 	    return userRepository.determineCurrentUser();
 	}
 

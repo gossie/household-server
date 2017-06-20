@@ -42,6 +42,11 @@ public class UserController {
 		return ResponseEntity.ok(createResource(user));
 	}
 	
+	@PostMapping(path="/login", produces=DEFAULT_MEDIA_TYPE)
+	public HttpEntity<Resource<UserDTO>> login() {
+		return null;
+	}
+	
 	@PostMapping(path="/{userId}/invitations", consumes=DEFAULT_MEDIA_TYPE)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void invite(@PathVariable Long userId, @RequestBody InvitationRequestDTO invitation) {

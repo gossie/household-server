@@ -48,7 +48,7 @@ public class HouseholdController {
 		Cookbook cookbook = cookbookService.createCookbook();
 
 		Household household = householdService.createHousehold(shoppingList, cleaningPlan, foodPlan, cookbook);
-		User currentUser = userService.getCurrentUser();
+		User currentUser = userService.determineCurrentUser();
 		currentUser.setHouseholdId(household.getId());
 		userService.updateUser(currentUser);
 		
