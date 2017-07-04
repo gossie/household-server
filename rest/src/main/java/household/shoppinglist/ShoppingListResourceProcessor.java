@@ -17,7 +17,7 @@ public class ShoppingListResourceProcessor implements ResourceProcessor<Resource
     public Resource<ShoppingListDTO> process(Resource<ShoppingListDTO> resource) {
     	ShoppingListDTO shoppingList = resource.getContent();
     	resource.add(entityLinks.linkForSingleResource(ShoppingListDTO.class, shoppingList.getDatabaseId()).withSelfRel());
-    	resource.add(entityLinks.linkForSingleResource(ShoppingListDTO.class, shoppingList.getDatabaseId()).slash("/shoppingListItems").withRel("create"));
+    	resource.add(entityLinks.linkForSingleResource(ShoppingListDTO.class, shoppingList.getDatabaseId()).slash("/shoppingListItems").withRel("add"));
     	resource.add(entityLinks.linkForSingleResource(ShoppingListDTO.class, shoppingList.getDatabaseId()).slash("/shoppingListItems").withRel("clear"));
         return resource;
     }
