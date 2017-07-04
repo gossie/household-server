@@ -17,6 +17,6 @@ class ChoreDTOMapper {
 	}
 
 	Chore map(ChoreDTO from) {
-		return new Chore(from.getDatabaseId(), from.getName(), from.getLastPerformed());
+		return new Chore(from.getDatabaseId(), from.getName(), from.getLastPerformed(), new Repeat(null, from.getRepeat()));
 	}
 }
