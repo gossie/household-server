@@ -18,7 +18,7 @@ public class CleaningPlanResourceProcessor implements ResourceProcessor<Resource
     public Resource<CleaningPlanDTO> process(Resource<CleaningPlanDTO> resource) {
     	CleaningPlanDTO cleaningPlan = resource.getContent();
     	resource.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId()).withSelfRel());
-    	resource.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId()).slash("chores").withRel("create"));
+    	resource.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId()).slash("chores").withRel("add"));
     	
     	cleaningPlan.getChores().forEach(c -> {
     		Link link = entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId())
