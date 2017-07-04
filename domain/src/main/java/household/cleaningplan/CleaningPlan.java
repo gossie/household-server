@@ -20,7 +20,6 @@ public class CleaningPlan extends AbstractModel {
 	}
 
 	public void addChore(Chore chore) {
-		chore.setLastPerformed(0);
 		chores.add(chore);
 	}
 
