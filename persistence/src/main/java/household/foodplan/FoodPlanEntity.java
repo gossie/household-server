@@ -14,11 +14,9 @@ import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@NoArgsConstructor(access=AccessLevel.PACKAGE, force=true)
 @AllArgsConstructor(access=AccessLevel.PACKAGE)
 @Getter
 @ToString
@@ -30,6 +28,17 @@ class FoodPlanEntity {
 	@ElementCollection
 	@OneToMany(cascade=CascadeType.ALL)
 	private Map<String, MealEntity> meals = new HashMap<>();
+	
+	FoodPlanEntity() {
+	    id = null;
+	    meals.put("monday", new MealEntity());
+	    meals.put("tuesday", new MealEntity());
+	    meals.put("wednesday", new MealEntity());
+	    meals.put("thursday", new MealEntity());
+	    meals.put("friday", new MealEntity());
+	    meals.put("saturday", new MealEntity());
+	    meals.put("sunday", new MealEntity());
+	}
 
 	void clear() {
 		meals.values().forEach(MealEntity::clear);
