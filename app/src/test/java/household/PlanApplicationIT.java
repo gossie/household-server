@@ -26,7 +26,6 @@ public class PlanApplicationIT {
 	
 	@Autowired
 	private WebApplicationContext context;
-	
 	@Autowired
 	private FilterChainProxy filterChainProxy;
 	
