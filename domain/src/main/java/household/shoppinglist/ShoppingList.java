@@ -3,6 +3,7 @@ package household.shoppinglist;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import household.AbstractModel;
 
@@ -25,7 +26,7 @@ public class ShoppingList extends AbstractModel {
 	
 	public void update(ShoppingListItem shoppingListItem) {
 		shoppingListItems.stream()
-				.filter(item -> item.getName().equals(shoppingListItem.getName()))
+				.filter(item -> Objects.equals(item.getName(), shoppingListItem.getName()))
 				.findFirst()
 				.ifPresent(item -> item.setSelected(shoppingListItem.isSelected()));
 	}
