@@ -18,6 +18,8 @@ public class FoodPlanMapper {
 	}
 	
 	public FoodPlan map(FoodPlanEntity foodPlan) {
+	    System.out.println("foodPlan: " + foodPlan);
+	    System.out.println("meals: " + foodPlan.getMeals());
 		Map<String, Meal> meals = foodPlan.getMeals().entrySet().stream()
 				.collect(Collectors.toMap(entry -> entry.getKey(), entry -> mealMapper.map(entry.getValue())));
 		return new FoodPlan(foodPlan.getId(), meals);
