@@ -11,6 +11,8 @@ class DefaultFoodPlanRepository implements FoodPlanRepository {
 	
 	@Override
 	public FoodPlan determineFoodPlan(long foodPlanId) {
+	    System.out.println("foodPlanId: " + foodPlanId);
+	    System.out.println("allFoodPlans: " + foodPlanEntityRepository.findAll());
 		return foodPlanMapper.map(foodPlanEntityRepository.findOne(foodPlanId));
 	}
 
