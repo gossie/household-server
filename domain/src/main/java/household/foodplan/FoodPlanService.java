@@ -7,8 +7,8 @@ public class FoodPlanService {
 
 	private final FoodPlanRepository foodPlanRepository;
 
-	public FoodPlan getFoodPlan(Long id) {
-		return foodPlanRepository.determineFoodPlan(1L);
+	public FoodPlan getFoodPlan(Long foodPlanId) {
+		return foodPlanRepository.determineFoodPlan(foodPlanId);
 	}
 	
 	public FoodPlan clear(Long foodPlanId) {
