@@ -24,7 +24,11 @@ public class FoodPlan extends AbstractModel {
 	}
 
 	public void update(FoodPlan foodPlan) {
-		foodPlan.getMeals().entrySet().stream().forEach(e -> meals.put(e.getKey(), e.getValue()));
+		foodPlan.getMeals().entrySet().stream().forEach(e -> {
+		    Meal saved = meals.get(e.getKey());
+		    Meal meal = new Meal(saved.getId(), e.getValue().getName());
+		    meals.put(e.getKey(), meal);
+		});
 	}
 	
 	public Map<String, Meal> getMeals() {
