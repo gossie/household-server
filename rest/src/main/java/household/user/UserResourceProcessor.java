@@ -21,8 +21,10 @@ public class UserResourceProcessor implements ResourceProcessor<Resource<UserDTO
 		if(user.getHouseholdId() != null) {
 		    resource.add(entityLinks.linkForSingleResource(HouseholdDTO.class, user.getHouseholdId()).withRel("household"));
 		}
+		resource.add(entityLinks.linkForSingleResource(UserDTO.class, user.getDatabaseId()).slash("/invitations").withRel("invite"));
 		user.getInvitations().forEach(invitation -> {
-			invitation.add(entityLinks.linkForSingleResource(UserDTO.class, user.getDatabaseId()).slash("/invitations/").slash(invitation.getDatabaseId()).withRel("reject"));
+		    invitation.add(entityLinks.linkForSingleResource(UserDTO.class, user.getDatabaseId()).slash("/invitations/").slash(invitation.getDatabaseId()).withRel("reject"));
+		    invitation.add(entityLinks.linkForSingleResource(UserDTO.class, user.getDatabaseId()).slash("/invitations/").slash(invitation.getDatabaseId()).withRel("accept"));
 		});
 		return resource;
 	}
