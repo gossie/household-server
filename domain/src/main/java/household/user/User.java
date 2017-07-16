@@ -52,7 +52,10 @@ public class User extends AbstractModel {
         invitations.stream()
             .filter(invitation -> invitationId.equals(invitation.getId()))
             .findFirst()
-            .ifPresent(invitation -> householdId = invitation.getHouseholdId());
+            .ifPresent(invitation -> {
+                householdId = invitation.getHouseholdId();
+                invitations.removeIf(i -> invitationId.equals(i.getId()));
+            });
     }
 
 	public void rejectInvitation(Long invitationId) {
