@@ -48,7 +48,14 @@ public class User extends AbstractModel {
 		invitations.add(invitation);
 	}
 
-	public void removeInvitation(Long invitationId) {
+    public void acceptInvitation(Long invitationId) {
+        invitations.stream()
+            .filter(invitation -> invitationId.equals(invitation.getId()))
+            .findFirst()
+            .ifPresent(invitation -> householdId = invitation.getHouseholdId());
+    }
+
+	public void rejectInvitation(Long invitationId) {
 		invitations.removeIf(invitation -> invitationId.equals(invitation.getId()));
 	}
 }

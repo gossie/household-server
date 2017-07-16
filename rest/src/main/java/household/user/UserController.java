@@ -55,6 +55,13 @@ public class UserController {
 		userService.invite(invitation.getEmail(), invitingUser.getHouseholdId());
 		return ResponseEntity.ok(createResource(invitingUser));
 	}
+    
+    @PostMapping(path="/{userId}/invitations/{invitationId}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public HttpEntity<Resource<UserDTO>> acceptInvitation(@PathVariable Long userId, @PathVariable Long invitationId) {
+        userService.acceptInvitation(userId, invitationId);
+        return ResponseEntity.ok(createResource(userService.determineUser(userId)));
+    }
 	
 	@DeleteMapping(path="/{userId}/invitations/{invitationId}")
 	@ResponseStatus(value = HttpStatus.OK)
