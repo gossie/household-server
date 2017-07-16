@@ -50,15 +50,17 @@ public class UserController {
 	
 	@PostMapping(path="/{userId}/invitations", consumes=DEFAULT_MEDIA_TYPE)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void invite(@PathVariable Long userId, @RequestBody InvitationRequestDTO invitation) {
+	public HttpEntity<Resource<UserDTO>> invite(@PathVariable Long userId, @RequestBody InvitationRequestDTO invitation) {
 		User invitingUser = userService.determineUser(userId);
 		userService.invite(invitation.getEmail(), invitingUser.getHouseholdId());
+		return ResponseEntity.ok(createResource(invitingUser));
 	}
 	
 	@DeleteMapping(path="/{userId}/invitations/{invitationId}")
 	@ResponseStatus(value = HttpStatus.OK)
-	public void rejectInvitation(@PathVariable Long userId, @PathVariable Long invitationId) {
+	public HttpEntity<Resource<UserDTO>> rejectInvitation(@PathVariable Long userId, @PathVariable Long invitationId) {
 		userService.rejectInvitation(userId, invitationId);
+		return ResponseEntity.ok(createResource(userService.determineUser(userId)));
 	}
 	
 	private Resource<UserDTO> createResource(User user) {
