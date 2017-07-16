@@ -1,5 +1,7 @@
 package household.user;
 
+import com.google.common.base.Preconditions;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -8,6 +10,7 @@ public class UserService {
 	private final UserRepository userRepository;
 	
 	public User createUser(User user) {
+	    Preconditions.checkState(userRepository.determineUser(user.getEmail()) == null);
 		return userRepository.createUser(user);
 	}
 	
