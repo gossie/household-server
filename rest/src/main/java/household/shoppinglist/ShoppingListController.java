@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 @ExposesResourceFor(ShoppingListDTO.class)
 @RequiredArgsConstructor
 public class ShoppingListController {
-	
+    
     private final ShoppingListGroupDTOMapper shoppingListGroupMapper;
 	private final ShoppingListItemDTOMapper shoppingListItemMapper;
 	private final ShoppingListDTOMapper shoppingListMapper;
