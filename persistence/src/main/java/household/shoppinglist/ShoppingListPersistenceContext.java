@@ -34,12 +34,18 @@ public class ShoppingListPersistenceContext {
 		return new DefaultShoppingListRepository(shoppingListEntityRepository, shoppingListMapper());
 	}
 	
-//	@Bean
+	@Bean
     public CommandLineRunner dbMigration() {
         return (args) -> {
             List<ShoppingListEntity> all = shoppingListEntityRepository.findAll().stream().map(shoppingList -> {
-                ShoppingListGroupEntity groupToUse = new ShoppingListGroupEntity(null, "Global", shoppingList.getShoppingListItems());
-                shoppingList.addGroup(groupToUse);
+                List<ShoppingListGroupEntity> shoppingListGroups = shoppingList.getShoppingListGroups();
+                if(shoppingListGroups.isEmpty()) {
+                    ShoppingListGroupEntity groupToUse = new ShoppingListGroupEntity(null, "Global", shoppingList.getShoppingListItems());
+                    shoppingList.addGroup(groupToUse);
+                } else {
+                    ShoppingListGroupEntity groupToUse = shoppingListGroups.get(0);
+                    groupToUse.setShoppingListItems(shoppingList.getShoppingListItems());
+                }
                 shoppingList.clearItems();
                 return shoppingList;
             }).collect(Collectors.toList());
