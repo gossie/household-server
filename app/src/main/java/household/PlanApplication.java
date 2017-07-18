@@ -55,4 +55,5 @@ public class PlanApplication {
 	public UserService userService(UserRepository userRepository) {
 		return new UserService(userRepository);
 	}
+	
 }
