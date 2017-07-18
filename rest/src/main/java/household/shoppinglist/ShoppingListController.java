@@ -25,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ShoppingListController {
 	
+    private final ShoppingListGroupDTOMapper shoppingListGroupMapper;
 	private final ShoppingListItemDTOMapper shoppingListItemMapper;
 	private final ShoppingListDTOMapper shoppingListMapper;
 	private final ShoppingListService shoppingListService;
@@ -35,20 +36,25 @@ public class ShoppingListController {
 		return ResponseEntity.ok(createResource(shoppingListService.getShoppingList(id)));
 	}
 	
-	@PatchMapping(path="/{id}", consumes={DEFAULT_MEDIA_TYPE}, produces={DEFAULT_MEDIA_TYPE})
-	public ResponseEntity<Resource<ShoppingListDTO>> updateShoppingList(@PathVariable Long id, @RequestBody ShoppingListItemDTO shoppingListItem) {
-		return ResponseEntity.ok(createResource(shoppingListService.update(id, shoppingListItemMapper.map(shoppingListItem))));
+	@PatchMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", consumes={DEFAULT_MEDIA_TYPE}, produces={DEFAULT_MEDIA_TYPE})
+	public ResponseEntity<Resource<ShoppingListDTO>> toggleItem(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId) {
+		return ResponseEntity.ok(createResource(shoppingListService.toggleItem(id, groupId, itemId)));
 	}
 	
-	@DeleteMapping(path="/{id}/shoppingListItems", consumes={DEFAULT_MEDIA_TYPE}, produces={DEFAULT_MEDIA_TYPE})
-	public ResponseEntity<Resource<ShoppingListDTO>> removedSelectedItemsFromShoppingList(@PathVariable Long id) {
-		return ResponseEntity.ok(createResource(shoppingListService.removedSelectedItemsFromShoppingList(id)));
+	@DeleteMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems", consumes={DEFAULT_MEDIA_TYPE}, produces={DEFAULT_MEDIA_TYPE})
+	public ResponseEntity<Resource<ShoppingListDTO>> removedSelectedItemsFromShoppingListGroup(@PathVariable Long id, @PathVariable Long groupId) {
+		return ResponseEntity.ok(createResource(shoppingListService.removeSelectedItemsFromShoppingListGroup(id, groupId)));
 	}
 	
-	@PostMapping(path="/{id}/shoppingListItems", consumes={DEFAULT_MEDIA_TYPE}, produces={DEFAULT_MEDIA_TYPE})
-	public ResponseEntity<Resource<ShoppingListDTO>> addItem(@PathVariable Long id, @RequestBody List<ShoppingListItemDTO> shoppingListItems) {
+	@PostMapping(path="/{id}/shoppingListGroups", consumes={DEFAULT_MEDIA_TYPE}, produces={DEFAULT_MEDIA_TYPE})
+    public ResponseEntity<Resource<ShoppingListDTO>> addGroup(@PathVariable Long id, @RequestBody ShoppingListGroupDTO shoppingListGroup) {
+        return ResponseEntity.ok(createResource(shoppingListService.addShoppingListGroup(id, shoppingListGroupMapper.map(shoppingListGroup))));
+    }
+	
+	@PostMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems", consumes={DEFAULT_MEDIA_TYPE}, produces={DEFAULT_MEDIA_TYPE})
+	public ResponseEntity<Resource<ShoppingListDTO>> addItem(@PathVariable Long id, @PathVariable Long groupId, @RequestBody List<ShoppingListItemDTO> shoppingListItems) {
 		List<ShoppingListItem> entities = shoppingListItems.stream().map(shoppingListItemMapper::map).collect(Collectors.toList());
-		return ResponseEntity.ok(createResource(shoppingListService.addShoppingListItems(id, entities)));
+		return ResponseEntity.ok(createResource(shoppingListService.addShoppingListItems(id, groupId, entities)));
 	}
 	
 	private Resource<ShoppingListDTO> createResource(ShoppingList shoppingList) {

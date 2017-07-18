@@ -13,6 +13,6 @@ public class ShoppingListItemDTOMapper {
 	}
 	
 	public ShoppingListItemDTO map(ShoppingListItem shoppingListItem) {
-		return new ShoppingListItemDTO(shoppingListItem.getName(), shoppingListItem.isSelected());
+		return new ShoppingListItemDTO(shoppingListItem.getId(), shoppingListItem.getName(), shoppingListItem.isSelected());
 	}
 }

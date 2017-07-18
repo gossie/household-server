@@ -13,25 +13,37 @@ public class ShoppingListService {
 		return shoppingListRepository.determineShoppingList(shoppingListId);
 	}
 	
-	public ShoppingList removedSelectedItemsFromShoppingList(Long id) {
-		ShoppingList shoppingList = shoppingListRepository.determineShoppingList(id);
-		shoppingList.clearSelectedItems();
-		return shoppingListRepository.saveShoppingList(shoppingList);
-	}
-
-	public ShoppingList addShoppingListItems(Long shoppingListId, List<ShoppingListItem> entities) {
+    public ShoppingList removeAllSelectedItems(Long shoppingListId) {
+        ShoppingList shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
+        shoppingList.clearAllSelectedItems();
+        return shoppingListRepository.saveShoppingList(shoppingList);
+    }
+	
+	public ShoppingList removeSelectedItemsFromShoppingListGroup(Long shoppingListId, Long shoppingListGroupId) {
 		ShoppingList shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
-		entities.forEach(shoppingList::addShoppingListItem);
+		shoppingList.clearSelectedItemsFromShoppingListGroup(shoppingListGroupId);
 		return shoppingListRepository.saveShoppingList(shoppingList);
 	}
 
-	public ShoppingList update(Long id, ShoppingListItem shoppingListItem) {
-		ShoppingList shoppingList = shoppingListRepository.determineShoppingList(id);
-		shoppingList.update(shoppingListItem);
+    public ShoppingList addShoppingListGroup(Long shoppingListId, ShoppingListGroup group) {
+        ShoppingList shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
+        shoppingList.addShoppingListGroup(group);
+        return shoppingListRepository.saveShoppingList(shoppingList);
+    }
+
+	public ShoppingList addShoppingListItems(Long shoppingListId, Long shoppingListGroupId, List<ShoppingListItem> entities) {
+		ShoppingList shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
+		entities.forEach(item -> shoppingList.addShoppingListItem(shoppingListGroupId, item));
+		return shoppingListRepository.saveShoppingList(shoppingList);
+	}
+
+	public ShoppingList toggleItem(Long shoppingListId, Long shoppingListGroupId, Long shoppingListItemId) {
+		ShoppingList shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
+		shoppingList.toggleItem(shoppingListGroupId, shoppingListItemId);
 		return shoppingListRepository.saveShoppingList(shoppingList);
 	}
 
 	public ShoppingList createShoppingList() {
-		return shoppingListRepository.createShoppingList();
+		return shoppingListRepository.saveShoppingList(new ShoppingList(null));
 	}
 }

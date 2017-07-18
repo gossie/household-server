@@ -11,13 +11,18 @@ public class ShoppingListPersistenceContext {
 	private ShoppingListEntityRepository shoppingListEntityRepository;
 	
 	@Bean
-	public ShoppingListItemMapper shoppingListItemMapper() {
-		return new ShoppingListItemMapper();
+	public ShoppingListItemEntityMapper shoppingListItemMapper() {
+		return new ShoppingListItemEntityMapper();
 	}
 	
 	@Bean
-	public ShoppingListPersistenceMapper shoppingListMapper() {
-		return new ShoppingListPersistenceMapper(shoppingListItemMapper());
+	public ShoppingListGroupEntityMapper shoppingListGroupMapper() {
+	    return new ShoppingListGroupEntityMapper(shoppingListItemMapper());
+	}
+	
+	@Bean
+	public ShoppingListEntityMapper shoppingListMapper() {
+		return new ShoppingListEntityMapper(shoppingListGroupMapper());
 	}
 	
 	@Bean

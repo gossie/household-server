@@ -6,6 +6,6 @@ public interface ShoppingListRepository {
 
 	ShoppingList saveShoppingList(ShoppingList shoppingList);
 
-	ShoppingList createShoppingList();
+//	ShoppingList createShoppingList();
 
 }

@@ -1,15 +1,12 @@
-package household.shoppinglist;
+package household.v1.shoppinglist;
 
-import household.AbstractDTO;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public class ShoppingListItemDTO extends AbstractDTO {
+public class ShoppingListItemDTOV1 {
 
-    private final Long databaseId;
 	private final String name;
 	private final boolean selected;
-
 }

@@ -1,7 +1,7 @@
 package household.shoppinglist;
 
 import static household.shoppinglist.ShoppingListItemAssert.assertThat;
-import static household.shoppinglist.ShoppingListItemTOAssert.assertThat;
+import static household.shoppinglist.ShoppingListItemDTOAssert.assertThat;
 
 import org.junit.Test;
 
@@ -33,7 +33,7 @@ public class ShoppingListItemDTOMapperTest {
 	public void testMap_toSelectedShoppingListItem() throws Exception {
 		shoppingListItemMapper = new ShoppingListItemDTOMapper();
 		
-		ShoppingListItemDTO shoppingListItem = new ShoppingListItemDTO("item", true);
+		ShoppingListItemDTO shoppingListItem = new ShoppingListItemDTO(null, "item", true);
 		ShoppingListItem result = shoppingListItemMapper.map(shoppingListItem);
 		
 		assertThat(result).hasName("item").isSelected();
@@ -43,7 +43,7 @@ public class ShoppingListItemDTOMapperTest {
 	public void testMap_toDeselectedShoppingListItem() throws Exception {
 		shoppingListItemMapper = new ShoppingListItemDTOMapper();
 		
-		ShoppingListItemDTO shoppingListItem = new ShoppingListItemDTO("item", false);
+		ShoppingListItemDTO shoppingListItem = new ShoppingListItemDTO(null, "item", false);
 		ShoppingListItem result = shoppingListItemMapper.map(shoppingListItem);
 		
 		assertThat(result).hasName("item").isDeselected();

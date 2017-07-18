@@ -1,4 +1,4 @@
-package household.shoppinglist;
+package household.v1.shoppinglist;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public class ShoppingListDTO extends AbstractDTO {
+public class ShoppingListDTOV1 extends AbstractDTO {
 
 	private final Long databaseId;
-	private final List<ShoppingListGroupDTO> shoppingListGroups;
+	private final List<ShoppingListItemDTOV1> shoppingListItems;
 }

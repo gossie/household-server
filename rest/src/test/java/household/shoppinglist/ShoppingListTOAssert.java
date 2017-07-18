@@ -1,10 +1,9 @@
 package household.shoppinglist;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.function.Consumer;
 
 import org.assertj.core.api.AbstractAssert;
+import org.assertj.core.api.Assertions;
 
 public class ShoppingListTOAssert extends AbstractAssert<ShoppingListTOAssert, ShoppingListDTO> {
 
@@ -17,12 +16,12 @@ public class ShoppingListTOAssert extends AbstractAssert<ShoppingListTOAssert, S
 	}
 	
 	public ShoppingListTOAssert hasSize(int amount) {
-		assertEquals(amount, actual.getShoppingListItems().size());
+		Assertions.assertThat(actual.getShoppingListGroups()).hasSize(amount);
 		return this;
 	}
 	
-	public ShoppingListTOAssert shoppingListItem(int index, Consumer<ShoppingListItemTOAssert> consumer) {
-		consumer.accept(ShoppingListItemTOAssert.assertThat(actual.getShoppingListItems().get(index)));
+	public ShoppingListTOAssert shoppingListGroup(int index, Consumer<ShoppingListGroupDTOAssert> consumer) {
+		consumer.accept(ShoppingListGroupDTOAssert.assertThat(actual.getShoppingListGroups().get(index)));
 		return this;
 	}
 }

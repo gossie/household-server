@@ -14,21 +14,21 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @NoArgsConstructor(access=AccessLevel.PACKAGE, force=true)
 @AllArgsConstructor(access=AccessLevel.PACKAGE)
 @Getter
+@Setter
 @ToString
-class ShoppingListEntity {
+public class ShoppingListGroupEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private final Long id;
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
-	private List<ShoppingListGroupEntity> shoppingListGroups = new ArrayList<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private final Long id;
+    private String name;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
-    @Deprecated private List<ShoppingListItemEntity> shoppingListItems = new ArrayList<>();
-
+    private List<ShoppingListItemEntity> shoppingListItems = new ArrayList<>();
 }

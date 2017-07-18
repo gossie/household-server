@@ -1,6 +1,7 @@
 package household.user;
 
 import com.google.common.base.Preconditions;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

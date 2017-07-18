@@ -4,38 +4,48 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import household.AbstractModel;
 
 public class ShoppingList extends AbstractModel {
 
-	private final List<ShoppingListItem> shoppingListItems;
+	private final List<ShoppingListGroup> shoppingListGroups;
 	
-    ShoppingList(Long id, List<ShoppingListItem> shoppingListItems) {
+    ShoppingList(Long id, List<ShoppingListGroup> shoppingListGroups) {
     	super(id);
-		this.shoppingListItems = new ArrayList<>(shoppingListItems);
+		this.shoppingListGroups = new ArrayList<>(shoppingListGroups);
 	}
 
 	public ShoppingList(Long id) {
-		this(id, new ArrayList<>());
-	}
-
-	public void clearSelectedItems() {
-		shoppingListItems.removeIf(ShoppingListItem::isSelected);
+		this(id, new ArrayList<>(Collections.singletonList(new ShoppingListGroup(null, "Global", Collections.emptyList()))));
 	}
 	
-	public void update(ShoppingListItem shoppingListItem) {
-		shoppingListItems.stream()
-				.filter(item -> Objects.equals(item.getName(), shoppingListItem.getName()))
-				.findFirst()
-				.ifPresent(item -> item.setSelected(shoppingListItem.isSelected()));
+	public void clearAllSelectedItems() {
+	    shoppingListGroups.stream().map(ShoppingListGroup::getId).forEach(this::clearSelectedItemsFromShoppingListGroup);
 	}
 
-	public void addShoppingListItem(ShoppingListItem shoppingListItem) {
-		shoppingListItems.add(shoppingListItem);
+	public void clearSelectedItemsFromShoppingListGroup(Long shoppingListGroupId) {
+		determineShoppingListGroup(shoppingListGroupId).ifPresent(ShoppingListGroup::clearSelectedItems);
+	}
+	
+	public void toggleItem(Long shoppingListGroupId, Long shoppingListItemId) {
+	    determineShoppingListGroup(shoppingListGroupId).ifPresent(group -> group.toogleItem(shoppingListItemId));
 	}
 
-	public List<ShoppingListItem> getShoppingListItems() {
-		return Collections.unmodifiableList(shoppingListItems);
+    public void addShoppingListGroup(ShoppingListGroup group) {
+        shoppingListGroups.add(group);
+    }
+
+	public void addShoppingListItem(Long shoppingListGroupId, ShoppingListItem shoppingListItem) {
+		determineShoppingListGroup(shoppingListGroupId).ifPresent(group -> group.addShoppingListItem(shoppingListItem));
+	}
+	
+	private Optional<ShoppingListGroup> determineShoppingListGroup(Long shoppingListGroupId) {
+	    return shoppingListGroups.stream().filter(group -> Objects.equals(group.getId(), shoppingListGroupId)).findFirst();
+	}
+
+	public List<ShoppingListGroup> getShoppingListGroups() {
+		return Collections.unmodifiableList(shoppingListGroups);
 	}
 }

@@ -59,6 +59,7 @@ public class PlanApplicationIT {
 		assertThat(determineLink(user1, "household")).isNotNull();
 		
 		user2 = getUser(2L, "user2@email.com", "87654321");
+		assertThat(determineLink(user2, "household")).isNull();
 		assertThat(user2.getJSONArray("invitations").length()).isEqualTo(1);
 		
 		rejectInvitation(2L, 1L, "user2@email.com", "87654321");
@@ -71,13 +72,17 @@ public class PlanApplicationIT {
 		user2 = getUser(2L, "user2@email.com", "87654321");
 		assertThat(user2.getJSONArray("invitations").length()).isEqualTo(1);
 		
-//		acceptInvitation(2L, 1L, "user2@email.com", "87654321")
+		acceptInvitation(2L, 1L, "user2@email.com", "87654321");
+		
+		user2 = getUser(2L, "user2@email.com", "87654321");
+        assertThat(determineLink(user1, "household")).isNotNull();
+        assertThat(user2.getJSONArray("invitations").length()).isEqualTo(1);
 	}
 
 	private JSONObject createUser(String email, String password) throws Exception {
 		MockHttpServletResponse response = mvc
 				.perform(post("/api/users")
-						.contentType("application/vnd.household.v1+json")
+						.contentType("application/vnd.household.v2+json")
 						.content("{\"email\":\"" + email + "\", \"password\":\"" + password + "\"}"))
 		        .andReturn()
 		        .getResponse();
@@ -91,7 +96,7 @@ public class PlanApplicationIT {
 		MockHttpServletResponse response = mvc
 				.perform(post("/api/households")
 						.with(httpBasic(email, password))
-						.contentType("application/vnd.household.v1+json"))
+						.contentType("application/vnd.household.v2+json"))
 		        .andReturn()
 		        .getResponse();
 
@@ -104,7 +109,7 @@ public class PlanApplicationIT {
 		MockHttpServletResponse response = mvc
 				.perform(post("/api/users/1/invitations")
 						.with(httpBasic("user1@email.com", "12345678"))
-						.contentType("application/vnd.household.v1+json")
+						.contentType("application/vnd.household.v2+json")
 						.content("{\"email\":\"user2@email.com\"}"))
 				.andReturn()
 				.getResponse();
@@ -135,13 +140,13 @@ public class PlanApplicationIT {
 	}
 	
 	private void acceptInvitation(long userId, long invitationId, String email, String password) throws Exception {
-//		MockHttpServletResponse response = mvc
-//				.perform(delete("/api/users/" + userId + "/invitations/" + invitationId)
-//						.with(httpBasic(email, password)))
-//		        .andReturn()
-//		        .getResponse();
-//
-//		assertThat(response.getStatus()).isEqualTo(200);
+		MockHttpServletResponse response = mvc
+				.perform(post("/api/users/" + userId + "/invitations/" + invitationId)
+						.with(httpBasic(email, password)))
+		        .andReturn()
+		        .getResponse();
+
+		assertThat(response.getStatus()).isEqualTo(200);
 	}
 	
 	private String determineLink(JSONObject json, String rel) throws Exception {

@@ -15,7 +15,7 @@ public class ShoppingListEntityAssert extends AbstractAssert<ShoppingListEntityA
 	}
 	
 	public ShoppingListEntityAssert hasSize(int amount) {
-		assertEquals(amount, actual.getShoppingListItems().size());
+		assertEquals(amount, actual.getShoppingListGroups().size());
 		return this;
 	}
 }

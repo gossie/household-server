@@ -1,15 +1,17 @@
 package household.shoppinglist;
 
+import java.util.List;
+
 import household.AbstractDTO;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public class ShoppingListItemDTO extends AbstractDTO {
-
+public class ShoppingListGroupDTO extends AbstractDTO {
+    
     private final Long databaseId;
-	private final String name;
-	private final boolean selected;
+    private final String name;
+    private final List<ShoppingListItemDTO> shoppingListItems;
 
 }

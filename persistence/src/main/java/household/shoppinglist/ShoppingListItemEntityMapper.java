@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor(access=AccessLevel.PACKAGE)
-class ShoppingListItemMapper {
+class ShoppingListItemEntityMapper {
 
 	ShoppingListItemEntity map(ShoppingListItem shoppingListItem) {
 		return new ShoppingListItemEntity(shoppingListItem.getId(), shoppingListItem.getName(), shoppingListItem.isSelected());

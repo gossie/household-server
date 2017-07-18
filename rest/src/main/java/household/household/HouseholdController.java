@@ -1,6 +1,7 @@
 package household.household;
 
 import static household.Constants.DEFAULT_MEDIA_TYPE;
+import static household.Constants.V1_MEDIA_TYPE;
 
 import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.Resource;
@@ -40,7 +41,7 @@ public class HouseholdController {
 	private final HouseholdDTOMapper householdMapper;
 	private final HouseholdResourceProcessor householdResourceProcessor;
 	
-	@PostMapping(produces={DEFAULT_MEDIA_TYPE})
+	@PostMapping(produces={V1_MEDIA_TYPE, DEFAULT_MEDIA_TYPE})
 	public HttpEntity<Resource<HouseholdDTO>> createHousehold() {
 		ShoppingList shoppingList = shoppingListService.createShoppingList();
 		CleaningPlan cleaningPlan = cleaningPlanService.createCleaningPlan();
@@ -55,7 +56,7 @@ public class HouseholdController {
 		return ResponseEntity.ok(createResource(household));
 	}
 	
-	@GetMapping(path="/{id}", produces={DEFAULT_MEDIA_TYPE})
+	@GetMapping(path="/{id}", produces={V1_MEDIA_TYPE, DEFAULT_MEDIA_TYPE})
 	public HttpEntity<Resource<HouseholdDTO>> getHoushold(@PathVariable Long id) {
 		return ResponseEntity.ok(createResource(householdService.getHousehold(id)));
 	}

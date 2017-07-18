@@ -11,14 +11,44 @@ import lombok.RequiredArgsConstructor;
 @Component
 public class ShoppingListResourceProcessor implements ResourceProcessor<Resource<ShoppingListDTO>> {
 
-	private final EntityLinks entityLinks;
-	
+    private final EntityLinks entityLinks;
+    
     @Override
     public Resource<ShoppingListDTO> process(Resource<ShoppingListDTO> resource) {
-    	ShoppingListDTO shoppingList = resource.getContent();
-    	resource.add(entityLinks.linkForSingleResource(ShoppingListDTO.class, shoppingList.getDatabaseId()).withSelfRel());
-    	resource.add(entityLinks.linkForSingleResource(ShoppingListDTO.class, shoppingList.getDatabaseId()).slash("/shoppingListItems").withRel("add"));
-    	resource.add(entityLinks.linkForSingleResource(ShoppingListDTO.class, shoppingList.getDatabaseId()).slash("/shoppingListItems").withRel("clear"));
+        ShoppingListDTO shoppingList = resource.getContent();
+        resource.add(entityLinks.linkForSingleResource(ShoppingListDTO.class, shoppingList.getDatabaseId()).withSelfRel());
+        resource.add(entityLinks.linkForSingleResource(ShoppingListDTO.class, shoppingList.getDatabaseId()).slash("/shoppingListGroups").withRel("add"));
+        
+        shoppingList.getShoppingListGroups().forEach(group -> addGroupLinks(shoppingList, group));
+        
         return resource;
+    }
+    
+    private void addGroupLinks(ShoppingListDTO shoppingList, ShoppingListGroupDTO group) {
+        group.add(entityLinks
+                .linkForSingleResource(ShoppingListDTO.class, shoppingList.getDatabaseId())
+                .slash("/shoppingListGroups/")
+                .slash(group.getDatabaseId())
+                .slash("/shoppingListItems")
+                .withRel("add"));
+        
+        group.add(entityLinks
+                .linkForSingleResource(ShoppingListDTO.class, shoppingList.getDatabaseId())
+                .slash("/shoppingListGroups/")
+                .slash(group.getDatabaseId())
+                .slash("/shoppingListItems")
+                .withRel("clear"));
+        
+        group.getShoppingListItems().forEach(item -> addItemLinks(shoppingList, group, item));
+    }
+
+    private void addItemLinks(ShoppingListDTO shoppingList, ShoppingListGroupDTO group, ShoppingListItemDTO item) {
+        item.add(entityLinks
+                .linkForSingleResource(ShoppingListDTO.class, shoppingList.getDatabaseId())
+                .slash("/shoppingListGroups/")
+                .slash(group.getDatabaseId())
+                .slash("/shoppingListItems/")
+                .slash(item.getDatabaseId())
+                .withRel("toggle"));
     }
 }

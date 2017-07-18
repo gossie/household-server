@@ -5,17 +5,18 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
 @Component
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access=AccessLevel.PACKAGE)
 public class ShoppingListDTOMapper {
 	
-	private final ShoppingListItemDTOMapper shoppingListItemMapper;
+	private final ShoppingListGroupDTOMapper shoppingListGroupMapper;
 
-	public ShoppingListDTO map(ShoppingList shoppingList) {
-		List<ShoppingListItemDTO> items = shoppingList.getShoppingListItems().stream()
-				.map(shoppingListItemMapper::map)
+	ShoppingListDTO map(ShoppingList shoppingList) {
+		List<ShoppingListGroupDTO> items = shoppingList.getShoppingListGroups().stream()
+				.map(shoppingListGroupMapper::map)
 				.collect(Collectors.toList());
 		
 		return new ShoppingListDTO(shoppingList.getId(), items);
