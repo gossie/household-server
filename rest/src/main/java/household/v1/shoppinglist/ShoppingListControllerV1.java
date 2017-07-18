@@ -58,7 +58,10 @@ public class ShoppingListControllerV1 {
 	
 	@DeleteMapping(path="/{id}/shoppingListItems", consumes={V1_MEDIA_TYPE}, produces={V1_MEDIA_TYPE})
 	public ResponseEntity<Resource<ShoppingListDTOV1>> removedSelectedItemsFromShoppingList(@PathVariable Long id) {
-	    return null;
+	    shoppingListController.getShoppingList(id).getBody().getContent().getShoppingListGroups().forEach(group -> {
+	        shoppingListController.removedSelectedItemsFromShoppingListGroup(id, group.getDatabaseId());
+	    });
+	    return getShoppingList(id);
 	}
 	
 	@PostMapping(path="/{id}/shoppingListItems", consumes={V1_MEDIA_TYPE}, produces={V1_MEDIA_TYPE})
