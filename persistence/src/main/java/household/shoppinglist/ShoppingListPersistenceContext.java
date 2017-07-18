@@ -34,7 +34,7 @@ public class ShoppingListPersistenceContext {
 		return new DefaultShoppingListRepository(shoppingListEntityRepository, shoppingListMapper());
 	}
 	
-	@Bean
+//	@Bean
     public CommandLineRunner dbMigration() {
         return (args) -> {
             List<ShoppingListEntity> all = shoppingListEntityRepository.findAll().stream().map(shoppingList -> {
