@@ -1,6 +1,5 @@
 package household.shoppinglist;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +24,6 @@ class ShoppingListEntityMapper {
 				.map(shoppingListGroupMapper::map)
 				.collect(Collectors.toList());
 		
-		return new ShoppingListEntity(shoppingList.getId(), groups, Collections.emptyList());
+		return new ShoppingListEntity(shoppingList.getId(), groups);
 	}
 }

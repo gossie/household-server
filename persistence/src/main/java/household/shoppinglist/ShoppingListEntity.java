@@ -28,18 +28,5 @@ class ShoppingListEntity {
 	private final Long id;
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
 	private List<ShoppingListGroupEntity> shoppingListGroups = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
-    @Deprecated private List<ShoppingListItemEntity> shoppingListItems = new ArrayList<>();
-
     
-    @Deprecated
-    public void addGroup(ShoppingListGroupEntity group) {
-        shoppingListGroups.add(group);
-    }
-
-
-    @Deprecated
-    public void clearItems() {
-        shoppingListItems.clear();
-    }
 }

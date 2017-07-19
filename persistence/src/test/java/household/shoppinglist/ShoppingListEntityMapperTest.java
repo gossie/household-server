@@ -3,7 +3,6 @@ package household.shoppinglist;
 import static household.shoppinglist.ShoppingListAssert.assertThat;
 import static java.util.Arrays.asList;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
@@ -18,7 +17,7 @@ public class ShoppingListEntityMapperTest {
 		
 		List<ShoppingListItemEntity> shoppingListItems = asList(new ShoppingListItemEntity(1L, "item1", true), new ShoppingListItemEntity(2L, "item2", false));
 		List<ShoppingListGroupEntity> shoppingListGroups = asList(new ShoppingListGroupEntity(null, "group", shoppingListItems));
-		ShoppingListEntity shoppingList = new ShoppingListEntity(3L, shoppingListGroups, Collections.emptyList());
+		ShoppingListEntity shoppingList = new ShoppingListEntity(3L, shoppingListGroups);
 		
 		ShoppingList result = shoppingListMapper.map(shoppingList);
 		
