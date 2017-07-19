@@ -25,16 +25,20 @@ public class MigrationController {
         List<ShoppingListEntity> all = shoppingListEntityRepository.findAll().stream().map(shoppingList -> {
             List<ShoppingListGroupEntity> shoppingListGroups = shoppingList.getShoppingListGroups();
             if(shoppingListGroups.isEmpty()) {
-                ShoppingListGroupEntity groupToUse = new ShoppingListGroupEntity(null, "Global", shoppingList.getShoppingListItems());
+                ShoppingListGroupEntity groupToUse = new ShoppingListGroupEntity(null, "Global", mapItems(shoppingList.getShoppingListItems()));
                 shoppingList.addGroup(groupToUse);
             } else {
                 ShoppingListGroupEntity groupToUse = shoppingListGroups.get(0);
-                groupToUse.setShoppingListItems(shoppingList.getShoppingListItems());
+                groupToUse.setShoppingListItems(mapItems(shoppingList.getShoppingListItems()));
             }
             shoppingList.clearItems();
             return shoppingList;
         }).collect(Collectors.toList());
         
         shoppingListEntityRepository.save(all);
+    }
+    
+    private List<ShoppingListItemEntity> mapItems(List<ShoppingListItemEntity> items) {
+        return items.stream().map(item -> new ShoppingListItemEntity(null, item.getName(), item.isSelected())).collect(Collectors.toList());
     }
 }
