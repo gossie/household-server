@@ -1,8 +1,5 @@
 package household.cleaningplan;
 
-import static household.Constants.DEFAULT_MEDIA_TYPE;
-import static household.Constants.V1_MEDIA_TYPE;
-
 import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpEntity;
@@ -29,22 +26,22 @@ public class CleaningPlanController {
 	private final CleaningPlanService cleaningPlanService;
 	private final CleaningPlanResourceProcessor cleaningPlanResourceProcessor;
 	
-	@GetMapping(path="/{cleaningPlanId}", produces={V1_MEDIA_TYPE, DEFAULT_MEDIA_TYPE})
+	@GetMapping(path="/{cleaningPlanId}", produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<CleaningPlanDTO>> getCleaningPlan(@PathVariable Long cleaningPlanId) {
 		return ResponseEntity.ok(createResource(cleaningPlanService.getCleaningPlan(cleaningPlanId)));
 	}
 	
-	@PatchMapping(path="/{cleaningPlanId}", consumes={V1_MEDIA_TYPE, DEFAULT_MEDIA_TYPE}, produces={V1_MEDIA_TYPE, DEFAULT_MEDIA_TYPE})
+	@PatchMapping(path="/{cleaningPlanId}", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
 	public ResponseEntity<Resource<CleaningPlanDTO>> updateCleaningPlan(@PathVariable Long cleaningPlanId, @RequestBody ChoreDTO chore) {
 		return ResponseEntity.ok(createResource(cleaningPlanService.update(cleaningPlanId, choreMapper.map(chore))));
 	}
 
-	@PostMapping(path="/{cleaningPlanId}/chores", consumes={V1_MEDIA_TYPE, DEFAULT_MEDIA_TYPE}, produces={V1_MEDIA_TYPE, DEFAULT_MEDIA_TYPE})
+	@PostMapping(path="/{cleaningPlanId}/chores", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<CleaningPlanDTO>> addChore(@PathVariable Long cleaningPlanId, @RequestBody ChoreDTO chore) {
 		return ResponseEntity.ok(createResource(cleaningPlanService.addChore(cleaningPlanId, choreMapper.map(chore))));
 	}
 
-	@DeleteMapping(path="/{cleaningPlanId}/chores/{choreId}", consumes={V1_MEDIA_TYPE, DEFAULT_MEDIA_TYPE}, produces={V1_MEDIA_TYPE, DEFAULT_MEDIA_TYPE})
+	@DeleteMapping(path="/{cleaningPlanId}/chores/{choreId}", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<CleaningPlanDTO>> removeChore(@PathVariable Long cleaningPlanId, @PathVariable Long choreId) {
 		return ResponseEntity.ok(createResource(cleaningPlanService.removeChore(cleaningPlanId, choreId)));
 	}

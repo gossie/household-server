@@ -82,7 +82,7 @@ public class PlanApplicationIT {
 	private JSONObject createUser(String email, String password) throws Exception {
 		MockHttpServletResponse response = mvc
 				.perform(post("/api/users")
-						.contentType("application/vnd.household.v2+json")
+						.contentType("application/vnd.household.v1+json")
 						.content("{\"email\":\"" + email + "\", \"password\":\"" + password + "\"}"))
 		        .andReturn()
 		        .getResponse();
@@ -96,7 +96,7 @@ public class PlanApplicationIT {
 		MockHttpServletResponse response = mvc
 				.perform(post("/api/households")
 						.with(httpBasic(email, password))
-						.contentType("application/vnd.household.v2+json"))
+						.contentType("application/vnd.household.v1+json"))
 		        .andReturn()
 		        .getResponse();
 
@@ -109,7 +109,7 @@ public class PlanApplicationIT {
 		MockHttpServletResponse response = mvc
 				.perform(post("/api/users/1/invitations")
 						.with(httpBasic("user1@email.com", "12345678"))
-						.contentType("application/vnd.household.v2+json")
+						.contentType("application/vnd.household.v1+json")
 						.content("{\"email\":\"user2@email.com\"}"))
 				.andReturn()
 				.getResponse();

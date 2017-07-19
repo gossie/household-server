@@ -1,8 +1,5 @@
 package household.user;
 
-import static household.Constants.DEFAULT_MEDIA_TYPE;
-import static household.Constants.V1_MEDIA_TYPE;
-
 import java.util.Map;
 
 import org.springframework.hateoas.ExposesResourceFor;
@@ -31,25 +28,25 @@ public class UserController {
 	private final UserDTOMapper userMapper;
 	private final UserResourceProcessor userResourceProcessor;
 
-	@PostMapping(produces={V1_MEDIA_TYPE, DEFAULT_MEDIA_TYPE})
+	@PostMapping(produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<UserDTO>> createUser(@RequestBody Map<String, String> data) {
 		User createUser = userService.createUser(new User(null, data.get("email"), data.get("password")));
 		return ResponseEntity.ok(createResource(createUser));
 	}
 	
-	@GetMapping(path="/{userId}", produces={V1_MEDIA_TYPE, DEFAULT_MEDIA_TYPE})
+	@GetMapping(path="/{userId}", produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<UserDTO>> getUser(@PathVariable Long userId) {
 		User user = userService.determineUser(userId);
 		return ResponseEntity.ok(createResource(user));
 	}
 	
-	@PostMapping(path="/login", produces={V1_MEDIA_TYPE, DEFAULT_MEDIA_TYPE})
+	@PostMapping(path="/login", produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<UserDTO>> login() {
 		User user = userService.determineCurrentUser();
 		return ResponseEntity.ok(createResource(user));
 	}
 	
-	@PostMapping(path="/{userId}/invitations", consumes={V1_MEDIA_TYPE, DEFAULT_MEDIA_TYPE})
+	@PostMapping(path="/{userId}/invitations", consumes={"application/vnd.household.v1+json"})
 	@ResponseStatus(value = HttpStatus.OK)
 	public HttpEntity<Resource<UserDTO>> invite(@PathVariable Long userId, @RequestBody InvitationRequestDTO invitation) {
 		User invitingUser = userService.determineUser(userId);
@@ -57,14 +54,14 @@ public class UserController {
 		return ResponseEntity.ok(createResource(invitingUser));
 	}
     
-    @PostMapping(path="/{userId}/invitations/{invitationId}")
+    @PostMapping(path="/{userId}/invitations/{invitationId}", produces={"application/vnd.household.v1+json"})
     @ResponseStatus(value = HttpStatus.OK)
     public HttpEntity<Resource<UserDTO>> acceptInvitation(@PathVariable Long userId, @PathVariable Long invitationId) {
         userService.acceptInvitation(userId, invitationId);
         return ResponseEntity.ok(createResource(userService.determineUser(userId)));
     }
 	
-	@DeleteMapping(path="/{userId}/invitations/{invitationId}")
+	@DeleteMapping(path="/{userId}/invitations/{invitationId}", produces={"application/vnd.household.v1+json"})
 	@ResponseStatus(value = HttpStatus.OK)
 	public HttpEntity<Resource<UserDTO>> rejectInvitation(@PathVariable Long userId, @PathVariable Long invitationId) {
 		userService.rejectInvitation(userId, invitationId);

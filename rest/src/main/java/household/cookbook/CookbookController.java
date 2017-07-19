@@ -1,10 +1,5 @@
 package household.cookbook;
 
-import static household.Constants.DEFAULT_MEDIA_TYPE;
-import static household.Constants.MIN_MEDIA_TYPE;
-import static household.Constants.V1_MEDIA_TYPE;
-import static household.Constants.V1_MIN_MEDIA_TYPE;
-
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.Resource;
@@ -32,25 +27,25 @@ public class CookbookController {
 	private final CookbookResourceProcessor cookbookResourceProcessor;
 	private final EntityLinks entityLinks;
 
-	@GetMapping(path="/{cookbookId}", produces={V1_MIN_MEDIA_TYPE, MIN_MEDIA_TYPE})
+	@GetMapping(path="/{cookbookId}", produces={"application/vnd.household.min.v1+json"})
 	public HttpEntity<Resource<CookbookDTO>> getMinifiedRecipes(@PathVariable Long cookbookId) {
 		Cookbook minifiedCookbook = cookbookService.getMinifiedCookbook(cookbookId);
 		return ResponseEntity.ok(createResource(minifiedCookbook));
 	}
 	
-	@GetMapping(path="/{cookbookId}/recipes/{recipeId}", produces={V1_MEDIA_TYPE, DEFAULT_MEDIA_TYPE})
+	@GetMapping(path="/{cookbookId}/recipes/{recipeId}", produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<RecipeDTO>> getRecipe(@PathVariable Long cookbookId, @PathVariable Long recipeId) {
 		Recipe recipe = cookbookService.getRecipe(cookbookId, recipeId);
 		return ResponseEntity.ok(createResource(cookbookId, recipe));
 	}
 	
-	@PutMapping(path="/{cookbookId}/recipes/{recipeId}", produces={V1_MEDIA_TYPE, DEFAULT_MEDIA_TYPE}, consumes={V1_MEDIA_TYPE, DEFAULT_MEDIA_TYPE})
+	@PutMapping(path="/{cookbookId}/recipes/{recipeId}", produces={"application/vnd.household.v1+json"}, consumes={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<CookbookDTO>> editRecipe(@PathVariable Long cookbookId, @PathVariable Long recipeId, @RequestBody RecipeDTO recipe) {
 		Cookbook cookbook = cookbookService.editRecipe(cookbookId, recipeId, recipeMapper.map(recipe));
 		return ResponseEntity.ok(createResource(cookbook));
 	}
 	
-	@PostMapping(path="/{cookbookId}/recipes", consumes={V1_MEDIA_TYPE, DEFAULT_MEDIA_TYPE}, produces={V1_MIN_MEDIA_TYPE, MIN_MEDIA_TYPE})
+	@PostMapping(path="/{cookbookId}/recipes", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.min.v1+json"})
 	public HttpEntity<Resource<CookbookDTO>> addRecipe(@PathVariable Long cookbookId, @RequestBody RecipeDTO recipe) {
 		Cookbook minifiedCookbook = cookbookService.addRecipe(cookbookId, recipeMapper.map(recipe));
 		return ResponseEntity.ok(createResource(minifiedCookbook));

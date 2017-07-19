@@ -1,7 +1,5 @@
 package household.v1.shoppinglist;
 
-import static household.Constants.V1_MEDIA_TYPE;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -33,12 +31,12 @@ public class ShoppingListControllerV1 {
 	private final ShoppingListController shoppingListController;
 	private final ShoppingListResourceProcessorV1 shoppingListResourceProcessor;
 	
-	@GetMapping(path="/{id}", produces={V1_MEDIA_TYPE})
+	@GetMapping(path="/{id}", produces={"application/vnd.household.v1+json"})
 	public ResponseEntity<Resource<ShoppingListDTOV1>> getShoppingList(@PathVariable Long id) {
 	    return createResource(shoppingListController.getShoppingList(id).getBody().getContent());
 	}
 	
-	@PatchMapping(path="/{id}", consumes={V1_MEDIA_TYPE}, produces={V1_MEDIA_TYPE})
+	@PatchMapping(path="/{id}", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
 	public ResponseEntity<Resource<ShoppingListDTOV1>> updateShoppingList(@PathVariable Long id, @RequestBody ShoppingListItemDTOV1 shoppingListItem) {
 	    Long groupId = null;
 	    Long itemId = null;
@@ -56,7 +54,7 @@ public class ShoppingListControllerV1 {
 	    return createResource(shoppingListController.toggleItem(id, groupId, itemId).getBody().getContent());
 	}
 	
-	@DeleteMapping(path="/{id}/shoppingListItems", consumes={V1_MEDIA_TYPE}, produces={V1_MEDIA_TYPE})
+	@DeleteMapping(path="/{id}/shoppingListItems", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
 	public ResponseEntity<Resource<ShoppingListDTOV1>> removedSelectedItemsFromShoppingList(@PathVariable Long id) {
 	    shoppingListController.getShoppingList(id).getBody().getContent().getShoppingListGroups().forEach(group -> {
 	        shoppingListController.removedSelectedItemsFromShoppingListGroup(id, group.getDatabaseId());
@@ -64,7 +62,7 @@ public class ShoppingListControllerV1 {
 	    return getShoppingList(id);
 	}
 	
-	@PostMapping(path="/{id}/shoppingListItems", consumes={V1_MEDIA_TYPE}, produces={V1_MEDIA_TYPE})
+	@PostMapping(path="/{id}/shoppingListItems", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
 	public ResponseEntity<Resource<ShoppingListDTOV1>> addItem(@PathVariable Long id, @RequestBody List<ShoppingListItemDTOV1> shoppingListItems) {
 	    Long groupId = shoppingListController.getShoppingList(id).getBody().getContent().getShoppingListGroups().get(0).getDatabaseId();
 	    List<ShoppingListItemDTO> mappedItems = shoppingListItems.stream().map(this::mapItem).collect(Collectors.toList());
