@@ -183,4 +183,23 @@ public class ShoppingListServiceTest {
                     .shoppingListItem(0, item -> item.hasName("three").isSelected())
                     .shoppingListItem(1, item -> item.hasName("four").isSelected()));
 	}
+
+	@Test
+    public void testDeleteShoppingListGroup() throws Exception {
+        List<ShoppingListGroup> groups = asList(
+                new ShoppingListGroup(3L, "group1", Collections.emptyList()),
+                new ShoppingListGroup(4L, "group2", Collections.emptyList()));
+        ShoppingList shoppingList = new ShoppingList(1L, groups);
+        
+        ShoppingListRepository shoppingListRepository = mock(ShoppingListRepository.class);
+        when(shoppingListRepository.determineShoppingList(1L)).thenReturn(shoppingList);
+        when(shoppingListRepository.saveShoppingList(shoppingList)).thenReturn(shoppingList);
+        
+        shoppingListService = new ShoppingListService(shoppingListRepository);
+        ShoppingList result = shoppingListService.deleteShoppingListGroup(1L, 4L);
+
+        assertThat(result)
+            .hasSize(1)
+            .shoppingListGroup(0, group -> group.hasName("group1").hasSize(0));
+    }
 }

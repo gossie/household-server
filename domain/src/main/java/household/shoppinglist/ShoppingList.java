@@ -48,4 +48,8 @@ public class ShoppingList extends AbstractModel {
 	public List<ShoppingListGroup> getShoppingListGroups() {
 		return Collections.unmodifiableList(shoppingListGroups);
 	}
+
+    public void deleteShoppingListGroup(Long shoppingListGroupId) {
+        shoppingListGroups.removeIf(group -> Objects.equals(group.getId(), shoppingListGroupId));
+    }
 }

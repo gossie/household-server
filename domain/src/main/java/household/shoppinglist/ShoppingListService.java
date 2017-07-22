@@ -31,6 +31,12 @@ public class ShoppingListService {
         return shoppingListRepository.saveShoppingList(shoppingList);
     }
 
+    public ShoppingList deleteShoppingListGroup(Long shoppingListId, Long groupId) {
+        ShoppingList shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
+        shoppingList.deleteShoppingListGroup(groupId);
+        return shoppingListRepository.saveShoppingList(shoppingList);
+    }
+
 	public ShoppingList addShoppingListItems(Long shoppingListId, Long shoppingListGroupId, List<ShoppingListItem> entities) {
 		ShoppingList shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
 		entities.forEach(item -> shoppingList.addShoppingListItem(shoppingListGroupId, item));
