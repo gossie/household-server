@@ -29,6 +29,12 @@ public class ShoppingListResourceProcessor implements ResourceProcessor<Resource
                 .linkForSingleResource(ShoppingListDTO.class, shoppingList.getDatabaseId())
                 .slash("/shoppingListGroups/")
                 .slash(group.getDatabaseId())
+                .withRel("delete"));
+        
+        group.add(entityLinks
+                .linkForSingleResource(ShoppingListDTO.class, shoppingList.getDatabaseId())
+                .slash("/shoppingListGroups/")
+                .slash(group.getDatabaseId())
                 .slash("/shoppingListItems")
                 .withRel("add"));
         
