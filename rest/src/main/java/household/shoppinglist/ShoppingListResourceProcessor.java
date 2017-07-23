@@ -27,7 +27,7 @@ public class ShoppingListResourceProcessor implements ResourceProcessor<Resource
     }
     
     private void addGroupLinks(ShoppingListDTO shoppingList, ShoppingListGroupDTO group) {
-        if(Objects.equals(group.getName(), "Global")) {
+        if(!Objects.equals(group.getName(), "Global")) {
             group.add(entityLinks
                     .linkForSingleResource(ShoppingListDTO.class, shoppingList.getDatabaseId())
                     .slash("/shoppingListGroups/")
