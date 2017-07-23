@@ -8,6 +8,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -73,4 +74,9 @@ public class UserController {
 		return userResourceProcessor.process(resource);
 	}
 	
+	@ResponseStatus(value=HttpStatus.CONFLICT, reason="Der Benutzer ist bereits vorhanden.")
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public void handleException() {
+        
+    }
 }

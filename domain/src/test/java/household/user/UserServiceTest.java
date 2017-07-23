@@ -33,7 +33,7 @@ public class UserServiceTest {
         when(userRepository.determineUser("my@email.de")).thenReturn(Optional.of(existingUser));
         UserService userService = new UserService(userRepository);
 
-        assertThatExceptionOfType(IllegalStateException.class).isThrownBy(() -> userService.createUser(input));
+        assertThatExceptionOfType(UserAlreadyExistsException.class).isThrownBy(() -> userService.createUser(input));
     }
 
 }
