@@ -28,7 +28,7 @@ public class UserController {
 	private final UserService userService;
 	private final UserDTOMapper userMapper;
 	private final UserResourceProcessor userResourceProcessor;
-
+	
 	@PostMapping(produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<UserDTO>> createUser(@RequestBody Map<String, String> data) {
 		User createUser = userService.createUser(new User(null, data.get("email"), data.get("password")));
