@@ -2,6 +2,7 @@ package household.shoppinglist;
 
 import static household.shoppinglist.ShoppingListAssert.assertThat;
 import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -201,5 +202,22 @@ public class ShoppingListServiceTest {
         assertThat(result)
             .hasSize(1)
             .shoppingListGroup(0, group -> group.hasName("group1").hasSize(0));
+    }
+	
+	@Test
+    public void testThatGlobalGroupCannotBeDeleted() throws Exception {
+        List<ShoppingListGroup> groups = asList(
+                new ShoppingListGroup(3L, "group1", Collections.emptyList()),
+                new ShoppingListGroup(4L, "Global", Collections.emptyList()));
+        ShoppingList shoppingList = new ShoppingList(1L, groups);
+        
+        ShoppingListRepository shoppingListRepository = mock(ShoppingListRepository.class);
+        when(shoppingListRepository.determineShoppingList(1L)).thenReturn(shoppingList);
+        when(shoppingListRepository.saveShoppingList(shoppingList)).thenReturn(shoppingList);
+        
+        shoppingListService = new ShoppingListService(shoppingListRepository);
+        
+        assertThatExceptionOfType(ShoppingListGroupNotDeletableException.class)
+            .isThrownBy(() -> shoppingListService.deleteShoppingListGroup(1L, 4L));
     }
 }

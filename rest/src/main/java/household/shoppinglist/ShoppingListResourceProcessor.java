@@ -1,5 +1,7 @@
 package household.shoppinglist;
 
+import java.util.Objects;
+
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
@@ -25,11 +27,13 @@ public class ShoppingListResourceProcessor implements ResourceProcessor<Resource
     }
     
     private void addGroupLinks(ShoppingListDTO shoppingList, ShoppingListGroupDTO group) {
-        group.add(entityLinks
-                .linkForSingleResource(ShoppingListDTO.class, shoppingList.getDatabaseId())
-                .slash("/shoppingListGroups/")
-                .slash(group.getDatabaseId())
-                .withRel("delete"));
+        if(Objects.equals(group.getName(), "Global")) {
+            group.add(entityLinks
+                    .linkForSingleResource(ShoppingListDTO.class, shoppingList.getDatabaseId())
+                    .slash("/shoppingListGroups/")
+                    .slash(group.getDatabaseId())
+                    .withRel("delete"));
+        }
         
         group.add(entityLinks
                 .linkForSingleResource(ShoppingListDTO.class, shoppingList.getDatabaseId())

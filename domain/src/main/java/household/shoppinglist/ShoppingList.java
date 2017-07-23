@@ -50,6 +50,13 @@ public class ShoppingList extends AbstractModel {
 	}
 
     public void deleteShoppingListGroup(Long shoppingListGroupId) {
-        shoppingListGroups.removeIf(group -> Objects.equals(group.getId(), shoppingListGroupId));
+        Optional<ShoppingListGroup> shoppingListGroup = determineShoppingListGroup(shoppingListGroupId);
+        if(shoppingListGroup.isPresent()) {
+            if(Objects.equals(shoppingListGroup.get().getName(), "Global")) {
+                throw new ShoppingListGroupNotDeletableException();
+            } else {
+                shoppingListGroups.remove(shoppingListGroup.get());
+            }
+        }
     }
 }
