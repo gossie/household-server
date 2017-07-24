@@ -26,9 +26,9 @@ public class UserService {
         userRepository.saveUser(user);
     }
 
-    public void invite(String email, Long householdId) {
+    public void invite(String email, User sender) {
         User user = userRepository.determineUser(email).orElseThrow(() -> new IllegalStateException("no user with email [" + email + "]"));
-        user.addInvitation(new Invitation(null, householdId));
+        user.addInvitation(new Invitation(null, sender.getHouseholdId(), sender.getEmail()));
         userRepository.saveUser(user);
     }
 

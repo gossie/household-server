@@ -51,7 +51,7 @@ public class UserController {
 	@ResponseStatus(value = HttpStatus.OK)
 	public HttpEntity<Resource<UserDTO>> invite(@PathVariable Long userId, @RequestBody InvitationRequestDTO invitation) {
 		User invitingUser = userService.determineUser(userId);
-		userService.invite(invitation.getEmail(), invitingUser.getHouseholdId());
+		userService.invite(invitation.getEmail(), invitingUser);
 		return ResponseEntity.ok(createResource(invitingUser));
 	}
     

@@ -9,6 +9,6 @@ import lombok.RequiredArgsConstructor;
 class InvitationDTOMapper {
 
 	InvitationDTO map(Invitation invitation) {
-		return new InvitationDTO(invitation.getId(), invitation.getHouseholdId());
+		return new InvitationDTO(invitation.getId(), invitation.getHouseholdId(), invitation.getSender());
 	}
 }
