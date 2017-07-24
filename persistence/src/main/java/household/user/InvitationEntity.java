@@ -24,4 +24,6 @@ class InvitationEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private final Long id;
 	private final Long householdId;
+	private final String sender;
+	
 }

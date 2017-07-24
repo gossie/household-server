@@ -10,13 +10,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(access=AccessLevel.PACKAGE)
 @Getter
 class InvitationDTO extends AbstractDTO {
-	
+
 	private final Long databaseId;
 	private final Long householdId;
+    private final String sender;
 
 	@JsonIgnore
 	public Long getHouseholdId() {
 		return householdId;
 	}
-	
+
 }
