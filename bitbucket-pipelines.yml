@@ -4,7 +4,7 @@ clone:
     depth: full
 pipelines:
     default:
-        -step:
+        - step:
             caches:
                 - maven
             script:
