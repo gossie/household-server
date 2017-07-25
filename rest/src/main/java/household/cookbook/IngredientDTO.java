@@ -1,13 +1,16 @@
 package household.cookbook;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
-@RequiredArgsConstructor
+@AllArgsConstructor(access=AccessLevel.PACKAGE)
+@NoArgsConstructor(access=AccessLevel.PACKAGE)
 @Getter
 public class IngredientDTO {
 
-	private final double amount;
-	private final String unit;
-	private final String name;
+	private double amount;
+	private String unit;
+	private String name;
 }
