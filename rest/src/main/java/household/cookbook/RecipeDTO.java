@@ -4,14 +4,16 @@ import java.util.List;
 
 import household.AbstractDTO;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
-@RequiredArgsConstructor(access=AccessLevel.PACKAGE)
+@AllArgsConstructor(access=AccessLevel.PACKAGE)
+@NoArgsConstructor(access=AccessLevel.PACKAGE)
 @Getter
 public class RecipeDTO extends AbstractDTO {
 
-	private final Long databaseId;
-	private final String name;
-	private final List<IngredientDTO> ingredients;
+	private Long databaseId;
+	private String name;
+	private List<IngredientDTO> ingredients;
 }
