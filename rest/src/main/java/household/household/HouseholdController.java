@@ -59,7 +59,13 @@ public class HouseholdController {
 	}
 	
 	private Resource<HouseholdDTO> createResource(Household household) {
-		Resource<HouseholdDTO> resource = new Resource<HouseholdDTO>(householdMapper.map(household));
+		HouseholdDTO housholdDTO = householdMapper.map(household);
+		userService.determineUsers(household.getId())
+                .stream()
+                .map(user -> new ParticipantDTO(user.getId(), user.getEmail()))
+                .forEach(housholdDTO::addParticipant);
+		
+        Resource<HouseholdDTO> resource = new Resource<HouseholdDTO>(housholdDTO);
 		return householdResourceProcessor.process(resource);
 	}
 }
