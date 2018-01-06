@@ -2,11 +2,13 @@ package household.user;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 class DefaultUserRepository implements UserRepository {
@@ -42,6 +44,14 @@ class DefaultUserRepository implements UserRepository {
     @Override
     public User determineCurrentUser() {
         return determineUser(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow(IllegalStateException::new);
+    }
+
+    @Override
+    public List<User> determineUsers(Long householdId) {
+        return userEntityRepository.findByHouseholdId(householdId)
+                .stream()
+                .map(userMapper::map)
+                .collect(Collectors.toList());
     }
 
     @Override
