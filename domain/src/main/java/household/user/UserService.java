@@ -1,5 +1,6 @@
 package household.user;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -20,6 +21,10 @@ public class UserService {
 
     public User determineUser(Long userId) {
         return userRepository.determineUser(userId);
+    }
+
+    public List<User> determineUsers(Long householdId) {
+        return userRepository.determineUsers(householdId);
     }
 
     public void updateUser(User user) {
