@@ -29,9 +29,9 @@ class ChoreEntity {
 	private final Long id;
 	private String name;
 	private long lastPerformed;
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL, orphanRemoval=true)
 	private RepeatEntity repeat;
-	
+
 	Optional<RepeatEntity> getRepeat() {
 		return Optional.ofNullable(repeat);
 	}

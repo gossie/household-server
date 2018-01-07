@@ -28,9 +28,9 @@ class RecipeEntity {
 	private final Long id;
 	private String name;
 	private String description;
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<IngredientEntity> ingredients = new ArrayList<>();
-	
+
 	private RecipeEntity(Long id, String name) {
 		this.id = id;
 		this.name = name;
