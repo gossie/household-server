@@ -5,6 +5,7 @@ import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +43,12 @@ public class CookbookController {
 	@PutMapping(path="/{cookbookId}/recipes/{recipeId}", produces={"application/vnd.household.min.v1+json"}, consumes={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<CookbookDTO>> editRecipe(@PathVariable Long cookbookId, @PathVariable Long recipeId, @RequestBody RecipeDTO recipe) {
 		Cookbook minifiedCookbook = cookbookService.editRecipe(cookbookId, recipeId, recipeMapper.map(recipe));
+		return ResponseEntity.ok(createResource(minifiedCookbook));
+	}
+
+    @DeleteMapping(path="/{cookbookId}/recipes/{recipeId}", produces={"application/vnd.household.min.v1+json"}, consumes={"application/vnd.household.v1+json"})
+	public HttpEntity<Resource<CookbookDTO>> editRecipe(@PathVariable Long cookbookId, @PathVariable Long recipeId) {
+		Cookbook minifiedCookbook = cookbookService.deleteRecipe(cookbookId, recipeId);
 		return ResponseEntity.ok(createResource(minifiedCookbook));
 	}
 

@@ -12,7 +12,7 @@ import household.AbstractModel;
 public class Cookbook extends AbstractModel {
 
 	private List<Recipe> recipes;
-	
+
     Cookbook(Long id, List<Recipe> recipes) {
 		super(id);
 		this.recipes = new ArrayList<>(recipes);
@@ -22,7 +22,7 @@ public class Cookbook extends AbstractModel {
 		List<Recipe> minifiedRecipes = recipes.stream()
 				.map(r -> r.minify())
 				.collect(Collectors.toList());
-		
+
 		return new Cookbook(getId(), minifiedRecipes);
 	}
 
@@ -33,7 +33,7 @@ public class Cookbook extends AbstractModel {
 	public void addRecipe(Recipe recipe) {
 		recipes.add(recipe);
 	}
-	
+
 	public List<Recipe> getRecipes() {
 		return Collections.unmodifiableList(recipes);
 	}
@@ -44,6 +44,9 @@ public class Cookbook extends AbstractModel {
 			r.setDescription(recipe.getDescription());
 			r.setIngredients(recipe.getIngredients());
 		});
-		
 	}
+
+    public void deleteRecipe(Long recipeId) {
+        recipes.removeIf(r -> Objects.equals(recipeId, r.getId()));
+    }
 }
