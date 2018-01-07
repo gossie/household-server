@@ -45,6 +45,12 @@ public class CookbookController {
 		return ResponseEntity.ok(createResource(minifiedCookbook));
 	}
 
+    @DeleteMapping(path="/{cookbookId}/recipes/{recipeId}", produces={"application/vnd.household.min.v1+json"}, consumes={"application/vnd.household.v1+json"})
+	public HttpEntity<Resource<CookbookDTO>> editRecipe(@PathVariable Long cookbookId, @PathVariable Long recipeId) {
+		Cookbook minifiedCookbook = cookbookService.deleteRecipe(cookbookId, recipeId);
+		return ResponseEntity.ok(createResource(minifiedCookbook));
+	}
+
 	@PostMapping(path="/{cookbookId}/recipes", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.min.v1+json"})
 	public HttpEntity<Resource<CookbookDTO>> addRecipe(@PathVariable Long cookbookId, @RequestBody RecipeDTO recipe) {
 		Cookbook minifiedCookbook = cookbookService.addRecipe(cookbookId, recipeMapper.map(recipe));
