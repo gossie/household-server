@@ -47,7 +47,7 @@ public class CookbookController {
 	}
 
     @DeleteMapping(path="/{cookbookId}/recipes/{recipeId}", produces={"application/vnd.household.min.v1+json"}, consumes={"application/vnd.household.v1+json"})
-	public HttpEntity<Resource<CookbookDTO>> editRecipe(@PathVariable Long cookbookId, @PathVariable Long recipeId) {
+	public HttpEntity<Resource<CookbookDTO>> deleteRecipe(@PathVariable Long cookbookId, @PathVariable Long recipeId) {
 		Cookbook minifiedCookbook = cookbookService.deleteRecipe(cookbookId, recipeId);
 		return ResponseEntity.ok(createResource(minifiedCookbook));
 	}
