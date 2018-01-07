@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @ExposesResourceFor(CookbookDTO.class)
 @RequiredArgsConstructor
 public class CookbookController {
-	
+
 	private final CookbookDTOMapper cookbookMapper;
 	private final RecipeDTOMapper recipeMapper;
 	private final CookbookService cookbookService;
@@ -32,34 +32,34 @@ public class CookbookController {
 		Cookbook minifiedCookbook = cookbookService.getMinifiedCookbook(cookbookId);
 		return ResponseEntity.ok(createResource(minifiedCookbook));
 	}
-	
+
 	@GetMapping(path="/{cookbookId}/recipes/{recipeId}", produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<RecipeDTO>> getRecipe(@PathVariable Long cookbookId, @PathVariable Long recipeId) {
 		Recipe recipe = cookbookService.getRecipe(cookbookId, recipeId);
 		return ResponseEntity.ok(createResource(cookbookId, recipe));
 	}
-	
-	@PutMapping(path="/{cookbookId}/recipes/{recipeId}", produces={"application/vnd.household.v1+json"}, consumes={"application/vnd.household.v1+json"})
+
+	@PutMapping(path="/{cookbookId}/recipes/{recipeId}", produces={"application/vnd.household.min.v1+json"}, consumes={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<CookbookDTO>> editRecipe(@PathVariable Long cookbookId, @PathVariable Long recipeId, @RequestBody RecipeDTO recipe) {
-		Cookbook cookbook = cookbookService.editRecipe(cookbookId, recipeId, recipeMapper.map(recipe));
-		return ResponseEntity.ok(createResource(cookbook));
+		Cookbook minifiedCookbook = cookbookService.editRecipe(cookbookId, recipeId, recipeMapper.map(recipe));
+		return ResponseEntity.ok(createResource(minifiedCookbook));
 	}
-	
+
 	@PostMapping(path="/{cookbookId}/recipes", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.min.v1+json"})
 	public HttpEntity<Resource<CookbookDTO>> addRecipe(@PathVariable Long cookbookId, @RequestBody RecipeDTO recipe) {
 		Cookbook minifiedCookbook = cookbookService.addRecipe(cookbookId, recipeMapper.map(recipe));
 		return ResponseEntity.ok(createResource(minifiedCookbook));
 	}
-	
+
 	private Resource<CookbookDTO> createResource(Cookbook cookbook) {
 		Resource<CookbookDTO> resource = new Resource<CookbookDTO>(cookbookMapper.map(cookbook));
 		return cookbookResourceProcessor.process(resource);
 	}
-	
+
 	private Resource<RecipeDTO> createResource(Long cookbookId, Recipe recipe) {
 		return map(cookbookId, recipeMapper.map(recipe));
 	}
-	
+
 	private Resource<RecipeDTO> map(Long cookbookId, RecipeDTO recipe) {
 		Resource<RecipeDTO> resource = new Resource<>(recipe);
 		resource.add(entityLinks.linkForSingleResource(CookbookDTO.class, cookbookId).slash("recipes").slash(recipe.getDatabaseId()).withSelfRel());
