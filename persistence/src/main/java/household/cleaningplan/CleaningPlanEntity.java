@@ -26,7 +26,7 @@ class CleaningPlanEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private final Long id;
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<ChoreEntity> chores = new ArrayList<>();
 
 	void addChore(ChoreEntity chore) {
@@ -37,7 +37,7 @@ class CleaningPlanEntity {
 	void removeChore(long choreId) {
 		chores.removeIf(c -> c.getId().longValue() == choreId);
 	}
-	
+
 	void update(ChoreEntity input) {
 		chores.stream()
 				.filter(c -> c.getName().equals(input.getName()))
