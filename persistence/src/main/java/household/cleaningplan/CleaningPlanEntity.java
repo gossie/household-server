@@ -29,20 +29,4 @@ class CleaningPlanEntity {
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<ChoreEntity> chores = new ArrayList<>();
 
-	void addChore(ChoreEntity chore) {
-		chore.setLastPerformed(0);
-		chores.add(chore);
-	}
-
-	void removeChore(long choreId) {
-		chores.removeIf(c -> c.getId().longValue() == choreId);
-	}
-
-	void update(ChoreEntity input) {
-		chores.stream()
-				.filter(c -> c.getName().equals(input.getName()))
-				.findFirst()
-				.ifPresent(c -> c.setLastPerformed(input.getLastPerformed()));
-	}
-
 }
