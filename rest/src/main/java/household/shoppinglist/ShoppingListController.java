@@ -3,6 +3,8 @@ package household.shoppinglist;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ShoppingListController {
     
+    private static final Logger LOGGER = LoggerFactory.getLogger(ShoppingListController.class);
+    
     private final ShoppingListGroupDTOMapper shoppingListGroupMapper;
 	private final ShoppingListItemDTOMapper shoppingListItemMapper;
 	private final ShoppingListDTOMapper shoppingListMapper;
@@ -39,7 +43,12 @@ public class ShoppingListController {
 	
 	@PatchMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
 	public ResponseEntity<Resource<ShoppingListDTO>> toggleItem(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId) {
-		return ResponseEntity.ok(createResource(shoppingListService.toggleItem(id, groupId, itemId)));
+	    LOGGER.trace("toggle item {} in group {} of shopping list {id}", itemId, groupId, id);
+	    LOGGER.debug("toggle item {} in group {} of shopping list {id}", itemId, groupId, id);
+	    LOGGER.info("toggle item {} in group {} of shopping list {id}", itemId, groupId, id);
+	    LOGGER.warn("toggle item {} in group {} of shopping list {id}", itemId, groupId, id);
+	    LOGGER.error("toggle item {} in group {} of shopping list {id}", itemId, groupId, id);
+	    return ResponseEntity.ok(createResource(shoppingListService.toggleItem(id, groupId, itemId)));
 	}
 	
 	@DeleteMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
