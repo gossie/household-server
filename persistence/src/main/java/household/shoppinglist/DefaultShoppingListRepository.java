@@ -5,10 +5,10 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor(access=AccessLevel.PACKAGE)
 class DefaultShoppingListRepository implements ShoppingListRepository {
-	
+
 	private final ShoppingListEntityRepository shoppingListEntityRepository;
 	private final ShoppingListEntityMapper shoppingListMapper;
-	
+
 	@Override
 	public ShoppingList determineShoppingList(Long shoppingListId) {
 		return shoppingListMapper.map(shoppingListEntityRepository.findOne(shoppingListId));
@@ -18,10 +18,5 @@ class DefaultShoppingListRepository implements ShoppingListRepository {
 	public ShoppingList saveShoppingList(ShoppingList shoppingList) {
 		return shoppingListMapper.map(shoppingListEntityRepository.save(shoppingListMapper.map(shoppingList)));
 	}
-
-//	@Override
-//	public ShoppingList createShoppingList() {
-//		return shoppingListMapper.map(shoppingListEntityRepository.save(new ShoppingListEntity()));
-//	}
 
 }
