@@ -5,7 +5,7 @@ import javax.persistence.LockModeType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 
-public interface FoodPlanEntityRepository extends JpaRepository<FoodPlanEntity, Long> {
+interface FoodPlanEntityRepository extends JpaRepository<FoodPlanEntity, Long> {
 
     @Override
     @Lock(LockModeType.READ)
