@@ -52,6 +52,13 @@ public class PlanApplicationIT {
 		assertThat(determineLink(household, "cleaningPlan")).isNotNull();
 		assertThat(determineLink(household, "foodPlan")).isNotNull();
 		assertThat(determineLink(household, "cookbook")).isNotNull();
+		
+		household = getHousehold(1L, "user1@email.com", "12345678");
+		
+		JSONObject shoppingList = getShoppingList(1L, "user1@email.com", "12345678");
+        JSONObject cleaningPlan = getCleaningPlan(1L, "user1@email.com", "12345678");
+        JSONObject foodPlan = getFoodPlan(1L, "user1@email.com", "12345678");
+        JSONObject cookbook = getCookbook(1L, "user1@email.com", "12345678");
 
 		invite();
 
@@ -92,18 +99,84 @@ public class PlanApplicationIT {
 		return new JSONObject(response.getContentAsString());
 	}
 
-	private JSONObject createHousehold(String email, String password) throws Exception {
-		MockHttpServletResponse response = mvc
-				.perform(post("/api/households")
-						.with(httpBasic(email, password))
-						.contentType("application/vnd.household.v1+json"))
-		        .andReturn()
-		        .getResponse();
+    private JSONObject createHousehold(String email, String password) throws Exception {
+        MockHttpServletResponse response = mvc
+                .perform(post("/api/households")
+                        .with(httpBasic(email, password))
+                        .contentType("application/vnd.household.v1+json"))
+                .andReturn()
+                .getResponse();
 
-		assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(response.getStatus()).isEqualTo(200);
 
-		return new JSONObject(response.getContentAsString());
-	}
+        return new JSONObject(response.getContentAsString());
+    }
+    
+    private JSONObject getHousehold(long householdId, String email, String password) throws Exception {
+        MockHttpServletResponse response = mvc
+                .perform(get("/api/households/" + householdId)
+                        .with(httpBasic(email, password))
+                        .contentType("application/vnd.household.v1+json")
+                        .accept("application/vnd.household.v1+json"))
+                .andReturn()
+                .getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(200);
+
+        return new JSONObject(response.getContentAsString());
+    }
+    
+    private JSONObject getShoppingList(long shoppingListId, String email, String password) throws Exception {
+        MockHttpServletResponse response = mvc
+                .perform(get("/api/shoppingLists/" + shoppingListId)
+                        .with(httpBasic(email, password))
+                        .accept("application/vnd.household.v1+json"))
+                .andReturn()
+                .getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(200);
+
+        return new JSONObject(response.getContentAsString());
+    }
+    
+    private JSONObject getCleaningPlan(long cleaningPlanId, String email, String password) throws Exception {
+        MockHttpServletResponse response = mvc
+                .perform(get("/api/cleaningPlans/" + cleaningPlanId)
+                        .with(httpBasic(email, password))
+                        .accept("application/vnd.household.v1+json"))
+                .andReturn()
+                .getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(200);
+
+        return new JSONObject(response.getContentAsString());
+    }
+    
+    private JSONObject getFoodPlan(long foodPlanId, String email, String password) throws Exception {
+        MockHttpServletResponse response = mvc
+                .perform(get("/api/foodPlans/" + foodPlanId)
+                        .with(httpBasic(email, password))
+                        .accept("application/vnd.household.v1+json"))
+                .andReturn()
+                .getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(200);
+
+        return new JSONObject(response.getContentAsString());
+    }
+    
+    private JSONObject getCookbook(long cookbookId, String email, String password) throws Exception {
+        MockHttpServletResponse response = mvc
+                .perform(get("/api/cookbooks/" + cookbookId)
+                        .with(httpBasic(email, password))
+                        .accept("application/vnd.household.min.v1+json"))
+                .andReturn()
+                .getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(200);
+
+        return new JSONObject(response.getContentAsString());
+    }
 
 	private void invite() throws Exception {
 		MockHttpServletResponse response = mvc

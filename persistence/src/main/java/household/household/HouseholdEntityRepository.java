@@ -4,11 +4,13 @@ import javax.persistence.LockModeType;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface HouseholdEntityRepository extends JpaRepository<HouseholdEntity, Long> {
 
     @Override
-    @Lock(LockModeType.READ)
+    @Transactional
+//    @Lock(LockModeType.READ)
     HouseholdEntity findOne(Long id);
     
     @Override
