@@ -2,6 +2,8 @@ package household.user;
 
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpEntity;
@@ -24,6 +26,8 @@ import lombok.RequiredArgsConstructor;
 @ExposesResourceFor(UserDTO.class)
 @RequiredArgsConstructor
 public class UserController {
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 	
 	private final UserService userService;
 	private final UserDTOMapper userMapper;

@@ -23,7 +23,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ShoppingListGroupEntity {
+class ShoppingListGroupEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

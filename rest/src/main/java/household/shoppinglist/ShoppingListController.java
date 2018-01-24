@@ -27,59 +27,54 @@ import lombok.RequiredArgsConstructor;
 @ExposesResourceFor(ShoppingListDTO.class)
 @RequiredArgsConstructor
 public class ShoppingListController {
-    
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ShoppingListController.class);
-    
+
     private final ShoppingListGroupDTOMapper shoppingListGroupMapper;
 	private final ShoppingListItemDTOMapper shoppingListItemMapper;
 	private final ShoppingListDTOMapper shoppingListMapper;
 	private final ShoppingListService shoppingListService;
 	private final ShoppingListResourceProcessor shoppingListResourceProcessor;
-	
+
 	@GetMapping(path="/{id}", produces={"application/vnd.household.v2+json"})
 	public ResponseEntity<Resource<ShoppingListDTO>> getShoppingList(@PathVariable Long id) {
 		return ResponseEntity.ok(createResource(shoppingListService.getShoppingList(id)));
 	}
-	
+
 	@PatchMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
 	public ResponseEntity<Resource<ShoppingListDTO>> toggleItem(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId) {
-	    LOGGER.trace("toggle item {} in group {} of shopping list {id}", itemId, groupId, id);
-	    LOGGER.debug("toggle item {} in group {} of shopping list {id}", itemId, groupId, id);
-	    LOGGER.info("toggle item {} in group {} of shopping list {id}", itemId, groupId, id);
-	    LOGGER.warn("toggle item {} in group {} of shopping list {id}", itemId, groupId, id);
-	    LOGGER.error("toggle item {} in group {} of shopping list {id}", itemId, groupId, id);
 	    return ResponseEntity.ok(createResource(shoppingListService.toggleItem(id, groupId, itemId)));
 	}
-	
+
 	@DeleteMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
 	public ResponseEntity<Resource<ShoppingListDTO>> removedSelectedItemsFromShoppingListGroup(@PathVariable Long id, @PathVariable Long groupId) {
 		return ResponseEntity.ok(createResource(shoppingListService.removeSelectedItemsFromShoppingListGroup(id, groupId)));
 	}
-	
+
 	@PostMapping(path="/{id}/shoppingListGroups", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
     public ResponseEntity<Resource<ShoppingListDTO>> addGroup(@PathVariable Long id, @RequestBody ShoppingListGroupDTO shoppingListGroup) {
         return ResponseEntity.ok(createResource(shoppingListService.addShoppingListGroup(id, shoppingListGroupMapper.map(shoppingListGroup))));
     }
-	
+
 	@DeleteMapping(path="/{id}/shoppingListGroups/{groupId}", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
     public ResponseEntity<Resource<ShoppingListDTO>> deleteGroup(@PathVariable Long id, @PathVariable Long groupId) {
         return ResponseEntity.ok(createResource(shoppingListService.deleteShoppingListGroup(id, groupId)));
     }
-	
+
 	@PostMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
 	public ResponseEntity<Resource<ShoppingListDTO>> addItem(@PathVariable Long id, @PathVariable Long groupId, @RequestBody List<ShoppingListItemDTO> shoppingListItems) {
 		List<ShoppingListItem> entities = shoppingListItems.stream().map(shoppingListItemMapper::map).collect(Collectors.toList());
 		return ResponseEntity.ok(createResource(shoppingListService.addShoppingListItems(id, groupId, entities)));
 	}
-	
+
 	private Resource<ShoppingListDTO> createResource(ShoppingList shoppingList) {
 		Resource<ShoppingListDTO> resource = new Resource<ShoppingListDTO>(shoppingListMapper.map(shoppingList));
 		return shoppingListResourceProcessor.process(resource);
 	}
-	
+
 	@ResponseStatus(value=HttpStatus.FORBIDDEN, reason="The group must not be deleted!")
     @ExceptionHandler(ShoppingListGroupNotDeletableException.class)
     public void handleException() {
-	    
+
     }
 }

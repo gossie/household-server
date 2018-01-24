@@ -23,14 +23,14 @@ import org.springframework.web.context.WebApplicationContext;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PlanApplicationIT {
-	
+
 	@Autowired
 	private WebApplicationContext context;
 	@Autowired
 	private FilterChainProxy filterChainProxy;
-	
+
 	private MockMvc mvc;
-	
+
 	@Before
 	public void setUp() {
 		mvc = MockMvcBuilders
@@ -38,42 +38,42 @@ public class PlanApplicationIT {
 				.addFilters(filterChainProxy)
 				.build();
 	}
-	
+
 	@Test
 	public void contextLoads() throws Exception {
 		JSONObject user1 = createUser("user1@email.com", "12345678");
 		assertThat(user1.getString("email")).isEqualTo("user1@email.com");
-		
+
 		JSONObject user2 = createUser("user2@email.com", "87654321");
 		assertThat(user2.getString("email")).isEqualTo("user2@email.com");
-		
+
 		JSONObject household = createHousehold("user1@email.com", "12345678");
 		assertThat(determineLink(household, "shoppingList")).isNotNull();
 		assertThat(determineLink(household, "cleaningPlan")).isNotNull();
 		assertThat(determineLink(household, "foodPlan")).isNotNull();
 		assertThat(determineLink(household, "cookbook")).isNotNull();
-		
+
 		invite();
-		
+
 		user1 = getUser(1L, "user1@email.com", "12345678");
 		assertThat(determineLink(user1, "household")).isNotNull();
-		
+
 		user2 = getUser(2L, "user2@email.com", "87654321");
 		assertThat(determineLink(user2, "household")).isNull();
 		assertThat(user2.getJSONArray("invitations").length()).isEqualTo(1);
-		
+
 		rejectInvitation(2L, 1L, "user2@email.com", "87654321");
-		
+
 		user2 = getUser(2L, "user2@email.com", "87654321");
 		assertThat(user2.getJSONArray("invitations").length()).isEqualTo(0);
-		
+
 		invite();
-		
+
 		user2 = getUser(2L, "user2@email.com", "87654321");
 		assertThat(user2.getJSONArray("invitations").length()).isEqualTo(1);
-		
+
 		acceptInvitation(2L, 1L, "user2@email.com", "87654321");
-		
+
 		user2 = getUser(2L, "user2@email.com", "87654321");
         assertThat(determineLink(user1, "household")).isNotNull();
         assertThat(user2.getJSONArray("invitations").length()).isEqualTo(1);
@@ -88,10 +88,10 @@ public class PlanApplicationIT {
 		        .getResponse();
 
 		assertThat(response.getStatus()).isEqualTo(200);
-		
+
 		return new JSONObject(response.getContentAsString());
 	}
-	
+
 	private JSONObject createHousehold(String email, String password) throws Exception {
 		MockHttpServletResponse response = mvc
 				.perform(post("/api/households")
@@ -101,10 +101,10 @@ public class PlanApplicationIT {
 		        .getResponse();
 
 		assertThat(response.getStatus()).isEqualTo(200);
-		
+
 		return new JSONObject(response.getContentAsString());
 	}
-	
+
 	private void invite() throws Exception {
 		MockHttpServletResponse response = mvc
 				.perform(post("/api/users/1/invitations")
@@ -113,10 +113,10 @@ public class PlanApplicationIT {
 						.content("{\"email\":\"user2@email.com\"}"))
 				.andReturn()
 				.getResponse();
-		
+
 		assertThat(response.getStatus()).isEqualTo(200);
 	}
-	
+
 	private JSONObject getUser(Long id, String email, String password) throws Exception {
 		MockHttpServletResponse response = mvc
 				.perform(get("/api/users/" + id)
@@ -125,10 +125,10 @@ public class PlanApplicationIT {
 		        .getResponse();
 
 		assertThat(response.getStatus()).isEqualTo(200);
-		
+
 		return new JSONObject(response.getContentAsString());
 	}
-	
+
 	private void rejectInvitation(long userId, long invitationId, String email, String password) throws Exception {
 		MockHttpServletResponse response = mvc
 				.perform(delete("/api/users/" + userId + "/invitations/" + invitationId)
@@ -138,7 +138,7 @@ public class PlanApplicationIT {
 
 		assertThat(response.getStatus()).isEqualTo(200);
 	}
-	
+
 	private void acceptInvitation(long userId, long invitationId, String email, String password) throws Exception {
 		MockHttpServletResponse response = mvc
 				.perform(post("/api/users/" + userId + "/invitations/" + invitationId)
@@ -148,7 +148,7 @@ public class PlanApplicationIT {
 
 		assertThat(response.getStatus()).isEqualTo(200);
 	}
-	
+
 	private String determineLink(JSONObject json, String rel) throws Exception {
 		JSONArray jsonArray = json.getJSONArray("links");
 		for(int i=0; i<jsonArray.length(); i++) {

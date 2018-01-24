@@ -17,7 +17,7 @@ public class ShoppingList extends AbstractModel {
 		this.shoppingListGroups = new ArrayList<>(shoppingListGroups);
 	}
 
-	public ShoppingList(Long id) {
+	ShoppingList(Long id) {
 		this(id, new ArrayList<>(Collections.singletonList(new ShoppingListGroup(null, "Global", Collections.emptyList()))));
 	}
 	

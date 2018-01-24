@@ -19,9 +19,4 @@ class DefaultShoppingListRepository implements ShoppingListRepository {
 		return shoppingListMapper.map(shoppingListEntityRepository.save(shoppingListMapper.map(shoppingList)));
 	}
 
-//	@Override
-//	public ShoppingList createShoppingList() {
-//		return shoppingListMapper.map(shoppingListEntityRepository.save(new ShoppingListEntity()));
-//	}
-
 }

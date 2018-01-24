@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class HouseholdResourceProcessor implements ResourceProcessor<Resource<HouseholdDTO>> {
+class HouseholdResourceProcessor implements ResourceProcessor<Resource<HouseholdDTO>> {
 
 	private final EntityLinks entityLinks;
 
