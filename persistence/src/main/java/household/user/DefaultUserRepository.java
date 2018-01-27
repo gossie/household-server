@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
+@Transactional(readOnly=true)
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 class DefaultUserRepository implements UserRepository {
 
@@ -18,6 +21,8 @@ class DefaultUserRepository implements UserRepository {
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    @Transactional
+    @Modifying
     public User createUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userMapper.map(userEntityRepository.save(userMapper.map(user)));
@@ -55,6 +60,8 @@ class DefaultUserRepository implements UserRepository {
     }
 
     @Override
+    @Transactional
+    @Modifying
     public User saveUser(User user) {
         return userMapper.map(userEntityRepository.save(userMapper.map(user)));
     }
