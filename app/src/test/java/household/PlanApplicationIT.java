@@ -72,16 +72,16 @@ public class PlanApplicationIT {
         assertThat(user2.getJSONArray("invitations").length()).isEqualTo(1);
         
 //        JSONObject shoppingList = getShoppingList(1L, "user1@email.com", "12345678");
-        
-        new Thread(() -> addItems("T1", "user1@email.com", "12345678")).start();
-        new Thread(() -> addItems("T2", "user2@email.com", "87654321")).start();
-        
-        Thread.sleep(5000);
-        
-        new Thread(() -> toggleItems("T1", "user1@email.com", "12345678")).start();
-        new Thread(() -> toggleItems("T2", "user2@email.com", "87654321")).start();
-        
-        Thread.sleep(5000);
+//        
+//        new Thread(() -> addItems("T1", "user1@email.com", "12345678")).start();
+//        new Thread(() -> addItems("T2", "user2@email.com", "87654321")).start();
+//        
+//        Thread.sleep(5000);
+//        
+//        new Thread(() -> toggleItems("T1", "user1@email.com", "12345678")).start();
+//        new Thread(() -> toggleItems("T2", "user2@email.com", "87654321")).start();
+//        
+//        Thread.sleep(5000);
 	}
 	
 	private void addItems(String prefix, String email, String password) {

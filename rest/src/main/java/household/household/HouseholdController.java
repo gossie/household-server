@@ -1,5 +1,10 @@
 package household.household;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpEntity;
@@ -39,13 +44,19 @@ public class HouseholdController {
 	private final HouseholdResourceProcessor householdResourceProcessor;
 	
 	@PostMapping(produces={"application/vnd.household.v1+json"})
-	public HttpEntity<Resource<HouseholdDTO>> createHousehold() {
-		ShoppingList shoppingList = shoppingListService.createShoppingList();
-		CleaningPlan cleaningPlan = cleaningPlanService.createCleaningPlan();
-		FoodPlan foodPlan = foodPlanService.createFoodPlan();
-		Cookbook cookbook = cookbookService.createCookbook();
+	public HttpEntity<Resource<HouseholdDTO>> createHousehold() throws InterruptedException, ExecutionException {
+	    ExecutorService threadPool = Executors.newFixedThreadPool(4);
+	    Future<ShoppingList> shoppingList = threadPool.submit(shoppingListService::createShoppingList);
+	    Future<CleaningPlan> cleaningPlan = threadPool.submit(cleaningPlanService::createCleaningPlan);
+	    Future<FoodPlan> foodPlan = threadPool.submit(foodPlanService::createFoodPlan);
+	    Future<Cookbook> cookbook = threadPool.submit(cookbookService::createCookbook);
 
-		Household household = householdService.createHousehold(shoppingList, cleaningPlan, foodPlan, cookbook);
+		Household household;
+        try {
+            household = householdService.createHousehold(shoppingList.get(), cleaningPlan.get(), foodPlan.get(), cookbook.get());
+        } finally {
+            threadPool.shutdown();
+        }
 		User currentUser = userService.determineCurrentUser();
 		currentUser.setHouseholdId(household.getId());
 		userService.updateUser(currentUser);
@@ -60,8 +71,7 @@ public class HouseholdController {
 	
 	private Resource<HouseholdDTO> createResource(Household household) {
 		HouseholdDTO housholdDTO = householdMapper.map(household);
-		userService.determineUsers(household.getId())
-                .stream()
+		userService.determineUsers(household.getId()).stream()
                 .map(user -> new ParticipantDTO(user.getId(), user.getEmail()))
                 .forEach(housholdDTO::addParticipant);
 		
