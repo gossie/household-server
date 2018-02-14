@@ -1,24 +1,20 @@
 package household.household;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor(access=AccessLevel.PACKAGE)
 class DefaultHouseholdRepository implements HouseholdRepository {
-	
+
 	private final HouseholdEntityRepository householdEntityRepository;
 	private final HouseholdMapper householdMapper;
 
 	@Override
-    @Transactional
 	public Household determineHousehold(Long householdId) {
 		return householdMapper.map(householdEntityRepository.findOne(householdId));
 	}
 
 	@Override
-    @Transactional
 	public Household saveHousehold(Household household) {
 		return householdMapper.map(householdEntityRepository.save(householdMapper.map(household)));
 	}
