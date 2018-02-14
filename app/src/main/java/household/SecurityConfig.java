@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
 	private UserDetailsService userDetailsService;
 	@Autowired
@@ -24,10 +24,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(userDetailsService);
         auth.authenticationProvider(authenticationProvider);
     }
-	
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+            .mvcMatchers(HttpMethod.OPTIONS).permitAll()
             .mvcMatchers(HttpMethod.POST, "/api/users").permitAll()
             .mvcMatchers(HttpMethod.GET, "/api/status").permitAll()
             .anyRequest().fullyAuthenticated();
