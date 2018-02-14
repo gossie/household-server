@@ -4,6 +4,7 @@ import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/households")
 @ExposesResourceFor(HouseholdDTO.class)
+@CrossOrigin
 @RequiredArgsConstructor
 public class HouseholdController {
 
@@ -33,11 +35,11 @@ public class HouseholdController {
 	private final CleaningPlanService cleaningPlanService;
 	private final FoodPlanService foodPlanService;
 	private final CookbookService cookbookService;
-	
+
 	private final HouseholdService householdService;
 	private final HouseholdDTOMapper householdMapper;
 	private final HouseholdResourceProcessor householdResourceProcessor;
-	
+
 	@PostMapping(produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<HouseholdDTO>> createHousehold() {
 		ShoppingList shoppingList = shoppingListService.createShoppingList();
@@ -49,22 +51,22 @@ public class HouseholdController {
 		User currentUser = userService.determineCurrentUser();
 		currentUser.setHouseholdId(household.getId());
 		userService.updateUser(currentUser);
-		
+
 		return ResponseEntity.ok(createResource(household));
 	}
-	
+
 	@GetMapping(path="/{id}", produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<HouseholdDTO>> getHoushold(@PathVariable Long id) {
 		return ResponseEntity.ok(createResource(householdService.getHousehold(id)));
 	}
-	
+
 	private Resource<HouseholdDTO> createResource(Household household) {
 		HouseholdDTO housholdDTO = householdMapper.map(household);
 		userService.determineUsers(household.getId())
                 .stream()
                 .map(user -> new ParticipantDTO(user.getId(), user.getEmail()))
                 .forEach(housholdDTO::addParticipant);
-		
+
         Resource<HouseholdDTO> resource = new Resource<HouseholdDTO>(housholdDTO);
 		return householdResourceProcessor.process(resource);
 	}

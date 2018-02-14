@@ -9,6 +9,7 @@ import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,33 +25,34 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/users")
 @ExposesResourceFor(UserDTO.class)
+@CrossOrigin
 @RequiredArgsConstructor
 public class UserController {
-    
+
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-	
+
 	private final UserService userService;
 	private final UserDTOMapper userMapper;
 	private final UserResourceProcessor userResourceProcessor;
-	
+
 	@PostMapping(produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<UserDTO>> createUser(@RequestBody Map<String, String> data) {
 		User createUser = userService.createUser(new User(null, data.get("email"), data.get("password")));
 		return ResponseEntity.ok(createResource(createUser));
 	}
-	
+
 	@GetMapping(path="/{userId}", produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<UserDTO>> getUser(@PathVariable Long userId) {
 		User user = userService.determineUser(userId);
 		return ResponseEntity.ok(createResource(user));
 	}
-	
+
 	@PostMapping(path="/login", produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<UserDTO>> login() {
 		User user = userService.determineCurrentUser();
 		return ResponseEntity.ok(createResource(user));
 	}
-	
+
 	@PostMapping(path="/{userId}/invitations", consumes={"application/vnd.household.v1+json"})
 	@ResponseStatus(value = HttpStatus.OK)
 	public HttpEntity<Resource<UserDTO>> invite(@PathVariable Long userId, @RequestBody InvitationRequestDTO invitation) {
@@ -58,29 +60,29 @@ public class UserController {
 		userService.invite(invitation.getEmail(), invitingUser);
 		return ResponseEntity.ok(createResource(invitingUser));
 	}
-    
+
     @PostMapping(path="/{userId}/invitations/{invitationId}", produces={"application/vnd.household.v1+json"})
     @ResponseStatus(value = HttpStatus.OK)
     public HttpEntity<Resource<UserDTO>> acceptInvitation(@PathVariable Long userId, @PathVariable Long invitationId) {
         userService.acceptInvitation(userId, invitationId);
         return ResponseEntity.ok(createResource(userService.determineUser(userId)));
     }
-	
+
 	@DeleteMapping(path="/{userId}/invitations/{invitationId}", produces={"application/vnd.household.v1+json"})
 	@ResponseStatus(value = HttpStatus.OK)
 	public HttpEntity<Resource<UserDTO>> rejectInvitation(@PathVariable Long userId, @PathVariable Long invitationId) {
 		userService.rejectInvitation(userId, invitationId);
 		return ResponseEntity.ok(createResource(userService.determineUser(userId)));
 	}
-	
+
 	private Resource<UserDTO> createResource(User user) {
 		Resource<UserDTO> resource = new Resource<UserDTO>(userMapper.map(user));
 		return userResourceProcessor.process(resource);
 	}
-	
+
 	@ResponseStatus(value=HttpStatus.CONFLICT, reason="Der Benutzer ist bereits vorhanden.")
     @ExceptionHandler(UserAlreadyExistsException.class)
     public void handleException() {
-        
+
     }
 }
