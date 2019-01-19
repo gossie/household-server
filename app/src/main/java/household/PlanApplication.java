@@ -4,6 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.hateoas.config.EnableEntityLinks;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import household.cleaningplan.CleaningPlanRepository;
 import household.cleaningplan.CleaningPlanService;
@@ -54,6 +57,16 @@ public class PlanApplication {
 	@Bean
 	public UserService userService(UserRepository userRepository) {
 		return new UserService(userRepository);
+	}
+
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurerAdapter() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/api/**").allowedOrigins("*");
+			}
+		};
 	}
 	
 }
