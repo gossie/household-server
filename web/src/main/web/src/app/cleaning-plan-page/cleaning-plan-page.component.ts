@@ -15,7 +15,6 @@ export class CleaningPlanPageComponent implements OnInit {
 
     public ngOnInit() {
         this.cleaningPlan = this.route.snapshot.data.cleaningPlan;
-        console.log('this.cleaningPlan', this.cleaningPlan);
     }
 
 }

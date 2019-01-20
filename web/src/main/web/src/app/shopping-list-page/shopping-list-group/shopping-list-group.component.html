@@ -1,5 +1,13 @@
-<p>
-    {{ shoppingListGroup.name }}
-    <app-shopping-list-item *ngFor="let item of shoppingListGroup.shoppingListItems"
-                            [shoppingListItem]="item"></app-shopping-list-item>
-</p>
+{{ shoppingListGroup.name }}
+<form [formGroup]="shoppingListItemForm" (ngSubmit)="addShoppingListItem()">
+    <div class="field is-grouped">
+        <div class="control">
+            <input class="input" type="text" formControlName="name" placeholder="Item" />
+        </div>
+        <div class="control">
+            <button class="button is-link" type="submit" [disabled]="!shoppingListItemForm.valid">Hinzufügen</button>
+        </div>
+    </div>
+</form>
+<app-shopping-list-item *ngFor="let item of shoppingListGroup.shoppingListItems"
+                        [shoppingListItem]="item"></app-shopping-list-item>

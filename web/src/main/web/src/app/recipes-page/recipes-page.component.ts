@@ -15,7 +15,6 @@ export class RecipesPageComponent implements OnInit {
 
     public ngOnInit() {
         this.cookbook = this.route.snapshot.data.cookbook;
-        console.log('this.cookbook', this.cookbook);
     }
 
 }

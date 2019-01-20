@@ -15,7 +15,6 @@ export class FoodPlanPageComponent implements OnInit {
 
     public ngOnInit() {
         this.foodPlan = this.route.snapshot.data.foodPlan;
-        console.log('this.foodPlan', this.foodPlan);
     }
 
 }

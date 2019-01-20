@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, tap } from 'rxjs/internal/operators';
+import { filter } from 'rxjs/internal/operators';
 import { UserData } from './user-data';
 import { ObjectUtils } from './object.utils';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class UserService {
 

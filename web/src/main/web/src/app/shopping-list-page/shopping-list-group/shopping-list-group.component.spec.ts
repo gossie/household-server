@@ -1,6 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShoppingListGroupComponent } from './shopping-list-group.component';
-import { ShoppingListItemComponent } from "./shopping-list-item/shopping-list-item.component";
+import { Component, Input } from "@angular/core";
+import { ShoppingListItem } from "./shopping-list-item/shopping-list-item";
+import {ReactiveFormsModule} from "@angular/forms";
+import {ShoppingListService} from "../shopping-list.service";
+import {ShoppingListServiceMock} from "../shopping-list.service.mock";
+
+@Component({
+    selector: [
+        'app-shopping-list-item'
+    ].join(','),
+    template: '',
+})
+class MockComponent{
+    @Input()
+    public shoppingListItem: ShoppingListItem
+}
 
 describe('ShoppingListGroupComponent', () => {
     let component: ShoppingListGroupComponent;
@@ -8,9 +23,15 @@ describe('ShoppingListGroupComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            imports: [
+                ReactiveFormsModule
+            ],
             declarations: [
                 ShoppingListGroupComponent,
-                ShoppingListItemComponent
+                MockComponent
+            ],
+            providers: [
+                { provide: ShoppingListService, useClass: ShoppingListServiceMock }
             ]
         })
         .compileComponents();
