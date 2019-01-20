@@ -1,3 +1,4 @@
-<p>
-  shopping-list-page works!
-</p>
+<div *ngIf="shoppingList">
+    <app-shopping-list-group *ngFor="let group of shoppingList.shoppingListGroups"
+                             [shoppingListGroup]="group"></app-shopping-list-group>
+</div>

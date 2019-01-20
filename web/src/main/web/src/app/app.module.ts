@@ -11,6 +11,8 @@ import { ShoppingListPageComponent } from './shopping-list-page/shopping-list-pa
 import { CleaningPlanPageComponent } from './cleaning-plan-page/cleaning-plan-page.component';
 import { FoodPlanPageComponent } from './food-plan-page/food-plan-page.component';
 import { RecipesPageComponent } from './recipes-page/recipes-page.component';
+import { ShoppingListGroupComponent } from './shopping-list-page/shopping-list-group/shopping-list-group.component';
+import { ShoppingListItemComponent } from './shopping-list-page/shopping-list-group/shopping-list-item/shopping-list-item.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { RecipesPageComponent } from './recipes-page/recipes-page.component';
     ShoppingListPageComponent,
     CleaningPlanPageComponent,
     FoodPlanPageComponent,
-    RecipesPageComponent
+    RecipesPageComponent,
+    ShoppingListGroupComponent,
+    ShoppingListItemComponent
   ],
   imports: [
     ReactiveFormsModule,

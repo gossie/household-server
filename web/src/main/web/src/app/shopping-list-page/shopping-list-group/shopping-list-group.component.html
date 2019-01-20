@@ -1,0 +1,5 @@
+<p>
+    {{ shoppingListGroup.name }}
+    <app-shopping-list-item *ngFor="let item of shoppingListGroup.shoppingListItems"
+                            [shoppingListItem]="item"></app-shopping-list-item>
+</p>
