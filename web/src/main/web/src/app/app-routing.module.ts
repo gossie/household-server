@@ -9,6 +9,10 @@ import { CleaningPlanPageComponent } from './cleaning-plan-page/cleaning-plan-pa
 import { FoodPlanPageComponent } from './food-plan-page/food-plan-page.component';
 import { RecipesPageComponent } from './recipes-page/recipes-page.component';
 import { HouseholdResolverService } from './household-page/household-resolver.service';
+import {ShoppingListResolverService} from "./shopping-list-page/shopping-list-resolver.service";
+import {CookbookResolverService} from "./recipes-page/cookbook-resolver.service";
+import {FoodPlanResolverService} from "./food-plan-page/food-plan-resolver.service";
+import {CleaningPlanResolverService} from "./cleaning-plan-page/cleaning-plan-resolver.service";
 
 const routes: Routes = [{
     path: '',
@@ -21,30 +25,42 @@ const routes: Routes = [{
     path: Page.Household,
     component: HouseholdPageComponent,
     canActivate: [AuthGuardService],
-    resolve: [
-        HouseholdResolverService
-    ],
+    resolve: {
+        household: HouseholdResolverService
+    },
     children: [
         {
             path: Page.ShoppingList,
             component: ShoppingListPageComponent,
             canActivate: [AuthGuardService],
-            outlet: 'inner'
+            outlet: 'inner',
+            resolve: {
+                shoppingList: ShoppingListResolverService
+            }
         }, {
             path: Page.CleaningPlan,
             component: CleaningPlanPageComponent,
             canActivate: [AuthGuardService],
-            outlet: 'inner'
+            outlet: 'inner',
+            resolve: {
+                cleaningPlan: CleaningPlanResolverService
+            }
         }, {
             path: Page.FoodPlan,
             component: FoodPlanPageComponent,
             canActivate: [AuthGuardService],
-            outlet: 'inner'
+            outlet: 'inner',
+            resolve: {
+                foodPlan: FoodPlanResolverService
+            }
         }, {
-            path: Page.Recipes,
+            path: Page.Cookbook,
             component: RecipesPageComponent,
             canActivate: [AuthGuardService],
-            outlet: 'inner'
+            outlet: 'inner',
+            resolve: {
+                cookbook: CookbookResolverService
+            }
         }
     ]
 }];

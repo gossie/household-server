@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {FoodPlan} from "./food-plan";
 
 @Component({
   selector: 'app-food-plan-page',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FoodPlanPageComponent implements OnInit {
 
-  constructor() { }
+    public foodPlan: FoodPlan;
 
-  ngOnInit() {
-  }
+    constructor(private route: ActivatedRoute) { }
+
+    public ngOnInit() {
+        this.foodPlan = this.route.snapshot.data.foodPlan;
+        console.log('this.foodPlan', this.foodPlan);
+    }
 
 }

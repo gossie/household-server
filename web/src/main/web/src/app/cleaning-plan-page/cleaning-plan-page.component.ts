@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {CleaningPlan} from "./cleaning-plan";
 
 @Component({
   selector: 'app-cleaning-plan-page',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CleaningPlanPageComponent implements OnInit {
 
-  constructor() { }
+    public cleaningPlan: CleaningPlan;
 
-  ngOnInit() {
-  }
+    constructor(private route: ActivatedRoute) { }
+
+    public ngOnInit() {
+        this.cleaningPlan = this.route.snapshot.data.cleaningPlan;
+        console.log('this.cleaningPlan', this.cleaningPlan);
+    }
 
 }

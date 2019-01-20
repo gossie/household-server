@@ -4,5 +4,5 @@ export enum Page {
     ShoppingList = 'shopping-list',
     CleaningPlan = 'cleaning-plan',
     FoodPlan = 'food-plan',
-    Recipes = 'recipes'
+    Cookbook = 'cookbook'
 }
