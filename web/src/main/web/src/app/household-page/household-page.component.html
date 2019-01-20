@@ -13,19 +13,19 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a routerLink="/shopping-list" class="navbar-item">
+      <a [routerLink]="[{ outlets: { inner: ['shopping-list'] } }]" class="navbar-item">
         Einkaufsliste
       </a>
 
-      <a routerLink="/cleaning-plan" class="navbar-item">
+      <a [routerLink]="[{ outlets: { inner: ['cleaning-plan'] } }]" class="navbar-item">
         Putzplan
       </a>
 
-      <a routerLink="/food-plan" class="navbar-item">
+      <a [routerLink]="[{ outlets: { inner: ['food-plan'] } }]" class="navbar-item">
         Essensplan
       </a>
 
-      <a routerLink="/recipes" class="navbar-item">
+      <a [routerLink]="[{ outlets: { inner: ['recipes'] } }]" class="navbar-item">
         Rezepte
       </a>
     </div>
@@ -44,3 +44,6 @@
     </div>
   </div>
 </nav>
+<div>
+    <router-outlet name="inner"></router-outlet>
+</div>
