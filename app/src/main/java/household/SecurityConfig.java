@@ -28,13 +28,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors()
-                .and()
+            .and()
                 .authorizeRequests()
                 .mvcMatchers(HttpMethod.OPTIONS).permitAll()
                 .mvcMatchers(HttpMethod.POST, "/api/users").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/api/status").permitAll()
-                .anyRequest().fullyAuthenticated();
-        http.httpBasic();
-        http.csrf().disable();
+                .anyRequest().fullyAuthenticated()
+            .and()
+                .httpBasic()
+            .and()
+                .csrf().disable();
     }
 }

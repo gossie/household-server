@@ -34,6 +34,12 @@
             <artifactId>plan-persistence</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>household</groupId>
+            <artifactId>plan-web</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>runtime</scope>
+        </dependency>
     
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -90,6 +96,26 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/classes/resources/</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.parent.basedir}/tutorial-web/src/main/web/dist/np-app/</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
