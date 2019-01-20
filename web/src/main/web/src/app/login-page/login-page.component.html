@@ -1,0 +1,24 @@
+<form [formGroup]="form" (ngSubmit)="login()">
+    <div class="field">
+        <p class="control has-icons-left has-icons-right">
+            <input class="input" type="email" formControlName="email" placeholder="E-Mail" />
+            <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+            </span>
+        </p>
+    </div>
+    <div class="field">
+        <p class="control has-icons-left">
+            <input class="input" type="password" formControlName="password" placeholder="Passwort" />
+            <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+            </span>
+        </p>
+    </div>
+
+    <div class="field is-grouped">
+        <div class="control">
+            <button class="button is-link" type="submit" [disabled]="!form.valid">Login</button>
+        </div>
+    </div>
+</form>
