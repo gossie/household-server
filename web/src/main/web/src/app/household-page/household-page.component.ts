@@ -11,6 +11,7 @@ import {ActivatedRoute} from "@angular/router";
 export class HouseholdPageComponent implements OnInit {
 
     public household: Household;
+    public expanded: boolean = false;
 
     constructor(private route: ActivatedRoute) { }
 
@@ -20,5 +21,9 @@ export class HouseholdPageComponent implements OnInit {
 
     public determineUrl(rel: string): string {
         return this.household.links.find((link: Link) => link.rel === rel).href;
+    }
+
+    public toggleNavbar(): void {
+        this.expanded = !this.expanded;
     }
 }
