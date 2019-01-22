@@ -43,6 +43,26 @@ export class ShoppingListService extends AbstractNetworkService {
         });
     }
 
+    public deleteShoppingListGroup(shoppingListGroup: ShoppingListGroup): Observable<ShoppingList> {
+        const url: string = this.determineUrl(shoppingListGroup, 'delete');
+        return this.httpClient.delete<ShoppingList>(url, {
+            headers: {
+                Authorization: this.userService.getUserData().authData,
+                Accept: 'application/vnd.household.v2+json'
+            }
+        });
+    }
+
+    public clearShoppingListGroup(shoppingListGroup: ShoppingListGroup): Observable<ShoppingList> {
+        const url: string = this.determineUrl(shoppingListGroup, 'clear');
+        return this.httpClient.delete<ShoppingList>(url, {
+            headers: {
+                Authorization: this.userService.getUserData().authData,
+                Accept: 'application/vnd.household.v2+json'
+            }
+        });
+    }
+
     public addShoppingListItem(shoppingListGroup: ShoppingListGroup, name: string): Observable<ShoppingList> {
         const url: string = this.determineUrl(shoppingListGroup, 'add');
         const body: Array<ShoppingListItem> = [{

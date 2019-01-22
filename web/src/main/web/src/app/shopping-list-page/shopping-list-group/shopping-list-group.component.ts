@@ -35,4 +35,18 @@ export class ShoppingListGroupComponent implements OnInit {
             });
     }
 
+    public deleteShoppingListGroup(): void {
+        this.shoppingListService.deleteShoppingListGroup(this.shoppingListGroup)
+            .subscribe((shoppingList: ShoppingList) => {
+                this.shoppingListEmitter.emit(shoppingList);
+            });
+    }
+
+    public clearShoppingListGroup(): void {
+        this.shoppingListService.clearShoppingListGroup(this.shoppingListGroup)
+            .subscribe((shoppingList: ShoppingList) => {
+                this.shoppingListEmitter.emit(shoppingList);
+            });
+    }
+
 }
