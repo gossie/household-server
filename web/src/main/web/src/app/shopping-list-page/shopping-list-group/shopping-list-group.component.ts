@@ -27,6 +27,10 @@ export class ShoppingListGroupComponent implements OnInit {
         });
     }
 
+    public isNotGlobal(): boolean {
+        return this.shoppingListGroup.name !== 'Global';
+    }
+
     public addShoppingListItem(): void {
         const name: string = this.shoppingListItemForm.get('name').value;
         this.shoppingListService.addShoppingListItem(this.shoppingListGroup, name)
@@ -49,4 +53,7 @@ export class ShoppingListGroupComponent implements OnInit {
             });
     }
 
+    public handleShoppingList(shoppingList: ShoppingList): void {
+        this.shoppingListEmitter.emit(shoppingList);
+    }
 }

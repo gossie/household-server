@@ -82,7 +82,7 @@ export class ShoppingListService extends AbstractNetworkService {
 
     public toggleShoppingListItem(shoppingListItem: ShoppingListItem): Observable<ShoppingList> {
         const url: string = this.determineUrl(shoppingListItem, 'toggle');
-        return this.httpClient.patch<ShoppingList>(url, {
+        return this.httpClient.patch<ShoppingList>(url, null, {
             headers: {
                 Authorization: this.userService.getUserData().authData,
                 Accept: 'application/vnd.household.v2+json'
