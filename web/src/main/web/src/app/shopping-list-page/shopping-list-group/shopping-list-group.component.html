@@ -16,4 +16,5 @@
     </div>
 </form>
 <app-shopping-list-item *ngFor="let item of shoppingListGroup.shoppingListItems"
-                        [shoppingListItem]="item"></app-shopping-list-item>
+                        [shoppingListItem]="item"
+                        (shoppingListEmitter)="shoppingListEmitter"></app-shopping-list-item>

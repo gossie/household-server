@@ -67,6 +67,7 @@ export class ShoppingListService extends AbstractNetworkService {
         const url: string = this.determineUrl(shoppingListGroup, 'add');
         const body: Array<ShoppingListItem> = [{
             name: name,
+            selected: false,
             links: []
         }];
 
@@ -74,6 +75,16 @@ export class ShoppingListService extends AbstractNetworkService {
             headers: {
                 Authorization: this.userService.getUserData().authData,
                 'Content-Type': 'application/vnd.household.v2+json',
+                Accept: 'application/vnd.household.v2+json'
+            }
+        });
+    }
+
+    public toggleShoppingListItem(shoppingListItem: ShoppingListItem): Observable<ShoppingList> {
+        const url: string = this.determineUrl(shoppingListItem, 'toggle');
+        return this.httpClient.patch<ShoppingList>(url, {
+            headers: {
+                Authorization: this.userService.getUserData().authData,
                 Accept: 'application/vnd.household.v2+json'
             }
         });
