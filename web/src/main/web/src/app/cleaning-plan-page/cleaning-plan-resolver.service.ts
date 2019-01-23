@@ -1,24 +1,17 @@
 import { Injectable } from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from "@angular/router";
-import {Observable} from "rxjs/index";
-import {HttpClient} from "@angular/common/http";
-import {UserService} from "../user.service";
-import {CleaningPlan} from "./cleaning-plan";
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
+import { Observable } from "rxjs/index";
+import { CleaningPlan } from "./cleaning-plan";
+import { CleaningPlanService } from "./cleaning-plan.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CleaningPlanResolverService implements Resolve<CleaningPlan> {
 
-    constructor(private userService: UserService,
-                private httpClient: HttpClient) { }
+    constructor(private cleaningPlanService: CleaningPlanService) { }
 
     public resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<CleaningPlan> {
-        return this.httpClient.get<CleaningPlan>(route.paramMap.get('url'), {
-            headers: {
-                Authorization: this.userService.getUserData().authData,
-                Accept: 'application/vnd.household.v1+json'
-            }
-        });
+        return this.cleaningPlanService.determineCleaningPlan(route.paramMap.get('url'));
     }
 }

@@ -16,4 +16,8 @@ export class ChoreComponent implements OnInit {
     ngOnInit() {
     }
 
+    public selectChore(): void {
+        
+    }
+
 }
