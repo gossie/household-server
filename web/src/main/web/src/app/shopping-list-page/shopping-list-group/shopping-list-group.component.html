@@ -6,7 +6,7 @@
                 <input class="input" type="text" formControlName="name" placeholder="Item" />
             </div>
             <div class="control">
-                <button class="button is-link" (click)="addShoppingListItem()" [disabled]="!shoppingListItemForm.valid">Hinzufügen</button>
+                <button class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="addShoppingListItem()" [disabled]="!shoppingListItemForm.valid">Hinzufügen</button>
             </div>
             <div class="control">
                 <button class="button is-text" (click)="clearShoppingListGroup()">Leeren</button>
@@ -16,7 +16,9 @@
             </div>
         </div>
     </form>
-    <app-shopping-list-item *ngFor="let item of shoppingListGroup.shoppingListItems"
-                            [shoppingListItem]="item"
-                            (shoppingListEmitter)="handleShoppingList($event)"></app-shopping-list-item>
+    <ul>
+        <app-shopping-list-item *ngFor="let item of shoppingListGroup.shoppingListItems"
+                                [shoppingListItem]="item"
+                                (shoppingListEmitter)="handleShoppingList($event)"></app-shopping-list-item>
+    </ul>
 </div>

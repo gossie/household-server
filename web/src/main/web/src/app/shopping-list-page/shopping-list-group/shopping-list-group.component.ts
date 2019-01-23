@@ -18,6 +18,8 @@ export class ShoppingListGroupComponent implements OnInit {
 
     public shoppingListItemForm: FormGroup;
 
+    private loading: boolean = false;
+
     constructor(private shoppingListService: ShoppingListService,
                 private formBuilder: FormBuilder) { }
 
@@ -32,28 +34,30 @@ export class ShoppingListGroupComponent implements OnInit {
     }
 
     public addShoppingListItem(): void {
+        this.loading = true;
         const name: string = this.shoppingListItemForm.get('name').value;
         this.shoppingListService.addShoppingListItem(this.shoppingListGroup, name)
-            .subscribe((shoppingList: ShoppingList) => {
-                this.shoppingListEmitter.emit(shoppingList);
-            });
+            .subscribe(this.handleShoppingList.bind(this));
     }
 
     public deleteShoppingListGroup(): void {
+        this.loading = true;
         this.shoppingListService.deleteShoppingListGroup(this.shoppingListGroup)
-            .subscribe((shoppingList: ShoppingList) => {
-                this.shoppingListEmitter.emit(shoppingList);
-            });
+            .subscribe(this.handleShoppingList.bind(this));
     }
 
     public clearShoppingListGroup(): void {
+        this.loading = true;
         this.shoppingListService.clearShoppingListGroup(this.shoppingListGroup)
-            .subscribe((shoppingList: ShoppingList) => {
-                this.shoppingListEmitter.emit(shoppingList);
-            });
+            .subscribe(this.handleShoppingList.bind(this));
     }
 
     public handleShoppingList(shoppingList: ShoppingList): void {
         this.shoppingListEmitter.emit(shoppingList);
+        this.loading = false;
+    }
+
+    public isLoading(): boolean {
+        return this.loading;
     }
 }

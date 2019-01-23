@@ -1,3 +1,8 @@
-<p>
-  cleaning-plan-page works!
-</p>
+<div class="columns" *ngIf="cleaningPlan">
+    <div class="column">Name</div>
+    <div class="column">Zuletzt ausgeführt</div>
+    <div class="column">Nächstes Mal</div>
+</div>
+<app-chore *ngFor="let chore of cleaningPlan.chores"
+           [chore]="chore">
+</app-chore>

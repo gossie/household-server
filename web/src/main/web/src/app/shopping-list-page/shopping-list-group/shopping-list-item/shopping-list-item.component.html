@@ -1,5 +1,6 @@
-<p class="shopping-list-item"
-   [ngClass]="{'selected': shoppingListItem.selected}"
-   (click)="toggleShoppingListItem()">
-    {{ shoppingListItem.name }}
-</p>
+<li>
+    <a [ngClass]="{'selected': shoppingListItem.selected}"
+       (click)="toggleShoppingListItem()">
+       {{ shoppingListItem.name }}
+    </a>
+</li>

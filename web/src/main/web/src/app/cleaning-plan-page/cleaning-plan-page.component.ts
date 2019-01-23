@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {CleaningPlan} from "./cleaning-plan";
+import { ActivatedRoute } from "@angular/router";
+import { CleaningPlan } from "./cleaning-plan";
 
 @Component({
   selector: 'app-cleaning-plan-page',
@@ -15,6 +15,7 @@ export class CleaningPlanPageComponent implements OnInit {
 
     public ngOnInit() {
         this.cleaningPlan = this.route.snapshot.data.cleaningPlan;
+        console.log('cleaningPlan', this.cleaningPlan);
     }
 
 }

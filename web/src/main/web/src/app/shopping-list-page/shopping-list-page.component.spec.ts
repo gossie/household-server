@@ -1,4 +1,4 @@
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ShoppingListPageComponent } from './shopping-list-page.component';
 import { ReactiveFormsModule } from "@angular/forms";
 import { ShoppingListService } from "./shopping-list.service";

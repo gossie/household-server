@@ -1,7 +1,3 @@
-shopping-list-item {
-    cursor: pointer;
-}
-
 .selected {
     text-decoration: line-through;
 }

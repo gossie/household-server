@@ -13,6 +13,7 @@ import { FoodPlanPageComponent } from './food-plan-page/food-plan-page.component
 import { RecipesPageComponent } from './recipes-page/recipes-page.component';
 import { ShoppingListGroupComponent } from './shopping-list-page/shopping-list-group/shopping-list-group.component';
 import { ShoppingListItemComponent } from './shopping-list-page/shopping-list-group/shopping-list-item/shopping-list-item.component';
+import { ChoreComponent } from './cleaning-plan-page/chore/chore.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ShoppingListItemComponent } from './shopping-list-page/shopping-list-gr
     FoodPlanPageComponent,
     RecipesPageComponent,
     ShoppingListGroupComponent,
-    ShoppingListItemComponent
+    ShoppingListItemComponent,
+    ChoreComponent
   ],
   imports: [
     ReactiveFormsModule,
