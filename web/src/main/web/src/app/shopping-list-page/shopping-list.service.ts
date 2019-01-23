@@ -5,7 +5,7 @@ import { HttpClient } from "@angular/common/http";
 import { UserService } from "../user.service";
 import { AbstractNetworkService } from "../abstract-network.service";
 import { ShoppingListGroup } from "./shopping-list-group/shopping-list-group";
-import {ShoppingListItem} from "./shopping-list-group/shopping-list-item/shopping-list-item";
+import { ShoppingListItem } from "./shopping-list-group/shopping-list-item/shopping-list-item";
 
 @Injectable({
     providedIn: 'root'
@@ -38,6 +38,16 @@ export class ShoppingListService extends AbstractNetworkService {
             headers: {
                 Authorization: this.userService.getUserData().authData,
                 'Content-Type': 'application/vnd.household.v2+json',
+                Accept: 'application/vnd.household.v2+json'
+            }
+        });
+    }
+
+    public deleteShoppingListGroup(shoppingListGroup: ShoppingListGroup): Observable<ShoppingList> {
+        const url: string = this.determineUrl(shoppingListGroup, 'delete');
+        return this.httpClient.delete<ShoppingList>(url, {
+            headers: {
+                Authorization: this.userService.getUserData().authData,
                 Accept: 'application/vnd.household.v2+json'
             }
         });
