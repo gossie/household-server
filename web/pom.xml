@@ -40,9 +40,10 @@
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>run build</arguments>
+                            <arguments>run build:prod</arguments>
                         </configuration>
                     </execution>
+					<!--
                     <execution>
                         <id>prod</id>
                         <goals>
@@ -53,6 +54,7 @@
                         </configuration>
                         <phase>generate-resources</phase>
                     </execution>
+					-->
                 </executions>
             </plugin>
         </plugins>
