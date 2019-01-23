@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Household } from './household';
 import { Link } from "../model";
-import {ActivatedRoute} from "@angular/router";
+import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-household-page',
@@ -13,10 +14,18 @@ export class HouseholdPageComponent implements OnInit {
     public household: Household;
     public expanded: boolean = false;
 
-    constructor(private route: ActivatedRoute) { }
+    constructor(private router: Router,
+                private route: ActivatedRoute) { }
 
     public ngOnInit(): void {
         this.household = this.route.snapshot.data.household;
+        this.router.events
+            .pipe(
+                filter(evt => evt instanceof NavigationEnd)
+            )
+            .subscribe((evt: NavigationEnd) => {
+                this.expanded = false;
+            });
     }
 
     public determineUrl(rel: string): string {

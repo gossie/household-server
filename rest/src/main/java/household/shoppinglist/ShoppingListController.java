@@ -43,12 +43,12 @@ public class ShoppingListController {
 		return ResponseEntity.ok(createResource(shoppingListService.getShoppingList(id)));
 	}
 
-	@PatchMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
+	@PatchMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", produces={"application/vnd.household.v2+json"})
 	public ResponseEntity<Resource<ShoppingListDTO>> toggleItem(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId) {
 	    return ResponseEntity.ok(createResource(shoppingListService.toggleItem(id, groupId, itemId)));
 	}
 
-	@DeleteMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
+	@DeleteMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems", produces={"application/vnd.household.v2+json"})
 	public ResponseEntity<Resource<ShoppingListDTO>> removedSelectedItemsFromShoppingListGroup(@PathVariable Long id, @PathVariable Long groupId) {
 		return ResponseEntity.ok(createResource(shoppingListService.removeSelectedItemsFromShoppingListGroup(id, groupId)));
 	}
@@ -58,7 +58,7 @@ public class ShoppingListController {
         return ResponseEntity.ok(createResource(shoppingListService.addShoppingListGroup(id, shoppingListGroupMapper.map(shoppingListGroup))));
     }
 
-	@DeleteMapping(path="/{id}/shoppingListGroups/{groupId}", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
+	@DeleteMapping(path="/{id}/shoppingListGroups/{groupId}", produces={"application/vnd.household.v2+json"})
     public ResponseEntity<Resource<ShoppingListDTO>> deleteGroup(@PathVariable Long id, @PathVariable Long groupId) {
         return ResponseEntity.ok(createResource(shoppingListService.deleteShoppingListGroup(id, groupId)));
     }
