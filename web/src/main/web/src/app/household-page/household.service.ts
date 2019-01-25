@@ -20,7 +20,7 @@ export class HouseholdService extends AbstractNetworkService {
         const url: string = this.determineUrl(this.userService.getUserData().user, 'create')
         return this.httpClient.post<Household>(url, null, {
             headers: {
-                Authorization: `Basic ${this.userService.getUserData().authData}`,
+                Authorization: this.userService.getUserData().authData,
                 Accept: 'application/vnd.household.v1+json'
             }
         });
