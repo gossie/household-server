@@ -23,11 +23,15 @@ export class HouseholdResolverService extends AbstractNetworkService implements 
 
     public determineHousehold(userData: UserData): Observable<Household> {
         const url: string = this.determineUrl(userData.user, 'household');
-        return this.httpClient.get<Household>(url, {
-            headers: {
-                Authorization: userData.authData,
-                Accept: 'application/vnd.household.v1+json'
-            }
-        });
+        if (url !== undefined) {
+            return this.httpClient.get<Household>(url, {
+                headers: {
+                    Authorization: userData.authData,
+                    Accept: 'application/vnd.household.v1+json'
+                }
+            });
+        } else {
+            return undefined;
+        }
     }
 }

@@ -1,4 +1,4 @@
-<div *ngIf="household">
+<div *ngIf="household; else noHousehold">
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="https://bulma.io">
@@ -36,3 +36,9 @@
         <router-outlet name="inner"></router-outlet>
     </div>
 </div>
+
+<ng-template #noHousehold>
+    <a (click)="createHousehold()" class="button is-primary">
+        Haushalt erstellen
+    </a>
+</ng-template>
