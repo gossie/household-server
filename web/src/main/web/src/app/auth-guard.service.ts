@@ -15,7 +15,7 @@ export class AuthGuardService implements CanActivate {
     public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         const canLoad = ObjectUtils.isObject(this.userService.getUserData());
         if (!canLoad) {
-            this.router.navigate([Page.Login]);
+            this.router.navigate([Page.Splash]);
         }
         return canLoad;
     }

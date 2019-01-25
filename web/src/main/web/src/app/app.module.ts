@@ -14,6 +14,8 @@ import { RecipesPageComponent } from './recipes-page/recipes-page.component';
 import { ShoppingListGroupComponent } from './shopping-list-page/shopping-list-group/shopping-list-group.component';
 import { ShoppingListItemComponent } from './shopping-list-page/shopping-list-group/shopping-list-item/shopping-list-item.component';
 import { ChoreComponent } from './cleaning-plan-page/chore/chore.component';
+import { RegistrationPageComponent } from './registration-page/registration-page.component';
+import { SplashPageComponent } from './splash-page/splash-page.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { ChoreComponent } from './cleaning-plan-page/chore/chore.component';
     RecipesPageComponent,
     ShoppingListGroupComponent,
     ShoppingListItemComponent,
-    ChoreComponent
+    ChoreComponent,
+    RegistrationPageComponent,
+    SplashPageComponent
   ],
   imports: [
     ReactiveFormsModule,
