@@ -25,13 +25,18 @@ const routes: Routes = [{
     component: SplashPageComponent,
     children: [
         {
-            path: Page.Login,
-            component: LoginPageComponent,
-            outlet: 'user'
+            path: '',
+            redirectTo: Page.Registration,
+            pathMatch: 'full'
         },
         {
             path: Page.Registration,
             component: RegistrationPageComponent,
+            outlet: 'user'
+        },
+        {
+            path: Page.Login,
+            component: LoginPageComponent,
             outlet: 'user'
         }
     ]
