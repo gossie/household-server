@@ -14,6 +14,8 @@ export class ShoppingListPageComponent implements OnInit {
     public shoppingList: ShoppingList;
     public shoppingListGroupForm: FormGroup;
 
+    private loading: boolean = false;
+
     constructor(private shoppingListService: ShoppingListService,
                 private route: ActivatedRoute,
                 private formBuilder: FormBuilder) { }
@@ -26,6 +28,7 @@ export class ShoppingListPageComponent implements OnInit {
     }
 
     public addShoppingListGroup(): void {
+        this.loading = true;
         const name: string = this.shoppingListGroupForm.get('name').value;
         this.shoppingListService.addShoppingListGroup(this.shoppingList, name)
             .subscribe(this.handleShoppingList.bind(this));
@@ -33,6 +36,12 @@ export class ShoppingListPageComponent implements OnInit {
 
     public handleShoppingList(shoppingList: ShoppingList): void {
         this.shoppingList = shoppingList;
+        this.loading = false;
+        this.shoppingListGroupForm.controls.name.setValue('');
+    }
+
+    public isLoading(): boolean {
+        return this.loading;
     }
 
 }

@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {CleaningPlanResolverService} from "./cleaning-plan-resolver.service";
+import { CleaningPlanResolverService } from "./cleaning-plan-resolver.service";
+import { CleaningPlanService } from "./cleaning-plan.service";
+import { CleaningPlanServiceMock } from "./cleaning-plan.service.mock";
 
 describe('CleaningPlanResolverService', () => {
     beforeEach(() => TestBed.configureTestingModule({
-        imports: [
-            HttpClientTestingModule
+        providers: [
+            { provide: CleaningPlanService, useClass: CleaningPlanServiceMock }
         ]
     }));
 

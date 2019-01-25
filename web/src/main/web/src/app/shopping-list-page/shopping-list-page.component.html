@@ -1,11 +1,11 @@
 <div *ngIf="shoppingList">
-    <form [formGroup]="shoppingListGroupForm" (ngSubmit)="addShoppingListGroup()">
+    <form [formGroup]="shoppingListGroupForm">
         <div class="field is-grouped">
             <div class="control">
                 <input class="input" type="text" formControlName="name" placeholder="Gruppenname" />
             </div>
             <div class="control">
-                <button class="button is-link" type="submit" [disabled]="!shoppingListGroupForm.valid">Hinzufügen</button>
+                <button class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="addShoppingListGroup()" [disabled]="!shoppingListGroupForm.valid">Hinzufügen</button>
             </div>
         </div>
     </form>
