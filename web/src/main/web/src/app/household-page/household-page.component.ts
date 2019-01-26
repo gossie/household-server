@@ -5,8 +5,9 @@ import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
 import { filter } from 'rxjs/operators';
 import { HouseholdService } from "./household.service";
 import { Subscription } from "rxjs/index";
-import { Invitation } from "../login-page/invitation";
 import { UserService } from "../user.service";
+import { User } from "../login-page/user";
+import {UserData} from "../user-data";
 
 @Component({
     selector: 'app-household-page',
@@ -16,6 +17,7 @@ import { UserService } from "../user.service";
 export class HouseholdPageComponent implements OnInit, OnDestroy {
 
     public household: Household;
+    public user: User;
     public expanded: boolean = false;
 
     private subscriptions: Array<Subscription> = [];
@@ -27,6 +29,9 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.household = this.route.snapshot.data.household;
+        this.userService.observeUserData().subscribe((userData: UserData) => {
+            this.user = userData.user;
+        });
         this.subscriptions.push(this.router.events
             .pipe(
                 filter(evt => evt instanceof NavigationEnd)
@@ -50,9 +55,5 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
 
     public toggleNavbar(): void {
         this.expanded = !this.expanded;
-    }
-
-    public getInvitations(): Array<Invitation> {
-        return this.userService.getUserData().user.invitations;
     }
 }

@@ -5,6 +5,7 @@ import { HouseholdService } from "./household.service";
 import { HouseholdServiceMock } from "./household.service.mock";
 import { UserService } from "../user.service";
 import { UserServiceMock } from "../user.service.mock";
+import { InvitationComponent } from "./invitation/invitation.component";
 
 describe('HouseholdPageComponent', () => {
     let component: HouseholdPageComponent;
@@ -15,7 +16,10 @@ describe('HouseholdPageComponent', () => {
             imports: [
                 RouterTestingModule
             ],
-            declarations: [ HouseholdPageComponent ],
+            declarations: [
+                HouseholdPageComponent,
+                InvitationComponent
+            ],
             providers: [
                 { provide: HouseholdService, useClass: HouseholdServiceMock },
                 { provide: UserService, useClass: UserServiceMock }

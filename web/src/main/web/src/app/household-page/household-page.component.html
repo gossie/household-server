@@ -41,9 +41,7 @@
     <a (click)="createHousehold()" class="button is-primary">
         Haushalt erstellen
     </a>
-    <ul>
-        <li *ngFor="let invitation of getInvitations()">
-            <span>{{ invitation.sender }}</span>
-        </li>
-    </ul>
+    <app-invitation *ngFor="let invitation of getInvitations()"
+                    [invitation]="invitation">
+    </app-invitation>
 </ng-template>

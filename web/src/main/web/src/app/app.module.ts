@@ -17,6 +17,7 @@ import { ChoreComponent } from './cleaning-plan-page/chore/chore.component';
 import { RegistrationPageComponent } from './registration-page/registration-page.component';
 import { SplashPageComponent } from './splash-page/splash-page.component';
 import { CoverPageComponent } from './cover-page/cover-page.component';
+import { InvitationComponent } from './household-page/invitation/invitation.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { CoverPageComponent } from './cover-page/cover-page.component';
     ChoreComponent,
     RegistrationPageComponent,
     SplashPageComponent,
-    CoverPageComponent
+    CoverPageComponent,
+    InvitationComponent
   ],
   imports: [
     ReactiveFormsModule,
