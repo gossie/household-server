@@ -1,10 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Household } from './household';
 import { Link } from "../model";
 import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
 import { filter } from 'rxjs/operators';
 import { HouseholdService } from "./household.service";
 import { Subscription } from "rxjs/index";
+import { Invitation } from "../login-page/invitation";
+import { UserService } from "../user.service";
 
 @Component({
     selector: 'app-household-page',
@@ -19,6 +21,7 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
     private subscriptions: Array<Subscription> = [];
 
     constructor(private householdService: HouseholdService,
+                private userService: UserService,
                 private router: Router,
                 private route: ActivatedRoute) { }
 
@@ -47,5 +50,9 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
 
     public toggleNavbar(): void {
         this.expanded = !this.expanded;
+    }
+
+    public getInvitations(): Array<Invitation> {
+        return this.userService.getUserData().user.invitations;
     }
 }
