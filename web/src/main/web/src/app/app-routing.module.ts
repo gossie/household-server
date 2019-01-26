@@ -15,6 +15,7 @@ import { FoodPlanResolverService } from "./food-plan-page/food-plan-resolver.ser
 import { CleaningPlanResolverService } from "./cleaning-plan-page/cleaning-plan-resolver.service";
 import { SplashPageComponent } from "./splash-page/splash-page.component";
 import { RegistrationPageComponent } from "./registration-page/registration-page.component";
+import {CoverPageComponent} from "./cover-page/cover-page.component";
 
 const routes: Routes = [{
     path: '',
@@ -48,6 +49,15 @@ const routes: Routes = [{
         household: HouseholdResolverService
     },
     children: [
+        {
+            path: Page.Cover,
+            component: CoverPageComponent,
+            canActivate: [AuthGuardService],
+            outlet: 'inner',
+            resolve: {
+                household: HouseholdResolverService
+            }
+        },
         {
             path: Page.ShoppingList,
             component: ShoppingListPageComponent,

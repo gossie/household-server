@@ -35,7 +35,7 @@ public class UserController {
 	private final UserDTOMapper userMapper;
 	private final UserResourceProcessor userResourceProcessor;
 
-	@PostMapping(produces={"application/vnd.household.v1+json"})
+	@PostMapping(consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<UserDTO>> createUser(@RequestBody Map<String, String> data) {
 		User createUser = userService.createUser(new User(null, data.get("email"), data.get("password")));
 		return ResponseEntity.ok(createResource(createUser));
@@ -53,7 +53,7 @@ public class UserController {
 		return ResponseEntity.ok(createResource(user));
 	}
 
-	@PostMapping(path="/{userId}/invitations", consumes={"application/vnd.household.v1+json"})
+	@PostMapping(path="/{userId}/invitations", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
 	@ResponseStatus(value = HttpStatus.OK)
 	public HttpEntity<Resource<UserDTO>> invite(@PathVariable Long userId, @RequestBody InvitationRequestDTO invitation) {
 		User invitingUser = userService.determineUser(userId);

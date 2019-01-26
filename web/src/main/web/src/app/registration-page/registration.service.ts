@@ -17,6 +17,7 @@ export class RegistrationService {
         };
         return this.httpClient.post<User>('https://ldwas-household.herokuapp.com/api/users', body, {
             headers: {
+                'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.v1+json'
             }
         });

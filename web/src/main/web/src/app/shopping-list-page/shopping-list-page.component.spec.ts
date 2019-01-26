@@ -9,7 +9,6 @@ import { ShoppingList } from "./shopping-list";
 import { Component, Input } from "@angular/core";
 import { ShoppingListGroup } from "./shopping-list-group/shopping-list-group";
 import { By } from "@angular/platform-browser";
-import { ShoppingListGroupComponent } from "./shopping-list-group/shopping-list-group.component";
 
 @Component({
     selector: [
