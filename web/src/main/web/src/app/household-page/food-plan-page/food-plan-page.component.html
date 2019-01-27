@@ -6,9 +6,12 @@
     <app-meal [parentForm]="foodPlanForm" controlName="friday" day="Freitag" [meal]="foodPlan.meals.friday"></app-meal>
     <app-meal [parentForm]="foodPlanForm" controlName="saturday" day="Samstag" [meal]="foodPlan.meals.saturday"></app-meal>
     <app-meal [parentForm]="foodPlanForm" controlName="sunday" day="Sonntag" [meal]="foodPlan.meals.sunday"></app-meal>
-    <div class="field">
+    <div class="field is-grouped">
         <div class="control">
             <button class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="saveFoodPlan()" [disabled]="!foodPlanForm.valid">Speichern</button>
+        </div>
+        <div class="control">
+            <button class="button" [ngClass]="{'is-loading': isLoading()}" (click)="clearFoodPlan()" [disabled]="!foodPlanForm.valid">Leeren</button>
         </div>
     </div>
 </form>
