@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {Household} from "../household-page/household";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {InvitationService} from "./invitation.service";
+import { ActivatedRoute } from "@angular/router";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { InvitationService } from "./invitation.service";
+import { Household } from "../household";
 
 @Component({
     selector: 'app-cover-page',

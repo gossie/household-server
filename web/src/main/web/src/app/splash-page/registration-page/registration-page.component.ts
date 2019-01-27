@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { RegistrationService } from "./registration.service";
 import { User } from "../login-page/user";
-import { Page } from "../page.enum";
-import { UserService } from "../user.service";
 import { Router } from "@angular/router";
-import {PasswordValidation} from "./password-validation";
+import { PasswordValidation } from "./password-validation";
+import { UserService } from "../../user.service";
+import { Page } from "../../page.enum";
 
 @Component({
     selector: 'app-registration-page',

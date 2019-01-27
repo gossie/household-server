@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Invitation } from "../../login-page/invitation";
-import { InvitationService } from "../../cover-page/invitation.service";
-import { User } from "../../login-page/user";
+import { Invitation } from "../../splash-page/login-page/invitation";
+import { InvitationService } from "../cover-page/invitation.service";
+import { User } from "../../splash-page/login-page/user";
 import { UserService } from "../../user.service";
 import { Router } from "@angular/router";
 import { Page } from "../../page.enum";

@@ -3,8 +3,8 @@ import { LoginService } from './login.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from './user';
 import { Router } from '@angular/router';
-import { Page } from '../page.enum';
-import { UserService } from '../user.service';
+import { UserService } from "../../user.service";
+import { Page } from "../../page.enum";
 
 @Component({
     selector: 'app-login-page',

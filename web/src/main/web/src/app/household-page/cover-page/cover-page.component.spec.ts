@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { InvitationService } from "./invitation.service";
 import { InvitationServiceMock } from "./invitation.service.mock";
 import {ActivatedRoute} from "@angular/router";
-import {Household} from "../household-page/household";
+import {Household} from "../household";
 
 describe('CoverPageComponent', () => {
     let component: CoverPageComponent;

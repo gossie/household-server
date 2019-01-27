@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginPageComponent } from './login-page/login-page.component';
+import { LoginPageComponent } from './splash-page/login-page/login-page.component';
 import { HouseholdPageComponent } from './household-page/household-page.component';
 import { Page } from './page.enum';
 import { AuthGuardService} from './auth-guard.service';
-import { ShoppingListPageComponent } from './shopping-list-page/shopping-list-page.component';
-import { CleaningPlanPageComponent } from './cleaning-plan-page/cleaning-plan-page.component';
-import { FoodPlanPageComponent } from './food-plan-page/food-plan-page.component';
-import { RecipesPageComponent } from './recipes-page/recipes-page.component';
+import { CleaningPlanPageComponent } from './household-page/cleaning-plan-page/cleaning-plan-page.component';
+import { FoodPlanPageComponent } from './household-page/food-plan-page/food-plan-page.component';
+import { RecipesPageComponent } from './household-page/recipes-page/recipes-page.component';
 import { HouseholdResolverService } from './household-page/household-resolver.service';
-import { ShoppingListResolverService } from "./shopping-list-page/shopping-list-resolver.service";
-import { CookbookResolverService } from "./recipes-page/cookbook-resolver.service";
-import { FoodPlanResolverService } from "./food-plan-page/food-plan-resolver.service";
-import { CleaningPlanResolverService } from "./cleaning-plan-page/cleaning-plan-resolver.service";
+import { CookbookResolverService } from "./household-page/recipes-page/cookbook-resolver.service";
+import { FoodPlanResolverService } from "./household-page/food-plan-page/food-plan-resolver.service";
+import { CleaningPlanResolverService } from "./household-page/cleaning-plan-page/cleaning-plan-resolver.service";
 import { SplashPageComponent } from "./splash-page/splash-page.component";
-import { RegistrationPageComponent } from "./registration-page/registration-page.component";
-import {CoverPageComponent} from "./cover-page/cover-page.component";
+import { RegistrationPageComponent } from "./splash-page/registration-page/registration-page.component";
+import { CoverPageComponent } from "./household-page/cover-page/cover-page.component";
+import {ShoppingListPageComponent} from "./household-page/shopping-list-page/shopping-list-page.component";
+import {ShoppingListResolverService} from "./household-page/shopping-list-page/shopping-list-resolver.service";
 
 const routes: Routes = [{
     path: '',

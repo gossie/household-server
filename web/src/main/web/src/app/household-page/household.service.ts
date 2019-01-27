@@ -4,7 +4,7 @@ import { Household } from "./household";
 import { UserService } from "../user.service";
 import { HttpClient } from "@angular/common/http";
 import { AbstractNetworkService } from "../abstract-network.service";
-import {User} from "../login-page/user";
+import {User} from "../splash-page/login-page/user";
 
 @Injectable({
     providedIn: 'root'

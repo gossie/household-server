@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from "@angular/router";
 import {Observable} from "rxjs/index";
 import {HttpClient} from "@angular/common/http";
-import {UserService} from "../user.service";
+import {UserService} from "../../user.service";
 import {FoodPlan} from "./food-plan";
 
 @Injectable({
