@@ -21,8 +21,13 @@ public class CleaningPlanResourceProcessor implements ResourceProcessor<Resource
     	resource.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId()).slash("chores").withRel("add"));
 
     	cleaningPlan.getChores().forEach(c -> {
-            addLink(cleaningPlan, c, "delete");
-            addLink(cleaningPlan, c, "select");
+            c.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId())
+                .slash("chores")
+                .slash(c.getDatabaseId())
+                .withRel("delete"));
+
+            c.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId())
+                .withRel("select"));
     	});
 
         return resource;
