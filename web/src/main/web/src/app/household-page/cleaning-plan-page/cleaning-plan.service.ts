@@ -37,6 +37,19 @@ export class CleaningPlanService extends AbstractNetworkService {
         });
     }
 
+    public selectChore(chore: Chore): Observable<CleaningPlan> {
+        const url: string = this.determineUrl(chore, 'select');
+        chore.lastPerformed = Date.now();
+
+        return this.httpClient.patch<CleaningPlan>(url, chore, {
+            headers: {
+                Authorization: this.userService.getUserData().authData,
+                'Content-Type': 'application/vnd.household.v1+json',
+                Accept: 'application/vnd.household.v1+json'
+            }
+        });
+    }
+
     public deleteChore(chore: Chore): Observable<CleaningPlan> {
         const url: string = this.determineUrl(chore, 'delete');
         return this.httpClient.delete<CleaningPlan>(url, {

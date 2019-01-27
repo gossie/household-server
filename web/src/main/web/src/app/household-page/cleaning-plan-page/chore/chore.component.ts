@@ -21,7 +21,10 @@ export class ChoreComponent implements OnInit {
     }
 
     public selectChore(): void {
-
+        this.cleaningPlanService.selectChore(this.chore)
+            .subscribe((cleaningPlan: CleaningPlan) => {
+                this.cleaningPlanEmitter.emit(cleaningPlan);
+            });
     }
 
     public deleteChore(): void {

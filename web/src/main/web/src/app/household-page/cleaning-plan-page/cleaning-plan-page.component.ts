@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { CleaningPlan } from "./cleaning-plan";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CleaningPlanService} from "./cleaning-plan.service";
-import {Chore} from "./chore/chore";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { CleaningPlanService } from "./cleaning-plan.service";
+import { Chore } from "./chore/chore";
 
 @Component({
   selector: 'app-cleaning-plan-page',
@@ -35,7 +35,8 @@ export class CleaningPlanPageComponent implements OnInit {
 
         const chore: Chore = {
             name: this.cleaningPlanForm.controls.name.value,
-            repeat: this.cleaningPlanForm.controls.repeat.value
+            repeat: this.cleaningPlanForm.controls.repeat.value,
+            lastPerformed: Date.now()
         };
 
         this.cleaningPlanService.addChore(this.cleaningPlan, chore)
