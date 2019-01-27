@@ -18,6 +18,7 @@ import { InvitationComponent } from './household-page/invitation/invitation.comp
 import { ShoppingListPageComponent } from "./household-page/shopping-list-page/shopping-list-page.component";
 import { ShoppingListGroupComponent}  from "./household-page/shopping-list-page/shopping-list-group/shopping-list-group.component";
 import { ShoppingListItemComponent } from "./household-page/shopping-list-page/shopping-list-group/shopping-list-item/shopping-list-item.component";
+import { MealComponent } from './household-page/food-plan-page/meal/meal.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ShoppingListItemComponent } from "./household-page/shopping-list-page/s
     RegistrationPageComponent,
     SplashPageComponent,
     CoverPageComponent,
-    InvitationComponent
+    InvitationComponent,
+    MealComponent
   ],
   imports: [
     ReactiveFormsModule,

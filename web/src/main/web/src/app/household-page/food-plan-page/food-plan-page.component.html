@@ -1,3 +1,14 @@
-<p>
-  food-plan-page works!
-</p>
+<form [formGroup]="foodPlanForm">
+    <app-meal [parentForm]="foodPlanForm" controlName="monday" day="Montag" [meal]="foodPlan.meals.monday"></app-meal>
+    <app-meal [parentForm]="foodPlanForm" controlName="tuesday" day="Dienstag" [meal]="foodPlan.meals.tuesday"></app-meal>
+    <app-meal [parentForm]="foodPlanForm" controlName="wednesday" day="Mittwoch" [meal]="foodPlan.meals.wednesday"></app-meal>
+    <app-meal [parentForm]="foodPlanForm" controlName="thursday" day="Donnerstag" [meal]="foodPlan.meals.thursday"></app-meal>
+    <app-meal [parentForm]="foodPlanForm" controlName="friday" day="Freitag" [meal]="foodPlan.meals.friday"></app-meal>
+    <app-meal [parentForm]="foodPlanForm" controlName="saturday" day="Samstag" [meal]="foodPlan.meals.saturday"></app-meal>
+    <app-meal [parentForm]="foodPlanForm" controlName="sunday" day="Sonntag" [meal]="foodPlan.meals.sunday"></app-meal>
+    <div class="field">
+        <div class="control">
+            <button class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="saveFoodPlan()" [disabled]="!foodPlanForm.valid">Speichern</button>
+        </div>
+    </div>
+</form>

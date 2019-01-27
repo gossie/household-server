@@ -1,9 +1,9 @@
 <div *ngIf="household; else noHousehold">
     <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand" [routerLink]="[{ outlets: { inner: ['cover'] } } ]">
-            <a class="navbar-item" >
-                <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-            </a>
+        <div class="navbar-brand">
+            <div [routerLink]="[{ outlets: { inner: ['cover'] } } ]" class="navbar-item">
+                (Logo)
+            </div>
 
             <a (click)="toggleNavbar()" role="button" class="navbar-burger burger" [ngClass]="{'is-active': expanded}" aria-label="menu" aria-expanded="false" data-target="householdNavbar">
                 <span aria-hidden="true"></span>

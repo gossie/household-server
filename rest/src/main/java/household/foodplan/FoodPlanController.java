@@ -31,8 +31,8 @@ public class FoodPlanController {
 		return ResponseEntity.ok(createResource(foodPlanService.getFoodPlan(id)));
 	}
 
-	@PutMapping(path="/{id}", produces={"application/vnd.household.v1+json"})
-	public HttpEntity<Resource<FoodPlanDTO>> clear(@PathVariable Long id, @RequestBody FoodPlanDTO foodPlan) {
+	@PutMapping(path="/{id}", produces={"application/vnd.household.v1+json"}, consumes={"application/vnd.household.v1+json"})
+	public HttpEntity<Resource<FoodPlanDTO>> save(@PathVariable Long id, @RequestBody FoodPlanDTO foodPlan) {
 		return ResponseEntity.ok(createResource(foodPlanService.update(id, foodPlanMapper.map(foodPlan))));
 	}
 
