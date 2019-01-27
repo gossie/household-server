@@ -5,7 +5,7 @@ import {Cookbook} from "./cookbook";
 import {CookbookService} from "./cookbook.service";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class CookbookResolverService implements Resolve<Cookbook> {
 

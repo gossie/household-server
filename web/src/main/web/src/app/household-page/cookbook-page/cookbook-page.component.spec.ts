@@ -1,15 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RecipesPageComponent } from './recipes-page.component';
+import { CookbookPageComponent } from './cookbook-page.component';
 import { RouterTestingModule } from "@angular/router/testing";
 import { UserService } from "../../user.service";
 import { UserServiceMock } from "../../user.service.mock";
 import { RecipeComponent } from "./recipe/recipe.component";
-import {ActivatedRoute} from "@angular/router";
-import {Cookbook} from "./cookbook";
+import { ActivatedRoute } from "@angular/router";
+import { Cookbook } from "./cookbook";
 
-describe('RecipesPageComponent', () => {
-    let component: RecipesPageComponent;
-    let fixture: ComponentFixture<RecipesPageComponent>;
+describe('CookbookPageComponent', () => {
+    let component: CookbookPageComponent;
+    let fixture: ComponentFixture<CookbookPageComponent>;
     const cookbook: Cookbook = {
         recipes: []
     };
@@ -20,7 +20,7 @@ describe('RecipesPageComponent', () => {
                 RouterTestingModule
             ],
             declarations: [
-                RecipesPageComponent,
+                CookbookPageComponent,
                 RecipeComponent
             ],
             providers: [
@@ -32,7 +32,7 @@ describe('RecipesPageComponent', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(RecipesPageComponent);
+        fixture = TestBed.createComponent(CookbookPageComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
