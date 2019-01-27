@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="card">
+        <header class="card-header">
+            <p class="card-header-title">
+                {{ recipe.name }}
+            </p>
+            <a (click)="toggleRecipe()" class="card-header-icon" aria-label="more options">
+                <span class="icon">
+                    <i class="fas"
+                       [ngClass]="{'fa-angle-left': !isExpanded(), 'fa-angle-down': isExpanded()}"
+                       aria-hidden="true">
+                    </i>
+                </span>
+            </a>
+        </header>
+        <div *ngIf="isExpanded()" class="card-content">
+            <div class="content">
+            </div>
+        </div>
+        <footer class="card-footer">
+            <a href="#" class="card-footer-item">Editieren</a>
+            <a href="#" class="card-footer-item">Löschen</a>
+        </footer>
+    </div>
+</div>
