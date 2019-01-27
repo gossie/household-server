@@ -10,7 +10,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     public User createUser(User user) {
-        userRepository.determineUser(user.getEmail()).ifPresent(u -> {
+        userRepository.determineUser(user.getEmail().toLowerCase()).ifPresent(u -> {
             throw new UserAlreadyExistsException();
         });
         return userRepository.createUser(user);

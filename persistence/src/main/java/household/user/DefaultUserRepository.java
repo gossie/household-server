@@ -31,7 +31,7 @@ class DefaultUserRepository implements UserRepository {
 
     @Override
     public Optional<User> determineUser(String email) {
-        List<UserEntity> users = userEntityRepository.findByEmail(email);
+        List<UserEntity> users = userEntityRepository.findByEmail(email.toLowerCase());
         if (users.isEmpty()) {
             return Optional.empty();
         } else if (users.size() == 1) {
