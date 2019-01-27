@@ -4,6 +4,9 @@ import { ActivatedRoute } from "@angular/router";
 import { CleaningPlanPageComponent } from './cleaning-plan-page.component';
 import { CleaningPlan } from './cleaning-plan';
 import { Chore } from './chore/chore';
+import {ReactiveFormsModule} from "@angular/forms";
+import {CleaningPlanService} from "./cleaning-plan.service";
+import {CleaningPlanServiceMock} from "./cleaning-plan.service.mock";
 
 @Component({
     selector: [
@@ -26,12 +29,16 @@ describe('CleaningPlanPageComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            imports: [
+                ReactiveFormsModule
+            ],
             declarations: [
                 CleaningPlanPageComponent,
                 MockComponent
             ],
             providers: [
-                { provide: ActivatedRoute, useValue: { snapshot: { data: { cleaningPlan: cleaningPlan } } } }
+                { provide: ActivatedRoute, useValue: { snapshot: { data: { cleaningPlan: cleaningPlan } } } },
+                { provide: CleaningPlanService, useClass: CleaningPlanServiceMock }
             ]
         })
         .compileComponents();
