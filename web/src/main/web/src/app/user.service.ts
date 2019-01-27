@@ -12,9 +12,15 @@ export class UserService {
 
     private userStream: BehaviorSubject<UserData> = new BehaviorSubject(null);
 
-    constructor() { }
+    constructor() {
+        const userData: string = localStorage.getItem('userData');
+        if (userData) {
+            this.userStream.next(JSON.parse(userData));
+        }
+    }
 
     public setUserData(userData: UserData) {
+        localStorage.setItem('userData', JSON.stringify(userData));
         this.userStream.next(userData);
     }
 

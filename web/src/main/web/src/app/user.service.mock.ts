@@ -7,7 +7,7 @@ import { Injectable } from "@angular/core";
 })
 export class UserServiceMock {
 
-    private readonly userData: UserData = {
+    private userData: UserData = {
         user: {
             email: 'user@email.de',
             invitations: [],
@@ -19,6 +19,7 @@ export class UserServiceMock {
     constructor() { }
 
     public setUserData(userData: UserData): void {
+        this.userData = userData;
     }
 
     public getUserData(): UserData {

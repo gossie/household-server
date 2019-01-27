@@ -22,8 +22,8 @@ describe('ChoreComponent', () => {
         component = fixture.componentInstance;
         component.chore = {
             name: 'chore',
-            lastPerformed: new Date(),
-            nextTime: new Date(),
+            lastPerformed: Date.now(),
+            nextTime: Date.now() + 60000,
             repeat: 0,
             links: []
         };
