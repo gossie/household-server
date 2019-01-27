@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Chore } from './chore';
+import { CleaningPlanService } from "../cleaning-plan.service";
+import { CleaningPlan } from "../cleaning-plan";
 
 @Component({
     selector: 'app-chore',
@@ -10,14 +12,23 @@ export class ChoreComponent implements OnInit {
 
     @Input()
     public chore: Chore;
+    @Output()
+    public cleaningPlanEmitter: EventEmitter<CleaningPlan> = new EventEmitter();
 
-    constructor() { }
+    constructor(private cleaningPlanService: CleaningPlanService) { }
 
     ngOnInit() {
     }
 
     public selectChore(): void {
-        
+
+    }
+
+    public deleteChore(): void {
+        this.cleaningPlanService.deleteChore(this.chore)
+            .subscribe((cleaningPlan: CleaningPlan) => {
+                this.cleaningPlanEmitter.emit(cleaningPlan);
+            });
     }
 
 }

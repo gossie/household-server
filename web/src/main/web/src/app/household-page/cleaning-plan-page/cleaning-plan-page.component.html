@@ -1,8 +1,24 @@
+<form [formGroup]="cleaningPlanForm">
+    <div class="field is-grouped">
+        <div class="control">
+            <input class="input" type="text" formControlName="name" placeholder="Hausarbeit" />
+        </div>
+        alle
+        <div class="control">
+            <input class="input" type="text" formControlName="repeat" placeholder="x" />
+        </div>
+        Tage
+        <div class="control">
+            <button class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="addChore()" [disabled]="!cleaningPlanForm.valid">Hinzufügen</button>
+        </div>
+    </div>
+</form>
 <div class="columns" *ngIf="cleaningPlan">
     <div class="column">Name</div>
     <div class="column">Zuletzt ausgeführt</div>
     <div class="column">Nächstes Mal</div>
 </div>
 <app-chore *ngFor="let chore of cleaningPlan.chores"
-           [chore]="chore">
+           [chore]="chore"
+           (cleaningPlanEmitter)="handleCleaningPlan($event)">
 </app-chore>

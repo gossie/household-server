@@ -2,4 +2,5 @@
     <div class="column"><a (click)="selectChore()">{{ chore.name }}</a></div>
     <div class="column">{{ chore.lastPerformed }}</div>
     <div class="column">{{ chore.nextTime }}</div>
+    <div class="column"><a (click)="deleteChore()" class="button is-warning">Löschen</a></div>
 </div>

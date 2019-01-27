@@ -4,5 +4,5 @@ export interface Link {
 }
 
 export interface Model {
-    links: Array<Link>;
+    links?: Array<Link>;
 }

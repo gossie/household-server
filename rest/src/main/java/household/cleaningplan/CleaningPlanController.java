@@ -43,7 +43,7 @@ public class CleaningPlanController {
 		return ResponseEntity.ok(createResource(cleaningPlanService.addChore(cleaningPlanId, choreMapper.map(chore))));
 	}
 
-	@DeleteMapping(path="/{cleaningPlanId}/chores/{choreId}", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
+	@DeleteMapping(path="/{cleaningPlanId}/chores/{choreId}", produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<CleaningPlanDTO>> removeChore(@PathVariable Long cleaningPlanId, @PathVariable Long choreId) {
 		return ResponseEntity.ok(createResource(cleaningPlanService.removeChore(cleaningPlanId, choreId)));
 	}
