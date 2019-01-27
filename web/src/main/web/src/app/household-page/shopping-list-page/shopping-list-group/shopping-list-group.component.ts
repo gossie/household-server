@@ -1,15 +1,16 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ShoppingListGroup} from "./shopping-list-group";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ShoppingList} from "../shopping-list";
-import {ShoppingListService} from "../shopping-list.service";
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { ShoppingListGroup } from "./shopping-list-group";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ShoppingList } from "../shopping-list";
+import { ShoppingListService } from "../shopping-list.service";
+import {ShoppingListItem} from "./shopping-list-item/shopping-list-item";
 
 @Component({
   selector: 'app-shopping-list-group',
   templateUrl: './shopping-list-group.component.html',
   styleUrls: ['./shopping-list-group.component.css']
 })
-export class ShoppingListGroupComponent implements OnInit {
+export class ShoppingListGroupComponent implements OnInit, OnChanges {
 
     @Input()
     public shoppingListGroup: ShoppingListGroup;
@@ -26,6 +27,24 @@ export class ShoppingListGroupComponent implements OnInit {
     public ngOnInit(): void {
         this.shoppingListItemForm = this.formBuilder.group({
             name: ['', Validators.required]
+        });
+    }
+
+    public ngOnChanges(): void {
+        this.shoppingListGroup.shoppingListItems.sort((item1: ShoppingListItem, item2: ShoppingListItem) => {
+            if(item1.selected === item2.selected) {
+                if(item1.name.toLowerCase() < item2.name.toLowerCase()) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            } else {
+                if(item1.selected) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
         });
     }
 
