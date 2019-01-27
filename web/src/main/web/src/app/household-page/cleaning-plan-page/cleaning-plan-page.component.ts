@@ -22,12 +22,11 @@ export class CleaningPlanPageComponent implements OnInit {
                 private route: ActivatedRoute) { }
 
     public ngOnInit() {
-        this.cleaningPlan = this.route.snapshot.data.cleaningPlan;
+        this.handleCleaningPlan(this.route.snapshot.data.cleaningPlan);
         this.cleaningPlanForm = this.formBuilder.group({
             name: ['', Validators.required],
             repeat: ['', [Validators.required, Validators.min(1), Validators.max(365)]]
         });
-        console.log('cleaningPlan', this.cleaningPlan);
     }
 
     public addChore(): void {
@@ -44,6 +43,7 @@ export class CleaningPlanPageComponent implements OnInit {
     }
 
     public handleCleaningPlan(cleaningPlan: CleaningPlan): void {
+        cleaningPlan.chores.sort((chore1: Chore, chore2: Chore) => chore1.nextTime - chore2.nextTime);
         this.cleaningPlan = cleaningPlan;
         this.loading = false;
     }
