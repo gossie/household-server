@@ -4,6 +4,7 @@ import { UserService } from "../../user.service";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/index";
 import { AbstractNetworkService } from "../../abstract-network.service";
+import { Household } from "../household";
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +16,8 @@ export class CookbookService extends AbstractNetworkService {
         super();
     }
 
-    public determineCookbook(url: string): Observable<Cookbook> {
+    public determineCookbook(household: Household): Observable<Cookbook> {
+        const url: string = this.determineUrl(household, 'cookbook');
         return this.httpClient.get<Cookbook>(url, {
             headers: {
                 Authorization: this.userService.getUserData().authData,

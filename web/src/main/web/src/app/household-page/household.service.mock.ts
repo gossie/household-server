@@ -10,4 +10,15 @@ export class HouseholdServiceMock {
     public createHousehold(): Observable<Household> {
         return of();
     }
+
+    public determineHousehold(): Observable<Household> {
+        return of();
+    }
+
+    public observeHousehold(): Observable<Household> {
+        return of({
+            participants: [],
+            links: []
+        });
+    }
 }

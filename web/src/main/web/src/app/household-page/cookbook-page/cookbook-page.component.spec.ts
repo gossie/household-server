@@ -4,15 +4,14 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { UserService } from "../../user.service";
 import { UserServiceMock } from "../../user.service.mock";
 import { RecipeComponent } from "./recipe/recipe.component";
-import { ActivatedRoute } from "@angular/router";
-import { Cookbook } from "./cookbook";
+import { HouseholdService } from "../household.service";
+import { HouseholdServiceMock } from "../household.service.mock";
+import { CookbookServiceMock } from "./cookbook.service.mock";
+import { CookbookService } from "./cookbook.service";
 
 describe('CookbookPageComponent', () => {
     let component: CookbookPageComponent;
     let fixture: ComponentFixture<CookbookPageComponent>;
-    const cookbook: Cookbook = {
-        recipes: []
-    };
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -25,7 +24,8 @@ describe('CookbookPageComponent', () => {
             ],
             providers: [
                 { provide: UserService, useClass: UserServiceMock },
-                { provide: ActivatedRoute, useValue: { snapshot: { data: { cookbook: cookbook } } } }
+                { provide: HouseholdService, useClass: HouseholdServiceMock },
+                { provide: CookbookService, useClass: CookbookServiceMock }
             ]
         })
         .compileComponents();

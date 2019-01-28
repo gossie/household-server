@@ -1,20 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Cookbook } from "./cookbook";
+import { HouseholdService } from "../household.service";
+import { Subscription } from "rxjs/index";
+import { Household } from "../household";
+import { CookbookService } from "./cookbook.service";
 
 @Component({
-  selector: 'app-cookbook-page',
-  templateUrl: './cookbook-page.component.html',
-  styleUrls: ['./cookbook-page.component.css']
+    selector: 'app-cookbook-page',
+    templateUrl: './cookbook-page.component.html',
+    styleUrls: ['./cookbook-page.component.css']
 })
-export class CookbookPageComponent implements OnInit {
+export class CookbookPageComponent implements OnInit, OnDestroy {
 
     public cookbook: Cookbook;
 
-    constructor(private route: ActivatedRoute) { }
+    private subscriptions: Array<Subscription> = [];
+
+    constructor(private householdService: HouseholdService,
+                private cookbookService: CookbookService) { }
 
     public ngOnInit() {
-        this.cookbook = this.route.snapshot.data.cookbook;
+        this.observeHousehold();
     }
 
+    public ngOnDestroy(): void {
+        this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+    }
+
+    private observeHousehold(): void {
+        this.subscriptions.push(this.householdService.observeHousehold()
+            .subscribe((household: Household) => {
+                this.cookbookService.determineCookbook(household)
+                    .subscribe((cookbook: Cookbook) => this.cookbook = cookbook);
+            }));
+    }
 }

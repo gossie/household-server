@@ -1,37 +1,18 @@
 import { Injectable } from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
-import {Household} from './household';
-import {Observable} from 'rxjs';
-import {UserData} from '../user-data';
-import {HttpClient} from '@angular/common/http';
-import {AbstractNetworkService} from '../abstract-network.service';
-import {UserService} from '../user.service';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { Household } from './household';
+import { Observable } from 'rxjs';
+import { HouseholdService } from "./household.service";
 
 @Injectable({
     providedIn: 'root'
 })
-export class HouseholdResolverService extends AbstractNetworkService implements Resolve<Household> {
+export class HouseholdResolverService implements Resolve<Household> {
 
-    constructor(private userService: UserService,
-                private httpClient: HttpClient) {
-        super();
-    }
+    constructor(private householdService: HouseholdService) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Household> {
-        return this.determineHousehold(this.userService.getUserData());
+        return this.householdService.determineHousehold();
     }
 
-    public determineHousehold(userData: UserData): Observable<Household> {
-        const url: string = this.determineUrl(userData.user, 'household');
-        if (url !== undefined) {
-            return this.httpClient.get<Household>(url, {
-                headers: {
-                    Authorization: userData.authData,
-                    Accept: 'application/vnd.household.v1+json'
-                }
-            });
-        } else {
-            return undefined;
-        }
-    }
 }

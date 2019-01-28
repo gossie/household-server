@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from "@angular/router";
 import { CleaningPlanPageComponent } from './cleaning-plan-page.component';
-import { CleaningPlan } from './cleaning-plan';
 import { Chore } from './chore/chore';
-import {ReactiveFormsModule} from "@angular/forms";
-import {CleaningPlanService} from "./cleaning-plan.service";
-import {CleaningPlanServiceMock} from "./cleaning-plan.service.mock";
+import { ReactiveFormsModule } from "@angular/forms";
+import { CleaningPlanService } from "./cleaning-plan.service";
+import { CleaningPlanServiceMock } from "./cleaning-plan.service.mock";
+import { HouseholdService } from "../household.service";
+import { HouseholdServiceMock } from "../household.service.mock";
 
 @Component({
     selector: [
@@ -22,10 +22,6 @@ class MockComponent{
 describe('CleaningPlanPageComponent', () => {
     let component: CleaningPlanPageComponent;
     let fixture: ComponentFixture<CleaningPlanPageComponent>;
-    const cleaningPlan: CleaningPlan = {
-        chores: [],
-        links: []
-    }
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -37,7 +33,7 @@ describe('CleaningPlanPageComponent', () => {
                 MockComponent
             ],
             providers: [
-                { provide: ActivatedRoute, useValue: { snapshot: { data: { cleaningPlan: cleaningPlan } } } },
+                { provide: HouseholdService, useClass: HouseholdServiceMock },
                 { provide: CleaningPlanService, useClass: CleaningPlanServiceMock }
             ]
         })

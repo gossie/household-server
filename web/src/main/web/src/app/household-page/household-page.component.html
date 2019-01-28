@@ -14,19 +14,19 @@
 
         <div id="householdNavbar" class="navbar-menu" [ngClass]="{'is-active': expanded}">
             <div class="navbar-start">
-                <a [routerLink]="[{ outlets: { inner: ['shopping-list', { url: determineUrl('shoppingList') }] } }]" class="navbar-item">
+                <a [routerLink]="[{ outlets: { inner: ['shopping-list'] } }]" class="navbar-item">
                     Einkaufsliste
                 </a>
 
-                <a [routerLink]="[{ outlets: { inner: ['cleaning-plan', { url: determineUrl('cleaningPlan') }] } }]" class="navbar-item">
+                <a [routerLink]="[{ outlets: { inner: ['cleaning-plan'] } }]" class="navbar-item">
                     Putzplan
                 </a>
 
-                <a [routerLink]="[{ outlets: { inner: ['food-plan', { url: determineUrl('foodPlan') }] } }]" class="navbar-item">
+                <a [routerLink]="[{ outlets: { inner: ['food-plan'] } }]" class="navbar-item">
                     Essensplan
                 </a>
 
-                <a [routerLink]="[{ outlets: { inner: ['cookbook', { url: determineUrl('cookbook') }] } }]" class="navbar-item">
+                <a [routerLink]="[{ outlets: { inner: ['cookbook'] } }]" class="navbar-item">
                     Rezepte
                 </a>
             </div>

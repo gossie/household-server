@@ -5,6 +5,7 @@ import { ShoppingList } from "./shopping-list";
 import { ShoppingListGroup } from "./shopping-list-group/shopping-list-group";
 import { UserService } from "../../user.service";
 import { UserServiceMock } from "../../user.service.mock";
+import {Household} from "../household";
 
 describe('ShoppingListService', () => {
 
@@ -35,7 +36,14 @@ describe('ShoppingListService', () => {
         const service: ShoppingListService = TestBed.get(ShoppingListService);
         const httpTestingController: HttpTestingController = TestBed.get(HttpTestingController);
 
-        service.determineShoppingList('/shoppingListUrl').subscribe((shoppingList: ShoppingList) => {
+        const household: Household = {
+            participants: [],
+            links: [{
+                rel: 'shoppingList',
+                href: '/shoppingListUrl'
+            }]
+        };
+        service.determineShoppingList(household).subscribe((shoppingList: ShoppingList) => {
             expect(shoppingList).toEqual(expectedShoppingList);
             done();
         });

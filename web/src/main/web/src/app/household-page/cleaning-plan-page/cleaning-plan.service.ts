@@ -3,8 +3,9 @@ import { Observable } from "rxjs/index";
 import { HttpClient } from "@angular/common/http";
 import { UserService } from "../../user.service";
 import { CleaningPlan } from './cleaning-plan';
-import {AbstractNetworkService} from "../../abstract-network.service";
-import {Chore} from "./chore/chore";
+import { AbstractNetworkService } from "../../abstract-network.service";
+import { Chore } from "./chore/chore";
+import { Household } from "../household";
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +17,8 @@ export class CleaningPlanService extends AbstractNetworkService {
         super();
     }
 
-    public determineCleaningPlan(url: string): Observable<CleaningPlan> {
+    public determineCleaningPlan(household: Household): Observable<CleaningPlan> {
+        const url: string = this.determineUrl(household, 'cleaningPlan');
         return this.httpClient.get<CleaningPlan>(url, {
             headers: {
                 Authorization: this.userService.getUserData().authData,

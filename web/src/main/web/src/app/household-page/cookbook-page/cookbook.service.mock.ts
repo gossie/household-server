@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Cookbook } from "./cookbook";
 import { Observable, of } from "rxjs/index";
+import { Household } from "../household";
 
 @Injectable()
-export class CookbookService {
+export class CookbookServiceMock {
 
     constructor() {}
 
-    public determineCookbook(url: string): Observable<Cookbook> {
-        return of();
+    public determineCookbook(household: Household): Observable<Cookbook> {
+        return of({
+            recipes: []
+        });
     }
 }

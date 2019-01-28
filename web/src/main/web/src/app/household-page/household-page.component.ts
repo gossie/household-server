@@ -50,10 +50,6 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
         this.householdService.createHousehold().subscribe((household: Household) => this.household = household);
     }
 
-    public determineUrl(rel: string): string {
-        return this.household.links.find((link: Link) => link.rel === rel).href;
-    }
-
     public toggleNavbar(): void {
         this.expanded = !this.expanded;
     }

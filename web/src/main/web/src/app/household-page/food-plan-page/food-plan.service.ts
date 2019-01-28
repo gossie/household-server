@@ -3,7 +3,8 @@ import { HttpClient } from "@angular/common/http";
 import { UserService } from "../../user.service";
 import { FoodPlan } from "./food-plan";
 import { Observable } from "rxjs/index";
-import {AbstractNetworkService} from "../../abstract-network.service";
+import { AbstractNetworkService } from "../../abstract-network.service";
+import { Household } from "../household";
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +16,8 @@ export class FoodPlanService extends AbstractNetworkService {
         super();
     }
 
-    public determineFoodPlan(url: string): Observable<FoodPlan> {
+    public determineFoodPlan(household: Household): Observable<FoodPlan> {
+        const url: string = this.determineUrl(household, 'foodPlan');
         return this.httpClient.get<FoodPlan>(url, {
             headers: {
                 Authorization: this.userService.getUserData().authData,

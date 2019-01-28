@@ -6,6 +6,7 @@ import { ShoppingListGroup } from "./shopping-list-group/shopping-list-group";
 import { ShoppingListItem } from "./shopping-list-group/shopping-list-item/shopping-list-item";
 import { AbstractNetworkService } from "../../abstract-network.service";
 import { UserService } from "../../user.service";
+import { Household } from "../household";
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +18,8 @@ export class ShoppingListService extends AbstractNetworkService {
         super();
     }
 
-    public determineShoppingList(url: string): Observable<ShoppingList> {
+    public determineShoppingList(household: Household): Observable<ShoppingList> {
+        const url: string = this.determineUrl(household, 'shoppingList');
         return this.httpClient.get<ShoppingList>(url, {
             headers: {
                 Authorization: this.userService.getUserData().authData,

@@ -8,14 +8,10 @@ import { CleaningPlanPageComponent } from './household-page/cleaning-plan-page/c
 import { FoodPlanPageComponent } from './household-page/food-plan-page/food-plan-page.component';
 import { CookbookPageComponent } from './household-page/cookbook-page/cookbook-page.component';
 import { HouseholdResolverService } from './household-page/household-resolver.service';
-import { CookbookResolverService } from "./household-page/cookbook-page/cookbook-resolver.service";
-import { FoodPlanResolverService } from "./household-page/food-plan-page/food-plan-resolver.service";
-import { CleaningPlanResolverService } from "./household-page/cleaning-plan-page/cleaning-plan-resolver.service";
 import { SplashPageComponent } from "./splash-page/splash-page.component";
 import { RegistrationPageComponent } from "./splash-page/registration-page/registration-page.component";
 import { CoverPageComponent } from "./household-page/cover-page/cover-page.component";
 import { ShoppingListPageComponent } from "./household-page/shopping-list-page/shopping-list-page.component";
-import { ShoppingListResolverService } from "./household-page/shopping-list-page/shopping-list-resolver.service";
 
 const routes: Routes = [{
     path: '',
@@ -58,43 +54,28 @@ const routes: Routes = [{
             path: Page.Cover,
             component: CoverPageComponent,
             canActivate: [AuthGuardService],
-            outlet: 'inner',
-            resolve: {
-                household: HouseholdResolverService
-            }
+            outlet: 'inner'
         },
         {
             path: Page.ShoppingList,
             component: ShoppingListPageComponent,
             canActivate: [AuthGuardService],
-            outlet: 'inner',
-            resolve: {
-                shoppingList: ShoppingListResolverService
-            }
+            outlet: 'inner'
         }, {
             path: Page.CleaningPlan,
             component: CleaningPlanPageComponent,
             canActivate: [AuthGuardService],
-            outlet: 'inner',
-            resolve: {
-                cleaningPlan: CleaningPlanResolverService
-            }
+            outlet: 'inner'
         }, {
             path: Page.FoodPlan,
             component: FoodPlanPageComponent,
             canActivate: [AuthGuardService],
-            outlet: 'inner',
-            resolve: {
-                foodPlan: FoodPlanResolverService
-            }
+            outlet: 'inner'
         }, {
             path: Page.Cookbook,
             component: CookbookPageComponent,
             canActivate: [AuthGuardService],
-            outlet: 'inner',
-            resolve: {
-                cookbook: CookbookResolverService
-            }
+            outlet: 'inner'
         }
     ]
 }];

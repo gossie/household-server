@@ -1,28 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CleaningPlan } from "./cleaning-plan";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CleaningPlanService } from "./cleaning-plan.service";
 import { Chore } from "./chore/chore";
+import { Subscription } from "rxjs/index";
+import { Household } from "../household";
+import { HouseholdService } from "../household.service";
 
 @Component({
-  selector: 'app-cleaning-plan-page',
-  templateUrl: './cleaning-plan-page.component.html',
-  styleUrls: ['./cleaning-plan-page.component.css']
+    selector: 'app-cleaning-plan-page',
+    templateUrl: './cleaning-plan-page.component.html',
+    styleUrls: ['./cleaning-plan-page.component.css']
 })
-export class CleaningPlanPageComponent implements OnInit {
+export class CleaningPlanPageComponent implements OnInit, OnDestroy {
 
     public cleaningPlan: CleaningPlan;
     public cleaningPlanForm: FormGroup;
 
+    private subscriptions: Array<Subscription> = [];
     private loading: boolean = false;
 
-    constructor(private cleaningPlanService: CleaningPlanService,
-                private formBuilder: FormBuilder,
-                private route: ActivatedRoute) { }
+    constructor(private householdService: HouseholdService,
+                private cleaningPlanService: CleaningPlanService,
+                private formBuilder: FormBuilder) { }
 
     public ngOnInit() {
-        this.handleCleaningPlan(this.route.snapshot.data.cleaningPlan);
+        this.observeHousehold();
+        this.createForm();
+    }
+
+    public ngOnDestroy(): void {
+        this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+    }
+
+    private observeHousehold(): void {
+        this.subscriptions.push(this.householdService.observeHousehold()
+            .subscribe((household: Household) => {
+                this.cleaningPlanService.determineCleaningPlan(household)
+                    .subscribe((this.handleCleaningPlan.bind(this)));
+            }));
+    }
+
+    private createForm(): void {
         this.cleaningPlanForm = this.formBuilder.group({
             name: ['', Validators.required],
             repeat: ['', [Validators.required, Validators.min(1), Validators.max(365)]]

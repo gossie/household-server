@@ -3,16 +3,12 @@ import { CoverPageComponent } from './cover-page.component';
 import { ReactiveFormsModule } from "@angular/forms";
 import { InvitationService } from "./invitation.service";
 import { InvitationServiceMock } from "./invitation.service.mock";
-import {ActivatedRoute} from "@angular/router";
-import {Household} from "../household";
+import { HouseholdService } from "../household.service";
+import { HouseholdServiceMock } from "../household.service.mock";
 
 describe('CoverPageComponent', () => {
     let component: CoverPageComponent;
     let fixture: ComponentFixture<CoverPageComponent>;
-    const household: Household = {
-        participants: [],
-        links: []
-    }
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -22,7 +18,7 @@ describe('CoverPageComponent', () => {
             declarations: [ CoverPageComponent ],
             providers: [
                 { provide: InvitationService, useClass: InvitationServiceMock },
-                { provide: ActivatedRoute, useValue: { snapshot: { data: { household: household } } } }
+                { provide: HouseholdService, useClass: HouseholdServiceMock }
             ]
         })
         .compileComponents();

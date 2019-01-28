@@ -1,30 +1,49 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ShoppingList } from "./shopping-list";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ShoppingListService } from "./shopping-list.service";
+import { HouseholdService } from "../household.service";
+import { Household } from "../household";
+import { Subscription } from "rxjs/index";
 
 @Component({
-  selector: 'app-shopping-list-page',
-  templateUrl: './shopping-list-page.component.html',
-  styleUrls: ['./shopping-list-page.component.css']
+    selector: 'app-shopping-list-page',
+    templateUrl: './shopping-list-page.component.html',
+    styleUrls: ['./shopping-list-page.component.css']
 })
-export class ShoppingListPageComponent implements OnInit {
+export class ShoppingListPageComponent implements OnInit, OnDestroy {
 
     public shoppingList: ShoppingList;
     public shoppingListGroupForm: FormGroup;
 
+    private subscriptions: Array<Subscription> = [];
     private loading: boolean = false;
 
-    constructor(private shoppingListService: ShoppingListService,
-                private route: ActivatedRoute,
+    constructor(private householdService: HouseholdService,
+                private shoppingListService: ShoppingListService,
                 private formBuilder: FormBuilder) { }
 
-    public ngOnInit() {
+    public ngOnInit(): void {
+        this.observeHousehold();
+        this.createForm();
+    }
+
+    public ngOnDestroy(): void {
+        this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+    }
+
+    private observeHousehold(): void {
+        this.subscriptions.push(this.householdService.observeHousehold()
+            .subscribe((household: Household) => {
+                this.shoppingListService.determineShoppingList(household)
+                    .subscribe((shoppingList: ShoppingList) => this.shoppingList = shoppingList);
+            }));
+    }
+
+    private createForm(): void {
         this.shoppingListGroupForm = this.formBuilder.group({
             name: ['', Validators.required]
         });
-        this.shoppingList = this.route.snapshot.data.shoppingList;
     }
 
     public addShoppingListGroup(): void {

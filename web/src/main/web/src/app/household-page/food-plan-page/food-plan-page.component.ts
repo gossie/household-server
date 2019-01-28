@@ -1,27 +1,46 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FoodPlan } from "./food-plan";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { FoodPlanService } from "./food-plan.service";
+import { Subscription } from "rxjs/index";
+import { HouseholdService } from "../household.service";
+import { Household } from "../household";
 
 @Component({
     selector: 'app-food-plan-page',
     templateUrl: './food-plan-page.component.html',
     styleUrls: ['./food-plan-page.component.css']
 })
-export class FoodPlanPageComponent implements OnInit {
+export class FoodPlanPageComponent implements OnInit, OnDestroy {
 
     public foodPlan: FoodPlan;
     public foodPlanForm: FormGroup;
 
+    private subscriptions: Array<Subscription> = [];
     private loading: boolean = false;
 
-    constructor(private foodPlanService: FoodPlanService,
-                private route: ActivatedRoute,
+    constructor(private householdService: HouseholdService,
+                private foodPlanService: FoodPlanService,
                 private formBuilder: FormBuilder) { }
 
     public ngOnInit(): void {
-        this.foodPlan = this.route.snapshot.data.foodPlan;
+        this.observeHousehold();
+        this.createForm();
+    }
+
+    public ngOnDestroy(): void {
+        this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+    }
+
+    private observeHousehold(): void {
+        this.subscriptions.push(this.householdService.observeHousehold()
+            .subscribe((household: Household) => {
+                this.foodPlanService.determineFoodPlan(household)
+                    .subscribe((foodPlan: FoodPlan) => this.foodPlan = foodPlan);
+            }));
+    }
+
+    private createForm(): void {
         this.foodPlanForm = this.formBuilder.group({});
     }
 

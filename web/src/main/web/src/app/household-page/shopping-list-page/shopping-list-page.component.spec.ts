@@ -1,14 +1,14 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShoppingListPageComponent } from './shopping-list-page.component';
 import { ReactiveFormsModule } from "@angular/forms";
 import { ShoppingListService } from "./shopping-list.service";
 import { ShoppingListServiceMock } from "./shopping-list.service.mock";
-import { ActivatedRoute } from "@angular/router";
 import { of } from "rxjs/index";
-import { ShoppingList } from "./shopping-list";
 import { Component, Input } from "@angular/core";
 import { ShoppingListGroup } from "./shopping-list-group/shopping-list-group";
 import { By } from "@angular/platform-browser";
+import { HouseholdService } from "../household.service";
+import { HouseholdServiceMock } from "../household.service.mock";
 
 @Component({
     selector: [
@@ -24,10 +24,6 @@ class MockComponent{
 describe('ShoppingListPageComponent', () => {
     let component: ShoppingListPageComponent;
     let fixture: ComponentFixture<ShoppingListPageComponent>;
-    const shoppingList: ShoppingList = {
-        shoppingListGroups: [],
-        links: []
-    };
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -40,7 +36,7 @@ describe('ShoppingListPageComponent', () => {
             ],
             providers: [
                 { provide: ShoppingListService, useClass: ShoppingListServiceMock },
-                { provide: ActivatedRoute, useValue: { snapshot: { data: { shoppingList: shoppingList } } } }
+                { provide: HouseholdService, useClass: HouseholdServiceMock }
             ]
         })
         .compileComponents();
