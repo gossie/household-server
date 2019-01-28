@@ -1,4 +1,4 @@
-<form [formGroup]="foodPlanForm">
+<form *ngIf="foodPlan" [formGroup]="foodPlanForm">
     <app-meal [parentForm]="foodPlanForm" controlName="monday" day="Montag" [meal]="foodPlan.meals.monday"></app-meal>
     <app-meal [parentForm]="foodPlanForm" controlName="tuesday" day="Dienstag" [meal]="foodPlan.meals.tuesday"></app-meal>
     <app-meal [parentForm]="foodPlanForm" controlName="wednesday" day="Mittwoch" [meal]="foodPlan.meals.wednesday"></app-meal>

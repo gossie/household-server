@@ -1,3 +1,6 @@
-<app-recipe *ngFor="let recipe of cookbook.recipes"
-            [recipe]="recipe">
-</app-recipe>
+<div *ngIf="cookbook">
+    <app-recipe *ngFor="let recipe of cookbook.recipes"
+                [recipe]="recipe">
+    </app-recipe>
+</div>
+
