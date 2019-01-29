@@ -34,4 +34,11 @@ export class ChoreComponent implements OnInit {
             });
     }
 
+    public determineDate(timestamp: number): string {
+        const date: Date = new Date();
+        date.setTime(timestamp);
+
+        return`${data.getDate()}.${data.getMonth() + 1}.${data.getFullYear()}`
+    }
+
 }

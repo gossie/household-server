@@ -10,14 +10,14 @@
             </div>
             Tage
             <div class="control">
-                <button class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="addChore()" [disabled]="!cleaningPlanForm.valid">Hinzufügen</button>
+                <button class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="addChore()" [disabled]="!cleaningPlanForm.valid">HinzufÃ¼gen</button>
             </div>
         </div>
     </form>
     <div class="columns is-mobile">
         <div class="column">Name</div>
-        <div class="column">Zuletzt ausgeführt</div>
-        <div class="column">Nächstes Mal</div>
+        <div class="column">Zuletzt ausgefÃ¼hrt</div>
+        <div class="column">NÃ¤chstes Mal</div>
         <div class="column"></div>
     </div>
     <app-chore *ngFor="let chore of cleaningPlan.chores"
