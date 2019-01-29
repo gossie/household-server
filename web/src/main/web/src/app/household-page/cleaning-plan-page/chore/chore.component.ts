@@ -38,7 +38,7 @@ export class ChoreComponent implements OnInit {
         const date: Date = new Date();
         date.setTime(timestamp);
 
-        return`${data.getDate()}.${data.getMonth() + 1}.${data.getFullYear()}`
+        return`${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
     }
 
 }
