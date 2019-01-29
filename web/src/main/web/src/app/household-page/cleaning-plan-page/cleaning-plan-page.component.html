@@ -1,16 +1,26 @@
 <div *ngIf="cleaningPlan">
     <form [formGroup]="cleaningPlanForm">
-        <div class="field is-grouped">
-            <div class="control">
-                <input class="input" type="text" formControlName="name" placeholder="Hausarbeit" />
+        <div class="columns is-mobile">
+            <div class="column is-4">
+                <div class="control">
+                    <input class="input" type="text" formControlName="name" placeholder="Hausarbeit" />
+                </div>
             </div>
-            alle
-            <div class="control">
-                <input class="input" type="text" formControlName="repeat" placeholder="x" />
+            <div class="column is-1">
+                alle
             </div>
-            Tage
-            <div class="control">
-                <button class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="addChore()" [disabled]="!cleaningPlanForm.valid">Hinzufügen</button>
+            <div class="column is-2">
+                <div class="control">
+                    <input class="input" type="text" formControlName="repeat" placeholder="x" />
+                </div>
+            </div>
+            <div class="column is-1">
+                Tage
+            </div>
+            <div class="column is-4">
+                <div class="control">
+                    <button class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="addChore()" [disabled]="!cleaningPlanForm.valid">Hinzufügen</button>
+                </div>
             </div>
         </div>
     </form>

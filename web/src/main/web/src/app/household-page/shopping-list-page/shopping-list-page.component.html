@@ -1,12 +1,17 @@
 <div *ngIf="shoppingList">
     <form [formGroup]="shoppingListGroupForm">
-        <div class="field is-grouped">
-            <div class="control">
-                <input class="input" type="text" formControlName="name" placeholder="Gruppenname" />
+        <div class="columns">
+            <div class="column is-3">
+                <div class="control">
+                    <input class="input" type="text" formControlName="name" placeholder="Gruppenname" />
+                </div>
             </div>
-            <div class="control">
-                <button class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="addShoppingListGroup()" [disabled]="!shoppingListGroupForm.valid">Hinzufügen</button>
+            <div class="column is-3">
+                <div class="control">
+                    <button class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="addShoppingListGroup()" [disabled]="!shoppingListGroupForm.valid">Hinzufügen</button>
+                </div>
             </div>
+            <div class="column is-3"></div>
         </div>
     </form>
     <app-shopping-list-group *ngFor="let group of shoppingList.shoppingListGroups"
