@@ -15,7 +15,7 @@ import { ShoppingListPageComponent } from "./household-page/shopping-list-page/s
 
 const routes: Routes = [{
     path: '',
-    redirectTo: '/splash',
+    redirectTo: `/${Page.Splash}/(user:${Page.Registration})`,
     pathMatch: 'full'
 }, {
     path: Page.Splash,
