@@ -8,6 +8,7 @@ import { HouseholdService } from "../household.service";
 import { HouseholdServiceMock } from "../household.service.mock";
 import { CookbookServiceMock } from "./cookbook.service.mock";
 import { CookbookService } from "./cookbook.service";
+import {IngredientComponent} from "./recipe/ingredient/ingredient.component";
 
 describe('CookbookPageComponent', () => {
     let component: CookbookPageComponent;
@@ -20,7 +21,8 @@ describe('CookbookPageComponent', () => {
             ],
             declarations: [
                 CookbookPageComponent,
-                RecipeComponent
+                RecipeComponent,
+                IngredientComponent
             ],
             providers: [
                 { provide: UserService, useClass: UserServiceMock },

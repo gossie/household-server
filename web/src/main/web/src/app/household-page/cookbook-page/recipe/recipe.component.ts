@@ -1,5 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Recipe} from "./recipe";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Recipe } from "./recipe";
+import { CookbookService } from "../cookbook.service";
+import { Cookbook } from "../cookbook";
 
 @Component({
     selector: 'app-recipe',
@@ -10,10 +12,12 @@ export class RecipeComponent implements OnInit {
 
     @Input()
     public recipe: Recipe;
+    @Output()
+    public cookbookEmitter: EventEmitter<Cookbook> = new EventEmitter();
 
     private expanded: boolean = false;
 
-    constructor() { }
+    constructor(private cookbookService: CookbookService) { }
 
     ngOnInit() {
     }
@@ -23,7 +27,22 @@ export class RecipeComponent implements OnInit {
     }
 
     public toggleRecipe(): void {
-        this.expanded = !this.expanded;
+        if (!this.expanded) {
+            this.cookbookService.determineRecipe(this.recipe)
+                .subscribe((recipe: Recipe) => {
+                    this.recipe = recipe
+                    this.expanded = !this.expanded;
+                });
+        } else {
+            this.expanded = !this.expanded;
+        }
+    }
+
+    public deleteRecipe(): void {
+        this.cookbookService.deleteRecipe(this.recipe)
+            .subscribe((cookbook: Cookbook) => {
+                this.cookbookEmitter.emit(cookbook);
+            });
     }
 
 }

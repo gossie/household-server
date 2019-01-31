@@ -1,6 +1,7 @@
 <div *ngIf="cookbook">
     <app-recipe *ngFor="let recipe of cookbook.recipes"
-                [recipe]="recipe">
+                [recipe]="recipe"
+                (cookbookEmitter)="handleCookbook($event)">
     </app-recipe>
 </div>
 

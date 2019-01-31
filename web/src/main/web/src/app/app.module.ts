@@ -19,6 +19,7 @@ import { ShoppingListGroupComponent}  from "./household-page/shopping-list-page/
 import { ShoppingListItemComponent } from "./household-page/shopping-list-page/shopping-list-group/shopping-list-item/shopping-list-item.component";
 import { MealComponent } from './household-page/food-plan-page/meal/meal.component';
 import { RecipeComponent } from './household-page/cookbook-page/recipe/recipe.component';
+import { IngredientComponent } from './household-page/cookbook-page/recipe/ingredient/ingredient.component';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,8 @@ import { RecipeComponent } from './household-page/cookbook-page/recipe/recipe.co
         CoverPageComponent,
         InvitationComponent,
         MealComponent,
-        RecipeComponent
+        RecipeComponent,
+        IngredientComponent
     ],
     imports: [
         ReactiveFormsModule,

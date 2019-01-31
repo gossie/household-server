@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RecipeComponent } from './recipe.component';
+import { CookbookService } from "../cookbook.service";
+import { CookbookServiceMock } from "../cookbook.service.mock";
+import { IngredientComponent } from "./ingredient/ingredient.component";
 
 describe('RecipeComponent', () => {
     let component: RecipeComponent;
@@ -8,7 +11,13 @@ describe('RecipeComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-        declarations: [ RecipeComponent ]
+            declarations: [
+                RecipeComponent,
+                IngredientComponent
+            ],
+            providers: [
+                { provide: CookbookService, useClass: CookbookServiceMock }
+            ]
         })
         .compileComponents();
     }));

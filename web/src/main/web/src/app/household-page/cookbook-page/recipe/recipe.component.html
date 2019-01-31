@@ -15,11 +15,14 @@
         </header>
         <div *ngIf="isExpanded()" class="card-content">
             <div class="content">
+                <app-ingredient *ngFor="let ingredient of recipe.ingredients"
+                                [ingredient]="ingredient">
+                </app-ingredient>
             </div>
         </div>
         <footer class="card-footer">
             <a href="#" class="card-footer-item">Editieren</a>
-            <a href="#" class="card-footer-item">Löschen</a>
+            <a (click)="deleteRecipe()" class="card-footer-item">Löschen</a>
         </footer>
     </div>
 </div>
