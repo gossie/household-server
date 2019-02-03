@@ -40,11 +40,13 @@
             </div>
         </div>
     </nav>
-    <router-outlet name="inner"></router-outlet>
+    <div class="container is-fluid">
+        <router-outlet name="inner"></router-outlet>
+    </div>
 </div>
 
 <ng-template #noHousehold>
-    <div class="container">
+    <div class="container is-fluid">
         <a (click)="createHousehold()" class="button is-primary">
             Haushalt erstellen
         </a>
