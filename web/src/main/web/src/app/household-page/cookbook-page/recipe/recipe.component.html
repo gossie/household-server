@@ -1,6 +1,6 @@
 <div class="card">
     <header class="card-header">
-        <p class="card-header-title">
+        <p (click)="toggleRecipe()" class="card-header-title">
             {{ recipe.name }}
         </p>
         <a (click)="toggleRecipe()" class="card-header-icon" aria-label="more options">
