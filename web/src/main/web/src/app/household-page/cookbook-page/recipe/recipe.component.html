@@ -1,28 +1,30 @@
-<div class="container">
-    <div class="card">
-        <header class="card-header">
-            <p class="card-header-title">
-                {{ recipe.name }}
-            </p>
-            <a (click)="toggleRecipe()" class="card-header-icon" aria-label="more options">
-                <span class="icon">
-                    <i class="fas"
-                       [ngClass]="{'fa-angle-left': !isExpanded(), 'fa-angle-down': isExpanded()}"
-                       aria-hidden="true">
-                    </i>
-                </span>
-            </a>
-        </header>
-        <div *ngIf="isExpanded()" class="card-content">
-            <div class="content">
-                <app-ingredient *ngFor="let ingredient of recipe.ingredients"
-                                [ingredient]="ingredient">
-                </app-ingredient>
-            </div>
+<div class="card">
+    <header class="card-header">
+        <p class="card-header-title">
+            {{ recipe.name }}
+        </p>
+        <a (click)="toggleRecipe()" class="card-header-icon" aria-label="more options">
+            <span *ngIf="!isExpanded()" class="icon">
+                <i class="fas fa-angle-left"
+                   aria-hidden="true">
+                </i>
+            </span>
+            <span *ngIf="isExpanded()" class="icon">
+                <i class="fas fa-angle-down"
+                   aria-hidden="true">
+                </i>
+            </span>
+        </a>
+    </header>
+    <div *ngIf="isExpanded()" class="card-content">
+        <div class="content">
+            <app-ingredient *ngFor="let ingredient of recipe.ingredients"
+                            [ingredient]="ingredient">
+            </app-ingredient>
         </div>
-        <footer class="card-footer">
-            <a href="#" class="card-footer-item">Editieren</a>
-            <a (click)="deleteRecipe()" class="card-footer-item">Löschen</a>
-        </footer>
     </div>
+    <footer *ngIf="isExpanded()" class="card-footer">
+        <a href="#" class="card-footer-item">Editieren</a>
+        <a (click)="deleteRecipe()" class="card-footer-item">Löschen</a>
+    </footer>
 </div>
