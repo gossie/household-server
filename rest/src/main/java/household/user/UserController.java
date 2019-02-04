@@ -57,8 +57,12 @@ public class UserController {
 	@ResponseStatus(value = HttpStatus.OK)
 	public HttpEntity<Resource<UserDTO>> invite(@PathVariable Long userId, @RequestBody InvitationRequestDTO invitation) {
 		User invitingUser = userService.determineUser(userId);
-		userService.invite(invitation.getEmail().toLowerCase(), invitingUser);
-		return ResponseEntity.ok(createResource(invitingUser));
+		try {
+            userService.invite(invitation.getEmail().toLowerCase(), invitingUser);
+            return ResponseEntity.ok(createResource(invitingUser));
+        } catch(IllegalStateException e) {
+		    throw new UserNotFoundException(e);
+        }
 	}
 
     @PostMapping(path="/{userId}/invitations/{invitationId}", produces={"application/vnd.household.v1+json"})

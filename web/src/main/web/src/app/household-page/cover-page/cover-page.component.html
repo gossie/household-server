@@ -13,5 +13,9 @@
                 <button class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="sendInvitation()" [disabled]="!invitationForm.valid">Senden</button>
             </div>
         </div>
+        <div *ngIf="isErrorVisible()" class="notification is-warning">
+            <button (click)="hideError()" class="delete"></button>
+            Es gibt keinen Benuzter mit dieser E-Mail Adresse.
+        </div>
     </form>
 </div>

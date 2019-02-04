@@ -17,6 +17,7 @@ export class CoverPageComponent implements OnInit, OnDestroy {
 
     private subscriptions: Array<Subscription> = [];
     private loading: boolean = false;
+    private errorVisible: boolean = false;
 
     constructor(private householdService: HouseholdService,
                 private invitationService: InvitationService,
@@ -47,11 +48,33 @@ export class CoverPageComponent implements OnInit, OnDestroy {
     public sendInvitation(): void {
         this.loading = true;
         this.invitationService.sendInvitation(this.invitationForm.controls.email.value)
-            .subscribe(() => this.loading = false);
+            .subscribe(
+                this.handleSuccessfulInvitation.bind(this),
+                this.handleUnsuccessfulInvitation.bind(this)
+            );
+    }
+
+    private handleSuccessfulInvitation() {
+        this.loading = false
+    }
+
+    private handleUnsuccessfulInvitation(error: any) {
+        if (error.status === 404) {
+            this.errorVisible = true;
+        }
+        this.loading = false;
     }
 
     public isLoading(): boolean {
         return this.loading;
+    }
+
+    public isErrorVisible(): boolean {
+        return this.errorVisible;
+    }
+
+    public hideError(): void {
+        this.errorVisible = false;
     }
 
 }
