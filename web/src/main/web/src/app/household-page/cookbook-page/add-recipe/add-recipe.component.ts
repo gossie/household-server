@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Ingredient} from "../recipe/ingredient/ingredient";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CookbookService} from "../cookbook.service";
-import {Cookbook} from "../cookbook";
-import {Recipe} from "../recipe/recipe";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Ingredient } from "../recipe/ingredient/ingredient";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { CookbookService } from "../cookbook.service";
+import { Cookbook } from "../cookbook";
+import { Recipe } from "../recipe/recipe";
 
 @Component({
     selector: 'app-add-recipe',
@@ -43,6 +43,7 @@ export class AddRecipeComponent implements OnInit {
     }
 
     public closeDialog(): void {
+        this.resetFields();
         this.open = false;
     }
 
@@ -65,16 +66,20 @@ export class AddRecipeComponent implements OnInit {
         };
         this.cookbookService.createRecipe(this.cookbook, recipe)
             .subscribe((cookbook: Cookbook) => {
-                this.ingredients = [];
-                
-                this.ingredientForm.controls.recipeName.reset();
-                this.ingredientForm.controls.amount.reset();
-                this.ingredientForm.controls.unit.reset();
-                this.ingredientForm.controls.name.reset();
+                this.resetFields();
 
                 this.cookbookEmitter.emit(cookbook);
                 this.loading = false;
                 this.open = false;
             });
+    }
+
+    private resetFields(): void {
+        this.ingredients = [];
+
+        this.ingredientForm.controls.recipeName.reset();
+        this.ingredientForm.controls.amount.reset();
+        this.ingredientForm.controls.unit.reset();
+        this.ingredientForm.controls.name.reset();
     }
 }
