@@ -22,7 +22,9 @@
         </div>
         <div class="column is-2">
             <div class="control" *ngIf="isNotGlobal()">
-                <a (click)="deleteShoppingListGroup()" class="delete"></a>
+                <span class="icon" (click)="deleteShoppingListGroup()">
+                    <i class="fas fa-trash"></i>
+                </span>
             </div>
         </div>
     </div>

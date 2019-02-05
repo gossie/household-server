@@ -2,5 +2,9 @@
     <div class="column is-5"><a (click)="selectChore()">{{ chore.name }}</a></div>
     <div class="column is-3">{{ determineDate(chore.lastPerformed) }}</div>
     <div class="column is-3">{{ determineDate(chore.nextTime) }}</div>
-    <div class="column is-1"><a (click)="deleteChore()" class="delete"></a></div>
+    <div class="column is-1">
+        <span (click)="deleteChore()" class="icon">
+            <i class="fas fa-trash"></i>
+        </span>
+    </div>
 </div>
