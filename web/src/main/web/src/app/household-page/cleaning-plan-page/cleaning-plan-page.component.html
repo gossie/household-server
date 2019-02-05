@@ -6,7 +6,7 @@
                     <input class="input" type="text" formControlName="name" placeholder="Hausarbeit" />
                 </div>
             </div>
-            <div class="column is-1">
+            <div class="column is-2">
                 alle
             </div>
             <div class="column is-2">
@@ -14,12 +14,14 @@
                     <input class="input" type="text" formControlName="repeat" placeholder="x" />
                 </div>
             </div>
-            <div class="column is-1">
+            <div class="column is-2">
                 Tage
             </div>
-            <div class="column is-4">
+            <div class="column is-2">
                 <div class="control">
-                    <button class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="addChore()" [disabled]="!cleaningPlanForm.valid">Hinzufügen</button>
+                    <span class="icon" (click)="addChore()">
+                        <i class="fas fa-plus"></i>
+                    </span>
                 </div>
             </div>
         </div>

@@ -2,7 +2,9 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <div [routerLink]="[{ outlets: { inner: ['cover'] } } ]" class="navbar-item">
-                (Logo)
+                <span class="icon">
+                    <i class="fas fa-home"></i>
+                </span>
             </div>
 
             <a (click)="toggleNavbar()" role="button" class="navbar-burger burger" [ngClass]="{'is-active': expanded}" aria-label="menu" aria-expanded="false" data-target="householdNavbar">
@@ -15,18 +17,30 @@
         <div id="householdNavbar" class="navbar-menu" [ngClass]="{'is-active': expanded}">
             <div class="navbar-start">
                 <a [routerLink]="[{ outlets: { inner: ['shopping-list'] } }]" class="navbar-item">
+                    <span class="icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </span>
                     Einkaufsliste
                 </a>
 
                 <a [routerLink]="[{ outlets: { inner: ['cleaning-plan'] } }]" class="navbar-item">
+                    <span class="icon">
+                        <i class="fas fa-broom"></i>
+                    </span>
                     TODO-Liste
                 </a>
 
                 <a [routerLink]="[{ outlets: { inner: ['food-plan'] } }]" class="navbar-item">
+                    <span class="icon">
+                        <i class="fas fa-utensils"></i>
+                    </span>
                     Essensplan
                 </a>
 
                 <a [routerLink]="[{ outlets: { inner: ['cookbook'] } }]" class="navbar-item">
+                    <span class="icon">
+                        <i class="fas fa-book"></i>
+                    </span>
                     Rezepte
                 </a>
             </div>
