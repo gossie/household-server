@@ -46,4 +46,15 @@ export class CookbookService extends AbstractNetworkService {
             }
         });
     }
+
+    public createRecipe(cookbook: Cookbook, recipe: Recipe): Observable<Cookbook> {
+        const url: string = this.determineUrl(cookbook, 'create');
+        return this.httpClient.post<Cookbook>(url, recipe, {
+            headers: {
+                Authorization: this.userService.getUserData().authData,
+                'Content-Type': 'application/vnd.household.v1+json',
+                Accept: 'application/vnd.household.min.v1+json'
+            }
+        });
+    }
 }

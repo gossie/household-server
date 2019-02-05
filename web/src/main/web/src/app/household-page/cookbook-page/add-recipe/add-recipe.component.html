@@ -1,0 +1,43 @@
+<a (click)="openDialog()" class="button is-primary">Neues Rezept</a>
+
+<div class="modal" [ngClass]="{'is-active': open}">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="box">
+            <form [formGroup]="ingredientForm">
+                <input class="input" type="text" formControlName="recipeName" placeholder="Rezept" />
+                <div *ngFor="let ingredient of ingredients" class="columns is-mobile">
+                    <div class="column">{{ ingredient.amount }}</div>
+                    <div class="column">{{ ingredient.unit }}</div>
+                    <div class="column">{{ ingredient.name }}</div>
+                </div>
+                <div class="columns is-mobile">
+                    <div class="column">
+                        <div class="control">
+                            <input class="input" type="text" formControlName="amount" placeholder="Anzahl" />
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="control">
+                            <input class="input" type="text" formControlName="unit" placeholder="Einheit" />
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="control">
+                            <input class="input" type="text" formControlName="name" placeholder="Zutat" />
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="control">
+                            <span class="icon" (click)="addIngredient()">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <a (click)="createRecipe()" class="button is-primary" [ngClass]="{'is-loading': loading}">Speichern</a>
+            </form>
+        </div>
+    </div>
+    <button (click)="closeDialog()" class="modal-close is-large" aria-label="close"></button>
+</div>

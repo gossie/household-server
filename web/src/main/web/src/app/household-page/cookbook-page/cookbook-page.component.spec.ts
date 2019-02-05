@@ -8,7 +8,9 @@ import { HouseholdService } from "../household.service";
 import { HouseholdServiceMock } from "../household.service.mock";
 import { CookbookServiceMock } from "./cookbook.service.mock";
 import { CookbookService } from "./cookbook.service";
-import {IngredientComponent} from "./recipe/ingredient/ingredient.component";
+import { IngredientComponent } from "./recipe/ingredient/ingredient.component";
+import { AddRecipeComponent } from "./add-recipe/add-recipe.component";
+import { ReactiveFormsModule } from "@angular/forms";
 
 describe('CookbookPageComponent', () => {
     let component: CookbookPageComponent;
@@ -17,12 +19,14 @@ describe('CookbookPageComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
-                RouterTestingModule
+                RouterTestingModule,
+                ReactiveFormsModule // remove again when add-recipe-component is mocked
             ],
             declarations: [
                 CookbookPageComponent,
                 RecipeComponent,
-                IngredientComponent
+                IngredientComponent,
+                AddRecipeComponent
             ],
             providers: [
                 { provide: UserService, useClass: UserServiceMock },

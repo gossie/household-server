@@ -1,4 +1,7 @@
 <div *ngIf="cookbook">
+    <app-add-recipe [cookbook]="cookbook"
+                    (cookbookEmitter)="handleCookbook($event)"></app-add-recipe>
+
     <app-recipe *ngFor="let recipe of cookbook.recipes"
                 [recipe]="recipe"
                 (cookbookEmitter)="handleCookbook($event)">
