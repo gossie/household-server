@@ -1,21 +1,19 @@
-<div class="container">
-    <ul>
-        <li *ngFor="let participant of household.participants">
-            <span>{{ participant.email }}</span>
-        </li>
-    </ul>
-    <form [formGroup]="invitationForm">
-        <div class="field is-grouped">
-            <div class="control">
-                <input class="input" type="text" formControlName="email" placeholder="E-Mail" />
-            </div>
-            <div class="control">
-                <button class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="sendInvitation()" [disabled]="!invitationForm.valid">Senden</button>
-            </div>
+<ul>
+    <li *ngFor="let participant of household.participants">
+        <span>{{ participant.email }}</span>
+    </li>
+</ul>
+<form [formGroup]="invitationForm">
+    <div class="field is-grouped">
+        <div class="control">
+            <input class="input" type="text" formControlName="email" placeholder="E-Mail" />
         </div>
-        <div *ngIf="isErrorVisible()" class="notification is-warning">
-            <button (click)="hideError()" class="delete"></button>
-            Es gibt keinen Benuzter mit dieser E-Mail Adresse.
+        <div class="control">
+            <button class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="sendInvitation()" [disabled]="!invitationForm.valid">Senden</button>
         </div>
-    </form>
-</div>
+    </div>
+    <div *ngIf="isErrorVisible()" class="notification is-warning">
+        <button (click)="hideError()" class="delete"></button>
+        Es gibt keinen Benuzter mit dieser E-Mail Adresse.
+    </div>
+</form>

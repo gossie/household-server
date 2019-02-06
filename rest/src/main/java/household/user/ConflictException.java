@@ -3,10 +3,10 @@ package household.user;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
-class UserNotFoundException extends RuntimeException {
+@ResponseStatus(HttpStatus.CONFLICT)
+class ConflictException extends RuntimeException {
 
-    UserNotFoundException(Throwable cause) {
+    ConflictException(Throwable cause) {
         super(cause);
     }
 }

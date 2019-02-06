@@ -29,4 +29,9 @@
             <button class="button is-link" type="submit" [disabled]="!form.valid">Registrieren</button>
         </div>
     </div>
+
+    <div *ngIf="isErrorVisible()" class="notification is-warning">
+        <button (click)="hideError()" class="delete"></button>
+        Die E-Mail Adresse ist schon vorhanden.
+    </div>
 </form>

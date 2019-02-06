@@ -21,4 +21,9 @@
             <button class="button is-link" type="submit" [disabled]="!form.valid">Login</button>
         </div>
     </div>
+
+    <div *ngIf="isErrorVisible()" class="notification is-warning">
+        <button (click)="hideError()" class="delete"></button>
+        E-Mail Adresse und Passwort passen nicht zueinander.
+    </div>
 </form>

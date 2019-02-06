@@ -37,8 +37,12 @@ public class UserController {
 
 	@PostMapping(consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<UserDTO>> createUser(@RequestBody Map<String, String> data) {
-		User createUser = userService.createUser(new User(null, data.get("email").toLowerCase(), data.get("password")));
-		return ResponseEntity.ok(createResource(createUser));
+	    try {
+            User createUser = userService.createUser(new User(null, data.get("email").toLowerCase(), data.get("password")));
+            return ResponseEntity.ok(createResource(createUser));
+        } catch(UserAlreadyExistsException e) {
+            throw new ConflictException(e);
+        }
 	}
 
 	@GetMapping(path="/{userId}", produces={"application/vnd.household.v1+json"})
@@ -49,8 +53,12 @@ public class UserController {
 
 	@PostMapping(path="/login", produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<UserDTO>> login() {
-		User user = userService.determineCurrentUser();
-		return ResponseEntity.ok(createResource(user));
+	    try {
+            User user = userService.determineCurrentUser();
+            return ResponseEntity.ok(createResource(user));
+        } catch(IllegalStateException e) {
+            throw new NotAuthenticatedException(e);
+        }
 	}
 
 	@PostMapping(path="/{userId}/invitations", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
@@ -61,7 +69,7 @@ public class UserController {
             userService.invite(invitation.getEmail().toLowerCase(), invitingUser);
             return ResponseEntity.ok(createResource(invitingUser));
         } catch(IllegalStateException e) {
-		    throw new UserNotFoundException(e);
+		    throw new NotFoundException(e);
         }
 	}
 
