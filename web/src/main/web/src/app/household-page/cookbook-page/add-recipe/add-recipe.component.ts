@@ -20,18 +20,22 @@ export class AddRecipeComponent implements OnInit {
     public open: boolean = false;
     public loading: boolean = false;
     public ingredients: Array<Ingredient> = [];
+    public recipeForm: FormGroup;
     public ingredientForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder,
                 private cookbookService: CookbookService) { }
 
     ngOnInit() {
-        this.createForm();
+        this.createForms();
     }
 
-    private createForm(): void {
+    private createForms(): void {
+        this.recipeForm = this.formBuilder.group({
+            recipeName: ['', Validators.required]
+        });
+
         this.ingredientForm = this.formBuilder.group({
-            recipeName: ['', Validators.required],
             amount: [''],
             unit: [''],
             name: ['', Validators.required]
@@ -77,7 +81,7 @@ export class AddRecipeComponent implements OnInit {
     private resetFields(): void {
         this.ingredients = [];
 
-        this.ingredientForm.controls.recipeName.reset();
+        this.recipeForm.controls.recipeName.reset();
         this.ingredientForm.controls.amount.reset();
         this.ingredientForm.controls.unit.reset();
         this.ingredientForm.controls.name.reset();
