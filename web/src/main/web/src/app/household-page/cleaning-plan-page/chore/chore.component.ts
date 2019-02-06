@@ -34,6 +34,7 @@ export class ChoreComponent implements OnInit {
             });
     }
 
+    // Convert to pipe
     public determineDate(timestamp: number): string {
         const date: Date = new Date();
         date.setTime(timestamp);
@@ -41,4 +42,27 @@ export class ChoreComponent implements OnInit {
         return`${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
     }
 
+    public isGreen(): boolean {
+        return this.determineFactor() >= 0.25;
+    }
+
+    public isYellow(): boolean {
+        const factor: number = this.determineFactor();
+        return factor < 0.25 && factor >= 0.1;
+    }
+
+    public isRed(): boolean {
+        return this.determineFactor() < 0.1;
+    }
+
+    private determineFactor(): number {
+        const difference1: number = this.chore.nextTime - this.chore.lastPerformed;
+        const difference2: number = this.chore.nextTime - Date.now();
+
+        if (difference2 < 0) {
+            return 0;
+        } else {
+            return difference2 / difference1;
+        }
+    }
 }

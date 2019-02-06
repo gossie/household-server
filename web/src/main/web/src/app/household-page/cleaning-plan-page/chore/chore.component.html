@@ -3,8 +3,13 @@
     <div class="column is-3">{{ determineDate(chore.lastPerformed) }}</div>
     <div class="column is-3">{{ determineDate(chore.nextTime) }}</div>
     <div class="column is-1">
-        <span (click)="deleteChore()" class="icon">
-            <i class="fas fa-trash"></i>
+        <span class="icon" [ngClass]="{'has-text-success': isGreen(), 'has-text-warning': isYellow(), 'has-text-danger': isRed()}">
+            <i class="far fa-dot-circle"></i>
         </span>
     </div>
+    <!--<div class="column is-1">-->
+        <!--<span (click)="deleteChore()" class="icon">-->
+            <!--<i class="fas fa-trash"></i>-->
+        <!--</span>-->
+    <!--</div>-->
 </div>
