@@ -103,3 +103,9 @@ target
 # System Files
 .DS_Store
 Thumbs.db
+
+
+
+# specific
+web/src/main/web/dist
+web/src/main/web/node
