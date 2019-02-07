@@ -17,3 +17,7 @@
         Es gibt keinen Benuzter mit dieser E-Mail Adresse.
     </div>
 </form>
+<h5 class="title is-5">Eingegangene Einladungen</h5>
+<app-invitation *ngFor="let invitation of user.invitations"
+                [invitation]="invitation">
+</app-invitation>

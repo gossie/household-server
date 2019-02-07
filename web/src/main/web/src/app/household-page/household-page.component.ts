@@ -30,9 +30,11 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.household = this.route.snapshot.data.household;
-        this.userService.observeUserData().subscribe((userData: UserData) => {
-            this.user = userData.user;
-        });
+        this.subscriptions.push(this.userService.observeUserData()
+            .subscribe((userData: UserData) => {
+                this.user = userData.user;
+            })
+        );
         this.subscriptions.push(this.router.events
             .pipe(
                 filter(evt => evt instanceof NavigationEnd)

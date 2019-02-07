@@ -27,7 +27,7 @@ export class InvitationComponent implements OnInit {
         this.invitationService.acceptInvitation(this.invitation)
             .subscribe((user: User) => {
                 this.userService.setUser(user);
-                this.router.navigate([Page.Cover]);
+                this.router.navigate([Page.Household]);
             });
     }
 

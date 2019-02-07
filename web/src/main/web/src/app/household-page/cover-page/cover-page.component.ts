@@ -4,6 +4,9 @@ import { InvitationService } from "./invitation.service";
 import { Household } from "../household";
 import { Subscription } from "rxjs/index";
 import { HouseholdService } from "../household.service";
+import {UserService} from "../../user.service";
+import {User} from "../../splash-page/login-page/user";
+import {UserData} from "../../user-data";
 
 @Component({
     selector: 'app-cover-page',
@@ -12,6 +15,7 @@ import { HouseholdService } from "../household.service";
 })
 export class CoverPageComponent implements OnInit, OnDestroy {
 
+    public user: User;
     public household: Household;
     public invitationForm: FormGroup;
 
@@ -19,17 +23,27 @@ export class CoverPageComponent implements OnInit, OnDestroy {
     private loading: boolean = false;
     private errorVisible: boolean = false;
 
-    constructor(private householdService: HouseholdService,
+    constructor(private userService: UserService,
+                private householdService: HouseholdService,
                 private invitationService: InvitationService,
                 private formBuilder: FormBuilder) { }
 
     public ngOnInit(): void {
+        this.observeUser();
         this.observeHousehold();
         this.createForm();
     }
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+    }
+
+    private observeUser(): void {
+        this.subscriptions.push(this.userService.observeUserData()
+            .subscribe((userData: UserData) => {
+                this.user = userData.user;
+            })
+        );
     }
 
     private observeHousehold(): void {
