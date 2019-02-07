@@ -65,7 +65,7 @@ export class AddRecipeComponent implements OnInit {
     public createRecipe(): void {
         this.loading = true;
         const recipe: Recipe = {
-            name: this.ingredientForm.controls.recipeName.value,
+            name: this.recipeForm.controls.recipeName.value,
             ingredients: this.ingredients
         };
         this.cookbookService.createRecipe(this.cookbook, recipe)
