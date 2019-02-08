@@ -4,9 +4,13 @@
     <div class="modal-background"></div>
     <div class="modal-content">
         <div class="box">
-            <form [formGroup]="recipeForm">
-                <input class="input" type="text" formControlName="recipeName" placeholder="Rezept" />
-            </form>
+            <div class="columns is-mobile">
+                <div class="column">
+                    <form [formGroup]="recipeForm">
+                        <input class="input" type="text" formControlName="recipeName" placeholder="Rezept" />
+                    </form>
+                </div>
+            </div>
             <form [formGroup]="ingredientForm">
                 <div *ngFor="let ingredient of ingredients" class="columns is-mobile">
                     <div class="column">{{ ingredient.amount }}</div>
@@ -46,7 +50,11 @@
                     </div>
                 </div>
             </form>
-            <button (click)="saveRecipe()" class="button is-primary" [ngClass]="{'is-loading': loading}" [disabled]="!recipeForm.valid">Speichern</button>
+            <div class="columns is-mobile">
+                <div class="column">
+                    <button (click)="saveRecipe()" class="button is-primary" [ngClass]="{'is-loading': loading}" [disabled]="!recipeForm.valid">Speichern</button>
+                </div>
+            </div>
         </div>
     </div>
     <button (click)="closeDialog()" class="modal-close is-large" aria-label="close"></button>
