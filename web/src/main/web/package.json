@@ -7,6 +7,7 @@
         "build": "ng build",
         "build:prod": "ng build --prod",
         "test": "ng test",
+        "test:ci": "ng test --browsers ChromeCi --watch false",
         "lint": "ng lint",
         "e2e": "ng e2e",
         "e2e:ci": "ng e2e --protractor-config e2e/protractor.headless.conf.js"

@@ -6,6 +6,8 @@ import { InvitationServiceMock } from "./invitation.service.mock";
 import { HouseholdService } from "../household.service";
 import { HouseholdServiceMock } from "../household.service.mock";
 import { InvitationComponent } from "../invitation/invitation.component";
+import { UserService } from "../../user.service";
+import { UserServiceMock } from "../../user.service.mock";
 
 describe('CoverPageComponent', () => {
     let component: CoverPageComponent;
@@ -22,7 +24,8 @@ describe('CoverPageComponent', () => {
             ],
             providers: [
                 { provide: InvitationService, useClass: InvitationServiceMock },
-                { provide: HouseholdService, useClass: HouseholdServiceMock }
+                { provide: HouseholdService, useClass: HouseholdServiceMock },
+                { provide: UserService, useClass: UserServiceMock }
             ]
         })
         .compileComponents();
