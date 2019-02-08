@@ -1,0 +1,21 @@
+<div class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="box">
+            <h4 class="title is-4">Was muss noch auf die Einkaufsliste?</h4>
+            <div class="columns is-mobile">
+                <div *ngFor="let ingredient of recipe.ingredients" class="column">
+                    <label (click)="toggleIngredient(ingredient)" class="checkbox">
+                        <input type="checkbox">
+                        {{ ingredient.name }}
+                    </label>
+                </div>
+            </div>
+            <div class="columns is-mobile">
+                <div class="column">
+                    <button (click)="saveIngredients()" class="button is-primary">Speichern</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
