@@ -1,5 +1,5 @@
-import { LoginPage } from "./login.po";
-import {ShoppingListPage} from "./shopping-list.po";
+import { LoginPage } from "../pages/login.po";
+import {ShoppingListPage} from "../pages/shopping-list.po";
 
 describe('shopping list', () => {
     const loginPage: LoginPage = new LoginPage();

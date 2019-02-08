@@ -2,15 +2,19 @@ import { Injectable } from '@angular/core';
 import { Cookbook } from "./cookbook";
 import { UserService } from "../../user.service";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs/index";
+import { BehaviorSubject, Observable, Subject } from "rxjs/index";
 import { AbstractNetworkService } from "../../abstract-network.service";
 import { Household } from "../household";
-import {Recipe} from "./recipe/recipe";
+import { Recipe } from "./recipe/recipe";
+import { filter, tap } from "rxjs/internal/operators";
+import { ObjectUtils } from "../../object.utils";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CookbookService extends AbstractNetworkService {
+
+    private cookbookSubject: Subject<Cookbook> = new BehaviorSubject(null);
 
     constructor(private userService: UserService,
                 private httpClient: HttpClient) {
@@ -24,7 +28,10 @@ export class CookbookService extends AbstractNetworkService {
                 Authorization: this.userService.getUserData().authData,
                 Accept: 'application/vnd.household.min.v1+json'
             }
-        });
+        })
+        .pipe(
+            tap((cookbook: Cookbook) => this.cookbookSubject.next(cookbook))
+        );
     }
 
     public determineRecipe(minRecipe: Recipe): Observable<Recipe> {
@@ -44,7 +51,10 @@ export class CookbookService extends AbstractNetworkService {
                 Authorization: this.userService.getUserData().authData,
                 Accept: 'application/vnd.household.min.v1+json'
             }
-        });
+        })
+        .pipe(
+            tap((cookbook: Cookbook) => this.cookbookSubject.next(cookbook))
+        );
     }
 
     public createRecipe(cookbook: Cookbook, recipe: Recipe): Observable<Cookbook> {
@@ -55,7 +65,10 @@ export class CookbookService extends AbstractNetworkService {
                 'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.min.v1+json'
             }
-        });
+        })
+        .pipe(
+            tap((cookbook: Cookbook) => this.cookbookSubject.next(cookbook))
+        );
     }
 
     public editRecipe(recipe: Recipe): Observable<Cookbook> {
@@ -66,6 +79,16 @@ export class CookbookService extends AbstractNetworkService {
                 'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.min.v1+json'
             }
-        });
+        })
+        .pipe(
+            tap((cookbook: Cookbook) => this.cookbookSubject.next(cookbook))
+        );
+    }
+
+    public observeCookbook(): Observable<Cookbook> {
+        return this.cookbookSubject.asObservable()
+            .pipe(
+                filter((cookbook: Cookbook) => ObjectUtils.isObject(cookbook))
+            );
     }
 }

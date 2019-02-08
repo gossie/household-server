@@ -10,7 +10,33 @@ export class CookbookServiceMock {
 
     public determineCookbook(household: Household): Observable<Cookbook> {
         return of({
-            recipes: []
+            recipes: [
+                {
+                    name: 'Chili con carne'
+                },
+                {
+                    name: 'Curry'
+                },
+                {
+                    name: 'Käsekuchen'
+                }
+            ]
+        });
+    }
+
+    public observeCookbook(): Observable<Cookbook> {
+        return of({
+            recipes: [
+                {
+                    name: 'Chili con carne'
+                },
+                {
+                    name: 'Curry'
+                },
+                {
+                    name: 'Käsekuchen'
+                }
+            ]
         });
     }
 }
