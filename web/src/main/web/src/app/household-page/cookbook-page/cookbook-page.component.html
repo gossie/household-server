@@ -1,12 +1,19 @@
 <div *ngIf="cookbook">
-    <app-add-recipe [cookbook]="cookbook"
-                    [recipe]="recipe"
-                    (cookbookEmitter)="handleCookbook($event)"></app-add-recipe>
-
-    <app-recipe *ngFor="let recipe of cookbook.recipes"
-                [recipe]="recipe"
-                (cookbookEmitter)="handleCookbook($event)"
-                (recipeEmitter)="handleRecipe($event)">
-    </app-recipe>
+    <div class="columns is-mobile">
+        <div class="column">
+            <app-add-recipe [cookbook]="cookbook"
+                            [recipe]="recipe"
+                            (cookbookEmitter)="handleCookbook($event)"></app-add-recipe>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <app-recipe *ngFor="let recipe of cookbook.recipes"
+                        [recipe]="recipe"
+                        (cookbookEmitter)="handleCookbook($event)"
+                        (recipeEmitter)="handleRecipe($event)">
+            </app-recipe>
+        </div>
+    </div>
 </div>
 

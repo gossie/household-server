@@ -16,32 +16,32 @@
 
         <div id="householdNavbar" class="navbar-menu" [ngClass]="{'is-active': expanded}">
             <div class="navbar-start">
-                <a [routerLink]="[{ outlets: { inner: ['shopping-list'] } }]" class="navbar-item">
+                <a [routerLink]="[{ outlets: { inner: ['shopping-list'] } }]" id="shopping-list-tab" class="navbar-item">
                     <span class="icon">
                         <i class="fas fa-shopping-cart"></i>
                     </span>
                     Einkaufsliste
                 </a>
 
-                <a [routerLink]="[{ outlets: { inner: ['cleaning-plan'] } }]" class="navbar-item">
+                <a [routerLink]="[{ outlets: { inner: ['cleaning-plan'] } }]" id="cleaning-plan-tab" class="navbar-item">
                     <span class="icon">
                         <i class="fas fa-broom"></i>
                     </span>
                     TODO-Liste
                 </a>
 
-                <a [routerLink]="[{ outlets: { inner: ['food-plan'] } }]" class="navbar-item">
+                <a [routerLink]="[{ outlets: { inner: ['food-plan'] } }]" id="food-plan-tab" class="navbar-item">
                     <span class="icon">
                         <i class="fas fa-utensils"></i>
                     </span>
                     Essensplan
                 </a>
 
-                <a [routerLink]="[{ outlets: { inner: ['cookbook'] } }]" class="navbar-item">
+                <a [routerLink]="[{ outlets: { inner: ['cookbook'] } }]" id="cookbook-tab" class="navbar-item">
                     <span class="icon">
                         <i class="fas fa-book"></i>
                     </span>
-                    Rezepte
+                    Kochbuch
                 </a>
             </div>
 

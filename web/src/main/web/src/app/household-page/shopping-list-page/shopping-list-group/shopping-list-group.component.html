@@ -1,36 +1,40 @@
-<h4 class="title is-4">{{ shoppingListGroup.name }}</h4>
-<form [formGroup]="shoppingListItemForm">
-    <div class="columns is-mobile">
-        <div class="column is-6">
-            <div class="control">
-                <input class="input" type="text" formControlName="name" placeholder="Item" />
-            </div>
-        </div>
-        <div class="column is-2">
-            <div class="control">
+<div class="columns">
+    <div class="column">
+        <h4 class="title is-4">{{ shoppingListGroup.name }}</h4>
+        <form [formGroup]="shoppingListItemForm">
+            <div class="columns is-mobile">
+                <div class="column is-6">
+                    <div class="control">
+                        <input class="input" type="text" formControlName="name" placeholder="Item" />
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="control">
                 <span class="icon" (click)="addShoppingListItem()">
                     <i class="fas fa-plus"></i>
                 </span>
-            </div>
-        </div>
-        <div class="column is-2">
-            <div class="control">
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="control">
                 <span class="icon" (click)="clearShoppingListGroup()">
                     <i class="fas fa-broom"></i>
                 </span>
-            </div>
-        </div>
-        <div class="column is-2">
-            <div class="control" *ngIf="isNotGlobal()">
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="control" *ngIf="isNotGlobal()">
                 <span class="icon" (click)="deleteShoppingListGroup()">
                     <i class="fas fa-trash"></i>
                 </span>
+                    </div>
+                </div>
             </div>
-        </div>
+        </form>
+        <ul>
+            <app-shopping-list-item *ngFor="let item of shoppingListGroup.shoppingListItems"
+                                    [shoppingListItem]="item"
+                                    (shoppingListEmitter)="handleShoppingList($event)"></app-shopping-list-item>
+        </ul>
     </div>
-</form>
-<ul>
-    <app-shopping-list-item *ngFor="let item of shoppingListGroup.shoppingListItems"
-                            [shoppingListItem]="item"
-                            (shoppingListEmitter)="handleShoppingList($event)"></app-shopping-list-item>
-</ul>
+</div>
