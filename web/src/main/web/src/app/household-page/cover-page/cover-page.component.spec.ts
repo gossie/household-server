@@ -5,6 +5,7 @@ import { InvitationService } from "./invitation.service";
 import { InvitationServiceMock } from "./invitation.service.mock";
 import { HouseholdService } from "../household.service";
 import { HouseholdServiceMock } from "../household.service.mock";
+import { InvitationComponent } from "../invitation/invitation.component";
 
 describe('CoverPageComponent', () => {
     let component: CoverPageComponent;
@@ -15,7 +16,10 @@ describe('CoverPageComponent', () => {
             imports: [
                 ReactiveFormsModule
             ],
-            declarations: [ CoverPageComponent ],
+            declarations: [
+                CoverPageComponent,
+                InvitationComponent
+            ],
             providers: [
                 { provide: InvitationService, useClass: InvitationServiceMock },
                 { provide: HouseholdService, useClass: HouseholdServiceMock }

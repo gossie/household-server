@@ -17,8 +17,7 @@ export class InvitationComponent implements OnInit {
     public invitation: Invitation;
 
     constructor(private invitationService: InvitationService,
-                private userService: UserService,
-                private router: Router) { }
+                private userService: UserService) { }
 
     ngOnInit() {
     }
@@ -27,7 +26,6 @@ export class InvitationComponent implements OnInit {
         this.invitationService.acceptInvitation(this.invitation)
             .subscribe((user: User) => {
                 this.userService.setUser(user);
-                this.router.navigate([Page.Household]);
             });
     }
 

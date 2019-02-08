@@ -55,7 +55,7 @@ export class CoverPageComponent implements OnInit, OnDestroy {
 
     private createForm(): void {
         this.invitationForm = this.formBuilder.group({
-            email: ['', Validators.required]
+            email: ['', [Validators.required, Validators.email]]
         })
     }
 

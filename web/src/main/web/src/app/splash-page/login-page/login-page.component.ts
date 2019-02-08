@@ -34,12 +34,12 @@ export class LoginPageComponent implements OnInit {
         const password: string = this.form.get('password').value;
 
         this.loginService.login(email, password).subscribe(
-            (user: User) => this.handleSuccessfulRegistration(user, email, password),
-            () => this.handleUnsuccessfulRegistration()
+            (user: User) => this.handleSuccessfulLogin(user, email, password),
+            () => this.handleUnsuccessfulLogin()
         );
     }
 
-    private handleSuccessfulRegistration(user: User, email: string, password: string): void {
+    private handleSuccessfulLogin(user: User, email: string, password: string): void {
         this.userService.setUserData({
             user: user,
             authData: `Basic ${btoa(email + ':' + password)}`
@@ -47,7 +47,7 @@ export class LoginPageComponent implements OnInit {
         this.router.navigate([Page.Household]);
     }
 
-    private handleUnsuccessfulRegistration(): void {
+    private handleUnsuccessfulLogin(): void {
         this.errorVisible = true;
     }
 

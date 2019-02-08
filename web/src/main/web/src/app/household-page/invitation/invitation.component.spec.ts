@@ -4,7 +4,6 @@ import { InvitationService } from "../cover-page/invitation.service";
 import { InvitationServiceMock } from "../cover-page/invitation.service.mock";
 import { UserService } from "../../user.service";
 import { UserServiceMock } from "../../user.service.mock";
-import { RouterTestingModule } from "@angular/router/testing";
 
 describe('InvitationComponent', () => {
     let component: InvitationComponent;
@@ -12,9 +11,7 @@ describe('InvitationComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [
-                RouterTestingModule
-            ],
+            imports: [],
             declarations: [ InvitationComponent ],
             providers: [
                 { provide: InvitationService, useClass: InvitationServiceMock },

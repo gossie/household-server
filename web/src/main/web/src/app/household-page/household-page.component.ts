@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Household } from './household';
-import { Link } from "../model";
 import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
 import { filter } from 'rxjs/operators';
 import { HouseholdService } from "./household.service";
@@ -29,27 +28,43 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
                 private route: ActivatedRoute) { }
 
     public ngOnInit(): void {
-        this.household = this.route.snapshot.data.household;
-        this.subscriptions.push(this.userService.observeUserData()
-            .subscribe((userData: UserData) => {
-                this.user = userData.user;
-            })
-        );
-        this.subscriptions.push(this.router.events
-            .pipe(
-                filter(evt => evt instanceof NavigationEnd)
-            )
-            .subscribe((evt: NavigationEnd) => {
-                this.expanded = false;
-            }));
+        this.observeUser();
+        this.observeHousehold();
+        this.observeRouter();
     }
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
     }
 
+    private observeUser(): void {
+        this.subscriptions.push(this.userService.observeUserData()
+            .subscribe((userData: UserData) => {
+                this.user = userData.user;
+                this.householdService.updateHousehold(userData);
+            })
+        );
+    }
+
+    private observeHousehold(): void {
+        this.household = this.route.snapshot.data.household;
+        this.subscriptions.push(this.householdService.observeHousehold()
+            .subscribe((household: Household) => this.household = household)
+        );
+    }
+
+    private observeRouter(): void {
+        this.subscriptions.push(this.router.events
+            .pipe(
+                filter(evt => evt instanceof NavigationEnd)
+            )
+            .subscribe(() => this.expanded = false)
+        );
+    }
+
     public createHousehold(): void {
-        this.householdService.createHousehold().subscribe((household: Household) => this.household = household);
+        this.householdService.createHousehold()
+            .subscribe((household: Household) => this.household = household);
     }
 
     public toggleNavbar(): void {

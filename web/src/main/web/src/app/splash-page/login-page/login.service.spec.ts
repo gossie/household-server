@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-
 import { LoginService } from './login.service';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { User } from './user';
 
 describe('LoginService', () => {
@@ -32,7 +31,7 @@ describe('LoginService', () => {
         service.login('user', 'xxx').subscribe((user: User) => {
             expect(user).toEqual(expectedUser);
         });
-        const request = httpTestingController.expectOne('https://ldwas-household.herokuapp.com/api/users/login');
+        const request = httpTestingController.expectOne('https://ldwas-household-stage.herokuapp.com/api/users/login');
         request.flush(expectedUser);
 
         httpTestingController.verify();

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable, Subject} from "rxjs/index";
+import { BehaviorSubject, Observable, Subject } from "rxjs/index";
 import { Household } from "./household";
 import { UserService } from "../user.service";
 import { HttpClient } from "@angular/common/http";
 import { AbstractNetworkService } from "../abstract-network.service";
-import {UserData} from "../user-data";
-import {tap} from "rxjs/internal/operators";
+import { UserData } from "../user-data";
+import { tap } from "rxjs/internal/operators";
 
 @Injectable({
     providedIn: 'root'
@@ -20,7 +20,7 @@ export class HouseholdService extends AbstractNetworkService {
     }
 
     public createHousehold(): Observable<Household> {
-        const url: string = this.determineUrl(this.userService.getUserData().user, 'create')
+        const url: string = this.determineUrl(this.userService.getUserData().user, 'create');
         return this.httpClient.post<Household>(url, null, {
             headers: {
                 Authorization: this.userService.getUserData().authData,
@@ -45,6 +45,20 @@ export class HouseholdService extends AbstractNetworkService {
             );
         } else {
             return undefined;
+        }
+    }
+
+    public updateHousehold(userData: UserData): void {
+        const url: string = this.determineUrl(userData.user, 'household');
+        if (url !== undefined) {
+            this.httpClient.get<Household>(url, {
+                headers: {
+                    Authorization: userData.authData,
+                    Accept: 'application/vnd.household.v1+json'
+                }
+            }).subscribe((household: Household) => this.subject.next(household));
+        } else {
+            this.subject.next(null);
         }
     }
 
