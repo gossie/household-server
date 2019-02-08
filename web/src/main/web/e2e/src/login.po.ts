@@ -1,19 +1,17 @@
 import { browser, by, element } from "protractor";
 
-export class SplashPage {
+export class LoginPage {
 
-    public navigateTo() {
-        return browser.get('/');
+    public async navigateTo() {
+        await browser.get('/');
+        await browser.driver.manage().window().maximize();
+        return element(by.css('#login-tab')).click();
     }
 
-    public async login(email: string, password: string): Promise<void> {
-        await element(by.css('#login-tab')).click();
-        await browser.waitForAngular();
-
+    public async login(email: string, password: string) {
         await element(by.css('#email-field')).sendKeys(email);
         await element(by.css('#password-field')).sendKeys(password);
-        await element(by.css('#login-button')).click();
-        await browser.waitForAngular();
+        return element(by.css('#login-button')).click();
     }
 
 }

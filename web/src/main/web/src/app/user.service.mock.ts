@@ -1,6 +1,6 @@
-import { Observable, of } from "rxjs/index";
-import { UserData } from "./user-data";
-import { Injectable } from "@angular/core";
+import { Observable, of } from 'rxjs/index';
+import { UserData } from './user-data';
+import { Injectable } from '@angular/core';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +14,7 @@ export class UserServiceMock {
             links: []
         },
         authData: 'authData'
-    }
+    };
 
     constructor() { }
 
