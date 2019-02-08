@@ -9,7 +9,7 @@ pipelines:
                 - maven
             script:
                 - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && apt-get update && apt-get install -y google-chrome-stable --no-install-recommends && rm -rf /src/*.deb
-                - mvn -B verify
+                - mvn -B verify -Pci
     branches:
         master:
             - step:
@@ -17,5 +17,5 @@ pipelines:
                     - maven
                 script:
                     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && apt-get update && apt-get install -y google-chrome-stable --no-install-recommends && rm -rf /src/*.deb
-                    - mvn -B verify
+                    - mvn -B verify -Pci
                     - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git HEAD
