@@ -70,6 +70,11 @@ export class MealComponent implements OnInit, OnDestroy {
 
     public selectRecipe(name: string): void {
         this.parentForm.controls[this.controlName].setValue(name);
+        this.recipeNames = [];
+    }
+
+    public unfocus(): void {
+        this.recipeNames = [];
     }
 
 }

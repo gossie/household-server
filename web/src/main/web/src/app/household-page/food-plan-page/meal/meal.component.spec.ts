@@ -53,5 +53,6 @@ describe('MealComponent', () => {
 
         component.selectRecipe('Chili con carne');
         expect(component.parentForm.controls.monday.value).toEqual('Chili con carne');
+        expect(component.recipeNames).toEqual([]);
     });
 });
