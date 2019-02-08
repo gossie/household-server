@@ -5,11 +5,11 @@ import { FoodPlanService } from "./food-plan.service";
 import { Subscription } from "rxjs/index";
 import { HouseholdService } from "../household.service";
 import { Household } from "../household";
-import {Recipe} from "../cookbook-page/recipe/recipe";
-import {ShoppingListService} from "../shopping-list-page/shopping-list.service";
-import {ShoppingList} from "../shopping-list-page/shopping-list";
-import {CookbookService} from "../cookbook-page/cookbook.service";
-import {Cookbook} from "../cookbook-page/cookbook";
+import { Recipe } from "../cookbook-page/recipe/recipe";
+import { ShoppingListService } from "../shopping-list-page/shopping-list.service";
+import { ShoppingList } from "../shopping-list-page/shopping-list";
+import { CookbookService } from "../cookbook-page/cookbook.service";
+import { Cookbook } from "../cookbook-page/cookbook";
 
 @Component({
     selector: 'app-food-plan-page',
@@ -121,7 +121,6 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
     }
 
     public onRecipeSelection(recipe: Recipe): void {
-        console.log('recipe', recipe);
         this.selectedRecipe = recipe;
     }
 
@@ -130,5 +129,7 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
         ingredients.forEach((name: string) => ingredientNames.push(name));
         this.shoppingListService.addShoppingListItems(this.shoppingList.shoppingListGroups[0], ingredientNames)
             .subscribe(() => this.selectedRecipe = null);
+            
+        this.saveFoodPlan();
     }
 }
