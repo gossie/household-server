@@ -90,7 +90,7 @@ describe('ShoppingListService', () => {
             }]
         };
 
-        service.addShoppingListItem(currentShoppingListGroup, 'new item').subscribe((shoppingList: ShoppingList) => {
+        service.addShoppingListItems(currentShoppingListGroup, ['new item']).subscribe((shoppingList: ShoppingList) => {
             expect(shoppingList).toEqual(expectedShoppingList);
             done();
         });

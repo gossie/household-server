@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
 import { ShoppingList } from "./shopping-list";
-import { Observable } from "rxjs/index";
+import {BehaviorSubject, Observable, Subject} from "rxjs/index";
 import { HttpClient } from "@angular/common/http";
 import { ShoppingListGroup } from "./shopping-list-group/shopping-list-group";
 import { ShoppingListItem } from "./shopping-list-group/shopping-list-item/shopping-list-item";
 import { AbstractNetworkService } from "../../abstract-network.service";
 import { UserService } from "../../user.service";
 import { Household } from "../household";
+import {tap} from "rxjs/internal/operators";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ShoppingListService extends AbstractNetworkService {
+
+    private subject: Subject<ShoppingList> = new BehaviorSubject(null);
 
     constructor(private userService: UserService,
                 private httpClient: HttpClient) {
@@ -25,7 +28,10 @@ export class ShoppingListService extends AbstractNetworkService {
                 Authorization: this.userService.getUserData().authData,
                 Accept: 'application/vnd.household.v2+json'
             }
-        });
+        })
+        .pipe(
+            tap((shoppingList: ShoppingList) => this.subject.next(shoppingList))
+        );
     }
 
     public addShoppingListGroup(shoppingList: ShoppingList, name: string): Observable<ShoppingList> {
@@ -42,7 +48,10 @@ export class ShoppingListService extends AbstractNetworkService {
                 'Content-Type': 'application/vnd.household.v2+json',
                 Accept: 'application/vnd.household.v2+json'
             }
-        });
+        })
+        .pipe(
+            tap((shoppingList: ShoppingList) => this.subject.next(shoppingList))
+        );
     }
 
     public deleteShoppingListGroup(shoppingListGroup: ShoppingListGroup): Observable<ShoppingList> {
@@ -52,7 +61,10 @@ export class ShoppingListService extends AbstractNetworkService {
                 Authorization: this.userService.getUserData().authData,
                 Accept: 'application/vnd.household.v2+json'
             }
-        });
+        })
+        .pipe(
+            tap((shoppingList: ShoppingList) => this.subject.next(shoppingList))
+        );
     }
 
     public clearShoppingListGroup(shoppingListGroup: ShoppingListGroup): Observable<ShoppingList> {
@@ -62,16 +74,21 @@ export class ShoppingListService extends AbstractNetworkService {
                 Authorization: this.userService.getUserData().authData,
                 Accept: 'application/vnd.household.v2+json'
             }
-        });
+        })
+        .pipe(
+            tap((shoppingList: ShoppingList) => this.subject.next(shoppingList))
+        );
     }
 
-    public addShoppingListItem(shoppingListGroup: ShoppingListGroup, name: string): Observable<ShoppingList> {
+    public addShoppingListItems(shoppingListGroup: ShoppingListGroup, names: Array<string>): Observable<ShoppingList> {
         const url: string = this.determineUrl(shoppingListGroup, 'add');
-        const body: Array<ShoppingListItem> = [{
-            name: name,
-            selected: false,
-            links: []
-        }];
+        const body: Array<ShoppingListItem> = names.map((name: string) => {
+            return {
+                name: name,
+                selected: false,
+                links: []
+            }
+        });
 
         return this.httpClient.post<ShoppingList>(url, body, {
             headers: {
@@ -79,7 +96,10 @@ export class ShoppingListService extends AbstractNetworkService {
                 'Content-Type': 'application/vnd.household.v2+json',
                 Accept: 'application/vnd.household.v2+json'
             }
-        });
+        })
+        .pipe(
+            tap((shoppingList: ShoppingList) => this.subject.next(shoppingList))
+        );
     }
 
     public toggleShoppingListItem(shoppingListItem: ShoppingListItem): Observable<ShoppingList> {
@@ -89,7 +109,14 @@ export class ShoppingListService extends AbstractNetworkService {
                 Authorization: this.userService.getUserData().authData,
                 Accept: 'application/vnd.household.v2+json'
             }
-        });
+        })
+        .pipe(
+            tap((shoppingList: ShoppingList) => this.subject.next(shoppingList))
+        );
+    }
+
+    public observeShoppingList(): Observable<ShoppingList> {
+        return this.subject.asObservable();
     }
 
 }

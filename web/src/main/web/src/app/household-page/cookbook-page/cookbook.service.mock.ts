@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Cookbook } from "./cookbook";
 import { Observable, of } from "rxjs/index";
 import { Household } from "../household";
+import {Recipe} from "./recipe/recipe";
 
 @Injectable()
 export class CookbookServiceMock {
@@ -22,6 +23,17 @@ export class CookbookServiceMock {
                 }
             ]
         });
+    }
+
+    public determineRecipe(minRecipe: Recipe): Observable<Recipe> {
+        return of({
+            name: 'Chili con carne',
+            ingredients: [{
+                amount: 500,
+                unit: 'g',
+                name: 'Hack'
+            }]
+        })
     }
 
     public observeCookbook(): Observable<Cookbook> {

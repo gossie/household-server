@@ -5,6 +5,11 @@ import { FoodPlanService } from "./food-plan.service";
 import { Subscription } from "rxjs/index";
 import { HouseholdService } from "../household.service";
 import { Household } from "../household";
+import {Recipe} from "../cookbook-page/recipe/recipe";
+import {ShoppingListService} from "../shopping-list-page/shopping-list.service";
+import {ShoppingList} from "../shopping-list-page/shopping-list";
+import {CookbookService} from "../cookbook-page/cookbook.service";
+import {Cookbook} from "../cookbook-page/cookbook";
 
 @Component({
     selector: 'app-food-plan-page',
@@ -13,18 +18,25 @@ import { Household } from "../household";
 })
 export class FoodPlanPageComponent implements OnInit, OnDestroy {
 
+    public cookbook: Cookbook;
     public foodPlan: FoodPlan;
     public foodPlanForm: FormGroup;
+    public selectedRecipe: Recipe;
 
+    private shoppingList: ShoppingList;
     private subscriptions: Array<Subscription> = [];
     private loading: boolean = false;
 
     constructor(private householdService: HouseholdService,
+                private cookbookService: CookbookService,
+                private shoppingListService: ShoppingListService,
                 private foodPlanService: FoodPlanService,
                 private formBuilder: FormBuilder) { }
 
     public ngOnInit(): void {
         this.observeHousehold();
+        this.observeCookbook();
+        this.observeShoppingList();
         this.createForm();
     }
 
@@ -37,7 +49,23 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
             .subscribe((household: Household) => {
                 this.foodPlanService.determineFoodPlan(household)
                     .subscribe((foodPlan: FoodPlan) => this.foodPlan = foodPlan);
+
+                this.shoppingListService.determineShoppingList(household)
+                    .subscribe((shoppingList: ShoppingList) => this.shoppingList = shoppingList);
+
+                this.cookbookService.determineCookbook(household)
+                    .subscribe((cookbook: Cookbook) => this.cookbook = cookbook);
             }));
+    }
+
+    private observeShoppingList(): void {
+        this.subscriptions.push(this.shoppingListService.observeShoppingList()
+            .subscribe((shoppingList: ShoppingList) => this.shoppingList = shoppingList));
+    }
+
+    private observeCookbook(): void {
+        this.subscriptions.push(this.cookbookService.observeCookbook()
+            .subscribe((cookbook: Cookbook) => this.cookbook = cookbook));
     }
 
     private createForm(): void {
@@ -92,4 +120,15 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
         this.foodPlanForm.controls.sunday.setValue(this.foodPlan.meals.sunday.name);
     }
 
+    public onRecipeSelection(recipe: Recipe): void {
+        console.log('recipe', recipe);
+        this.selectedRecipe = recipe;
+    }
+
+    public onIngredientSelection(ingredients: Set<string>): void {
+        const ingredientNames: Array<string> = [];
+        ingredients.forEach((name: string) => ingredientNames.push(name));
+        this.shoppingListService.addShoppingListItems(this.shoppingList.shoppingListGroups[0], ingredientNames)
+            .subscribe(() => this.selectedRecipe = null);
+    }
 }

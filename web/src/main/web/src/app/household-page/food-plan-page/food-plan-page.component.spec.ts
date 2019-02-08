@@ -6,8 +6,11 @@ import { FoodPlanService } from "./food-plan.service";
 import { FoodPlanServiceMock } from "./food-plan.service.mock";
 import { HouseholdService } from "../household.service";
 import { HouseholdServiceMock } from "../household.service.mock";
-import {CookbookService} from "../cookbook-page/cookbook.service";
-import {CookbookServiceMock} from "../cookbook-page/cookbook.service.mock";
+import { CookbookService } from "../cookbook-page/cookbook.service";
+import { CookbookServiceMock } from "../cookbook-page/cookbook.service.mock";
+import { SelectRecipeComponent } from "./select-recipe/select-recipe.component";
+import { ShoppingListService } from "../shopping-list-page/shopping-list.service";
+import { ShoppingListServiceMock } from "../shopping-list-page/shopping-list.service.mock";
 
 describe('FoodPlanPageComponent', () => {
     let component: FoodPlanPageComponent;
@@ -20,10 +23,12 @@ describe('FoodPlanPageComponent', () => {
             ],
             declarations: [
                 FoodPlanPageComponent,
-                MealComponent
+                MealComponent,
+                SelectRecipeComponent
             ],
             providers: [
                 { provide: FoodPlanService, useClass: FoodPlanServiceMock },
+                { provide: ShoppingListService, useClass: ShoppingListServiceMock },
                 { provide: HouseholdService, useClass: HouseholdServiceMock },
                 { provide: CookbookService, useClass: CookbookServiceMock }
             ]

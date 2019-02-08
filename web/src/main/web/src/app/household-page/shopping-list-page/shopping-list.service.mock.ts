@@ -19,4 +19,11 @@ export class ShoppingListServiceMock {
         return of();
     }
 
+    public observeShoppingList(): Observable<ShoppingList> {
+        return of({
+            shoppingListGroups: [],
+            links: []
+        });
+    }
+
 }

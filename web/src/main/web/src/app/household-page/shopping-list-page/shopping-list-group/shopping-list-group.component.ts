@@ -3,12 +3,12 @@ import { ShoppingListGroup } from "./shopping-list-group";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ShoppingList } from "../shopping-list";
 import { ShoppingListService } from "../shopping-list.service";
-import {ShoppingListItem} from "./shopping-list-item/shopping-list-item";
+import { ShoppingListItem } from "./shopping-list-item/shopping-list-item";
 
 @Component({
-  selector: 'app-shopping-list-group',
-  templateUrl: './shopping-list-group.component.html',
-  styleUrls: ['./shopping-list-group.component.css']
+    selector: 'app-shopping-list-group',
+    templateUrl: './shopping-list-group.component.html',
+    styleUrls: ['./shopping-list-group.component.css']
 })
 export class ShoppingListGroupComponent implements OnInit, OnChanges {
 
@@ -55,7 +55,7 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges {
     public addShoppingListItem(): void {
         this.loading = true;
         const name: string = this.shoppingListItemForm.get('name').value;
-        this.shoppingListService.addShoppingListItem(this.shoppingListGroup, name)
+        this.shoppingListService.addShoppingListItems(this.shoppingListGroup, [name])
             .subscribe(this.handleShoppingList.bind(this));
     }
 

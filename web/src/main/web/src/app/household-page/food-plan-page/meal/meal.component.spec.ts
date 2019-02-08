@@ -3,8 +3,6 @@ import { MealComponent } from './meal.component';
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { CookbookService } from "../../cookbook-page/cookbook.service";
 import { CookbookServiceMock } from "../../cookbook-page/cookbook.service.mock";
-import { HouseholdService } from "../../household.service";
-import { HouseholdServiceMock } from "../../household.service.mock";
 import { By } from "@angular/platform-browser";
 
 describe('MealComponent', () => {
@@ -20,7 +18,6 @@ describe('MealComponent', () => {
                 MealComponent
             ],
             providers: [
-                { provide: HouseholdService, useClass: HouseholdServiceMock },
                 { provide: CookbookService, useClass: CookbookServiceMock }
             ]
 
@@ -33,6 +30,19 @@ describe('MealComponent', () => {
         component = fixture.componentInstance;
         component.controlName='monday';
         component.parentForm = new FormGroup({});
+        component.cookbook = {
+            recipes: [
+                {
+                    name: 'Chili con carne'
+                },
+                {
+                    name: 'Curry'
+                },
+                {
+                    name: 'Käsekuchen'
+                }
+            ]
+        };
         component.meal = {
             name: ''
         };
@@ -46,13 +56,18 @@ describe('MealComponent', () => {
     it('should search for recipes', () => {
         const inputField: HTMLInputElement = fixture.debugElement.query(By.css('#monday')).nativeElement;
         inputField.value = 'Ch';
+        inputField.focus();
         inputField.dispatchEvent(new Event('input'));
         fixture.detectChanges();
 
-        expect(component.recipeNames).toEqual(['Chili con carne']);
+        expect(component.recipes).toEqual([{name: 'Chili con carne'}, {name: 'Käsekuchen'}]);
 
-        component.selectRecipe('Chili con carne');
+        const link: HTMLAnchorElement = fixture.debugElement.queryAll(By.css('a'))[0].nativeElement;
+        link.click();
+        link.dispatchEvent(new Event('click'));
+        fixture.detectChanges();
+
         expect(component.parentForm.controls.monday.value).toEqual('Chili con carne');
-        expect(component.recipeNames).toEqual([]);
+        expect(component.recipes).toEqual([]);
     });
 });

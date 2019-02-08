@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Meal } from "./meal";
 import { FormControl, FormGroup } from "@angular/forms";
 import { CookbookService } from "../../cookbook-page/cookbook.service";
@@ -6,7 +6,7 @@ import { Cookbook } from "../../cookbook-page/cookbook";
 import { Subscription } from "rxjs/index";
 import { HouseholdService } from "../../household.service";
 import { Household } from "../../household";
-import {Recipe} from "../../cookbook-page/recipe/recipe";
+import { Recipe } from "../../cookbook-page/recipe/recipe";
 
 @Component({
     selector: 'app-meal',
@@ -16,26 +16,26 @@ import {Recipe} from "../../cookbook-page/recipe/recipe";
 export class MealComponent implements OnInit, OnDestroy {
 
     @Input()
+    public cookbook: Cookbook;
+    @Input()
     public meal: Meal;
     @Input()
     public day: string;
     @Input()
-    public controlName: string
+    public controlName: string;
     @Input()
     public parentForm: FormGroup;
+    @Output()
+    public recipeEmitter: EventEmitter<Recipe> = new EventEmitter();
 
-    public recipeNames: Array<string> = [];
+    public recipes: Array<Recipe> = [];
 
     private subscriptions: Array<Subscription> = [];
-    private cookbook: Cookbook;
 
-    constructor(private householdService: HouseholdService,
-                private cookbookService: CookbookService) { }
+    constructor(private cookbookService: CookbookService) { }
 
     public ngOnInit(): void {
         this.createForm();
-        this.observeHousehold();
-        this.observeCookbook();
     }
 
     public ngOnDestroy(): void {
@@ -48,42 +48,35 @@ export class MealComponent implements OnInit, OnDestroy {
         this.parentForm.addControl(this.controlName, formControl);
     }
 
-    private observeHousehold(): void {
-        this.subscriptions.push(this.householdService.observeHousehold()
-            .subscribe((household: Household) => {
-                this.cookbookService.determineCookbook(household)
-                    .subscribe((cookbook: Cookbook) => this.cookbook = cookbook);
-            }));
-    }
-
-    private observeCookbook(): void {
-        this.subscriptions.push(this.cookbookService.observeCookbook()
-            .subscribe((cookbook: Cookbook) => this.cookbook = cookbook));
-    }
-
     private searchForRecipes(): void {
         let fieldValue: string = '';
         if (this.parentForm.controls[this.controlName].value !== null) {
             fieldValue = this.parentForm.controls[this.controlName].value.toLowerCase();
         }
+
         if (fieldValue.length > 0) {
-            this.recipeNames = this.cookbook.recipes
-                .map((recipe: Recipe) => recipe.name)
-                .filter((name: string) => name !== null)
-                .filter((name: string) => {
-                    return name.toLowerCase().startsWith(fieldValue)
-                            && name.toLowerCase() !== fieldValue;
-                });
+            this.recipes = this.cookbook.recipes
+                .filter((recipe: Recipe) => this.recipeMatchesSearchString(recipe, fieldValue));
+        } else {
+            this.recipes = [];
         }
     }
 
-    public selectRecipe(name: string): void {
-        this.parentForm.controls[this.controlName].setValue(name);
-        this.recipeNames = [];
+    private recipeMatchesSearchString(recipe: Recipe, searchString: string): boolean {
+        return recipe.name.toLowerCase().indexOf(searchString.toLowerCase()) >= 0;
+    }
+
+    public selectRecipe(recipe: Recipe): void {
+        this.cookbookService.determineRecipe(recipe)
+            .subscribe((completeRecipe: Recipe) => {
+                this.parentForm.controls[this.controlName].setValue(completeRecipe.name);
+                this.recipes = [];
+                this.recipeEmitter.emit(completeRecipe);
+            });
     }
 
     public unfocus(): void {
-        setTimeout(() => this.recipeNames = [], 50);
+        setTimeout(() => this.recipes = [], 50);
     }
 
 }
