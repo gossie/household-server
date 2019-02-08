@@ -4,6 +4,7 @@ import { HouseholdService } from "../household.service";
 import { Subscription } from "rxjs/index";
 import { Household } from "../household";
 import { CookbookService } from "./cookbook.service";
+import {Recipe} from "./recipe/recipe";
 
 @Component({
     selector: 'app-cookbook-page',
@@ -13,6 +14,7 @@ import { CookbookService } from "./cookbook.service";
 export class CookbookPageComponent implements OnInit, OnDestroy {
 
     public cookbook: Cookbook;
+    public recipe: Recipe;
 
     private subscriptions: Array<Subscription> = [];
 
@@ -37,5 +39,10 @@ export class CookbookPageComponent implements OnInit, OnDestroy {
 
     public handleCookbook(cookbook: Cookbook): void {
         this.cookbook = cookbook
+        this.recipe = undefined;
+    }
+
+    public handleRecipe(recipe: Recipe): void {
+        this.recipe = recipe;
     }
 }

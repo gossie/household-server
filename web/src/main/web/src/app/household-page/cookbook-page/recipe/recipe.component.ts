@@ -14,6 +14,8 @@ export class RecipeComponent implements OnInit {
     public recipe: Recipe;
     @Output()
     public cookbookEmitter: EventEmitter<Cookbook> = new EventEmitter();
+    @Output()
+    public recipeEmitter: EventEmitter<Recipe> = new EventEmitter();
 
     private expanded: boolean = false;
 
@@ -36,6 +38,10 @@ export class RecipeComponent implements OnInit {
         } else {
             this.expanded = !this.expanded;
         }
+    }
+
+    public editRecipe(): void {
+        this.recipeEmitter.emit(this.recipe);
     }
 
     public deleteRecipe(): void {

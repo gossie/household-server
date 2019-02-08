@@ -12,6 +12,11 @@
                     <div class="column">{{ ingredient.amount }}</div>
                     <div class="column">{{ ingredient.unit }}</div>
                     <div class="column">{{ ingredient.name }}</div>
+                    <div class="column">
+                        <span (click)="deleteIngredient(ingredient)" class="icon">
+                            <i class="fas fa-trash"></i>
+                        </span>
+                    </div>
                 </div>
                 <div class="columns is-mobile">
                     <div class="column">
@@ -41,7 +46,7 @@
                     </div>
                 </div>
             </form>
-            <button (click)="createRecipe()" class="button is-primary" [ngClass]="{'is-loading': loading}" [disabled]="!recipeForm.valid">Speichern</button>
+            <button (click)="saveRecipe()" class="button is-primary" [ngClass]="{'is-loading': loading}" [disabled]="!recipeForm.valid">Speichern</button>
         </div>
     </div>
     <button (click)="closeDialog()" class="modal-close is-large" aria-label="close"></button>

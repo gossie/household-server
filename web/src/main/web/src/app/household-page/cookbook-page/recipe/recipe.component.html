@@ -24,7 +24,7 @@
         </div>
     </div>
     <footer *ngIf="isExpanded()" class="card-footer">
-        <a class="card-footer-item">Editieren</a>
+        <a (click)="editRecipe()" class="card-footer-item">Editieren</a>
         <a (click)="deleteRecipe()" class="card-footer-item">Löschen</a>
     </footer>
 </div>

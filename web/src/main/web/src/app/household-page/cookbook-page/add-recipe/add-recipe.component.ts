@@ -1,19 +1,22 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import { Ingredient } from "../recipe/ingredient/ingredient";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CookbookService } from "../cookbook.service";
 import { Cookbook } from "../cookbook";
 import { Recipe } from "../recipe/recipe";
+import {ObjectUtils} from "../../../object.utils";
 
 @Component({
     selector: 'app-add-recipe',
     templateUrl: './add-recipe.component.html',
     styleUrls: ['./add-recipe.component.css']
 })
-export class AddRecipeComponent implements OnInit {
+export class AddRecipeComponent implements OnInit, OnChanges {
 
     @Input()
     public cookbook: Cookbook;
+    @Input()
+    public recipe: Recipe;
     @Output()
     public cookbookEmitter: EventEmitter<Cookbook> = new EventEmitter();
 
@@ -26,8 +29,16 @@ export class AddRecipeComponent implements OnInit {
     constructor(private formBuilder: FormBuilder,
                 private cookbookService: CookbookService) { }
 
-    ngOnInit() {
+    public ngOnInit() {
         this.createForms();
+    }
+
+    public ngOnChanges() {
+        if (ObjectUtils.isObject(this.recipe)) {
+            this.recipeForm.controls.recipeName.setValue(this.recipe.name)
+            this.ingredients = this.recipe.ingredients;
+            this.open = true;
+        }
     }
 
     private createForms(): void {
@@ -48,6 +59,7 @@ export class AddRecipeComponent implements OnInit {
 
     public closeDialog(): void {
         this.resetFields();
+        this.cookbookEmitter.emit(this.cookbook);
         this.open = false;
     }
 
@@ -62,8 +74,33 @@ export class AddRecipeComponent implements OnInit {
         this.ingredientForm.controls.name.reset();
     }
 
-    public createRecipe(): void {
+    public deleteIngredient(ingredient: Ingredient): void {
+        this.ingredients.splice(this.ingredients.indexOf(ingredient), 1);
+    }
+
+    public saveRecipe(): void {
         this.loading = true;
+        if (ObjectUtils.isObject(this.recipe)) {
+            this.editRecipe();
+        } else {
+            this.createRecipe();
+        }
+    }
+
+    private editRecipe(): void {
+        this.recipe.name = this.recipeForm.controls.recipeName.value;
+        this.recipe.ingredients = this.ingredients;
+        this.cookbookService.editRecipe(this.recipe)
+            .subscribe((cookbook: Cookbook) => {
+                this.resetFields();
+
+                this.cookbookEmitter.emit(cookbook);
+                this.loading = false;
+                this.open = false;
+            });
+    }
+
+    private createRecipe(): void {
         const recipe: Recipe = {
             name: this.recipeForm.controls.recipeName.value,
             ingredients: this.ingredients
