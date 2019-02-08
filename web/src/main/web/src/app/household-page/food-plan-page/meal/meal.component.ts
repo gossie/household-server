@@ -62,10 +62,19 @@ export class MealComponent implements OnInit, OnDestroy {
     }
 
     private searchForRecipes(): void {
-        const fieldValue: string = this.parentForm.controls[this.controlName].value.toLowerCase();
-        this.recipeNames = this.cookbook.recipes
-            .map((recipe: Recipe) => recipe.name)
-            .filter((name: string) => name.toLowerCase().startsWith(fieldValue));
+        let fieldValue: string = '';
+        if (this.parentForm.controls[this.controlName].value !== null) {
+            fieldValue = this.parentForm.controls[this.controlName].value.toLowerCase();
+        }
+        if (fieldValue.length > 0) {
+            this.recipeNames = this.cookbook.recipes
+                .map((recipe: Recipe) => recipe.name)
+                .filter((name: string) => name !== null)
+                .filter((name: string) => {
+                    return name.toLowerCase().startsWith(fieldValue)
+                            && name.toLowerCase() !== fieldValue;
+                });
+        }
     }
 
     public selectRecipe(name: string): void {
@@ -74,7 +83,7 @@ export class MealComponent implements OnInit, OnDestroy {
     }
 
     public unfocus(): void {
-        this.recipeNames = [];
+        setTimeout(() => this.recipeNames = [], 50);
     }
 
 }
