@@ -1,6 +1,6 @@
 <div class="card">
     <header class="card-header">
-        <p (click)="toggleRecipe()" class="card-header-title">
+        <p class="card-header-title" (click)="toggleRecipe()">
             {{ recipe.name }}
         </p>
         <a (click)="toggleRecipe()" class="card-header-icon" aria-label="more options">
@@ -24,7 +24,7 @@
         </div>
     </div>
     <footer *ngIf="isExpanded()" class="card-footer">
-        <a (click)="editRecipe()" class="card-footer-item">Editieren</a>
-        <a (click)="deleteRecipe()" class="card-footer-item">Löschen</a>
+        <a id="edit-button" class="card-footer-item" (click)="editRecipe()">Editieren</a>
+        <a id="delete-button" class="card-footer-item" (click)="deleteRecipe()">Löschen</a>
     </footer>
 </div>

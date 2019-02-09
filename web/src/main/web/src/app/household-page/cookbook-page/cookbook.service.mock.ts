@@ -58,4 +58,12 @@ export class CookbookServiceMock {
             tap((cookbook: Cookbook) => this.subject.next(cookbook))
         );
     }
+
+    public deleteRecipe(recipe: Recipe): Observable<Cookbook> {
+        return of({
+            recipes: []
+        }).pipe(
+            tap((cookbook: Cookbook) => this.subject.next(cookbook))
+        );
+    }
 }
