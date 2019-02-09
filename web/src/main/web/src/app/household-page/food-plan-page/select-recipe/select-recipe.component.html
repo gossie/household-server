@@ -5,8 +5,8 @@
             <h4 class="title is-4">Was muss noch auf die Einkaufsliste?</h4>
             <div *ngFor="let ingredient of recipe.ingredients" class="columns is-mobile">
                 <div class="column">
-                    <label (click)="toggleIngredient(ingredient)" class="checkbox">
-                        <input type="checkbox">
+                    <label class="checkbox">
+                        <input (click)="toggleIngredient(ingredient)" type="checkbox">
                         {{ ingredient.name }}
                     </label>
                 </div>

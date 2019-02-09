@@ -129,7 +129,7 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
         ingredients.forEach((name: string) => ingredientNames.push(name));
         this.shoppingListService.addShoppingListItems(this.shoppingList.shoppingListGroups[0], ingredientNames)
             .subscribe(() => this.selectedRecipe = null);
-            
+
         this.saveFoodPlan();
     }
 }
