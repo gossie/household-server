@@ -16,7 +16,7 @@
                     <input class="input" type="text" formControlName="email" placeholder="E-Mail" />
                 </div>
                 <div class="control">
-                    <button class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="sendInvitation()" [disabled]="!invitationForm.valid">Senden</button>
+                    <button class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="sendInvitation()" [disabled]="!invitationForm.valid">Einladen</button>
                 </div>
             </div>
             <div *ngIf="isErrorVisible()" class="notification is-warning">
