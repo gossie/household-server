@@ -1,9 +1,8 @@
 import { LoginPage } from "../pages/login.po";
 import { ShoppingListPage } from "../pages/shopping-list.po";
 import { FoodPlanPage } from "../pages/food-plan.po";
-import {browser} from "protractor";
 
-fdescribe('food plan', () => {
+describe('food plan', () => {
     const loginPage: LoginPage = new LoginPage();
     const foodPlanPage: FoodPlanPage = new FoodPlanPage();
     const shoppingListPage: ShoppingListPage = new ShoppingListPage();
