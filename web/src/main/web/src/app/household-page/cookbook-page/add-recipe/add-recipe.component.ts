@@ -30,10 +30,12 @@ export class AddRecipeComponent implements OnInit, OnChanges {
                 private cookbookService: CookbookService) { }
 
     public ngOnInit() {
+        console.log('onInit');
         this.createForms();
     }
 
     public ngOnChanges() {
+        console.log('onChanges');
         if (ObjectUtils.isObject(this.recipe)) {
             this.recipeForm.controls.recipeName.setValue(this.recipe.name)
             this.ingredients = this.recipe.ingredients;
@@ -59,13 +61,13 @@ export class AddRecipeComponent implements OnInit, OnChanges {
 
     public closeDialog(): void {
         this.resetFields();
-        this.cookbookEmitter.emit(this.cookbook);
         this.open = false;
+        this.cookbookEmitter.emit(this.cookbook);
     }
 
     public addIngredient(): void {
         this.ingredients.push({
-            amount: this.ingredientForm.controls.amount.value,
+            amount: parseInt(this.ingredientForm.controls.amount.value),
             unit: this.ingredientForm.controls.unit.value,
             name: this.ingredientForm.controls.name.value,
         });
@@ -94,9 +96,9 @@ export class AddRecipeComponent implements OnInit, OnChanges {
             .subscribe((cookbook: Cookbook) => {
                 this.resetFields();
 
-                this.cookbookEmitter.emit(cookbook);
                 this.loading = false;
                 this.open = false;
+                this.cookbookEmitter.emit(cookbook);
             });
     }
 
@@ -109,9 +111,9 @@ export class AddRecipeComponent implements OnInit, OnChanges {
             .subscribe((cookbook: Cookbook) => {
                 this.resetFields();
 
-                this.cookbookEmitter.emit(cookbook);
                 this.loading = false;
                 this.open = false;
+                this.cookbookEmitter.emit(cookbook);
             });
     }
 
