@@ -3,17 +3,17 @@
     <div class="modal-content">
         <div class="box">
             <h4 class="title is-4">Was muss noch auf die Einkaufsliste?</h4>
-            <div *ngFor="let ingredient of recipe.ingredients" class="columns is-mobile">
+            <div *ngFor="let ingredient of recipe.ingredients; let i = index" class="columns is-mobile">
                 <div class="column">
                     <label class="checkbox">
-                        <input (click)="toggleIngredient(ingredient)" type="checkbox">
+                        <input id="ingredient-{{i}}" (click)="toggleIngredient(ingredient)" type="checkbox">
                         {{ ingredient.name }}
                     </label>
                 </div>
             </div>
             <div class="columns is-mobile">
                 <div class="column">
-                    <button (click)="saveIngredients()" class="button is-primary">Speichern</button>
+                    <button id="save-ingredients-button" (click)="saveIngredients()" class="button is-primary">Speichern</button>
                 </div>
             </div>
         </div>

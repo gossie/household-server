@@ -13,7 +13,7 @@
             <button class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="saveFoodPlan()" [disabled]="!foodPlanForm.valid">Speichern</button>
         </div>
         <div class="column">
-            <button class="button" [ngClass]="{'is-loading': isLoading()}" (click)="clearFoodPlan()" [disabled]="!foodPlanForm.valid">Leeren</button>
+            <button id="clear-button" class="button" [ngClass]="{'is-loading': isLoading()}" (click)="clearFoodPlan()" [disabled]="!foodPlanForm.valid">Leeren</button>
         </div>
     </div>
 </form>
