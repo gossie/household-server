@@ -58,7 +58,11 @@ export class CleaningPlanPageComponent implements OnInit, OnDestroy {
         };
 
         this.cleaningPlanService.addChore(this.cleaningPlan, chore)
-            .subscribe(this.handleCleaningPlan.bind(this));
+            .subscribe((cleaningPlan: CleaningPlan) => {
+                this.handleCleaningPlan(cleaningPlan);
+                this.cleaningPlanForm.controls.name.setValue('');
+                this.cleaningPlanForm.controls.repeat.setValue('');
+            });
     }
 
     public handleCleaningPlan(cleaningPlan: CleaningPlan): void {
