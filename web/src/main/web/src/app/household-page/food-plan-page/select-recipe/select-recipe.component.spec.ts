@@ -38,7 +38,7 @@ describe('SelectRecipeComponent', () => {
                     name: 'Knoblauchzehe'
                 }
             ]
-        }
+        };
         fixture.detectChanges();
     });
 
