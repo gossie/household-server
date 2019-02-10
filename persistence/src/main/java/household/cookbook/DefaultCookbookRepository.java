@@ -24,4 +24,9 @@ class DefaultCookbookRepository implements CookbookRepository {
 		return cookbookMapper.map(cookbookEntityRepository.save(new CookbookEntity()));
 	}
 
+    @Override
+    public void deleteCookbook(Long cookbookId) {
+        cookbookEntityRepository.delete(cookbookId);
+    }
+
 }

@@ -2,23 +2,25 @@ package household.shoppinglist;
 
 import java.util.List;
 
+import com.google.common.eventbus.Subscribe;
+import household.household.HouseholdDeletedEvent;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class ShoppingListService {
 
 	private final ShoppingListRepository shoppingListRepository;
-	
+
 	public ShoppingList getShoppingList(Long shoppingListId) {
 		return shoppingListRepository.determineShoppingList(shoppingListId);
 	}
-	
+
     public ShoppingList removeAllSelectedItems(Long shoppingListId) {
         ShoppingList shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
         shoppingList.clearAllSelectedItems();
         return shoppingListRepository.saveShoppingList(shoppingList);
     }
-	
+
 	public ShoppingList removeSelectedItemsFromShoppingListGroup(Long shoppingListId, Long shoppingListGroupId) {
 		ShoppingList shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
 		shoppingList.clearSelectedItemsFromShoppingListGroup(shoppingListGroupId);
@@ -52,4 +54,13 @@ public class ShoppingListService {
 	public ShoppingList createShoppingList() {
 		return shoppingListRepository.saveShoppingList(new ShoppingList(null));
 	}
+
+    private void deleteCookbook(Long shoppingListId) {
+        shoppingListRepository.deleteShoppingList(shoppingListId);
+    }
+
+    @Subscribe
+    public void onHouseholdDeleted(HouseholdDeletedEvent event) {
+        deleteCookbook(event.getHousehold().getShoppingListId());
+    }
 }

@@ -14,9 +14,14 @@ class DefaultHouseholdRepository implements HouseholdRepository {
 		return householdMapper.map(householdEntityRepository.findOne(householdId));
 	}
 
-	@Override
-	public Household saveHousehold(Household household) {
-		return householdMapper.map(householdEntityRepository.save(householdMapper.map(household)));
-	}
+    @Override
+    public Household saveHousehold(Household household) {
+        return householdMapper.map(householdEntityRepository.save(householdMapper.map(household)));
+    }
+
+    @Override
+    public void deleteHousehold(Long householdId) {
+        householdEntityRepository.delete(householdId);
+    }
 
 }

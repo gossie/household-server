@@ -53,8 +53,6 @@ public class UserService {
         userRepository.saveUser(user);
 
         List<User> leftUsers = userRepository.determineUsers(oldHouseholdId);
-        if (leftUsers.isEmpty()) {
-            eventBus.post(new InvitationAcceptedEvent(oldHouseholdId));
-        }
+        eventBus.post(new InvitationAcceptedEvent(oldHouseholdId, leftUsers));
     }
 }

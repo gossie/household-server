@@ -26,4 +26,9 @@ class DefaultCleaningPlanRepository implements CleaningPlanRepository {
 		return cleaningPlanMapper.map(cleaningPlanEntityRepository.save(new CleaningPlanEntity()));
 	}
 
+	@Override
+    public void deleteCleaningPlan(Long id) {
+	    cleaningPlanEntityRepository.delete(id);
+    }
+
 }

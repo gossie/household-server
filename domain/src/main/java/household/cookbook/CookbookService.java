@@ -1,5 +1,7 @@
 package household.cookbook;
 
+import com.google.common.eventbus.Subscribe;
+import household.household.HouseholdDeletedEvent;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -44,4 +46,12 @@ public class CookbookService {
 		return cookbookRepository.createCookbook();
 	}
 
+    private void deleteCookbook(Long cookbookId) {
+        cookbookRepository.deleteCookbook(cookbookId);
+    }
+
+    @Subscribe
+    public void onHouseholdDeleted(HouseholdDeletedEvent event) {
+        deleteCookbook(event.getHousehold().getCookbookId());
+    }
 }

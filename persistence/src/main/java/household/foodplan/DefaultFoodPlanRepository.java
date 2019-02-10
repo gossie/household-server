@@ -24,4 +24,9 @@ class DefaultFoodPlanRepository implements FoodPlanRepository {
 		return foodPlanMapper.map(foodPlanEntityRepository.save(new FoodPlanEntity()));
 	}
 
+	@Override
+    public void deleteFoodPlan(Long foodPlanId) {
+	    foodPlanEntityRepository.delete(foodPlanId);
+    }
+
 }

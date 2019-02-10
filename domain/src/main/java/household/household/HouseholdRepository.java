@@ -6,4 +6,5 @@ public interface HouseholdRepository {
 
 	Household saveHousehold(Household household);
 
+    void deleteHousehold(Long householdId);
 }

@@ -1,5 +1,7 @@
 package household.foodplan;
 
+import com.google.common.eventbus.Subscribe;
+import household.household.HouseholdDeletedEvent;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -10,7 +12,7 @@ public class FoodPlanService {
 	public FoodPlan getFoodPlan(Long foodPlanId) {
 		return foodPlanRepository.determineFoodPlan(foodPlanId);
 	}
-	
+
 	public FoodPlan clear(Long foodPlanId) {
 		FoodPlan foodPlan = foodPlanRepository.determineFoodPlan(foodPlanId);
 		foodPlan.clear();
@@ -24,6 +26,15 @@ public class FoodPlanService {
 	}
 
 	public FoodPlan createFoodPlan() {
-		return foodPlanRepository.createFoodPlan();		
+		return foodPlanRepository.createFoodPlan();
 	}
+
+    private void deleteCookbook(Long foodPlanId) {
+        foodPlanRepository.deleteFoodPlan(foodPlanId);
+    }
+
+    @Subscribe
+    public void onHouseholdDeleted(HouseholdDeletedEvent event) {
+        deleteCookbook(event.getHousehold().getFoodPlanId());
+    }
 }

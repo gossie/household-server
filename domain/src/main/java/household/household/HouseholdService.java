@@ -23,11 +23,18 @@ public class HouseholdService {
 		return householdRepository.saveHousehold(new Household(null, shoppingList.getId(), cleaningPlan.getId(), foodPlan.getId(), cookbook.getId()));
 	}
 
+	private void deleteHousehold(Long householdId) {
+        Household household = householdRepository.determineHousehold(householdId);
+        householdRepository.deleteHousehold(householdId);
+        eventBus.post(new HouseholdDeletedEvent(household));
+    }
+
 	@Subscribe
     public void onInvitationAccepted(InvitationAcceptedEvent event) {
 	    event.getOldHouseholdId().ifPresent(oldHouseholdId -> {
-            Household oldHousehold = householdRepository.determineHousehold(oldHouseholdId);
-            eventBus.post(new HouseholdDeletedEvent(oldHousehold));
+	        if(event.getLeftUsers().isEmpty()) {
+                deleteHousehold(oldHouseholdId);
+            }
         });
     }
 }

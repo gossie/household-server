@@ -1,5 +1,6 @@
 package household.user;
 
+import java.util.List;
 import java.util.Optional;
 
 import lombok.EqualsAndHashCode;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 public class InvitationAcceptedEvent {
 
     private final Long oldHouseholdId;
+    private final List<User> leftUsers;
 
     public Optional<Long> getOldHouseholdId() {
         return Optional.ofNullable(oldHouseholdId);

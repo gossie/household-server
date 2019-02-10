@@ -8,4 +8,5 @@ public interface CleaningPlanRepository {
 
 	CleaningPlan createCleaningPlan();
 
+    void deleteCleaningPlan(Long cleaningPlanId);
 }

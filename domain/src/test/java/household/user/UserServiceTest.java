@@ -61,7 +61,7 @@ public class UserServiceTest {
         UserService userService = new UserService(eventBus, userRepository);
         userService.acceptInvitation(7L, 3L);
 
-        verify(eventBus).post(new InvitationAcceptedEvent(5L));
+        verify(eventBus).post(new InvitationAcceptedEvent(5L, Collections.emptyList()));
     }
 
     @Test
@@ -82,7 +82,7 @@ public class UserServiceTest {
         UserService userService = new UserService(eventBus, userRepository);
         userService.acceptInvitation(7L, 3L);
 
-        verifyZeroInteractions(eventBus);
+        verify(eventBus).post(new InvitationAcceptedEvent(5L, Collections.singletonList(leftUser)));
     }
 
 }
