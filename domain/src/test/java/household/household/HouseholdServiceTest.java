@@ -7,20 +7,22 @@ import static org.mockito.Mockito.when;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.google.common.eventbus.EventBus;
+
 public class HouseholdServiceTest {
-	
+
 	private HouseholdService householdService;
 
 	@Test
 	public void testGetHousehold() throws Exception {
 		Household expected = mock(Household.class);
-		
+
 		HouseholdRepository householdRepository = mock(HouseholdRepository.class);
 		when(householdRepository.determineHousehold(7L)).thenReturn(expected);
-		
-		householdService = new HouseholdService(householdRepository);
+
+		householdService = new HouseholdService(mock(EventBus.class), householdRepository);
 		Household result = householdService.getHousehold(7L);
-		
+
 		assertThat(result).isSameAs(expected);
 	}
 
