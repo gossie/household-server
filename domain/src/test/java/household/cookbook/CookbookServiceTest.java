@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import com.google.common.eventbus.EventBus;
 import household.household.Household;
 import household.household.HouseholdDeletedEvent;
 
@@ -24,7 +25,7 @@ public class CookbookServiceTest {
 		CookbookRepository cookbookRepository = mock(CookbookRepository.class);
 		when(cookbookRepository.determineCookbook(6L)).thenReturn(cookbook);
 
-		cookbookService = new CookbookService(cookbookRepository);
+		cookbookService = new CookbookService(mock(EventBus.class), cookbookRepository);
 		Cookbook actualCookbook = cookbookService.getMinifiedCookbook(6L);
 
 		assertThat(actualCookbook).hasSize(2);
@@ -42,7 +43,7 @@ public class CookbookServiceTest {
 		CookbookRepository cookbookRepository = mock(CookbookRepository.class);
 		when(cookbookRepository.determineCookbook(6L)).thenReturn(cookbook);
 
-		cookbookService = new CookbookService(cookbookRepository);
+		cookbookService = new CookbookService(mock(EventBus.class), cookbookRepository);
 		Recipe result = cookbookService.getRecipe(6L, 2L);
 
 		assertThat(result).hasName("Recipe2").hasSize(2);
@@ -57,7 +58,7 @@ public class CookbookServiceTest {
 
 		Recipe recipeToAdd = new Recipe(1L, "Recipe3", "Description", asList(mock(Ingredient.class), mock(Ingredient.class)));
 
-		cookbookService = new CookbookService(cookbookRepository);
+		cookbookService = new CookbookService(mock(EventBus.class), cookbookRepository);
 		Cookbook result = cookbookService.addRecipe(18L, recipeToAdd);
 
         assertThat(result)
@@ -74,7 +75,7 @@ public class CookbookServiceTest {
 		when(cookbookRepository.determineCookbook(8L)).thenReturn(cookbook);
 		when(cookbookRepository.saveCookbook(cookbook)).thenReturn(cookbook);
 
-		cookbookService = new CookbookService(cookbookRepository);
+		cookbookService = new CookbookService(mock(EventBus.class), cookbookRepository);
 		Cookbook result = cookbookService.editRecipe(8L, 15L, new Recipe(1L, "Recipe1", "", asList(mock(Ingredient.class), mock(Ingredient.class), mock(Ingredient.class))));
 
 		assertThat(result)
@@ -90,7 +91,7 @@ public class CookbookServiceTest {
 
         CookbookRepository cookbookRepository = mock(CookbookRepository.class);
 
-        cookbookService = new CookbookService(cookbookRepository);
+        cookbookService = new CookbookService(mock(EventBus.class), cookbookRepository);
         cookbookService.onHouseholdDeleted(new HouseholdDeletedEvent(household));
 
         verify(cookbookRepository).deleteCookbook(3L);

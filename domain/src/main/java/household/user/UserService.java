@@ -3,6 +3,8 @@ package household.user;
 import java.util.List;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
+import household.household.HouseholdDeletedEvent;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -10,6 +12,11 @@ public class UserService {
 
     private final EventBus eventBus;
     private final UserRepository userRepository;
+
+
+    public void init() {
+        eventBus.register(this);
+    }
 
     public User createUser(User user) {
         userRepository.determineUser(user.getEmail().toLowerCase()).ifPresent(u -> {
@@ -54,5 +61,13 @@ public class UserService {
 
         List<User> leftUsers = userRepository.determineUsers(oldHouseholdId);
         eventBus.post(new InvitationAcceptedEvent(oldHouseholdId, leftUsers));
+    }
+
+    @Subscribe
+    public void onHouseholdDeletion(HouseholdDeletedEvent event) {
+        userRepository.determineUsers(event.getHousehold().getId()).forEach(user -> {
+            user.setHouseholdId(null);
+            userRepository.saveUser(user);
+        });
     }
 }

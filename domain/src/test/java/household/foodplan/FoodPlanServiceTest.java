@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 
+import com.google.common.eventbus.EventBus;
 import household.household.Household;
 import household.household.HouseholdDeletedEvent;
 
@@ -20,7 +21,7 @@ public class FoodPlanServiceTest {
 		FoodPlanRepository foodPlanRepository = mock(FoodPlanRepository.class);
 		when(foodPlanRepository.determineFoodPlan(1L)).thenReturn(expected);
 
-		foodPlanService = new FoodPlanService(foodPlanRepository);
+		foodPlanService = new FoodPlanService(mock(EventBus.class), foodPlanRepository);
 		FoodPlan actual = foodPlanService.getFoodPlan(1L);
 
 		assertThat(actual).isSameAs(expected);
@@ -36,7 +37,7 @@ public class FoodPlanServiceTest {
 		when(foodPlanRepository.determineFoodPlan(1L)).thenReturn(saved);
 		when(foodPlanRepository.saveFoodPlan(saved)).thenReturn(expected);
 
-		foodPlanService = new FoodPlanService(foodPlanRepository );
+		foodPlanService = new FoodPlanService(mock(EventBus.class), foodPlanRepository );
 		FoodPlan actual = foodPlanService.update(1L, input);
 
 		assertThat(actual).isSameAs(expected);
@@ -52,7 +53,7 @@ public class FoodPlanServiceTest {
 		when(foodPlanRepository.determineFoodPlan(1L)).thenReturn(foodPlan);
 		when(foodPlanRepository.saveFoodPlan(foodPlan)).thenReturn(expected);
 
-		foodPlanService = new FoodPlanService(foodPlanRepository);
+		foodPlanService = new FoodPlanService(mock(EventBus.class), foodPlanRepository);
 		FoodPlan actual = foodPlanService.clear(1L);
 
 		assertThat(actual).isSameAs(expected);
@@ -66,7 +67,7 @@ public class FoodPlanServiceTest {
 
         FoodPlanRepository foodPlanRepository = mock(FoodPlanRepository.class);
 
-        foodPlanService = new FoodPlanService(foodPlanRepository);
+        foodPlanService = new FoodPlanService(mock(EventBus.class), foodPlanRepository);
         foodPlanService.onHouseholdDeleted(new HouseholdDeletedEvent(household));
 
         verify(foodPlanRepository).deleteFoodPlan(3L);

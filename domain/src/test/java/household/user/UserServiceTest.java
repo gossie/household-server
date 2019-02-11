@@ -4,17 +4,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 
 import org.junit.Test;
 
 import com.google.common.eventbus.EventBus;
+import household.household.Household;
+import household.household.HouseholdDeletedEvent;
 
 public class UserServiceTest {
+
+    private UserService userService;
 
     @Test
     public void testCreateUser() throws Exception {
@@ -26,7 +30,7 @@ public class UserServiceTest {
         UserRepository userRepository = mock(UserRepository.class);
         when(userRepository.determineUser("my@email.de")).thenReturn(Optional.empty());
         when(userRepository.createUser(input)).thenReturn(expectedResult);
-        UserService userService = new UserService(eventBus, userRepository);
+        userService = new UserService(eventBus, userRepository);
 
         assertThat(userService.createUser(input)).isSameAs(expectedResult);
     }
@@ -41,7 +45,7 @@ public class UserServiceTest {
         UserRepository userRepository = mock(UserRepository.class);
         when(userRepository.determineUser("my@email.de")).thenReturn(Optional.of(existingUser));
 
-        UserService userService = new UserService(eventBus, userRepository);
+        userService = new UserService(eventBus, userRepository);
 
         assertThatExceptionOfType(UserAlreadyExistsException.class).isThrownBy(() -> userService.createUser(input));
     }
@@ -58,7 +62,7 @@ public class UserServiceTest {
         when(userRepository.determineUser(7L)).thenReturn(invitedUser);
         when(userRepository.determineUsers(5L)).thenReturn(Collections.emptyList());
 
-        UserService userService = new UserService(eventBus, userRepository);
+        userService = new UserService(eventBus, userRepository);
         userService.acceptInvitation(7L, 3L);
 
         verify(eventBus).post(new InvitationAcceptedEvent(5L, Collections.emptyList()));
@@ -79,10 +83,32 @@ public class UserServiceTest {
         when(userRepository.determineUser(7L)).thenReturn(invitedUser);
         when(userRepository.determineUsers(5L)).thenReturn(Collections.singletonList(leftUser));
 
-        UserService userService = new UserService(eventBus, userRepository);
+        userService = new UserService(eventBus, userRepository);
         userService.acceptInvitation(7L, 3L);
 
         verify(eventBus).post(new InvitationAcceptedEvent(5L, Collections.singletonList(leftUser)));
+    }
+
+    @Test
+    public void testOnHouseholdDeletion() throws Exception {
+        Household household = mock(Household.class);
+        when(household.getId()).thenReturn(17L);
+
+        UserRepository userRepository = mock(UserRepository.class);
+        User user1 = new User(2L, "user1@email.de", "");
+        user1.setHouseholdId(17L);
+        User user2 = new User(3L, "user2@email.de", "");
+        user1.setHouseholdId(18L);
+        when(userRepository.determineUsers(17L)).thenReturn(Arrays.asList(user1, user2));
+
+        userService = new UserService(mock(EventBus.class), userRepository);
+        userService.onHouseholdDeletion(new HouseholdDeletedEvent(household));
+
+        User expectedUser1 = new User(2L, "user1@email.de", "");
+        User expectedUser2 = new User(3L, "user2@email.de", "");
+
+        verify(userRepository).saveUser(expectedUser1);
+        verify(userRepository).saveUser(expectedUser2);
     }
 
 }

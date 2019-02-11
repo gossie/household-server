@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 
+import com.google.common.eventbus.EventBus;
 import household.household.Household;
 import household.household.HouseholdDeletedEvent;
 
@@ -20,7 +21,7 @@ public class CleaningPlanServiceTest {
 		CleaningPlanRepository cleaningPlanRepository = mock(CleaningPlanRepository.class);
 		when(cleaningPlanRepository.determineCleaningPlan(1L)).thenReturn(expected);
 
-		cleaningPlanService = new CleaningPlanService(cleaningPlanRepository);
+		cleaningPlanService = new CleaningPlanService(mock(EventBus.class), cleaningPlanRepository);
 		CleaningPlan actual = cleaningPlanService.getCleaningPlan(1L);
 
 		assertThat(actual).isSameAs(expected);
@@ -36,7 +37,7 @@ public class CleaningPlanServiceTest {
 		when(cleaningPlanRepository.determineCleaningPlan(1L)).thenReturn(saved);
 		when(cleaningPlanRepository.saveCleaningPlan(saved)).thenReturn(expected);
 
-		cleaningPlanService = new CleaningPlanService(cleaningPlanRepository);
+		cleaningPlanService = new CleaningPlanService(mock(EventBus.class), cleaningPlanRepository);
 		CleaningPlan actual = cleaningPlanService.update(1L, input);
 
 		assertThat(actual).isSameAs(expected);
@@ -54,7 +55,7 @@ public class CleaningPlanServiceTest {
 
 		Chore chore = mock(Chore.class);
 
-		cleaningPlanService = new CleaningPlanService(cleaningPlanRepository);
+		cleaningPlanService = new CleaningPlanService(mock(EventBus.class), cleaningPlanRepository);
 		CleaningPlan actual = cleaningPlanService.addChore(1L, chore);
 
 		assertThat(actual).isSameAs(expected);
@@ -70,7 +71,7 @@ public class CleaningPlanServiceTest {
 		when(cleaningPlanRepository.determineCleaningPlan(1L)).thenReturn(cleaningPlan);
 		when(cleaningPlanRepository.saveCleaningPlan(cleaningPlan)).thenReturn(expected);
 
-		cleaningPlanService = new CleaningPlanService(cleaningPlanRepository);
+		cleaningPlanService = new CleaningPlanService(mock(EventBus.class), cleaningPlanRepository);
 		CleaningPlan actual = cleaningPlanService.removeChore(1L, 7L);
 
 		assertThat(actual).isSameAs(expected);
@@ -84,7 +85,7 @@ public class CleaningPlanServiceTest {
 
         CleaningPlanRepository cleaningPlanRepository = mock(CleaningPlanRepository.class);
 
-	    cleaningPlanService = new CleaningPlanService(cleaningPlanRepository);
+	    cleaningPlanService = new CleaningPlanService(mock(EventBus.class), cleaningPlanRepository);
 	    cleaningPlanService.onHouseholdDeleted(new HouseholdDeletedEvent(household));
 
 	    verify(cleaningPlanRepository).deleteCleaningPlan(3L);

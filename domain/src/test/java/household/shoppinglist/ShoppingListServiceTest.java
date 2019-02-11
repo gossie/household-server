@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.google.common.eventbus.EventBus;
 import household.foodplan.FoodPlanRepository;
 import household.foodplan.FoodPlanService;
 import household.household.Household;
@@ -29,7 +30,7 @@ public class ShoppingListServiceTest {
 		ShoppingListRepository shoppingListRepository = mock(ShoppingListRepository.class);
 		when(shoppingListRepository.determineShoppingList(1L)).thenReturn(expectedShoppingList);
 
-		shoppingListService = new ShoppingListService(shoppingListRepository);
+		shoppingListService = new ShoppingListService(mock(EventBus.class), shoppingListRepository);
 		ShoppingList actualShoppingList = shoppingListService.getShoppingList(1L);
 
 		assertThat(actualShoppingList).isSameAs(expectedShoppingList);
@@ -44,7 +45,7 @@ public class ShoppingListServiceTest {
         when(shoppingListRepository.determineShoppingList(1L)).thenReturn(shoppingList);
         when(shoppingListRepository.saveShoppingList(shoppingList)).thenReturn(shoppingList);
 
-        shoppingListService = new ShoppingListService(shoppingListRepository);
+        shoppingListService = new ShoppingListService(mock(EventBus.class), shoppingListRepository);
         ShoppingList result = shoppingListService.addShoppingListGroup(1L, new ShoppingListGroup(null, "group2", Collections.emptyList()));
 
         assertThat(result)
@@ -62,7 +63,7 @@ public class ShoppingListServiceTest {
 		when(shoppingListRepository.determineShoppingList(1L)).thenReturn(shoppingList);
 		when(shoppingListRepository.saveShoppingList(shoppingList)).thenReturn(shoppingList);
 
-		shoppingListService = new ShoppingListService(shoppingListRepository);
+		shoppingListService = new ShoppingListService(mock(EventBus.class), shoppingListRepository);
 		ShoppingList result = shoppingListService.addShoppingListItems(1L, 3L, asList(new ShoppingListItem(2L, "new", false)));
 
 		assertThat(result)
@@ -89,7 +90,7 @@ public class ShoppingListServiceTest {
             when(shoppingListRepository.determineShoppingList(5L)).thenReturn(shoppingList);
             when(shoppingListRepository.saveShoppingList(shoppingList)).thenReturn(shoppingList);
 
-            shoppingListService = new ShoppingListService(shoppingListRepository);
+            shoppingListService = new ShoppingListService(mock(EventBus.class), shoppingListRepository);
             ShoppingList result = shoppingListService.removeSelectedItemsFromShoppingListGroup(5L, 8L);
 
             assertThat(result)
@@ -124,7 +125,7 @@ public class ShoppingListServiceTest {
         when(shoppingListRepository.determineShoppingList(5L)).thenReturn(shoppingList);
         when(shoppingListRepository.saveShoppingList(shoppingList)).thenReturn(shoppingList);
 
-        shoppingListService = new ShoppingListService(shoppingListRepository);
+        shoppingListService = new ShoppingListService(mock(EventBus.class), shoppingListRepository);
         ShoppingList result = shoppingListService.removeAllSelectedItems(5L);
 
         assertThat(result)
@@ -158,7 +159,7 @@ public class ShoppingListServiceTest {
         when(shoppingListRepository.determineShoppingList(5L)).thenReturn(shoppingList);
         when(shoppingListRepository.saveShoppingList(shoppingList)).thenReturn(shoppingList);
 
-        shoppingListService = new ShoppingListService(shoppingListRepository);
+        shoppingListService = new ShoppingListService(mock(EventBus.class), shoppingListRepository);
 
         ShoppingList result = shoppingListService.toggleItem(5L, 9L, 3L);
 
@@ -202,7 +203,7 @@ public class ShoppingListServiceTest {
         when(shoppingListRepository.determineShoppingList(1L)).thenReturn(shoppingList);
         when(shoppingListRepository.saveShoppingList(shoppingList)).thenReturn(shoppingList);
 
-        shoppingListService = new ShoppingListService(shoppingListRepository);
+        shoppingListService = new ShoppingListService(mock(EventBus.class), shoppingListRepository);
         ShoppingList result = shoppingListService.deleteShoppingListGroup(1L, 4L);
 
         assertThat(result)
@@ -221,7 +222,7 @@ public class ShoppingListServiceTest {
         when(shoppingListRepository.determineShoppingList(1L)).thenReturn(shoppingList);
         when(shoppingListRepository.saveShoppingList(shoppingList)).thenReturn(shoppingList);
 
-        shoppingListService = new ShoppingListService(shoppingListRepository);
+        shoppingListService = new ShoppingListService(mock(EventBus.class), shoppingListRepository);
 
         assertThatExceptionOfType(ShoppingListGroupNotDeletableException.class)
             .isThrownBy(() -> shoppingListService.deleteShoppingListGroup(1L, 4L));
@@ -234,7 +235,7 @@ public class ShoppingListServiceTest {
 
         ShoppingListRepository foodPlanRepository = mock(ShoppingListRepository.class);
 
-        shoppingListService = new ShoppingListService(foodPlanRepository);
+        shoppingListService = new ShoppingListService(mock(EventBus.class), foodPlanRepository);
         shoppingListService.onHouseholdDeleted(new HouseholdDeletedEvent(household));
 
         verify(foodPlanRepository).deleteShoppingList(3L);

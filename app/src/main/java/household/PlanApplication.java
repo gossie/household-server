@@ -35,32 +35,32 @@ public class PlanApplication {
 	    return new EventBus();
     }
 
-	@Bean
+	@Bean(initMethod = "init")
 	public HouseholdService householdService(HouseholdRepository householdRepository) {
 		return new HouseholdService(eventBus(), householdRepository);
 	}
 
-	@Bean
+	@Bean(initMethod = "init")
 	public CleaningPlanService cleaningPlanService(CleaningPlanRepository cleaningPlanRepository) {
-		return new CleaningPlanService(cleaningPlanRepository);
+		return new CleaningPlanService(eventBus(), cleaningPlanRepository);
 	}
 
-	@Bean
+	@Bean(initMethod = "init")
 	public CookbookService cookbookService(CookbookRepository cookbookRepository) {
-		return new CookbookService(cookbookRepository);
+		return new CookbookService(eventBus(), cookbookRepository);
 	}
 
-	@Bean
+	@Bean(initMethod = "init")
 	public FoodPlanService foodPlanService(FoodPlanRepository foodPlanRepository) {
-		return new FoodPlanService(foodPlanRepository);
+		return new FoodPlanService(eventBus(), foodPlanRepository);
 	}
 
-	@Bean
+	@Bean(initMethod = "init")
 	public ShoppingListService shoppingListService(ShoppingListRepository shoppingListRepository) {
-		return new ShoppingListService(shoppingListRepository);
+		return new ShoppingListService(eventBus(), shoppingListRepository);
 	}
 
-	@Bean
+	@Bean(initMethod = "init")
 	public UserService userService(UserRepository userRepository) {
 		return new UserService(eventBus(), userRepository);
 	}

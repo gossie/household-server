@@ -1,5 +1,6 @@
 package household.cookbook;
 
+import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import household.household.HouseholdDeletedEvent;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +8,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CookbookService {
 
+    private final EventBus eventBus;
 	private final CookbookRepository cookbookRepository;
+
+    public void init() {
+        eventBus.register(this);
+    }
 
 	public Cookbook getMinifiedCookbook(Long id) {
 		Cookbook cookbook = cookbookRepository.determineCookbook(id);

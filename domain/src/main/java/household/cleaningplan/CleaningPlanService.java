@@ -1,5 +1,6 @@
 package household.cleaningplan;
 
+import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import household.household.HouseholdDeletedEvent;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +8,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CleaningPlanService {
 
+    private final EventBus eventBus;
 	private final CleaningPlanRepository cleaningPlanRepository;
+
+    public void init() {
+        eventBus.register(this);
+    }
 
 	public CleaningPlan getCleaningPlan(Long cleaningPlanId) {
 		return cleaningPlanRepository.determineCleaningPlan(cleaningPlanId);

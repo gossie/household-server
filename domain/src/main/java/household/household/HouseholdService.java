@@ -15,6 +15,10 @@ public class HouseholdService {
     private final EventBus eventBus;
 	private final HouseholdRepository householdRepository;
 
+    public void init() {
+        eventBus.register(this);
+    }
+
 	public Household getHousehold(Long householdId) {
 		return householdRepository.determineHousehold(householdId);
 	}

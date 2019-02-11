@@ -2,6 +2,7 @@ package household.shoppinglist;
 
 import java.util.List;
 
+import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import household.household.HouseholdDeletedEvent;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +10,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ShoppingListService {
 
+    private final EventBus eventBus;
 	private final ShoppingListRepository shoppingListRepository;
+
+    public void init() {
+        eventBus.register(this);
+    }
 
 	public ShoppingList getShoppingList(Long shoppingListId) {
 		return shoppingListRepository.determineShoppingList(shoppingListId);
