@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Ingredient } from "../recipe/ingredient/ingredient";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CookbookService } from "../cookbook.service";
 import { Cookbook } from "../cookbook";
 import { Recipe } from "../recipe/recipe";
-import {ObjectUtils} from "../../../object.utils";
+import { ObjectUtils } from "../../../object.utils";
 
 @Component({
     selector: 'app-add-recipe',
@@ -30,12 +30,10 @@ export class AddRecipeComponent implements OnInit, OnChanges {
                 private cookbookService: CookbookService) { }
 
     public ngOnInit() {
-        console.log('onInit');
         this.createForms();
     }
 
     public ngOnChanges() {
-        console.log('onChanges');
         if (ObjectUtils.isObject(this.recipe)) {
             this.recipeForm.controls.recipeName.setValue(this.recipe.name)
             this.ingredients = this.recipe.ingredients;
@@ -67,7 +65,7 @@ export class AddRecipeComponent implements OnInit, OnChanges {
 
     public addIngredient(): void {
         this.ingredients.push({
-            amount: parseInt(this.ingredientForm.controls.amount.value),
+            amount: parseFloat(this.ingredientForm.controls.amount.value),
             unit: this.ingredientForm.controls.unit.value,
             name: this.ingredientForm.controls.name.value,
         });
