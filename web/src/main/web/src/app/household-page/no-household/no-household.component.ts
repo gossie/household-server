@@ -16,6 +16,8 @@ export class NoHouseholdComponent implements OnInit, OnDestroy {
     @Input()
     public user: User;
 
+    public expanded: boolean = false;
+
     private subscriptions: Array<Subscription> = [];
 
     constructor(private userService: UserService,
@@ -34,6 +36,10 @@ export class NoHouseholdComponent implements OnInit, OnDestroy {
     public createHousehold(): void {
         this.householdService.createHousehold()
             .subscribe(() => {});
+    }
+
+    public toggleNavbar(): void {
+        this.expanded = !this.expanded;
     }
 
     public logout(): void {

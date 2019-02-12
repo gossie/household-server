@@ -1,12 +1,6 @@
 <div class="container">
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <div [routerLink]="[{ outlets: { inner: ['cover'] } } ]" class="navbar-item">
-                <span class="icon">
-                    <i class="fas fa-home"></i>
-                </span>
-            </div>
-
             <a (click)="toggleNavbar()" role="button" class="navbar-burger burger" [ngClass]="{'is-active': expanded}" aria-label="menu" aria-expanded="false" data-target="householdNavbar">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
