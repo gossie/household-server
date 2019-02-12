@@ -1,25 +1,27 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { Invitation } from "../../splash-page/login-page/invitation";
 import { InvitationService } from "../cover-page/invitation.service";
 import { User } from "../../splash-page/login-page/user";
 import { UserService } from "../../user.service";
-import { Router } from "@angular/router";
-import { Page } from "../../page.enum";
 
 @Component({
     selector: 'app-invitation',
     templateUrl: './invitation.component.html',
     styleUrls: ['./invitation.component.css']
 })
-export class InvitationComponent implements OnInit {
+export class InvitationComponent implements OnInit, OnDestroy {
 
     @Input()
     public invitation: Invitation;
 
+
     constructor(private invitationService: InvitationService,
                 private userService: UserService) { }
 
-    ngOnInit() {
+    public ngOnInit(): void {
+    }
+
+    public ngOnDestroy(): void {
     }
 
     public acceptInvitation(): void {

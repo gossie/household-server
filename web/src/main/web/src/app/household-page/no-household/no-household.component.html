@@ -1,0 +1,42 @@
+<div class="container">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <div [routerLink]="[{ outlets: { inner: ['cover'] } } ]" class="navbar-item">
+                <span class="icon">
+                    <i class="fas fa-home"></i>
+                </span>
+            </div>
+
+            <a (click)="toggleNavbar()" role="button" class="navbar-burger burger" [ngClass]="{'is-active': expanded}" aria-label="menu" aria-expanded="false" data-target="householdNavbar">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="householdNavbar" class="navbar-menu" [ngClass]="{'is-active': expanded}">
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <a (click)="logout()" class="button is-light">
+                        Log out
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="columns is-mobile">
+        <div class="column">
+            <a (click)="createHousehold()" class="button is-primary">
+                Haushalt erstellen
+            </a>
+        </div>
+    </div>
+    <div class="columns is-mobile">
+        <div class="column">
+            <app-invitation *ngFor="let invitation of user.invitations"
+                            [invitation]="invitation">
+            </app-invitation>
+        </div>
+    </div>
+</div>

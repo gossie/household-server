@@ -70,6 +70,7 @@ export class CoverPageComponent implements OnInit, OnDestroy {
 
     private handleSuccessfulInvitation() {
         this.loading = false
+        this.invitationForm.controls.email.setValue('');
     }
 
     private handleUnsuccessfulInvitation(error: any) {

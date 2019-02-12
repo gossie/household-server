@@ -60,12 +60,5 @@
 </div>
 
 <ng-template #noHousehold>
-    <div class="container is-fluid">
-        <a (click)="createHousehold()" class="button is-primary">
-            Haushalt erstellen
-        </a>
-        <app-invitation *ngFor="let invitation of user.invitations"
-                        [invitation]="invitation">
-        </app-invitation>
-    </div>
+    <app-no-household [user]="user"></app-no-household>
 </ng-template>

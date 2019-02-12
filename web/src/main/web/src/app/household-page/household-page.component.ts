@@ -62,11 +62,6 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
         );
     }
 
-    public createHousehold(): void {
-        this.householdService.createHousehold()
-            .subscribe((household: Household) => this.household = household);
-    }
-
     public toggleNavbar(): void {
         this.expanded = !this.expanded;
     }

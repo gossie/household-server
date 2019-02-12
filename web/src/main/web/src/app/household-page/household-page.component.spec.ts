@@ -5,7 +5,18 @@ import { HouseholdService } from "./household.service";
 import { HouseholdServiceMock } from "./household.service.mock";
 import { UserService } from "../user.service";
 import { UserServiceMock } from "../user.service.mock";
-import { InvitationComponent } from "./invitation/invitation.component";
+import {Component, Input} from "@angular/core";
+
+@Component({
+    selector: [
+        'app-no-household'
+    ].join(','),
+    template: '',
+})
+class MockComponent{
+    @Input()
+    public user: User;
+}
 
 describe('HouseholdPageComponent', () => {
     let component: HouseholdPageComponent;
@@ -17,8 +28,8 @@ describe('HouseholdPageComponent', () => {
                 RouterTestingModule
             ],
             declarations: [
-                HouseholdPageComponent,
-                InvitationComponent
+                MockComponent,
+                HouseholdPageComponent
             ],
             providers: [
                 { provide: HouseholdService, useClass: HouseholdServiceMock },
