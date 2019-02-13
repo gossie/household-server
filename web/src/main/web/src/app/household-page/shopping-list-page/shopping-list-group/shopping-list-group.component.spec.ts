@@ -42,13 +42,46 @@ describe('ShoppingListGroupComponent', () => {
         component = fixture.componentInstance;
         component.shoppingListGroup = {
             name: 'group',
-            shoppingListItems: [],
+            shoppingListItems: [
+                {
+                    name: 'Item 1',
+                    selected: false
+                },
+                {
+                    name: 'Item 2',
+                    selected: false
+                }
+            ],
             links: []
-        }
+        };
         fixture.detectChanges();
     });
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should activate clear button', () => {
+        component.shoppingListGroup = {
+            name: 'group',
+            shoppingListItems: [
+                {
+                    name: 'Item 1',
+                    selected: false
+                },
+                {
+                    name: 'Item 2',
+                    selected: true
+                }
+            ],
+            links: []
+        };
+        fixture.detectChanges();
+        component.ngOnChanges();
+        expect(component.clearButtonActive).toBeTruthy();
+    });
+
+    it('should deactivate clear button', () => {
+        expect(component.clearButtonActive).toBeFalsy();
     });
 });

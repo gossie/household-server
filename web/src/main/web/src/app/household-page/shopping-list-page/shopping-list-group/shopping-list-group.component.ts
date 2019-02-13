@@ -18,8 +18,8 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges {
     public shoppingListEmitter: EventEmitter<ShoppingList> = new EventEmitter();
 
     public shoppingListItemForm: FormGroup;
-
-    private loading: boolean = false;
+    public clearButtonActive: boolean;
+    public loading: boolean = false;
 
     constructor(private shoppingListService: ShoppingListService,
                 private formBuilder: FormBuilder) { }
@@ -31,21 +31,24 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges {
     }
 
     public ngOnChanges(): void {
-        this.shoppingListGroup.shoppingListItems.sort((item1: ShoppingListItem, item2: ShoppingListItem) => {
-            if(item1.selected === item2.selected) {
-                if(item1.name.toLowerCase() < item2.name.toLowerCase()) {
-                    return -1;
-                } else {
-                    return 1;
-                }
+        this.shoppingListGroup.shoppingListItems.sort(this.compareItems.bind(this));
+        this.clearButtonActive = this.shoppingListGroup.shoppingListItems.some((item: ShoppingListItem) => item.selected === true);
+    }
+
+    private compareItems(item1: ShoppingListItem, item2: ShoppingListItem): number {
+        if(item1.selected === item2.selected) {
+            if(item1.name.toLowerCase() < item2.name.toLowerCase()) {
+                return -1;
             } else {
-                if(item1.selected) {
-                    return 1;
-                } else {
-                    return -1;
-                }
+                return 1;
             }
-        });
+        } else {
+            if(item1.selected) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
     }
 
     public isNotGlobal(): boolean {
@@ -74,9 +77,5 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges {
     public handleShoppingList(shoppingList: ShoppingList): void {
         this.shoppingListEmitter.emit(shoppingList);
         this.loading = false;
-    }
-
-    public isLoading(): boolean {
-        return this.loading;
     }
 }
