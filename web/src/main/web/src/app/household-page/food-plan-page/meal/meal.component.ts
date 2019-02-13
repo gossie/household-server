@@ -76,7 +76,7 @@ export class MealComponent implements OnInit, OnDestroy {
     }
 
     public unfocus(): void {
-        setTimeout(() => this.recipes = [], 50);
+        setTimeout(() => this.recipes = [], 250);
     }
 
 }
