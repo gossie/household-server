@@ -63,15 +63,13 @@ describe('ShoppingListPageComponent', () => {
             links: []
         }));
 
-        const button = fixture.debugElement.query(By.css('#add-group-button'));
         expect(component.shoppingListGroupForm.invalid).toBeTruthy();
-        // expect(button.nativeElement.disabled).toBeTruthy();
         expect(component.shoppingList.shoppingListGroups.length).toBe(0);
-
         component.shoppingListGroupForm.controls.name.setValue('Neue Gruppe');
-        fixture.detectChanges();
-        // expect(button.nativeElement.disabled).toBeFalsy();
 
+        fixture.detectChanges();
+
+        const button = fixture.debugElement.query(By.css('#add-group-button'));
         button.nativeElement.click();
         expect(component.shoppingList.shoppingListGroups.length).toBe(1);
     });
