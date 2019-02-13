@@ -19,7 +19,10 @@
             </div>
             <div class="column is-2">
                 <div class="control">
-                    <span class="icon" (click)="addChore()">
+                    <span *ngIf="cleaningPlanForm.valid" class="icon" (click)="addChore()">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                    <span *ngIf="!cleaningPlanForm.valid" class="icon has-text-grey-light">
                         <i class="fas fa-plus"></i>
                     </span>
                 </div>
