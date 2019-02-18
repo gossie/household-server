@@ -35,8 +35,12 @@
         <div class="column is-3">Nächstes Mal</div>
         <div class="column is-1"></div>
     </div>
-    <app-chore *ngFor="let chore of cleaningPlan.chores"
-               [chore]="chore"
-               (cleaningPlanEmitter)="handleCleaningPlan($event)">
-    </app-chore>
+    <div class="columns is-mobile">
+        <div class="column">
+            <app-chore *ngFor="let chore of cleaningPlan.chores"
+                       [chore]="chore"
+                       (cleaningPlanEmitter)="handleCleaningPlan($event)">
+            </app-chore>
+        </div>
+    </div>
 </div>

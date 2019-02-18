@@ -23,6 +23,7 @@ import { IngredientComponent } from './household-page/cookbook-page/recipe/ingre
 import { AddRecipeComponent } from './household-page/cookbook-page/add-recipe/add-recipe.component';
 import { SelectRecipeComponent } from './household-page/food-plan-page/select-recipe/select-recipe.component';
 import { NoHouseholdComponent } from './household-page/no-household/no-household.component';
+import { DatePipe } from './household-page/cleaning-plan-page/chore/date.pipe';
 
 @NgModule({
     declarations: [
@@ -45,7 +46,8 @@ import { NoHouseholdComponent } from './household-page/no-household/no-household
         IngredientComponent,
         AddRecipeComponent,
         SelectRecipeComponent,
-        NoHouseholdComponent
+        NoHouseholdComponent,
+        DatePipe
     ],
     imports: [
         ReactiveFormsModule,

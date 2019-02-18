@@ -15,6 +15,8 @@ export class ChoreComponent implements OnInit {
     @Output()
     public cleaningPlanEmitter: EventEmitter<CleaningPlan> = new EventEmitter();
 
+    public expanded: boolean = false;
+
     constructor(private cleaningPlanService: CleaningPlanService) { }
 
     ngOnInit() {
@@ -34,12 +36,8 @@ export class ChoreComponent implements OnInit {
             });
     }
 
-    // Convert to pipe
-    public determineDate(timestamp: number): string {
-        const date: Date = new Date();
-        date.setTime(timestamp);
-
-        return`${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
+    public toggleChore(): void {
+        this.expanded = !this.expanded;
     }
 
     public isGreen(): boolean {
