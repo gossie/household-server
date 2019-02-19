@@ -1,13 +1,13 @@
 <div class="card">
-    <header class="card-header">
-        <p class="card-header-title" (click)="toggleChore()">
-            {{ chore.name }}
+    <header class="card-header" (click)="toggleChore()">
+        <p class="card-header-title">
+            {{ chore.name }} ({{ chore.nextTime | date }})
         </p>
-        <a class="card-header-icon" (click)="selectChore()">
+        <span class="card-header-icon">
             <span class="icon" [ngClass]="{'has-text-success': isGreen(), 'has-text-warning': isYellow(), 'has-text-danger': isRed()}">
                 <i class="far fa-dot-circle"></i>
             </span>
-        </a>
+        </span>
     </header>
     <div *ngIf="expanded" class="card-content">
         <div *ngIf="readonly; else edit" class="content">
@@ -18,7 +18,25 @@
             <a class="button is-primary" (click)="selectChore()">Durchführen</a>
         </div>
         <ng-template #edit>
-            Hier wird es möglich sein die Aufgabe zu editieren.
+            <form [formGroup]="choreForm">
+                <div class="field">
+                    <label class="label">Hausarbeit</label>
+                    <div class="control">
+                        <input class="input" type="text" formControlName="name">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Frequenz (Tage)</label>
+                    <div class="control">
+                        <input class="input" type="text" formControlName="repeat">
+                    </div>
+                </div>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-primary" (click)="saveChore()" [disabled]="!choreForm.valid">Speichern</button>
+                    </div>
+                </div>
+            </form>
         </ng-template>
     </div>
     <footer *ngIf="expanded" class="card-footer">

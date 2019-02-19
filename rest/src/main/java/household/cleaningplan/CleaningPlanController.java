@@ -33,9 +33,9 @@ public class CleaningPlanController {
 		return ResponseEntity.ok(createResource(cleaningPlanService.getCleaningPlan(cleaningPlanId)));
 	}
 
-	@PatchMapping(path="/{cleaningPlanId}", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
-	public ResponseEntity<Resource<CleaningPlanDTO>> updateCleaningPlan(@PathVariable Long cleaningPlanId, @RequestBody ChoreDTO chore) {
-		return ResponseEntity.ok(createResource(cleaningPlanService.update(cleaningPlanId, choreMapper.map(chore))));
+	@PatchMapping(path="/{cleaningPlanId}/chores/{choreId}", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
+	public ResponseEntity<Resource<CleaningPlanDTO>> updateChore(@PathVariable Long cleaningPlanId, @PathVariable Long choreId, @RequestBody ChoreDTO chore) {
+		return ResponseEntity.ok(createResource(cleaningPlanService.update(cleaningPlanId, choreMapper.map(choreId, chore))));
 	}
 
 	@PostMapping(path="/{cleaningPlanId}/chores", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
