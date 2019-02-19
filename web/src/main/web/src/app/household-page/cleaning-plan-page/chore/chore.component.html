@@ -10,14 +10,19 @@
         </a>
     </header>
     <div *ngIf="expanded" class="card-content">
-        <div class="content">
+        <div *ngIf="readonly; else edit" class="content">
             Diese Aufgabe wurde zuletzt am <strong><time>{{ chore.lastPerformed | date }}</time></strong> durchgeführt.
             Das nächste Mal ist am <strong><time>{{ chore.nextTime | date }}</time></strong>.
+            <br />
+            <br />
+            <a class="button is-primary" (click)="selectChore()">Durchführen</a>
         </div>
+        <ng-template #edit>
+            Hier wird es möglich sein die Aufgabe zu editieren.
+        </ng-template>
     </div>
     <footer *ngIf="expanded" class="card-footer">
-        <span id="edit-button" class="card-footer-item">Editieren</span>
+        <a id="edit-button" class="card-footer-item" (click)="editChore()">Editieren</a>
         <a id="delete-button" class="card-footer-item" (click)="deleteChore()">Löschen</a>
     </footer>
 </div>
-

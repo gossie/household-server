@@ -16,28 +16,34 @@ export class ChoreComponent implements OnInit {
     public cleaningPlanEmitter: EventEmitter<CleaningPlan> = new EventEmitter();
 
     public expanded: boolean = false;
+    public readonly: boolean = true;
 
     constructor(private cleaningPlanService: CleaningPlanService) { }
 
-    ngOnInit() {
+    public ngOnInit(): void {
     }
 
     public selectChore(): void {
         this.cleaningPlanService.selectChore(this.chore)
-            .subscribe((cleaningPlan: CleaningPlan) => {
-                this.cleaningPlanEmitter.emit(cleaningPlan);
-            });
+            .subscribe(this.cleaningPlanEmitter.emit);
+    }
+
+    public editChore(): void {
+        this.readonly = false;
+    }
+
+    public saveChore(): void {
+        this.readonly = true;
     }
 
     public deleteChore(): void {
         this.cleaningPlanService.deleteChore(this.chore)
-            .subscribe((cleaningPlan: CleaningPlan) => {
-                this.cleaningPlanEmitter.emit(cleaningPlan);
-            });
+            .subscribe(this.cleaningPlanEmitter.emit);
     }
 
     public toggleChore(): void {
         this.expanded = !this.expanded;
+        this.readonly = true;
     }
 
     public isGreen(): boolean {
