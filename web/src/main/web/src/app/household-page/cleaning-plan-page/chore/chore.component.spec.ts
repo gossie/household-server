@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ChoreComponent } from './chore.component';
 import { CleaningPlanService } from "../cleaning-plan.service";
 import { CleaningPlanServiceMock } from "../cleaning-plan.service.mock";
+import { ReactiveFormsModule } from "@angular/forms";
 
 describe('ChoreComponent', () => {
     let component: ChoreComponent;
@@ -10,6 +10,9 @@ describe('ChoreComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            imports: [
+                ReactiveFormsModule
+            ],
             declarations: [ ChoreComponent ],
             providers: [
                 { provide: CleaningPlanService, useClass: CleaningPlanServiceMock }

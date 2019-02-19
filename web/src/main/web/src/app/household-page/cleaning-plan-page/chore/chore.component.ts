@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Chore } from './chore';
 import { CleaningPlanService } from "../cleaning-plan.service";
 import { CleaningPlan } from "../cleaning-plan";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
     selector: 'app-chore',
@@ -15,12 +16,22 @@ export class ChoreComponent implements OnInit {
     @Output()
     public cleaningPlanEmitter: EventEmitter<CleaningPlan> = new EventEmitter();
 
+    public choreForm: FormGroup;
     public expanded: boolean = false;
     public readonly: boolean = true;
 
-    constructor(private cleaningPlanService: CleaningPlanService) { }
+    constructor(private cleaningPlanService: CleaningPlanService,
+                private formBuilder: FormBuilder) { }
 
     public ngOnInit(): void {
+        this.createForm();
+    }
+
+    private createForm(): void {
+        this.choreForm = this.formBuilder.group({
+            name: [this.chore.name, Validators.required],
+            repeat: [this.chore.repeat, [Validators.required, Validators.min(1), Validators.max(365)]]
+        });
     }
 
     public selectChore(): void {
@@ -33,7 +44,14 @@ export class ChoreComponent implements OnInit {
     }
 
     public saveChore(): void {
-        this.readonly = true;
+        this.chore.name = this.choreForm.controls.name.value;
+        this.chore.repeat = this.choreForm.controls.repeat.value;
+
+        this.cleaningPlanService.saveChore(this.chore)
+            .subscribe((cleaningPlan: CleaningPlan) => {
+                this.cleaningPlanEmitter.emit(cleaningPlan)
+                this.readonly = true;
+            });
     }
 
     public deleteChore(): void {

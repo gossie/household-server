@@ -27,7 +27,14 @@ public class CleaningPlanResourceProcessor implements ResourceProcessor<Resource
                 .withRel("delete"));
 
             c.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId())
+                .slash("chores")
+                .slash(c.getDatabaseId())
                 .withRel("select"));
+
+            c.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId())
+                .slash("chores")
+                .slash(c.getDatabaseId())
+                .withRel("save"));
         });
 
         return resource;

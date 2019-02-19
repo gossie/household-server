@@ -29,7 +29,7 @@ public class CleaningPlan extends AbstractModel {
 
 	public void update(Chore input) {
 		chores.stream()
-				.filter(c -> c.getName().equals(input.getName()))
+				.filter(c -> c.getId().equals(input.getId()))
 				.findFirst()
 				.ifPresent(c -> {
 				    c.setName(input.getName());
