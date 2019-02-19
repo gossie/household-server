@@ -25,7 +25,7 @@ export class ChoreComponent implements OnInit {
 
     public selectChore(): void {
         this.cleaningPlanService.selectChore(this.chore)
-            .subscribe(this.cleaningPlanEmitter.emit);
+            .subscribe((cleaningPlan: CleaningPlan) => this.cleaningPlanEmitter.emit(cleaningPlan));
     }
 
     public editChore(): void {
@@ -38,7 +38,7 @@ export class ChoreComponent implements OnInit {
 
     public deleteChore(): void {
         this.cleaningPlanService.deleteChore(this.chore)
-            .subscribe(this.cleaningPlanEmitter.emit);
+            .subscribe((cleaningPlan: CleaningPlan) => this.cleaningPlanEmitter.emit(cleaningPlan));
     }
 
     public toggleChore(): void {
