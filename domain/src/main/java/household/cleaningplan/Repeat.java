@@ -4,25 +4,25 @@ import household.AbstractModel;
 
 public class Repeat extends AbstractModel {
 
-	private final int number;
-	private TimeUnit timeUnit = TimeUnit.DAYS;
-	
-	Repeat(Long id, int number) {
-		super(id);
-		this.number = number;
-	}
-	
-	Repeat(Long id, int number, TimeUnit timeUnit) {
-		super(id);
-		this.number = number;
-		this.timeUnit = timeUnit;
-	}
+    private final int number;
+    private TimeUnit timeUnit = TimeUnit.DAYS;
 
-	public int getNumber() {
-		return number;
-	}
+    Repeat(Long id, int number) {
+        super(id);
+        this.number = number;
+    }
 
-	public TimeUnit getTimeUnit() {
-		return timeUnit;
-	}
+    Repeat(Long id, int number, TimeUnit timeUnit) {
+        super(id);
+        this.number = number;
+        this.timeUnit = timeUnit;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public TimeUnit getTimeUnit() {
+        return timeUnit;
+    }
 }

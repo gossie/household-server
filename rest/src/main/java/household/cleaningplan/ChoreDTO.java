@@ -11,11 +11,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ChoreDTO extends AbstractDTO {
-	
+
 	private final Long databaseId;
 	private final String name;
 	private final long lastPerformed;
 	private final long nextTime;
-	private int repeat;
-	
+	private final int repeat;
+
 }
