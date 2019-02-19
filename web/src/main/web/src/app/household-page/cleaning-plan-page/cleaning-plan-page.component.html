@@ -30,12 +30,6 @@
         </div>
     </form>
     <div class="columns is-mobile">
-        <div class="column is-5">Name</div>
-        <div class="column is-3">Zuletzt ausgeführt</div>
-        <div class="column is-3">Nächstes Mal</div>
-        <div class="column is-1"></div>
-    </div>
-    <div class="columns is-mobile">
         <div class="column">
             <app-chore *ngFor="let chore of cleaningPlan.chores"
                        [chore]="chore"
