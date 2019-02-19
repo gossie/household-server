@@ -12,15 +12,15 @@ import lombok.RequiredArgsConstructor;
 @Component
 public class CleaningPlanResourceProcessor implements ResourceProcessor<Resource<CleaningPlanDTO>> {
 
-	private final EntityLinks entityLinks;
+    private final EntityLinks entityLinks;
 
     @Override
     public Resource<CleaningPlanDTO> process(Resource<CleaningPlanDTO> resource) {
-    	CleaningPlanDTO cleaningPlan = resource.getContent();
-    	resource.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId()).withSelfRel());
-    	resource.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId()).slash("chores").withRel("add"));
+        CleaningPlanDTO cleaningPlan = resource.getContent();
+        resource.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId()).withSelfRel());
+        resource.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId()).slash("chores").withRel("add"));
 
-    	cleaningPlan.getChores().forEach(c -> {
+        cleaningPlan.getChores().forEach(c -> {
             c.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId())
                 .slash("chores")
                 .slash(c.getDatabaseId())
@@ -28,7 +28,7 @@ public class CleaningPlanResourceProcessor implements ResourceProcessor<Resource
 
             c.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId())
                 .withRel("select"));
-    	});
+        });
 
         return resource;
     }
