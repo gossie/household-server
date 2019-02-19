@@ -15,7 +15,7 @@
             Das nächste Mal ist am <strong><time>{{ chore.nextTime | date }}</time></strong>.
             <br />
             <br />
-            <a class="button is-primary" (click)="selectChore()">Durchführen</a>
+            <button class="button is-primary" (click)="selectChore()" [ngClass]="{'is-loading': loading}">Durchführen</button>
         </div>
         <ng-template #edit>
             <form [formGroup]="choreForm">
@@ -33,7 +33,12 @@
                 </div>
                 <div class="field is-grouped">
                     <div class="control">
-                        <button class="button is-primary" (click)="saveChore()" [disabled]="!choreForm.valid">Speichern</button>
+                        <button class="button is-primary"
+                                (click)="saveChore()"
+                                [disabled]="!choreForm.valid"
+                                [ngClass]="{'is-loading': loading}">
+                            Speichern
+                        </button>
                     </div>
                 </div>
             </form>

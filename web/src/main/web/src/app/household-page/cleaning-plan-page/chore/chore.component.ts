@@ -19,6 +19,7 @@ export class ChoreComponent implements OnInit {
     public choreForm: FormGroup;
     public expanded: boolean = false;
     public readonly: boolean = true;
+    public loading: boolean = false;
 
     constructor(private cleaningPlanService: CleaningPlanService,
                 private formBuilder: FormBuilder) { }
@@ -35,8 +36,12 @@ export class ChoreComponent implements OnInit {
     }
 
     public selectChore(): void {
+        this.loading = true;
         this.cleaningPlanService.selectChore(this.chore)
-            .subscribe((cleaningPlan: CleaningPlan) => this.cleaningPlanEmitter.emit(cleaningPlan));
+            .subscribe((cleaningPlan: CleaningPlan) => {
+                this.cleaningPlanEmitter.emit(cleaningPlan);
+                this.loading = false;
+            });
     }
 
     public editChore(): void {
@@ -44,13 +49,16 @@ export class ChoreComponent implements OnInit {
     }
 
     public saveChore(): void {
+        this.loading = true;
+
         this.chore.name = this.choreForm.controls.name.value;
         this.chore.repeat = this.choreForm.controls.repeat.value;
 
         this.cleaningPlanService.saveChore(this.chore)
             .subscribe((cleaningPlan: CleaningPlan) => {
-                this.cleaningPlanEmitter.emit(cleaningPlan)
+                this.cleaningPlanEmitter.emit(cleaningPlan);
                 this.readonly = true;
+                this.loading = false;
             });
     }
 
