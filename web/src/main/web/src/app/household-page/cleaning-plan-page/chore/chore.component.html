@@ -1,15 +1,28 @@
-<div class="columns is-mobile">
-    <div class="column is-5"><a (click)="selectChore()">{{ chore.name }}</a></div>
-    <div class="column is-3">{{ determineDate(chore.lastPerformed) }}</div>
-    <div class="column is-3">{{ determineDate(chore.nextTime) }}</div>
-    <div class="column is-1">
-        <span class="icon" [ngClass]="{'has-text-success': isGreen(), 'has-text-warning': isYellow(), 'has-text-danger': isRed()}">
-            <i class="far fa-dot-circle"></i>
-        </span>
+<div class="card">
+    <header class="card-header">
+        <p class="card-header-title" (click)="toggleChore()">
+            {{ chore.name }}
+        </p>
+        <a class="card-header-icon" (click)="selectChore()">
+            <span class="icon" [ngClass]="{'has-text-success': isGreen(), 'has-text-warning': isYellow(), 'has-text-danger': isRed()}">
+                <i class="far fa-dot-circle"></i>
+            </span>
+        </a>
+    </header>
+    <div *ngIf="expanded" class="card-content">
+        <div *ngIf="readonly; else edit" class="content">
+            Diese Aufgabe wurde zuletzt am <strong><time>{{ chore.lastPerformed | date }}</time></strong> durchgeführt.
+            Das nächste Mal ist am <strong><time>{{ chore.nextTime | date }}</time></strong>.
+            <br />
+            <br />
+            <a class="button is-primary" (click)="selectChore()">Durchführen</a>
+        </div>
+        <ng-template #edit>
+            Hier wird es möglich sein die Aufgabe zu editieren.
+        </ng-template>
     </div>
-    <!--<div class="column is-1">-->
-        <!--<span (click)="deleteChore()" class="icon">-->
-            <!--<i class="fas fa-trash"></i>-->
-        <!--</span>-->
-    <!--</div>-->
+    <footer *ngIf="expanded" class="card-footer">
+        <a id="edit-button" class="card-footer-item" (click)="editChore()">Editieren</a>
+        <a id="delete-button" class="card-footer-item" (click)="deleteChore()">Löschen</a>
+    </footer>
 </div>

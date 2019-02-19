@@ -9,12 +9,12 @@ import household.AbstractModel;
 public class CleaningPlan extends AbstractModel {
 
 	private List<Chore> chores;
-	
+
 	public CleaningPlan(Long id, List<Chore> chores) {
 		super(id);
 		this.chores = new ArrayList<>(chores);
 	}
-	
+
 	public List<Chore> getChores() {
 		return Collections.unmodifiableList(chores);
 	}
@@ -26,11 +26,15 @@ public class CleaningPlan extends AbstractModel {
 	public void removeChore(long choreId) {
 		chores.removeIf(c -> c.getId().longValue() == choreId);
 	}
-	
+
 	public void update(Chore input) {
 		chores.stream()
 				.filter(c -> c.getName().equals(input.getName()))
 				.findFirst()
-				.ifPresent(c -> c.setLastPerformed(input.getLastPerformed()));
+				.ifPresent(c -> {
+				    c.setName(input.getName());
+				    c.setLastPerformed(input.getLastPerformed());
+				    input.getRepeat().ifPresent(c::setRepeat);
+                });
 	}
 }
