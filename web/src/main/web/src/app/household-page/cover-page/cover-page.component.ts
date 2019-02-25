@@ -7,6 +7,7 @@ import { HouseholdService } from "../household.service";
 import {UserService} from "../../user.service";
 import {User} from "../../splash-page/login-page/user";
 import {UserData} from "../../user-data";
+import {ObjectUtils} from "../../object.utils";
 
 @Component({
     selector: 'app-cover-page',
@@ -57,6 +58,13 @@ export class CoverPageComponent implements OnInit, OnDestroy {
         this.invitationForm = this.formBuilder.group({
             email: ['', [Validators.required, Validators.email]]
         })
+    }
+
+    public trimEmail(): void {
+        const email: string = this.invitationForm.controls.email.value;
+        if (email) {
+            this.invitationForm.controls.email.setValue(email.trim());
+        }
     }
 
     public sendInvitation(): void {
