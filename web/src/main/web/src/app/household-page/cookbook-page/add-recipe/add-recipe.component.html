@@ -12,6 +12,7 @@
                 </div>
             </div>
             <form [formGroup]="ingredientForm">
+                <h5 class="title is-5">Zutaten</h5>
                 <div *ngFor="let ingredient of ingredients; let i = index" class="columns is-mobile">
                     <div class="column">{{ ingredient.amount }}</div>
                     <div class="column">{{ ingredient.unit }}</div>
