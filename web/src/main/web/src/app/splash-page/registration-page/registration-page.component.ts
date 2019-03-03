@@ -27,7 +27,8 @@ export class RegistrationPageComponent implements OnInit {
         this.form = this.formBuilder.group({
             email: ['', [Validators.required, Validators.email]],
             password: ['', Validators.required],
-            passwordRepeat: ['', Validators.required]
+            passwordRepeat: ['', Validators.required],
+            termsAndConditions: [false, Validators.requiredTrue]
         }, {
             validator: PasswordValidation.matchPassword
         });

@@ -24,6 +24,13 @@
         </p>
     </div>
 
+    <div class="field">
+        <label class="checkbox">
+            <input type="checkbox" formControlName="termsAndConditions">
+            Ich akzeptieren die <a onclick="document.getElementById('data-protection').classList.add('is-active')">Datenschutz-Bestimmungen</a>.
+        </label>
+    </div>
+
     <div class="field is-grouped">
         <div class="control">
             <button class="button is-link" type="submit" [disabled]="!form.valid">Registrieren</button>
