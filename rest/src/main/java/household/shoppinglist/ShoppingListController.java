@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -53,9 +54,14 @@ public class ShoppingListController {
 		return ResponseEntity.ok(createResource(shoppingListService.removeSelectedItemsFromShoppingListGroup(id, groupId)));
 	}
 
-	@PostMapping(path="/{id}/shoppingListGroups", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
+    @PostMapping(path="/{id}/shoppingListGroups", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
     public ResponseEntity<Resource<ShoppingListDTO>> addGroup(@PathVariable Long id, @RequestBody ShoppingListGroupDTO shoppingListGroup) {
         return ResponseEntity.ok(createResource(shoppingListService.addShoppingListGroup(id, shoppingListGroupMapper.map(shoppingListGroup))));
+    }
+
+    @PutMapping(path="/{id}/shoppingListGroups/{groupId}", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
+    public ResponseEntity<Resource<ShoppingListDTO>> toggleGroup(@PathVariable Long id, @PathVariable Long groupId) {
+        return ResponseEntity.ok(createResource(shoppingListService.toggleShoppingListGroup(id, groupId)));
     }
 
 	@DeleteMapping(path="/{id}/shoppingListGroups/{groupId}", produces={"application/vnd.household.v2+json"})

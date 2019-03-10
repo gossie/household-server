@@ -57,6 +57,12 @@ public class ShoppingListService {
 		return shoppingListRepository.saveShoppingList(shoppingList);
 	}
 
+    public ShoppingList toggleShoppingListGroup(Long shoppingListId, Long shoppingListGroupId) {
+        ShoppingList shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
+        shoppingList.toggleGroup(shoppingListGroupId);
+        return shoppingListRepository.saveShoppingList(shoppingList);
+    }
+
 	public ShoppingList createShoppingList() {
 		return shoppingListRepository.saveShoppingList(new ShoppingList(null));
 	}
