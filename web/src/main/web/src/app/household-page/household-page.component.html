@@ -1,4 +1,5 @@
 <div *ngIf="household; else noHousehold" class="container">
+    <app-loading></app-loading>
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <div [routerLink]="[{ outlets: { inner: ['cover'] } } ]" class="navbar-item">

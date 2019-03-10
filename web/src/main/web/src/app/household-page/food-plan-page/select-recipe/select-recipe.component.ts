@@ -14,11 +14,14 @@ export class SelectRecipeComponent implements OnInit {
     @Output()
     public ingredientsEmitter: EventEmitter<Set<string>> = new EventEmitter();
 
+    public loading: boolean = false;
+
     private selectedIngredients: Set<string> = new Set();
 
     constructor() { }
 
-    ngOnInit() {
+    public ngOnInit() {
+        this.loading = false;
     }
 
     public toggleIngredient(ingredient: Ingredient): void {
@@ -30,6 +33,7 @@ export class SelectRecipeComponent implements OnInit {
     }
 
     public saveIngredients(): void {
+        this.loading = true;
         this.ingredientsEmitter.emit(this.selectedIngredients);
         this.selectedIngredients = new Set();
     }

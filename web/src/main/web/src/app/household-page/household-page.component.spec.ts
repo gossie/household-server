@@ -10,6 +10,7 @@ import { User } from "../splash-page/login-page/user";
 
 @Component({
     selector: [
+        'app-loading',
         'app-no-household'
     ].join(','),
     template: '',

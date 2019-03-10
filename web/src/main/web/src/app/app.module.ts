@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './splash-page/login-page/login-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { HouseholdPageComponent } from './household-page/household-page.component';
 import { CleaningPlanPageComponent } from './household-page/cleaning-plan-page/cleaning-plan-page.component';
 import { FoodPlanPageComponent } from './household-page/food-plan-page/food-plan-page.component';
@@ -24,6 +24,8 @@ import { AddRecipeComponent } from './household-page/cookbook-page/add-recipe/ad
 import { SelectRecipeComponent } from './household-page/food-plan-page/select-recipe/select-recipe.component';
 import { NoHouseholdComponent } from './household-page/no-household/no-household.component';
 import { DatePipe } from './household-page/cleaning-plan-page/chore/date.pipe';
+import { LoadingInterceptor } from "./household-page/loading.interceptor";
+import { LoadingComponent } from './household-page/loading/loading.component';
 
 @NgModule({
     declarations: [
@@ -47,7 +49,8 @@ import { DatePipe } from './household-page/cleaning-plan-page/chore/date.pipe';
         AddRecipeComponent,
         SelectRecipeComponent,
         NoHouseholdComponent,
-        DatePipe
+        DatePipe,
+        LoadingComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -55,7 +58,9 @@ import { DatePipe } from './household-page/cleaning-plan-page/chore/date.pipe';
         BrowserModule,
         AppRoutingModule
     ],
-    providers: [],
+    providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
