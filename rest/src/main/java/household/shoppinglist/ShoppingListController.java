@@ -59,7 +59,7 @@ public class ShoppingListController {
         return ResponseEntity.ok(createResource(shoppingListService.addShoppingListGroup(id, shoppingListGroupMapper.map(shoppingListGroup))));
     }
 
-    @PutMapping(path="/{id}/shoppingListGroups/{groupId}", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
+    @PutMapping(path="/{id}/shoppingListGroups/{groupId}", produces={"application/vnd.household.v2+json"})
     public ResponseEntity<Resource<ShoppingListDTO>> toggleGroup(@PathVariable Long id, @PathVariable Long groupId) {
         return ResponseEntity.ok(createResource(shoppingListService.toggleShoppingListGroup(id, groupId)));
     }
