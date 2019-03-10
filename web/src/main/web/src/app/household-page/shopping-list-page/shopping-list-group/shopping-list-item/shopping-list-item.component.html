@@ -1,6 +1,6 @@
 <li class="item">
-    <a [ngClass]="{'selected': shoppingListItem.selected}"
-       (click)="toggleShoppingListItem()">
-       {{ shoppingListItem.name }}
-    </a>
+    <label class="checkbox">
+        <input (click)="toggleShoppingListItem()" [checked]="shoppingListItem.selected" type="checkbox">&nbsp;
+        <a [ngClass]="{'selected': shoppingListItem.selected}">{{ shoppingListItem.name }}</a>
+    </label>
 </li>

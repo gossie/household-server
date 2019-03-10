@@ -37,7 +37,13 @@
                 </div>
             </div>
         </form>
-        <ul>
+        <ul *ngIf="shoppingListGroup.shoppingListItems.length > 0">
+            <li>
+                <label class="checkbox">
+                    <input (click)="toggleAllShoppingListItems()" [checked]="checked" type="checkbox">&nbsp;
+                    <a>Alle</a>
+                </label>
+            </li>
             <app-shopping-list-item *ngFor="let item of shoppingListGroup.shoppingListItems"
                                     [shoppingListItem]="item"
                                     (shoppingListEmitter)="handleShoppingList($event)"></app-shopping-list-item>

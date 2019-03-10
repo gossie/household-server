@@ -19,6 +19,7 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges {
 
     public shoppingListItemForm: FormGroup;
     public clearButtonActive: boolean;
+    public checked: boolean;
     public loading: boolean = false;
 
     constructor(private shoppingListService: ShoppingListService,
@@ -33,6 +34,8 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges {
     public ngOnChanges(): void {
         this.shoppingListGroup.shoppingListItems.sort(this.compareItems.bind(this));
         this.clearButtonActive = this.shoppingListGroup.shoppingListItems.some((item: ShoppingListItem) => item.selected === true);
+        this.checked = this.shoppingListGroup.shoppingListItems.length > 0
+            && this.shoppingListGroup.shoppingListItems.every((item: ShoppingListItem) => item.selected);
     }
 
     private compareItems(item1: ShoppingListItem, item2: ShoppingListItem): number {
@@ -71,6 +74,11 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges {
     public clearShoppingListGroup(): void {
         this.loading = true;
         this.shoppingListService.clearShoppingListGroup(this.shoppingListGroup)
+            .subscribe(this.handleShoppingList.bind(this));
+    }
+
+    public toggleAllShoppingListItems(): void {
+        this.shoppingListService.toggleShoppingListGroup(this.shoppingListGroup)
             .subscribe(this.handleShoppingList.bind(this));
     }
 
