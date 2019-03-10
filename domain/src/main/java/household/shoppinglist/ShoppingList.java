@@ -30,7 +30,7 @@ public class ShoppingList extends AbstractModel {
 	}
 
     public void toggleGroup(Long shoppingListGroupId) {
-        determineShoppingListGroup(shoppingListGroupId).ifPresent(group -> group.toogle());
+        determineShoppingListGroup(shoppingListGroupId).ifPresent(ShoppingListGroup::toggle);
     }
 
 	public void toggleItem(Long shoppingListGroupId, Long shoppingListItemId) {

@@ -26,11 +26,11 @@ public class ShoppingListGroup extends AbstractModel {
         shoppingListItems.add(shoppingListItem);
     }
 
-    public void toogle() {
+    public void toggle() {
         boolean deselected = shoppingListItems.stream()
             .anyMatch(item -> !item.isSelected());
 
-        shoppingListItems.forEach(item -> item.setSelected(!deselected));
+        shoppingListItems.forEach(item -> item.setSelected(deselected));
     }
 
     public void toogleItem(Long shoppingListItemId) {

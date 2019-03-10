@@ -233,11 +233,78 @@ public class ShoppingListServiceTest {
         Household household = mock(Household.class);
         when(household.getShoppingListId()).thenReturn(3L);
 
-        ShoppingListRepository foodPlanRepository = mock(ShoppingListRepository.class);
+        ShoppingListRepository shoppingListRepository = mock(ShoppingListRepository.class);
 
-        shoppingListService = new ShoppingListService(mock(EventBus.class), foodPlanRepository);
+        shoppingListService = new ShoppingListService(mock(EventBus.class), shoppingListRepository);
         shoppingListService.onHouseholdDeleted(new HouseholdDeletedEvent(household));
 
-        verify(foodPlanRepository).deleteShoppingList(3L);
+        verify(shoppingListRepository).deleteShoppingList(3L);
+    }
+
+    @Test
+    public void testToggleShoppingListGroup_selectItems() throws Exception {
+        List<ShoppingListItem> items = asList(
+            new ShoppingListItem(4L, "item1", false),
+            new ShoppingListItem(5L, "item2", false)
+        );
+        List<ShoppingListGroup> groups = asList(new ShoppingListGroup(3L, "group1", items));
+        ShoppingList shoppingList = new ShoppingList(1L, groups);
+
+        ShoppingListRepository shoppingListRepository = mock(ShoppingListRepository.class);
+        when(shoppingListRepository.determineShoppingList(1L)).thenReturn(shoppingList);
+        when(shoppingListRepository.saveShoppingList(shoppingList)).thenReturn(shoppingList);
+
+        shoppingListService = new ShoppingListService(mock(EventBus.class), shoppingListRepository);
+
+        ShoppingList result = shoppingListService.toggleShoppingListGroup(1L, 3L);
+
+        assertThat(result)
+            .shoppingListGroup(0, group -> group
+                .shoppingListItem(0, ShoppingListItemAssert::isSelected)
+                .shoppingListItem(1, ShoppingListItemAssert::isSelected));
+    }
+
+    @Test
+    public void testToggleShoppingListGroup_selectItems_oneItemAlreadySelected() throws Exception {
+        List<ShoppingListItem> items = asList(
+            new ShoppingListItem(4L, "item1", false),
+            new ShoppingListItem(5L, "item2", true)
+        );
+        List<ShoppingListGroup> groups = asList(new ShoppingListGroup(3L, "group1", items));
+        ShoppingList shoppingList = new ShoppingList(1L, groups);
+
+        ShoppingListRepository shoppingListRepository = mock(ShoppingListRepository.class);
+        when(shoppingListRepository.determineShoppingList(1L)).thenReturn(shoppingList);
+        when(shoppingListRepository.saveShoppingList(shoppingList)).thenReturn(shoppingList);
+
+        shoppingListService = new ShoppingListService(mock(EventBus.class), shoppingListRepository);
+
+        ShoppingList result = shoppingListService.toggleShoppingListGroup(1L, 3L);
+
+        assertThat(result)
+            .shoppingListGroup(0, group -> group
+                .shoppingListItem(0, ShoppingListItemAssert::isSelected)
+                .shoppingListItem(1, ShoppingListItemAssert::isSelected));
+    }@Test
+    public void testToggleShoppingListGroup_deselectItems() throws Exception {
+        List<ShoppingListItem> items = asList(
+            new ShoppingListItem(4L, "item1", true),
+            new ShoppingListItem(5L, "item2", true)
+        );
+        List<ShoppingListGroup> groups = asList(new ShoppingListGroup(3L, "group1", items));
+        ShoppingList shoppingList = new ShoppingList(1L, groups);
+
+        ShoppingListRepository shoppingListRepository = mock(ShoppingListRepository.class);
+        when(shoppingListRepository.determineShoppingList(1L)).thenReturn(shoppingList);
+        when(shoppingListRepository.saveShoppingList(shoppingList)).thenReturn(shoppingList);
+
+        shoppingListService = new ShoppingListService(mock(EventBus.class), shoppingListRepository);
+
+        ShoppingList result = shoppingListService.toggleShoppingListGroup(1L, 3L);
+
+        assertThat(result)
+            .shoppingListGroup(0, group -> group
+                .shoppingListItem(0, ShoppingListItemAssert::isDeselected)
+                .shoppingListItem(1, ShoppingListItemAssert::isDeselected));
     }
 }
