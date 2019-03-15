@@ -1,6 +1,10 @@
-<li class="item">
-    <label class="checkbox">
-        <input (click)="toggleShoppingListItem()" [checked]="shoppingListItem.selected" type="checkbox">&nbsp;
-        <a [ngClass]="{'selected': shoppingListItem.selected}">{{ shoppingListItem.name }}</a>
-    </label>
-</li>
+<div class="card item">
+    <header class="card-header" (click)="toggleShoppingListItem()">
+        <p class="card-header-title">
+            <label class="checkbox">
+                <input [checked]="shoppingListItem.selected" type="checkbox">&nbsp;
+                <span [ngClass]="{'selected': shoppingListItem.selected}">{{ shoppingListItem.name }}</span>
+            </label>
+        </p>
+    </header>
+</div>
