@@ -25,7 +25,7 @@ export class ShoppingListPage {
     }
 
     public async selectItem(group: string, item: string): Promise<void> {
-        return element(by.css(`#group-${group}`)).element(by.linkText(item)).click();
+        return element(by.css(`#group-${group}`)).element(by.cssContainingText('.item', item)).click();
     }
 
     public async clear(group: string): Promise<void> {

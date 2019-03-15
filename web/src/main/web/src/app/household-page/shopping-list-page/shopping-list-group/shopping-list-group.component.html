@@ -39,10 +39,16 @@
         </form>
         <div *ngIf="shoppingListGroup.shoppingListItems.length > 0" class="columns is-mobile">
             <div class="column">
-                <label class="checkbox">
-                    <input (click)="toggleAllShoppingListItems()" [checked]="checked" type="checkbox">&nbsp;
-                    <a>Alle</a>
-                </label>
+                <div class="card">
+                    <header class="card-header has-background-light" (click)="toggleAllShoppingListItems()">
+                        <p class="card-header-title">
+                            <label class="checkbox">
+                                <input [checked]="checked" type="checkbox">&nbsp;
+                                <span>Alle</span>
+                            </label>
+                        </p>
+                    </header>
+                </div>
                 <app-shopping-list-item *ngFor="let item of shoppingListGroup.shoppingListItems"
                                         [shoppingListItem]="item"
                                         (shoppingListEmitter)="handleShoppingList($event)"></app-shopping-list-item>
