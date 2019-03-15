@@ -20,7 +20,7 @@ export class ShoppingListItemComponent implements OnInit {
     ngOnInit() {
     }
 
-    public toggleShoppingListItem(): void {
+    public toggleShoppingListItem(event: any): void {
         this.shoppingListService.toggleShoppingListItem(this.shoppingListItem)
             .subscribe((shoppingList: ShoppingList) => {
                 this.shoppingListEmitter.emit(shoppingList);
