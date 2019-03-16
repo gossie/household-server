@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ShoppingListItem} from "./shopping-list-item";
 import {ShoppingListService} from "../../shopping-list.service";
 import {ShoppingList} from "../../shopping-list";
@@ -8,7 +8,7 @@ import {ShoppingList} from "../../shopping-list";
     templateUrl: './shopping-list-item.component.html',
     styleUrls: ['./shopping-list-item.component.css']
 })
-export class ShoppingListItemComponent implements OnInit {
+export class ShoppingListItemComponent {
 
     @Input()
     public shoppingListItem: ShoppingListItem;
@@ -16,9 +16,6 @@ export class ShoppingListItemComponent implements OnInit {
     public shoppingListEmitter: EventEmitter<ShoppingList> = new EventEmitter();
 
     constructor(private shoppingListService: ShoppingListService) { }
-
-    ngOnInit() {
-    }
 
     public toggleShoppingListItem(event: any): void {
         this.shoppingListService.toggleShoppingListItem(this.shoppingListItem)

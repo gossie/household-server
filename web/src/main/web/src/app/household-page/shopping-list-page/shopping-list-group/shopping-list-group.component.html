@@ -42,11 +42,13 @@
                 <div class="card">
                     <header class="card-header has-background-light" (click)="toggleAllShoppingListItems()">
                         <p class="card-header-title">
-                            <label class="checkbox">
-                                <input [checked]="checked"
-                                       type="checkbox">&nbsp;
-                            </label>
-                            Alle
+                            <span *ngIf="!checked" class="icon">
+                                <i class="far fa-square"></i>
+                            </span>
+                            <span *ngIf="checked" class="icon">
+                                <i class="far fa-check-square"></i>
+                            </span>
+                            <span>Alle</span>
                         </p>
                     </header>
                 </div>
