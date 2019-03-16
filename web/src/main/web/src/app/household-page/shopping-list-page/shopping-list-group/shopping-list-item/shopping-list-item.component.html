@@ -7,7 +7,7 @@
             <span *ngIf="shoppingListItem.selected" class="icon">
                 <i class="far fa-check-square"></i>
             </span>
-            <span class="selected">{{ shoppingListItem.name }}</span>
+            <span [ngClass]="{'selected': shoppingListItem.selected}">{{ shoppingListItem.name }}</span>
         </p>
     </header>
 </div>
