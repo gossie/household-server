@@ -10,7 +10,7 @@ import { Page } from "../../page.enum";
 @Component({
     selector: 'app-registration-page',
     templateUrl: './registration-page.component.html',
-    styleUrls: ['./registration-page.component.css']
+    styleUrls: ['./registration-page.component.sass']
 })
 export class RegistrationPageComponent implements OnInit {
 

@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 @Component({
     selector: 'app-chore',
     templateUrl: './chore.component.html',
-    styleUrls: ['./chore.component.css']
+    styleUrls: ['./chore.component.sass']
 })
 export class ChoreComponent implements OnInit {
 

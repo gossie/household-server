@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
 @Component({
   selector: 'app-no-household',
   templateUrl: './no-household.component.html',
-  styleUrls: ['./no-household.component.css']
+  styleUrls: ['./no-household.component.sass']
 })
 export class NoHouseholdComponent implements OnInit, OnDestroy {
 

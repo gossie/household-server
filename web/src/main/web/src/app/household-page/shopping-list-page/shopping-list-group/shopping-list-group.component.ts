@@ -8,7 +8,7 @@ import { ShoppingListItem } from "./shopping-list-item/shopping-list-item";
 @Component({
     selector: 'app-shopping-list-group',
     templateUrl: './shopping-list-group.component.html',
-    styleUrls: ['./shopping-list-group.component.css']
+    styleUrls: ['./shopping-list-group.component.sass']
 })
 export class ShoppingListGroupComponent implements OnInit, OnChanges {
 

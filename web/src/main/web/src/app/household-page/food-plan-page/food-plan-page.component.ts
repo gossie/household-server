@@ -14,7 +14,7 @@ import { Cookbook } from "../cookbook-page/cookbook";
 @Component({
     selector: 'app-food-plan-page',
     templateUrl: './food-plan-page.component.html',
-    styleUrls: ['./food-plan-page.component.css']
+    styleUrls: ['./food-plan-page.component.sass']
 })
 export class FoodPlanPageComponent implements OnInit, OnDestroy {
 

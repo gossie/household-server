@@ -7,7 +7,7 @@ import { UserService } from "../../user.service";
 @Component({
     selector: 'app-invitation',
     templateUrl: './invitation.component.html',
-    styleUrls: ['./invitation.component.css']
+    styleUrls: ['./invitation.component.sass']
 })
 export class InvitationComponent implements OnInit, OnDestroy {
 

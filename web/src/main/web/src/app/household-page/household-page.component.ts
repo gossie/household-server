@@ -12,7 +12,7 @@ import { Page } from "../page.enum";
 @Component({
     selector: 'app-household-page',
     templateUrl: './household-page.component.html',
-    styleUrls: ['./household-page.component.css']
+    styleUrls: ['./household-page.component.sass']
 })
 export class HouseholdPageComponent implements OnInit, OnDestroy {
 

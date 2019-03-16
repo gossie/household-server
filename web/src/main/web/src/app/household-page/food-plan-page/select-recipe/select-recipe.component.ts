@@ -5,7 +5,7 @@ import {Ingredient} from "../../cookbook-page/recipe/ingredient/ingredient";
 @Component({
     selector: 'app-select-recipe',
     templateUrl: './select-recipe.component.html',
-    styleUrls: ['./select-recipe.component.css']
+    styleUrls: ['./select-recipe.component.sass']
 })
 export class SelectRecipeComponent implements OnInit {
 

@@ -11,7 +11,7 @@ import { Recipe } from "../../cookbook-page/recipe/recipe";
 @Component({
     selector: 'app-meal',
     templateUrl: './meal.component.html',
-    styleUrls: ['./meal.component.css']
+    styleUrls: ['./meal.component.sass']
 })
 export class MealComponent implements OnInit, OnDestroy {
 

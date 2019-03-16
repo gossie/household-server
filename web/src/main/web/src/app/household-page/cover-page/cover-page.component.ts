@@ -12,7 +12,7 @@ import {ObjectUtils} from "../../object.utils";
 @Component({
     selector: 'app-cover-page',
     templateUrl: './cover-page.component.html',
-    styleUrls: ['./cover-page.component.css']
+    styleUrls: ['./cover-page.component.sass']
 })
 export class CoverPageComponent implements OnInit, OnDestroy {
 

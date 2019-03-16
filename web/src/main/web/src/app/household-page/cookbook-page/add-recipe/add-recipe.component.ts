@@ -9,7 +9,7 @@ import { ObjectUtils } from "../../../object.utils";
 @Component({
     selector: 'app-add-recipe',
     templateUrl: './add-recipe.component.html',
-    styleUrls: ['./add-recipe.component.css']
+    styleUrls: ['./add-recipe.component.sass']
 })
 export class AddRecipeComponent implements OnInit, OnChanges {
 

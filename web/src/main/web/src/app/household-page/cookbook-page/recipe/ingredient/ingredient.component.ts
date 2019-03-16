@@ -4,7 +4,7 @@ import {Ingredient} from "./ingredient";
 @Component({
     selector: 'app-ingredient',
     templateUrl: './ingredient.component.html',
-    styleUrls: ['./ingredient.component.css']
+    styleUrls: ['./ingredient.component.sass']
 })
 export class IngredientComponent implements OnInit {
 

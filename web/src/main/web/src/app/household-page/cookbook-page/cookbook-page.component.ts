@@ -9,7 +9,7 @@ import {Recipe} from "./recipe/recipe";
 @Component({
     selector: 'app-cookbook-page',
     templateUrl: './cookbook-page.component.html',
-    styleUrls: ['./cookbook-page.component.css']
+    styleUrls: ['./cookbook-page.component.sass']
 })
 export class CookbookPageComponent implements OnInit, OnDestroy {
 
