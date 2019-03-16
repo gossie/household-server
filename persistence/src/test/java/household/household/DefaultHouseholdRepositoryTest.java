@@ -14,6 +14,6 @@ public class DefaultHouseholdRepositoryTest {
         HouseholdRepository householdRepository = new DefaultHouseholdRepository(householdEntityRepository, null);
         householdRepository.deleteHousehold(7L);
 
-        verify(householdEntityRepository).delete(7L);
+        verify(householdEntityRepository).deleteById(7L);
     }
 }

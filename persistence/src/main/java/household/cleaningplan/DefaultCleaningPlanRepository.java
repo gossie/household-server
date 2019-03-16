@@ -11,7 +11,7 @@ class DefaultCleaningPlanRepository implements CleaningPlanRepository {
 
 	@Override
 	public CleaningPlan determineCleaningPlan(Long cleaningPlanId) {
-		return cleaningPlanMapper.map(cleaningPlanEntityRepository.findOne(cleaningPlanId));
+		return cleaningPlanMapper.map(cleaningPlanEntityRepository.findById(cleaningPlanId).orElseThrow(IllegalStateException::new));
 	}
 
 	@Override
@@ -28,7 +28,7 @@ class DefaultCleaningPlanRepository implements CleaningPlanRepository {
 
 	@Override
     public void deleteCleaningPlan(Long id) {
-	    cleaningPlanEntityRepository.delete(id);
+	    cleaningPlanEntityRepository.deleteById(id);
     }
 
 }

@@ -11,7 +11,7 @@ class DefaultCookbookRepository implements CookbookRepository {
 
 	@Override
 	public Cookbook determineCookbook(Long cookbookId) {
-		return cookbookMapper.map(cookbookEntityRepository.findOne(cookbookId));
+		return cookbookMapper.map(cookbookEntityRepository.findById(cookbookId).orElseThrow(IllegalStateException::new));
 	}
 
 	@Override
@@ -26,7 +26,7 @@ class DefaultCookbookRepository implements CookbookRepository {
 
     @Override
     public void deleteCookbook(Long cookbookId) {
-        cookbookEntityRepository.delete(cookbookId);
+        cookbookEntityRepository.deleteById(cookbookId);
     }
 
 }

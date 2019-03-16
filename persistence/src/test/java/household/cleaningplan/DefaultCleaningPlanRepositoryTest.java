@@ -15,6 +15,6 @@ public class DefaultCleaningPlanRepositoryTest {
         CleaningPlanRepository cleaningPlanRepository = new DefaultCleaningPlanRepository(cleaningPlanEntityRepository, null);
         cleaningPlanRepository.deleteCleaningPlan(6L);
 
-        verify(cleaningPlanEntityRepository).delete(6L);
+        verify(cleaningPlanEntityRepository).deleteById(6L);
     }
 }

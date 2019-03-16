@@ -11,7 +11,7 @@ class DefaultHouseholdRepository implements HouseholdRepository {
 
 	@Override
 	public Household determineHousehold(Long householdId) {
-		return householdMapper.map(householdEntityRepository.findOne(householdId));
+		return householdMapper.map(householdEntityRepository.findById(householdId).orElseThrow(IllegalStateException::new));
 	}
 
     @Override
@@ -21,7 +21,7 @@ class DefaultHouseholdRepository implements HouseholdRepository {
 
     @Override
     public void deleteHousehold(Long householdId) {
-        householdEntityRepository.delete(householdId);
+        householdEntityRepository.deleteById(householdId);
     }
 
 }

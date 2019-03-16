@@ -11,7 +11,7 @@ class DefaultFoodPlanRepository implements FoodPlanRepository {
 
 	@Override
 	public FoodPlan determineFoodPlan(long foodPlanId) {
-		return foodPlanMapper.map(foodPlanEntityRepository.findOne(foodPlanId));
+		return foodPlanMapper.map(foodPlanEntityRepository.findById(foodPlanId).orElseThrow(IllegalStateException::new));
 	}
 
 	@Override
@@ -26,7 +26,7 @@ class DefaultFoodPlanRepository implements FoodPlanRepository {
 
 	@Override
     public void deleteFoodPlan(Long foodPlanId) {
-	    foodPlanEntityRepository.delete(foodPlanId);
+	    foodPlanEntityRepository.deleteById(foodPlanId);
     }
 
 }

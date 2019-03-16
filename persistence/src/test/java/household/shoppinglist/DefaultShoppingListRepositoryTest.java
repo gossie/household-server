@@ -14,7 +14,7 @@ public class DefaultShoppingListRepositoryTest {
         ShoppingListRepository shoppingListRepository = new DefaultShoppingListRepository(shoppingListEntityRepository, null);
         shoppingListRepository.deleteShoppingList(6L);
 
-        verify(shoppingListEntityRepository).delete(6L);
+        verify(shoppingListEntityRepository).deleteById(6L);
     }
 
 }
