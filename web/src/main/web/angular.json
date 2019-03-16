@@ -27,9 +27,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.sass",
-              "node_modules/bulma/bulma.sass"
+              "node_modules/bulma/css/bulma.css",
+              "src/styles.sass"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules",
+                "node_modules/bulma/sass/utilities"
+              ]
+            },
             "scripts": [
               "node_modules/@fortawesome/fontawesome-free/js/all.min.js"
             ]
@@ -86,9 +92,15 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.sass",
-              "node_modules/bulma/bulma.sass"
+              "node_modules/bulma/css/bulma.css",
+              "src/styles.sass"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules",
+                "node_modules/bulma/sass/utilities"
+              ]
+            },
             "scripts": [
               "node_modules/@fortawesome/fontawesome-free/js/all.min.js"
             ],
