@@ -1,9 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SelectRecipeComponent } from './select-recipe.component';
-import {Ingredient} from "../../cookbook-page/recipe/ingredient/ingredient";
-import {EventEmitter} from "@angular/core";
-import {By} from "@angular/platform-browser";
+import { EventEmitter } from "@angular/core";
+import { By } from "@angular/platform-browser";
+import { CheckboxComponent } from "../../../common-elements/checkbox/checkbox.component";
 
 describe('SelectRecipeComponent', () => {
     let component: SelectRecipeComponent;
@@ -11,7 +10,10 @@ describe('SelectRecipeComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ SelectRecipeComponent ]
+            declarations: [
+                CheckboxComponent,
+                SelectRecipeComponent
+            ]
         })
         .compileComponents();
     }));
@@ -57,10 +59,25 @@ describe('SelectRecipeComponent', () => {
 
         component.ingredientsEmitter = ingredientsEmitter;
 
-        fixture.debugElement.query(By.css('#ingredient-0')).nativeElement.click();
-        fixture.debugElement.query(By.css('#ingredient-1')).nativeElement.click();
-        fixture.debugElement.query(By.css('#ingredient-2')).nativeElement.click();
-        fixture.debugElement.query(By.css('#ingredient-1')).nativeElement.click();
+        component.toggleIngredient({
+            selected: true,
+            value: 'Hack'
+        });
+
+        component.toggleIngredient({
+            selected: true,
+            value: 'Zwiebel'
+        });
+
+        component.toggleIngredient({
+            selected: true,
+            value: 'Knoblauchzehe'
+        });
+
+        component.toggleIngredient({
+            selected: false,
+            value: 'Zwiebel'
+        });
         fixture.debugElement.query(By.css('#save-ingredients-button')).nativeElement.click();
     });
 });

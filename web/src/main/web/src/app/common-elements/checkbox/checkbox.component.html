@@ -1,0 +1,9 @@
+<span (click)="toggleCheckbox()">
+    <span *ngIf="!selected" class="icon">
+        <i class="far fa-square"></i>
+    </span>
+    <span *ngIf="selected" class="icon">
+        <i class="far fa-check-square"></i>
+    </span>
+    {{ label }}
+</span>

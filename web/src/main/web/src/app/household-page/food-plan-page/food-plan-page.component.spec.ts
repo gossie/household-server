@@ -11,6 +11,7 @@ import { CookbookServiceMock } from "../cookbook-page/cookbook.service.mock";
 import { SelectRecipeComponent } from "./select-recipe/select-recipe.component";
 import { ShoppingListService } from "../shopping-list-page/shopping-list.service";
 import { ShoppingListServiceMock } from "../shopping-list-page/shopping-list.service.mock";
+import { CheckboxComponent } from "../../common-elements/checkbox/checkbox.component";
 
 describe('FoodPlanPageComponent', () => {
     let component: FoodPlanPageComponent;
@@ -22,6 +23,7 @@ describe('FoodPlanPageComponent', () => {
                 ReactiveFormsModule
             ],
             declarations: [
+                CheckboxComponent,
                 FoodPlanPageComponent,
                 MealComponent,
                 SelectRecipeComponent

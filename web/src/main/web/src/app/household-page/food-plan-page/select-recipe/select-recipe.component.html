@@ -5,20 +5,10 @@
             <h4 class="title is-4">Was muss noch auf die Einkaufsliste?</h4>
             <div *ngFor="let ingredient of recipe.ingredients; let i = index" class="columns is-mobile">
                 <div class="column">
-                    <!--<label class="checkbox">-->
-                        <!--<input  (click)="toggleIngredient(ingredient)" type="checkbox">-->
-                        <!--{{ ingredient.name }}-->
-                    <!--</label>-->
-
-                    <span id="ingredient-{{i}}" (click)="toggleIngredient(ingredient)">
-                        <span *ngIf="!isSelected(ingredient)" class="icon">
-                            <i class="far fa-square"></i>
-                        </span>
-                        <span *ngIf="isSelected(ingredient)" class="icon">
-                            <i class="far fa-check-square"></i>
-                        </span>
-                        {{ ingredient.name }}
-                    </span>
+                    <app-checkbox id="ingredient-{{i}}"
+                                  [label]="ingredient.name"
+                                  [selected]="isSelected(ingredient)"
+                                  (onSelect)="toggleIngredient($event)"></app-checkbox>
                 </div>
             </div>
             <div class="columns is-mobile">

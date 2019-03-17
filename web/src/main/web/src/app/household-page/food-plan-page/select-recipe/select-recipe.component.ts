@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Recipe} from "../../cookbook-page/recipe/recipe";
 import {Ingredient} from "../../cookbook-page/recipe/ingredient/ingredient";
+import {CheckboxValue} from "../../../common-elements/checkbox/checkbox-value";
 
 @Component({
     selector: 'app-select-recipe',
@@ -24,11 +25,11 @@ export class SelectRecipeComponent implements OnInit {
         this.loading = false;
     }
 
-    public toggleIngredient(ingredient: Ingredient): void {
-        if (this.selectedIngredients.has(ingredient.name)) {
-            this.selectedIngredients.delete(ingredient.name);
+    public toggleIngredient(value: CheckboxValue): void {
+        if (this.selectedIngredients.has(value.value)) {
+            this.selectedIngredients.delete(value.value);
         } else {
-            this.selectedIngredients.add(ingredient.name);
+            this.selectedIngredients.add(value.value);
         }
     }
 

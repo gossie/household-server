@@ -26,6 +26,7 @@ import { NoHouseholdComponent } from './household-page/no-household/no-household
 import { DatePipe } from './household-page/cleaning-plan-page/chore/date.pipe';
 import { LoadingInterceptor } from "./household-page/loading.interceptor";
 import { LoadingComponent } from './household-page/loading/loading.component';
+import { CheckboxComponent } from './common-elements/checkbox/checkbox.component';
 
 @NgModule({
     declarations: [
@@ -50,7 +51,8 @@ import { LoadingComponent } from './household-page/loading/loading.component';
         SelectRecipeComponent,
         NoHouseholdComponent,
         DatePipe,
-        LoadingComponent
+        LoadingComponent,
+        CheckboxComponent
     ],
     imports: [
         ReactiveFormsModule,
