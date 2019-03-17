@@ -2,9 +2,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShoppingListGroupComponent } from './shopping-list-group.component';
 import { Component, Input } from "@angular/core";
 import { ShoppingListItem } from "./shopping-list-item/shopping-list-item";
-import {ReactiveFormsModule} from "@angular/forms";
-import {ShoppingListService} from "../shopping-list.service";
-import {ShoppingListServiceMock} from "../shopping-list.service.mock";
+import { ReactiveFormsModule } from "@angular/forms";
+import { ShoppingListService } from "../shopping-list.service";
+import { ShoppingListServiceMock } from "../shopping-list.service.mock";
+import {CheckboxComponent} from "../../../common-elements/checkbox/checkbox.component";
 
 @Component({
     selector: [
@@ -27,6 +28,7 @@ describe('ShoppingListGroupComponent', () => {
                 ReactiveFormsModule
             ],
             declarations: [
+                CheckboxComponent,
                 ShoppingListGroupComponent,
                 MockComponent
             ],

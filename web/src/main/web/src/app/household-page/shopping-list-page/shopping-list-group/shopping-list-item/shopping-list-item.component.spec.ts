@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShoppingListItemComponent } from './shopping-list-item.component';
 import { ShoppingListService } from '../../shopping-list.service';
 import { ShoppingListServiceMock } from '../../shopping-list.service.mock';
+import { CheckboxComponent } from "../../../../common-elements/checkbox/checkbox.component";
 
 describe('ShoppingListItemComponent', () => {
     let component: ShoppingListItemComponent;
@@ -9,7 +10,10 @@ describe('ShoppingListItemComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ ShoppingListItemComponent ],
+            declarations: [
+                CheckboxComponent,
+                ShoppingListItemComponent
+            ],
             providers: [
                 { provide: ShoppingListService, useClass: ShoppingListServiceMock }
             ]
