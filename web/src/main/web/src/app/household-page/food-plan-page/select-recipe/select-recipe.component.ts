@@ -32,6 +32,10 @@ export class SelectRecipeComponent implements OnInit {
         }
     }
 
+    public isSelected(ingredient: Ingredient): boolean {
+        return this.selectedIngredients.has(ingredient.name);
+    }
+
     public saveIngredients(): void {
         this.loading = true;
         this.ingredientsEmitter.emit(this.selectedIngredients);

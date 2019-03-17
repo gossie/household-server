@@ -5,15 +5,30 @@
             <h4 class="title is-4">Was muss noch auf die Einkaufsliste?</h4>
             <div *ngFor="let ingredient of recipe.ingredients; let i = index" class="columns is-mobile">
                 <div class="column">
-                    <label class="checkbox">
-                        <input id="ingredient-{{i}}" (click)="toggleIngredient(ingredient)" type="checkbox">
+                    <!--<label class="checkbox">-->
+                        <!--<input  (click)="toggleIngredient(ingredient)" type="checkbox">-->
+                        <!--{{ ingredient.name }}-->
+                    <!--</label>-->
+
+                    <span id="ingredient-{{i}}" (click)="toggleIngredient(ingredient)">
+                        <span *ngIf="!isSelected(ingredient)" class="icon">
+                            <i class="far fa-square"></i>
+                        </span>
+                        <span *ngIf="isSelected(ingredient)" class="icon">
+                            <i class="far fa-check-square"></i>
+                        </span>
                         {{ ingredient.name }}
-                    </label>
+                    </span>
                 </div>
             </div>
             <div class="columns is-mobile">
                 <div class="column">
-                    <button id="save-ingredients-button" (click)="saveIngredients()" class="button is-primary">Speichern</button>
+                    <button id="save-ingredients-button"
+                            class="button is-primary"
+                            [ngClass]="{'is-loading': loading}"
+                            (click)="saveIngredients()">
+                        Speichern
+                    </button>
                 </div>
             </div>
         </div>
