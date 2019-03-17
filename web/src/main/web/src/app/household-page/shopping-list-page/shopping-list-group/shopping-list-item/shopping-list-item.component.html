@@ -1,13 +1,9 @@
 <div class="card item">
     <header class="card-header" (click)="toggleShoppingListItem($event)">
         <p class="card-header-title">
-            <span *ngIf="!shoppingListItem.selected" class="icon">
-                <i class="far fa-square"></i>
-            </span>
-            <span *ngIf="shoppingListItem.selected" class="icon">
-                <i class="far fa-check-square"></i>
-            </span>
-            <span [ngClass]="{'selected': shoppingListItem.selected}">{{ shoppingListItem.name }}</span>
+            <app-checkbox [label]="shoppingListItem.name"
+                          [selected]="shoppingListItem.selected"
+                          [ngClass]="{'selected': shoppingListItem.selected}"></app-checkbox>
         </p>
     </header>
 </div>
