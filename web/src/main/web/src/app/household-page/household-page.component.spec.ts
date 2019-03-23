@@ -7,12 +7,12 @@ import { UserService } from "../user.service";
 import { UserServiceMock } from "../user.service.mock";
 import { Component, Input } from "@angular/core";
 import { User } from "../splash-page/login-page/user";
-import { UndoHintComponentMock } from "../common-elements/undo-hint/undo-hint.component.mock";
 
 @Component({
     selector: [
         'app-loading',
-        'app-no-household'
+        'app-no-household',
+        'app-undo-hint'
     ].join(','),
     template: '',
 })
@@ -32,7 +32,6 @@ describe('HouseholdPageComponent', () => {
             ],
             declarations: [
                 MockComponent,
-                UndoHintComponentMock,
                 HouseholdPageComponent
             ],
             providers: [

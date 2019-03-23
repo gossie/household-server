@@ -10,12 +10,11 @@ export class LoadingInterceptor implements HttpInterceptor {
     constructor(private loadingService: LoadingService) { }
 
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        this.loadingService.broadcastStatus(true);
         return next.handle(req)
             .pipe(
                 tap((event: HttpEvent<any>) => {
-                    if (event.type === HttpEventType.Sent) {
-                        this.loadingService.broadcastStatus(true);
-                    } else if (event.type === HttpEventType.Response) {
+                    if (event.type === HttpEventType.Response) {
                         this.loadingService.broadcastStatus(false);
                     }
                 })
