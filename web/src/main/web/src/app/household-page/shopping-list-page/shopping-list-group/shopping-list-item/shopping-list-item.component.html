@@ -1,4 +1,4 @@
-<div class="card item">
+<div *ngIf="!shoppingListItem.hidden" class="card item">
     <header class="card-header" (click)="toggleShoppingListItem($event)">
         <p class="card-header-title">
             <app-checkbox [label]="shoppingListItem.name"

@@ -10,6 +10,7 @@ import { ShoppingListService } from "../shopping-list-page/shopping-list.service
 import { ShoppingList } from "../shopping-list-page/shopping-list";
 import { CookbookService } from "../cookbook-page/cookbook.service";
 import { Cookbook } from "../cookbook-page/cookbook";
+import {DeleteHintService} from "../delete-hint.service";
 
 @Component({
     selector: 'app-food-plan-page',
@@ -31,9 +32,11 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
                 private cookbookService: CookbookService,
                 private shoppingListService: ShoppingListService,
                 private foodPlanService: FoodPlanService,
+                private deleteHintService: DeleteHintService,
                 private formBuilder: FormBuilder) { }
 
     public ngOnInit(): void {
+        this.observeUndo();
         this.observeHousehold();
         this.observeCookbook();
         this.observeShoppingList();
@@ -42,6 +45,13 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+    }
+
+    private observeUndo(): void {
+        this.subscriptions.push(this.deleteHintService.onUndo()
+            .subscribe(() => {
+                this.loading = false;
+            }));
     }
 
     private observeHousehold(): void {

@@ -5,4 +5,5 @@ export interface Chore extends Model {
     lastPerformed: number;
     nextTime?: number;
     repeat: number;
+    hidden?: boolean;
 }

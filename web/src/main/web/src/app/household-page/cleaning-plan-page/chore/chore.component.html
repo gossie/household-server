@@ -1,4 +1,4 @@
-<div class="card">
+<div *ngIf="!chore.hidden" class="card">
     <header class="card-header" (click)="toggleChore()">
         <p class="card-header-title">
             {{ chore.name }} ({{ chore.nextTime | date }})

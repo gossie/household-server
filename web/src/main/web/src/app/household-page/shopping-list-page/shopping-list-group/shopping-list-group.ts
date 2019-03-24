@@ -4,4 +4,5 @@ import { Model } from "../../../model";
 export interface ShoppingListGroup extends Model {
     name: string;
     shoppingListItems: Array<ShoppingListItem>
+    hidden?: boolean;
 }

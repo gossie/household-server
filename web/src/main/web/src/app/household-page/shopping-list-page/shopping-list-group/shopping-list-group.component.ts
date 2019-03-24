@@ -1,16 +1,18 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
 import { ShoppingListGroup } from "./shopping-list-group";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ShoppingList } from "../shopping-list";
 import { ShoppingListService } from "../shopping-list.service";
 import { ShoppingListItem } from "./shopping-list-item/shopping-list-item";
+import { DeleteHintService } from "../../delete-hint.service";
+import { Subscription } from "rxjs/index";
 
 @Component({
     selector: 'app-shopping-list-group',
     templateUrl: './shopping-list-group.component.html',
     styleUrls: ['./shopping-list-group.component.sass']
 })
-export class ShoppingListGroupComponent implements OnInit, OnChanges {
+export class ShoppingListGroupComponent implements OnInit, OnChanges, OnDestroy {
 
     @Input()
     public shoppingListGroup: ShoppingListGroup;
@@ -22,10 +24,20 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges {
     public checked: boolean;
     public loading: boolean = false;
 
+    private subscriptions: Array<Subscription> = [];
+
     constructor(private shoppingListService: ShoppingListService,
+                private deleteHintService: DeleteHintService,
                 private formBuilder: FormBuilder) { }
 
     public ngOnInit(): void {
+        this.subscriptions.push(this.deleteHintService.onUndo()
+            .subscribe(() => {
+                this.shoppingListGroup.hidden = false;
+                this.shoppingListGroup.shoppingListItems
+                    .forEach((shoppingListItem: ShoppingListItem) => shoppingListItem.hidden = false);
+            }));
+
         this.shoppingListItemForm = this.formBuilder.group({
             name: ['', Validators.required]
         });
@@ -36,6 +48,10 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges {
         this.clearButtonActive = this.shoppingListGroup.shoppingListItems.some((item: ShoppingListItem) => item.selected === true);
         this.checked = this.shoppingListGroup.shoppingListItems.length > 0
             && this.shoppingListGroup.shoppingListItems.every((item: ShoppingListItem) => item.selected);
+    }
+
+    public ngOnDestroy(): void {
+        this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
     }
 
     private compareItems(item1: ShoppingListItem, item2: ShoppingListItem): number {
@@ -67,14 +83,22 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges {
 
     public deleteShoppingListGroup(): void {
         this.loading = true;
+        this.shoppingListGroup.hidden = true;
         this.shoppingListService.deleteShoppingListGroup(this.shoppingListGroup)
             .subscribe(this.handleShoppingList.bind(this));
     }
 
     public clearShoppingListGroup(): void {
         this.loading = true;
+        this.hideSelectedItems();
         this.shoppingListService.clearShoppingListGroup(this.shoppingListGroup)
             .subscribe(this.handleShoppingList.bind(this));
+    }
+
+    private hideSelectedItems(): void {
+        this.shoppingListGroup.shoppingListItems
+            .filter((shoppingListItem: ShoppingListItem) => shoppingListItem.selected)
+            .forEach((shoppingListItem: ShoppingListItem) => shoppingListItem.hidden = true);
     }
 
     public toggleAllShoppingListItems(): void {

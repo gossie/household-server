@@ -25,12 +25,10 @@ export class DeleteHintService {
     }
 
     public show(): void {
-        console.log('show');
         this.visibilitySubject.next(true);
     }
 
     public hide(): void {
-        console.log('hide');
         this.visibilitySubject.next(false);
     }
 }

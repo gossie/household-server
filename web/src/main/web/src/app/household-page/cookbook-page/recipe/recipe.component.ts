@@ -1,14 +1,16 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Recipe } from "./recipe";
 import { CookbookService } from "../cookbook.service";
 import { Cookbook } from "../cookbook";
+import { Subscription } from "rxjs/index";
+import {DeleteHintService} from "../../delete-hint.service";
 
 @Component({
     selector: 'app-recipe',
     templateUrl: './recipe.component.html',
     styleUrls: ['./recipe.component.sass']
 })
-export class RecipeComponent implements OnInit {
+export class RecipeComponent implements OnInit, OnDestroy {
 
     @Input()
     public recipe: Recipe;
@@ -17,11 +19,23 @@ export class RecipeComponent implements OnInit {
     @Output()
     public recipeEmitter: EventEmitter<Recipe> = new EventEmitter();
 
+    private subscriptions: Array<Subscription> = [];
     private expanded: boolean = false;
 
-    constructor(private cookbookService: CookbookService) { }
+    constructor(private cookbookService: CookbookService,
+                private deleteHintService: DeleteHintService) { }
 
-    ngOnInit() {
+    public ngOnInit() {
+        this.observeUndo();
+    }
+
+    public ngOnDestroy(): void {
+        this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+    }
+
+    private observeUndo(): void {
+        this.subscriptions.push(this.deleteHintService.onUndo()
+            .subscribe(() => this.recipe.hidden = false));
     }
 
     public isExpanded(): boolean {
@@ -45,10 +59,9 @@ export class RecipeComponent implements OnInit {
     }
 
     public deleteRecipe(): void {
+        this.recipe.hidden = true;
         this.cookbookService.deleteRecipe(this.recipe)
-            .subscribe((cookbook: Cookbook) => {
-                this.cookbookEmitter.emit(cookbook);
-            });
+            .subscribe((cookbook: Cookbook) => this.cookbookEmitter.emit(cookbook));
     }
 
 }
