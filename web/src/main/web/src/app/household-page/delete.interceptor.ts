@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpEventType, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Observable, Subscription, timer } from "rxjs/index";
-import {delayWhen, filter, mergeMap, tap} from "rxjs/internal/operators";
+import { filter, mergeMap, tap } from "rxjs/internal/operators";
 import { DeleteHintService } from "./delete-hint.service";
+import { LoadingService } from "./loading.service";
 
 @Injectable()
 export class DeleteInterceptor implements HttpInterceptor {
 
-    constructor(private deleteHintService: DeleteHintService) { }
+    constructor(private deleteHintService: DeleteHintService,
+                private loadingService: LoadingService) { }
 
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (req.method === 'DELETE') {
@@ -15,6 +17,7 @@ export class DeleteInterceptor implements HttpInterceptor {
             const subscription: Subscription = this.deleteHintService.onUndo()
                 .subscribe(() => {
                     canceled = true;
+                    this.loadingService.broadcastStatus(false)
                     subscription.unsubscribe();
                 });
 
