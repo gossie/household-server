@@ -10,10 +10,12 @@ import { animate, state, style, transition, trigger } from "@angular/animations"
     animations: [
         trigger('undoHint', [
             state('visible', style({
-                opacity: 1
+                opacity: 1,
+                zIndex: 1000
             })),
             state('invisible', style({
-                opacity: 0
+                opacity: 0,
+                zIndex: 0
             })),
             transition('visible => invisible', [
                 animate('0.1s')

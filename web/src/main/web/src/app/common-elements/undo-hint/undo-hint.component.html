@@ -1,3 +1,5 @@
-<div [@undoHint]="visible ? 'visible' : 'invisible'" class="notification is-warning undo-hint">
-    Die Daten werden gelöscht. <a (click)="performUndo()">Rückgängig machen</a>.
+<div [@undoHint]="visible ? 'visible' : 'invisible'" class="undo-hint">
+    <div *ngIf="visible" class="notification is-warning">
+        Die Daten werden gelöscht. <a (click)="performUndo()">Rückgängig machen</a>.
+    </div>
 </div>
