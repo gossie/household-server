@@ -13,6 +13,8 @@ import {DeleteHintService} from "../../delete-hint.service";
 })
 export class ChoreComponent implements OnInit, OnDestroy {
 
+    private static readonly TWELVE_HOURS: number = 43200000;
+
     @Input()
     public chore: Chore;
     @Output()
@@ -92,16 +94,16 @@ export class ChoreComponent implements OnInit, OnDestroy {
     }
 
     public isGreen(): boolean {
-        return this.determineFactor() >= 0.25;
+        return this.chore.nextTime > (Date.now() + ChoreComponent.TWELVE_HOURS);
     }
 
     public isYellow(): boolean {
-        const factor: number = this.determineFactor();
-        return factor < 0.25 && factor >= 0.1;
+        return this.chore.nextTime > Date.now()
+            && this.chore.nextTime <= (Date.now() + ChoreComponent.TWELVE_HOURS);
     }
 
     public isRed(): boolean {
-        return this.determineFactor() < 0.1;
+        return this.chore.nextTime <= Date.now();
     }
 
     private determineFactor(): number {
