@@ -1,6 +1,6 @@
 import { LoginPage } from "../pages/login.po";
 import { ShoppingListPage } from "../pages/shopping-list.po";
-import { browser, by, element, ExpectedConditions } from "protractor";
+import { browser } from "protractor";
 
 describe('shopping list', () => {
     const loginPage: LoginPage = new LoginPage();
@@ -27,16 +27,14 @@ describe('shopping list', () => {
             await shoppingListPage.selectItem('Global', 'Tomaten');
             await shoppingListPage.selectItem('Global', 'Paprika');
             await shoppingListPage.clear('Global');
-            await browser.wait(ExpectedConditions.visibilityOf(element(by.css('.undo-hint'))));
-            await browser.wait(ExpectedConditions.invisibilityOf(element(by.css('.undo-hint'))));
+            await browser.sleep(3000);
             expect(await shoppingListPage.getNumberOfItems('Global')).toBe(1);
         });
 
         it('should by the rest', async () => {
             await shoppingListPage.selectItem('Global', 'Zucchini');
             await shoppingListPage.clear('Global');
-            await browser.wait(ExpectedConditions.visibilityOf(element(by.css('.undo-hint'))));
-            await browser.wait(ExpectedConditions.invisibilityOf(element(by.css('.undo-hint'))));
+            await browser.sleep(3000);
             expect(await shoppingListPage.getNumberOfItems('Global')).toBe(0);
         });
     });
@@ -58,23 +56,20 @@ describe('shopping list', () => {
             await shoppingListPage.selectItem('Weihnachten', 'Zimt');
             await shoppingListPage.selectItem('Weihnachten', 'Dominosteine');
             await shoppingListPage.clear('Weihnachten');
-            await browser.wait(ExpectedConditions.visibilityOf(element(by.css('.undo-hint'))));
-            await browser.wait(ExpectedConditions.invisibilityOf(element(by.css('.undo-hint'))));
+            await browser.sleep(3000);
             expect(await shoppingListPage.getNumberOfItems('Weihnachten')).toBe(1);
         });
 
         it('should by the rest', async () => {
             await shoppingListPage.selectItem('Weihnachten', 'Kekse');
             await shoppingListPage.clear('Weihnachten');
-            await browser.wait(ExpectedConditions.visibilityOf(element(by.css('.undo-hint'))));
-            await browser.wait(ExpectedConditions.invisibilityOf(element(by.css('.undo-hint'))));
+            await browser.sleep(3000);
             expect(await shoppingListPage.getNumberOfItems('Weihnachten')).toBe(0);
         });
 
         it('should delete group', async () => {
             await shoppingListPage.deleteGroup('Weihnachten');
-            await browser.wait(ExpectedConditions.visibilityOf(element(by.css('.undo-hint'))));
-            await browser.wait(ExpectedConditions.invisibilityOf(element(by.css('.undo-hint'))));
+            await browser.sleep(3000);
             expect(await shoppingListPage.getNumberOfGroups()).toBe(1);
         });
     });

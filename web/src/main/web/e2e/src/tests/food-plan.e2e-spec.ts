@@ -1,7 +1,7 @@
 import { LoginPage } from "../pages/login.po";
 import { ShoppingListPage } from "../pages/shopping-list.po";
 import { FoodPlanPage } from "../pages/food-plan.po";
-import { browser, by, element, ExpectedConditions } from "protractor";
+import { browser } from "protractor";
 
 describe('food plan', () => {
     const loginPage: LoginPage = new LoginPage();
@@ -40,16 +40,14 @@ describe('food plan', () => {
         await shoppingListPage.selectItem('Global', 'Hack');
         await shoppingListPage.selectItem('Global', 'Tomatenmark');
         await shoppingListPage.clear('Global');
-        await browser.wait(ExpectedConditions.visibilityOf(element(by.css('.undo-hint'))));
-        await browser.wait(ExpectedConditions.invisibilityOf(element(by.css('.undo-hint'))));
+        await browser.sleep(3000);
         expect(await shoppingListPage.getNumberOfItems('Global')).toBe(0);
     });
 
     it('should clear food plan', async () => {
         await foodPlanPage.navigateTo();
         await foodPlanPage.clear();
-        await browser.wait(ExpectedConditions.visibilityOf(element(by.css('.undo-hint'))));
-        await browser.wait(ExpectedConditions.invisibilityOf(element(by.css('.undo-hint'))));
+        await browser.sleep(3000);
         expect(await foodPlanPage.isFoodPlanEmpty()).toBeTruthy();
     })
 
