@@ -42,6 +42,8 @@ export class CookbookPageComponent implements OnInit, OnDestroy {
             .subscribe((household: Household) => {
                 this.cookbookService.determineCookbook(household)
                     .subscribe(this.handleCookbook.bind(this));
+                this.shoppingListService.determineShoppingList(household)
+                    .subscribe((shoppingList: ShoppingList) => this.shoppingList = shoppingList);
             }));
     }
 
