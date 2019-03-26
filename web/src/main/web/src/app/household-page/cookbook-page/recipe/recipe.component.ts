@@ -3,7 +3,9 @@ import { Recipe } from "./recipe";
 import { CookbookService } from "../cookbook.service";
 import { Cookbook } from "../cookbook";
 import { Subscription } from "rxjs/index";
-import {DeleteHintService} from "../../delete-hint.service";
+import { DeleteHintService} from "../../delete-hint.service";
+import { CookbookAction } from "../cookbook-action.enum";
+import { CookbookEvent } from "../cookbook-event";
 
 @Component({
     selector: 'app-recipe',
@@ -17,7 +19,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
     @Output()
     public cookbookEmitter: EventEmitter<Cookbook> = new EventEmitter();
     @Output()
-    public recipeEmitter: EventEmitter<Recipe> = new EventEmitter();
+    public recipeEmitter: EventEmitter<CookbookEvent> = new EventEmitter();
 
     private subscriptions: Array<Subscription> = [];
     private expanded: boolean = false;
@@ -55,7 +57,17 @@ export class RecipeComponent implements OnInit, OnDestroy {
     }
 
     public editRecipe(): void {
-        this.recipeEmitter.emit(this.recipe);
+        this.recipeEmitter.emit({
+            action: CookbookAction.Edit,
+            recipe: this.recipe
+        });
+    }
+
+    public buyRecipe(): void {
+        this.recipeEmitter.emit({
+            action: CookbookAction.Buy,
+            recipe: this.recipe
+        });
     }
 
     public deleteRecipe(): void {

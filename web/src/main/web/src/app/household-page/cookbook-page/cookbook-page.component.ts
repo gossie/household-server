@@ -4,7 +4,11 @@ import { HouseholdService } from "../household.service";
 import { Subscription } from "rxjs/index";
 import { Household } from "../household";
 import { CookbookService } from "./cookbook.service";
-import {Recipe} from "./recipe/recipe";
+import { Recipe } from "./recipe/recipe";
+import { ShoppingListService } from "../shopping-list-page/shopping-list.service";
+import { ShoppingList } from "../shopping-list-page/shopping-list";
+import {CookbookEvent} from "./cookbook-event";
+import {CookbookAction} from "./cookbook-action.enum";
 
 @Component({
     selector: 'app-cookbook-page',
@@ -14,15 +18,19 @@ import {Recipe} from "./recipe/recipe";
 export class CookbookPageComponent implements OnInit, OnDestroy {
 
     public cookbook: Cookbook;
-    public recipe: Recipe;
+    public recipeToEdit: Recipe;
+    public recipeToBuy: Recipe;
 
+    private shoppingList: ShoppingList;
     private subscriptions: Array<Subscription> = [];
 
     constructor(private householdService: HouseholdService,
-                private cookbookService: CookbookService) { }
+                private cookbookService: CookbookService,
+                private shoppingListService: ShoppingListService) { }
 
     public ngOnInit() {
         this.observeHousehold();
+        this.observeShoppingList();
     }
 
     public ngOnDestroy(): void {
@@ -37,12 +45,29 @@ export class CookbookPageComponent implements OnInit, OnDestroy {
             }));
     }
 
-    public handleCookbook(cookbook: Cookbook): void {
-        this.cookbook = cookbook
-        this.recipe = undefined;
+    private observeShoppingList(): void {
+        this.subscriptions.push(this.shoppingListService.observeShoppingList()
+            .subscribe((shoppingList: ShoppingList) => this.shoppingList = shoppingList));
     }
 
-    public handleRecipe(recipe: Recipe): void {
-        this.recipe = recipe;
+    public onIngredientSelection(ingredients: Set<string>): void {
+        const ingredientNames: Array<string> = [];
+        ingredients.forEach((name: string) => ingredientNames.push(name));
+        this.shoppingListService.addShoppingListItems(this.shoppingList.shoppingListGroups[0], ingredientNames)
+            .subscribe(() => this.recipeToBuy = null);
+    }
+
+    public handleCookbook(cookbook: Cookbook): void {
+        this.cookbook = cookbook
+        this.recipeToEdit = undefined;
+        this.recipeToBuy = undefined;
+    }
+
+    public handleRecipe(event: CookbookEvent): void {
+        if (event.action === CookbookAction.Edit) {
+            this.recipeToEdit = event.recipe;
+        } else {
+            this.recipeToBuy = event.recipe
+        }
     }
 }

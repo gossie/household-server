@@ -6,7 +6,8 @@ import { CookbookServiceMock } from "../cookbook.service.mock";
 import { Ingredient } from "./ingredient/ingredient";
 import { Recipe } from "./recipe";
 import { By } from "@angular/platform-browser";
-import {Cookbook} from "../cookbook";
+import { Cookbook } from "../cookbook";
+import { CookbookEvent } from "../cookbook-event";
 
 @Component({
     selector: [
@@ -52,9 +53,9 @@ describe('RecipeComponent', () => {
     it('should edit recipe', fakeAsync(() => {
         let selectedRecipe = null;
 
-        const recipeEmitter: EventEmitter<Recipe> = new EventEmitter();
-        recipeEmitter.subscribe((recipe: Recipe) => {
-            selectedRecipe = recipe;
+        const recipeEmitter: EventEmitter<CookbookEvent> = new EventEmitter();
+        recipeEmitter.subscribe((event: CookbookEvent) => {
+            selectedRecipe = event.recipe;
         });
 
         component.recipeEmitter = recipeEmitter;

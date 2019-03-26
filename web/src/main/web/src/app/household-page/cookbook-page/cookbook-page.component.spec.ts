@@ -11,6 +11,10 @@ import { CookbookService } from "./cookbook.service";
 import { IngredientComponent } from "./recipe/ingredient/ingredient.component";
 import { AddRecipeComponent } from "./add-recipe/add-recipe.component";
 import { ReactiveFormsModule } from "@angular/forms";
+import { SelectRecipeComponent } from "../food-plan-page/select-recipe/select-recipe.component";
+import { CheckboxComponent } from "../../common-elements/checkbox/checkbox.component";
+import { ShoppingListService } from "../shopping-list-page/shopping-list.service";
+import { ShoppingListServiceMock } from "../shopping-list-page/shopping-list.service.mock";
 
 describe('CookbookPageComponent', () => {
     let component: CookbookPageComponent;
@@ -26,12 +30,15 @@ describe('CookbookPageComponent', () => {
                 CookbookPageComponent,
                 RecipeComponent,
                 IngredientComponent,
-                AddRecipeComponent
+                AddRecipeComponent,
+                SelectRecipeComponent,
+                CheckboxComponent
             ],
             providers: [
                 { provide: UserService, useClass: UserServiceMock },
                 { provide: HouseholdService, useClass: HouseholdServiceMock },
-                { provide: CookbookService, useClass: CookbookServiceMock }
+                { provide: CookbookService, useClass: CookbookServiceMock },
+                { provide: ShoppingListService, useClass: ShoppingListServiceMock }
             ]
         })
         .compileComponents();

@@ -1,8 +1,9 @@
 <div *ngIf="cookbook">
+    <app-select-recipe *ngIf="recipeToBuy" [recipe]="recipeToBuy" (ingredientsEmitter)="onIngredientSelection($event)"></app-select-recipe>
     <div class="columns is-mobile">
         <div class="column">
             <app-add-recipe [cookbook]="cookbook"
-                            [recipe]="recipe"
+                            [recipe]="recipeToEdit"
                             (cookbookEmitter)="handleCookbook($event)"></app-add-recipe>
         </div>
     </div>
