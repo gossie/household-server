@@ -72,7 +72,7 @@ export class UserService extends AbstractNetworkService {
         };
         return this.httpClient.put<User>(url, body, options)
             .pipe(
-                tap((user: User) => this.setUserData({user: user, authData: `Basic ${btoa(user.email.toLowerCase() + ':' + password)}`}))
+                tap((user: User) => this.setUserData({user: user, authData: `Basic ${btoa(user.email.toLowerCase() + ':' + newPassword)}`}))
             );
     }
 }
