@@ -24,11 +24,11 @@ public class DefaultUserRepositoryTest {
 
         DefaultUserRepository repository = new DefaultUserRepository(userEntityRepository, new UserMapper(new InvitationEntityMapper()), passwordEncoder);
 
-        User result = repository.saveUserAndHashPassword(new User(5L, "test@user.de", "secret"));
+        User result = repository.saveUserAndHashPassword(new User(5L, "test@user.de", "newSecret"), "secret");
 
         assertThat(result)
             .hasId(5L)
             .hasEmail("test@user.de")
-            .hasPassword(password -> passwordEncoder.matches("secret", password));
+            .hasPassword(password -> passwordEncoder.matches("newSecret", password));
     }
 }

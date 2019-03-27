@@ -70,9 +70,9 @@ public class UserService {
         });
     }
 
-    public User changePassword(Long userId, String password) {
+    public User changePassword(Long userId, String currentPassword, String newPassword) {
         User user = userRepository.determineUser(userId);
-        user.setPassword(password);
-        return userRepository.saveUserAndHashPassword(user);
+        user.setPassword(newPassword);
+        return userRepository.saveUserAndHashPassword(user, currentPassword);
     }
 }

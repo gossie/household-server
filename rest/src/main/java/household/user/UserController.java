@@ -47,7 +47,7 @@ public class UserController {
 
 	@PutMapping(path="/{userId}",  consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
     public HttpEntity<Resource<UserDTO>> changePassword(@PathVariable Long userId, @RequestBody Map<String, String> data) {
-	    User user = userService.changePassword(userId, data.get("password"));
+	    User user = userService.changePassword(userId, data.get("currentPassword"), data.get("newPassword"));
         return ResponseEntity.ok(createResource(user));
     }
 
