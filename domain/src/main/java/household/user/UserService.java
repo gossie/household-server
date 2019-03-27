@@ -13,7 +13,6 @@ public class UserService {
     private final EventBus eventBus;
     private final UserRepository userRepository;
 
-
     public void init() {
         eventBus.register(this);
     }
@@ -69,5 +68,11 @@ public class UserService {
             user.setHouseholdId(null);
             userRepository.saveUser(user);
         });
+    }
+
+    public User changePassword(Long userId, String password) {
+        User user = userRepository.determineUser(userId);
+        user.setPassword(password);
+        return userRepository.saveUser(user);
     }
 }

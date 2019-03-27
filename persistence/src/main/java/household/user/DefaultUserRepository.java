@@ -56,6 +56,7 @@ class DefaultUserRepository implements UserRepository {
 
     @Override
     public User saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userMapper.map(userEntityRepository.save(userMapper.map(user)));
     }
 

@@ -6,10 +6,12 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.awt.Event;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import com.google.common.eventbus.EventBus;
@@ -109,6 +111,22 @@ public class UserServiceTest {
 
         verify(userRepository).saveUser(expectedUser1);
         verify(userRepository).saveUser(expectedUser2);
+    }
+
+    @Test
+    public void testChangePassword() throws Exception {
+        User retrievedUser = new User(7L, "user@email.de", "secret");
+        User savedUser = new User(7L, "user@email.de", "secretChanged");
+
+        UserRepository userRepository = mock(UserRepository.class);
+        when(userRepository.determineUser(7L)).thenReturn(retrievedUser);
+        when(userRepository.saveUser(retrievedUser)).thenReturn(savedUser);
+
+        userService = new UserService(mock(EventBus.class), userRepository);
+        User result = userService.changePassword(7L, "secretChanged");
+
+        assertThat(result).isSameAs(savedUser);
+        assertThat(retrievedUser.getPassword()).isEqualTo("secretChanged");
     }
 
 }

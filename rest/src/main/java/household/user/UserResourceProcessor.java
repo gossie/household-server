@@ -17,7 +17,8 @@ public class UserResourceProcessor implements ResourceProcessor<Resource<UserDTO
 	@Override
 	public Resource<UserDTO> process(Resource<UserDTO> resource) {
 		UserDTO user = resource.getContent();
-		resource.add(entityLinks.linkForSingleResource(UserDTO.class, user.getDatabaseId()).withSelfRel());
+        resource.add(entityLinks.linkForSingleResource(UserDTO.class, user.getDatabaseId()).withSelfRel());
+        resource.add(entityLinks.linkForSingleResource(UserDTO.class, user.getDatabaseId()).withRel("changePassword"));
 		if(user.getHouseholdId() != null) {
 		    resource.add(entityLinks.linkForSingleResource(HouseholdDTO.class, user.getHouseholdId()).withRel("household"));
 		} else {

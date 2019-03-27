@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -43,6 +44,12 @@ public class UserController {
             throw new ConflictException(e);
         }
 	}
+
+	@PutMapping(path="/{userId}",  consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
+    public HttpEntity<Resource<UserDTO>> changePassword(@PathVariable Long userId, @RequestBody Map<String, String> data) {
+	    User user = userService.changePassword(userId, data.get("password"));
+        return ResponseEntity.ok(createResource(user));
+    }
 
 	@GetMapping(path="/{userId}", produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<UserDTO>> getUser(@PathVariable Long userId) {
