@@ -7,7 +7,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 describe('ChoreComponent', () => {
     const THREE_DAYS: number = 259200000;
     const TWELVE_HOURS: number = 43200000;
-    const OFFSET: number = 1;
+    const OFFSET: number = 10;
 
     let component: ChoreComponent;
     let fixture: ComponentFixture<ChoreComponent>;

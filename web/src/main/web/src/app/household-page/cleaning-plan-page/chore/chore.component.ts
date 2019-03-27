@@ -105,15 +105,4 @@ export class ChoreComponent implements OnInit, OnDestroy {
     public isRed(): boolean {
         return this.chore.nextTime <= Date.now();
     }
-
-    private determineFactor(): number {
-        const difference1: number = this.chore.nextTime - this.chore.lastPerformed;
-        const difference2: number = this.chore.nextTime - Date.now();
-
-        if (difference2 < 0) {
-            return 0;
-        } else {
-            return difference2 / difference1;
-        }
-    }
 }
