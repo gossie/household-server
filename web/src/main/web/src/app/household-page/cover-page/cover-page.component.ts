@@ -4,10 +4,9 @@ import { InvitationService } from "./invitation.service";
 import { Household } from "../household";
 import { Subscription } from "rxjs/index";
 import { HouseholdService } from "../household.service";
-import {UserService} from "../../user.service";
-import {User} from "../../splash-page/login-page/user";
-import {UserData} from "../../user-data";
-import {ObjectUtils} from "../../object.utils";
+import { UserService } from "../../user.service";
+import { User } from "../../splash-page/login-page/user";
+import { UserData } from "../../user-data";
 
 @Component({
     selector: 'app-cover-page',
@@ -77,7 +76,7 @@ export class CoverPageComponent implements OnInit, OnDestroy {
     }
 
     private handleSuccessfulInvitation() {
-        this.loading = false
+        this.loading = false;
         this.invitationForm.controls.email.setValue('');
     }
 
