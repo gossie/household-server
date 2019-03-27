@@ -42,7 +42,7 @@ export class LoginPageComponent implements OnInit {
     private handleSuccessfulLogin(user: User, email: string, password: string): void {
         this.userService.setUserData({
             user: user,
-            authData: `Basic ${btoa(email + ':' + password)}`
+            authData: `Basic ${btoa(email.toLowerCase() + ':' + password)}`
         });
         this.router.navigate([Page.Household]);
     }

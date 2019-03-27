@@ -30,6 +30,7 @@ import { CheckboxComponent } from './common-elements/checkbox/checkbox.component
 import { DeleteInterceptor } from "./household-page/delete.interceptor";
 import { UndoHintComponent } from './common-elements/undo-hint/undo-hint.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ChangePasswordComponent } from './household-page/cover-page/change-password/change-password.component';
 
 @NgModule({
     declarations: [
@@ -56,7 +57,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
         DatePipe,
         LoadingComponent,
         CheckboxComponent,
-        UndoHintComponent
+        UndoHintComponent,
+        ChangePasswordComponent
     ],
     imports: [
         ReactiveFormsModule,

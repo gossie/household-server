@@ -120,7 +120,7 @@ public class UserServiceTest {
 
         UserRepository userRepository = mock(UserRepository.class);
         when(userRepository.determineUser(7L)).thenReturn(retrievedUser);
-        when(userRepository.saveUser(retrievedUser)).thenReturn(savedUser);
+        when(userRepository.saveUserAndHashPassword(retrievedUser)).thenReturn(savedUser);
 
         userService = new UserService(mock(EventBus.class), userRepository);
         User result = userService.changePassword(7L, "secretChanged");

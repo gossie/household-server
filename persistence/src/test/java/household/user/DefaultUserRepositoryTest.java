@@ -11,14 +11,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class DefaultUserRepositoryTest {
 
     @Test
-    public void testSaveUser() throws Exception {
+    public void testSaveUserAndHashPassword() throws Exception {
         UserEntityRepository userEntityRepository = mock(UserEntityRepository.class);
         when(userEntityRepository.save(any(UserEntity.class))).thenAnswer(invocation -> invocation.getArguments()[0]);
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         DefaultUserRepository repository = new DefaultUserRepository(userEntityRepository, new UserMapper(new InvitationEntityMapper()), passwordEncoder);
 
-        User result = repository.saveUser(new User(5L, "test@user.de", "secret"));
+        User result = repository.saveUserAndHashPassword(new User(5L, "test@user.de", "secret"));
 
         assertThat(result)
             .hasId(5L)

@@ -73,6 +73,6 @@ public class UserService {
     public User changePassword(Long userId, String password) {
         User user = userRepository.determineUser(userId);
         user.setPassword(password);
-        return userRepository.saveUser(user);
+        return userRepository.saveUserAndHashPassword(user);
     }
 }

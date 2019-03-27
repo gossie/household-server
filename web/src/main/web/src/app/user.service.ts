@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { filter } from 'rxjs/internal/operators';
+import {filter, tap} from 'rxjs/internal/operators';
 import { UserData } from './user-data';
 import { ObjectUtils } from './object.utils';
 import { User } from "./splash-page/login-page/user";
@@ -54,5 +54,24 @@ export class UserService extends AbstractNetworkService {
             }
         })
         .subscribe((user: User) => this.setUser(user));
+    }
+
+    public changePassword(user: User, password: string): Observable<User> {
+        const userData = this.getUserData();
+        const url: string = this.determineUrl(userData.user, 'changePassword');
+        const body: object = {
+            password
+        };
+        const options = {
+            headers: {
+                Authorization: userData.authData,
+                'Content-Type': 'application/vnd.household.v1+json',
+                Accept: 'application/vnd.household.v1+json'
+            }
+        };
+        return this.httpClient.put<User>(url, body, options)
+            .pipe(
+                tap((user: User) => this.setUserData({user: user, authData: `Basic ${btoa(user.email.toLowerCase() + ':' + password)}`}))
+            );
     }
 }
