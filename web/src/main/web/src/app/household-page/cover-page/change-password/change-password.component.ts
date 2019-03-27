@@ -16,6 +16,7 @@ export class ChangePasswordComponent implements OnInit {
 
     public form: FormGroup;
     public loading: boolean = false;
+    public errorVisible: boolean = false;
 
     constructor(private formBuilder: FormBuilder,
                 private userService: UserService) { }
@@ -23,19 +24,33 @@ export class ChangePasswordComponent implements OnInit {
     public ngOnInit() {
         this.form = this.formBuilder.group({
             currentPassword: ['', Validators.required],
-            newPassword: ['', Validators.required],
-            newPasswordRepeat: ['', Validators.required],
+            password: ['', Validators.required],
+            passwordRepeat: ['', Validators.required],
         }, {
             validator: PasswordValidation.matchPassword
         });
     }
+
     public save(): void {
         this.loading = true;
-        this.userService.changePassword(this.user, this.form.controls.currentPassword.value, this.form.controls.newPassword.value)
-            .subscribe(() => {
-                this.loading = false;
-                this.form.reset();
-            });
+        this.errorVisible = false;
+        this.userService.changePassword(this.user, this.form.controls.currentPassword.value, this.form.controls.password.value)
+            .subscribe(() => this.handlePasswordChange(), () => this.handleError());
     }
 
+    private handlePasswordChange(): void {
+        this.errorVisible = false;
+        this.form.reset();
+        this.loading = false;
+    }
+
+    private handleError(): void {
+        this.loading = false;
+        this.form.reset();
+        this.errorVisible = true;
+    }
+
+    public hideError(): void {
+        this.errorVisible = false;
+    }
 }
