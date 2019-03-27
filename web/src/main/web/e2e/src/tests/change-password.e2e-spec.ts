@@ -11,7 +11,7 @@ describe('change password', () => {
     });
 
     it('should change password', async () => {
-        await coverPage.changePassword('changedPassword');
+        await coverPage.changePassword('neuer2@user.de', 'changedPassword');
     });
 
     it('should logout', async () => {
@@ -24,7 +24,7 @@ describe('change password', () => {
     });
 
     it('should change password back', async () => {
-        await coverPage.changePassword('neuer2@user.de');
+        await coverPage.changePassword('changedPassword', 'neuer2@user.de');
     });
 
     it('should logout', async () => {

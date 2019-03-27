@@ -56,11 +56,12 @@ export class UserService extends AbstractNetworkService {
         .subscribe((user: User) => this.setUser(user));
     }
 
-    public changePassword(user: User, password: string): Observable<User> {
+    public changePassword(user: User, currentPassword: string, newPassword: string): Observable<User> {
         const userData = this.getUserData();
         const url: string = this.determineUrl(userData.user, 'changePassword');
         const body: object = {
-            password
+            currentPassword,
+            newPassword
         };
         const options = {
             headers: {

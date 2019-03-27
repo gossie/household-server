@@ -22,15 +22,16 @@ export class ChangePasswordComponent implements OnInit {
 
     public ngOnInit() {
         this.form = this.formBuilder.group({
-            password: ['', Validators.required],
-            passwordRepeat: ['', Validators.required],
+            currentPassword: ['', Validators.required],
+            newPassword: ['', Validators.required],
+            newPasswordRepeat: ['', Validators.required],
         }, {
             validator: PasswordValidation.matchPassword
         });
     }
     public save(): void {
         this.loading = true;
-        this.userService.changePassword(this.user, this.form.controls.password.value)
+        this.userService.changePassword(this.user, this.form.controls.currentPassword.value, this.form.controls.newPassword.value)
             .subscribe(() => {
                 this.loading = false;
                 this.form.reset();

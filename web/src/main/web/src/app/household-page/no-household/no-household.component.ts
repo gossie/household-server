@@ -25,7 +25,7 @@ export class NoHouseholdComponent implements OnInit, OnDestroy {
                 private router: Router) { }
 
     public ngOnInit(): void {
-        this.subscriptions.push(interval(5000)
+        this.subscriptions.push(interval(10000)
             .subscribe(() => this.userService.updateUser()));
     }
 

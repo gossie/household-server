@@ -12,7 +12,7 @@ describe('invitation', () => {
     });
 
     it('should send invitation', async () => {
-        await coverPage.invite('neuer6@user.de');
+        await coverPage.invite('neuer3@user.de');
     });
 
     it('should logout', async () => {
@@ -21,7 +21,7 @@ describe('invitation', () => {
 
     it('should login', async () => {
         await loginPage.navigateTo();
-        await loginPage.login('neuer6@user.de', 'neuer6@user.de');
+        await loginPage.login('neuer3@user.de', 'neuer3@user.de');
     });
 
     describe('rejections', () => {
@@ -33,7 +33,7 @@ describe('invitation', () => {
         it('should reject invitation', async () => {
             await browser.wait(ExpectedConditions.visibilityOf(element(by.css('#reject-button'))), 7000);
             await coverPage.rejectInvitation();
-            await browser.sleep(3000);
+            await browser.sleep(5000);
         });
 
         afterAll(async () => {

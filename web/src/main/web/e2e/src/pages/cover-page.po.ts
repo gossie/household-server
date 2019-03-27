@@ -15,9 +15,10 @@ export class CoverPage {
         return element(by.css('#logout-button')).click();
     }
 
-    public async changePassword(newPassword: string): Promise<void> {
-        await element(by.css('#password')).sendKeys(newPassword);
-        await element(by.css('#password-repeat')).sendKeys(newPassword);
+    public async changePassword(currentPassword: string, newPassword: string): Promise<void> {
+        await element(by.css('#current-password')).sendKeys(currentPassword);
+        await element(by.css('#new-password')).sendKeys(newPassword);
+        await element(by.css('#new-password-repeat')).sendKeys(newPassword);
         return element(by.css('#change-password-button')).click();
     }
 }
