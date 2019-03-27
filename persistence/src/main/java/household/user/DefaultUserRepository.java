@@ -61,8 +61,18 @@ class DefaultUserRepository implements UserRepository {
 
     @Override
     public User saveUserAndHashPassword(User user) {
+        return userEntityRepository.findById(user.getId())
+            .filter(unchangedUser -> passwordEncoder.matches(user.getPassword(), unchangedUser.getPassword()))
+            .map(unchangedUser -> setHashedPassword(user))
+            .map(userMapper::map)
+            .map(userEntityRepository::save)
+            .map(userMapper::map)
+            .orElseThrow(IllegalStateException::new);
+    }
+
+    private User setHashedPassword(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userMapper.map(userEntityRepository.save(userMapper.map(user)));
+        return user;
     }
 
 }
