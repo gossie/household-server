@@ -48,7 +48,7 @@
 
             <div class="navbar-end">
                 <div class="navbar-item">
-                    <a (click)="logout()" class="button is-light">
+                    <a id="logout-button" (click)="logout()" class="button is-light">
                         Log out
                     </a>
                 </div>
@@ -63,4 +63,5 @@
 
 <ng-template #noHousehold>
     <app-no-household [user]="user"></app-no-household>
+    <app-undo-hint></app-undo-hint>
 </ng-template>

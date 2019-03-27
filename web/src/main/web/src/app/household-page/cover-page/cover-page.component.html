@@ -13,10 +13,10 @@
         <form [formGroup]="invitationForm">
             <div class="field is-grouped">
                 <div class="control">
-                    <input class="input" type="text" formControlName="email" placeholder="E-Mail" (keyup)="trimEmail()" />
+                    <input id="invitation-input" class="input" type="text" formControlName="email" placeholder="E-Mail" (keyup)="trimEmail()" />
                 </div>
                 <div class="control">
-                    <button class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="sendInvitation()" [disabled]="!invitationForm.valid">Einladen</button>
+                    <button id="invitation-button" class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="sendInvitation()" [disabled]="!invitationForm.valid">Einladen</button>
                 </div>
             </div>
             <div *ngIf="isErrorVisible()" class="notification is-warning">
