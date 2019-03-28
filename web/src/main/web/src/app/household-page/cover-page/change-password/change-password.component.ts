@@ -16,12 +16,16 @@ export class ChangePasswordComponent implements OnInit {
 
     public form: FormGroup;
     public loading: boolean = false;
+    public successVisible = false;
     public errorVisible: boolean = false;
 
     constructor(private formBuilder: FormBuilder,
                 private userService: UserService) { }
 
     public ngOnInit() {
+        this.errorVisible = false;
+        this.successVisible = false;
+
         this.form = this.formBuilder.group({
             currentPassword: ['', Validators.required],
             password: ['', Validators.required],
@@ -34,12 +38,14 @@ export class ChangePasswordComponent implements OnInit {
     public save(): void {
         this.loading = true;
         this.errorVisible = false;
+        this.successVisible = false;
         this.userService.changePassword(this.user, this.form.controls.currentPassword.value, this.form.controls.password.value)
             .subscribe(() => this.handlePasswordChange(), () => this.handleError());
     }
 
     private handlePasswordChange(): void {
         this.errorVisible = false;
+        this.successVisible = true;
         this.form.reset();
         this.loading = false;
     }
@@ -48,9 +54,11 @@ export class ChangePasswordComponent implements OnInit {
         this.loading = false;
         this.form.reset();
         this.errorVisible = true;
+        this.successVisible = false;
     }
 
-    public hideError(): void {
+    public hideNotification(): void {
         this.errorVisible = false;
+        this.successVisible = false;
     }
 }
