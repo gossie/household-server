@@ -46,15 +46,15 @@
                                     <arguments>run test:ci</arguments>
                                 </configuration>
                             </execution>
-                            <!--<execution>-->
-                                <!--<id>npm run e2e</id>-->
-                                <!--<goals>-->
-                                    <!--<goal>npm</goal>-->
-                                <!--</goals>-->
-                                <!--<configuration>-->
-                                    <!--<arguments>run e2e:ci</arguments>-->
-                                <!--</configuration>-->
-                            <!--</execution>-->
+                            <execution>
+                                <id>npm run e2e</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>run e2e:ci</arguments>
+                                </configuration>
+                            </execution>
                         </executions>
                     </plugin>
                 </plugins>
