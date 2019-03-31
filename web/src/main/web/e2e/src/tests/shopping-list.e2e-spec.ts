@@ -45,6 +45,10 @@ describe('shopping list', () => {
             expect(await shoppingListPage.getNumberOfGroups()).toBe(2);
         });
 
+        it('should toggle group', async () => {
+            await shoppingListPage.toggleGroup('Weihnachten');
+        });
+
         it('should add some items', async () => {
             await shoppingListPage.addItemToGroup('Weihnachten', 'Zimt');
             await shoppingListPage.addItemToGroup('Weihnachten', 'Kekse');

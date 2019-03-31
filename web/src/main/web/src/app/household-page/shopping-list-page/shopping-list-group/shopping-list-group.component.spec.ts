@@ -56,10 +56,10 @@ describe('ShoppingListGroupComponent', () => {
             ],
             links: []
         };
-        fixture.detectChanges();
     });
 
     it('should create', () => {
+        fixture.detectChanges();
         expect(component).toBeTruthy();
     });
 
@@ -84,6 +84,20 @@ describe('ShoppingListGroupComponent', () => {
     });
 
     it('should deactivate clear button', () => {
+        fixture.detectChanges();
         expect(component.clearButtonActive).toBeFalsy();
+    });
+
+    it('should be initially expanded', () => {
+        component.shoppingListGroup.name = 'Global';
+        fixture.detectChanges();
+
+        expect(component.expanded).toBeTruthy();
+    });
+
+    it('should be initially collapsed', () => {
+        fixture.detectChanges();
+
+        expect(component.expanded).toBeFalsy();
     });
 });

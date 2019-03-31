@@ -36,4 +36,8 @@ export class ShoppingListPage {
         return element.all(by.css(`#group-${group} .item`)).count();
     }
 
+    public async toggleGroup(group: string): Promise<void> {
+        return element(by.css(`#group-${group} h5.toggle`)).click();
+    }
+
 }

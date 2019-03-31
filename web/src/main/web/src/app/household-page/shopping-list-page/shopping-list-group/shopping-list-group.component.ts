@@ -1,11 +1,12 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { ShoppingListGroup } from "./shopping-list-group";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ShoppingList } from "../shopping-list";
 import { ShoppingListService } from "../shopping-list.service";
 import { ShoppingListItem } from "./shopping-list-item/shopping-list-item";
 import { DeleteHintService } from "../../delete-hint.service";
-import { Subscription } from "rxjs/index";
+import {from, Subscription} from "rxjs/index";
+import { StringUtils } from "../../../string.utils";
 
 @Component({
     selector: 'app-shopping-list-group',
@@ -23,6 +24,7 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges, OnDestroy 
     public clearButtonActive: boolean;
     public checked: boolean;
     public loading: boolean = false;
+    public expanded: boolean = false;
 
     private subscriptions: Array<Subscription> = [];
 
@@ -31,6 +33,7 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges, OnDestroy 
                 private formBuilder: FormBuilder) { }
 
     public ngOnInit(): void {
+        this.expanded = this.isInitiallyExpanded();
         this.subscriptions.push(this.deleteHintService.onUndo()
             .subscribe(() => {
                 this.shoppingListGroup.hidden = false;
@@ -52,6 +55,15 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges, OnDestroy 
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+    }
+
+    private isInitiallyExpanded(): boolean {
+        const fromLocalStorage = localStorage.getItem(`${this.shoppingListGroup.name}_expanded`);
+        if (StringUtils.isEmpty(fromLocalStorage)) {
+            return this.shoppingListGroup.name === 'Global';
+        } else {
+            return fromLocalStorage === 'true'
+        }
     }
 
     private compareItems(item1: ShoppingListItem, item2: ShoppingListItem): number {
@@ -109,5 +121,10 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges, OnDestroy 
     public handleShoppingList(shoppingList: ShoppingList): void {
         this.shoppingListEmitter.emit(shoppingList);
         this.loading = false;
+    }
+
+    public toggleGroup(): void {
+        this.expanded = !this.expanded;
+        localStorage.setItem(`${this.shoppingListGroup.name}_expanded`, `${this.expanded}`);
     }
 }
