@@ -97,7 +97,10 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges, OnDestroy 
         this.loading = true;
         this.shoppingListGroup.hidden = true;
         this.shoppingListService.deleteShoppingListGroup(this.shoppingListGroup)
-            .subscribe(this.handleShoppingList.bind(this));
+            .subscribe((shoppingList: ShoppingList) => {
+                localStorage.removeItem(`${this.shoppingListGroup.name}_expanded`);
+                this.handleShoppingList(shoppingList);
+            });
     }
 
     public clearShoppingListGroup(): void {

@@ -50,7 +50,10 @@ export class ShoppingListPageComponent implements OnInit, OnDestroy {
         this.loading = true;
         const name: string = this.shoppingListGroupForm.get('name').value;
         this.shoppingListService.addShoppingListGroup(this.shoppingList, name)
-            .subscribe(this.handleShoppingList.bind(this));
+            .subscribe((shoppingList: ShoppingList) => {
+                localStorage.setItem(`${name}_expanded`, 'true');
+                this.handleShoppingList(shoppingList);
+            });
     }
 
     public handleShoppingList(shoppingList: ShoppingList): void {
