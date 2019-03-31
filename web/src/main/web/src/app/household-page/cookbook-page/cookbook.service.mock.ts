@@ -16,13 +16,16 @@ export class CookbookServiceMock {
         return of({
             recipes: [
                 {
-                    name: 'Chili con carne'
-                },
-                {
                     name: 'Curry'
                 },
                 {
+                    name: 'Chili con carne'
+                },
+                {
                     name: 'Käsekuchen'
+                },
+                {
+                    name: 'chili sin carne'
                 }
             ]
         });

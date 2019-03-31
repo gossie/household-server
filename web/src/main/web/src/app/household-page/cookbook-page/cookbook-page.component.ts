@@ -60,7 +60,8 @@ export class CookbookPageComponent implements OnInit, OnDestroy {
     }
 
     public handleCookbook(cookbook: Cookbook): void {
-        this.cookbook = cookbook
+        cookbook.recipes.sort((recipe1: Recipe, recipe2: Recipe) => recipe1.name.toLowerCase().localeCompare(recipe2.name.toLowerCase()));
+        this.cookbook = cookbook;
         this.recipeToEdit = undefined;
         this.recipeToBuy = undefined;
     }

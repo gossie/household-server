@@ -53,4 +53,21 @@ describe('CookbookPageComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should order recipes', () => {
+        expect(component.cookbook.recipes).toEqual([
+            {
+                name: 'Chili con carne'
+            },
+            {
+                name: 'chili sin carne'
+            },
+            {
+                name: 'Curry'
+            },
+            {
+                name: 'Käsekuchen'
+            }
+        ])
+    })
 });
