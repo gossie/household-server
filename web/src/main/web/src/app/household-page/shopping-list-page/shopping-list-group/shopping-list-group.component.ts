@@ -5,7 +5,7 @@ import { ShoppingList } from "../shopping-list";
 import { ShoppingListService } from "../shopping-list.service";
 import { ShoppingListItem } from "./shopping-list-item/shopping-list-item";
 import { DeleteHintService } from "../../delete-hint.service";
-import {from, Subscription} from "rxjs/index";
+import { Subscription } from "rxjs/index";
 import { StringUtils } from "../../../string.utils";
 
 @Component({
@@ -59,7 +59,7 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges, OnDestroy 
 
     private isInitiallyExpanded(): boolean {
         const fromLocalStorage = localStorage.getItem(`${this.shoppingListGroup.name}_expanded`);
-        if (StringUtils.isEmpty(fromLocalStorage)) {
+        if (StringUtils.isBlank(fromLocalStorage)) {
             return this.shoppingListGroup.name === 'Global';
         } else {
             return fromLocalStorage === 'true'
