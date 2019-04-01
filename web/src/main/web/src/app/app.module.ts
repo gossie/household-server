@@ -31,6 +31,7 @@ import { DeleteInterceptor } from "./household-page/delete.interceptor";
 import { UndoHintComponent } from './common-elements/undo-hint/undo-hint.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ChangePasswordComponent } from './household-page/cover-page/change-password/change-password.component';
+import { ProgressBarComponent } from './household-page/shopping-list-page/shopping-list-group/progress-bar/progress-bar.component';
 
 @NgModule({
     declarations: [
@@ -58,7 +59,8 @@ import { ChangePasswordComponent } from './household-page/cover-page/change-pass
         LoadingComponent,
         CheckboxComponent,
         UndoHintComponent,
-        ChangePasswordComponent
+        ChangePasswordComponent,
+        ProgressBarComponent
     ],
     imports: [
         ReactiveFormsModule,

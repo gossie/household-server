@@ -9,7 +9,8 @@ import {CheckboxComponent} from "../../../common-elements/checkbox/checkbox.comp
 
 @Component({
     selector: [
-        'app-shopping-list-item'
+        'app-shopping-list-item',
+        'app-progress-bar'
     ].join(','),
     template: '',
 })
