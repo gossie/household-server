@@ -61,6 +61,7 @@ describe('ShoppingListGroupComponent', () => {
     it('should create', () => {
         fixture.detectChanges();
         expect(component).toBeTruthy();
+        expect(component.numberOfSelectedItems).toEqual(0);
     });
 
     it('should activate clear button', () => {
@@ -81,6 +82,7 @@ describe('ShoppingListGroupComponent', () => {
         fixture.detectChanges();
         component.ngOnChanges();
         expect(component.clearButtonActive).toBeTruthy();
+        expect(component.numberOfSelectedItems).toEqual(1);
     });
 
     it('should deactivate clear button', () => {
@@ -88,16 +90,21 @@ describe('ShoppingListGroupComponent', () => {
         expect(component.clearButtonActive).toBeFalsy();
     });
 
-    it('should be initially expanded', () => {
-        component.shoppingListGroup.name = 'Global';
-        fixture.detectChanges();
+    describe('toggle', () => {
 
-        expect(component.expanded).toBeTruthy();
+        it('should be initially expanded', () => {
+            component.shoppingListGroup.name = 'Global';
+            fixture.detectChanges();
+
+            expect(component.expanded).toBeTruthy();
+        });
+
+        it('should be initially collapsed', () => {
+            fixture.detectChanges();
+
+            expect(component.expanded).toBeFalsy();
+        });
+
     });
 
-    it('should be initially collapsed', () => {
-        fixture.detectChanges();
-
-        expect(component.expanded).toBeFalsy();
-    });
 });

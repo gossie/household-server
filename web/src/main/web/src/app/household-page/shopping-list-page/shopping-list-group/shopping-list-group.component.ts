@@ -25,6 +25,7 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges, OnDestroy 
     public checked: boolean;
     public loading: boolean = false;
     public expanded: boolean = false;
+    public numberOfSelectedItems: number = 0;
 
     private subscriptions: Array<Subscription> = [];
 
@@ -34,27 +35,35 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges, OnDestroy 
 
     public ngOnInit(): void {
         this.expanded = this.isInitiallyExpanded();
-        this.subscriptions.push(this.deleteHintService.onUndo()
-            .subscribe(() => {
-                this.shoppingListGroup.hidden = false;
-                this.shoppingListGroup.shoppingListItems
-                    .forEach((shoppingListItem: ShoppingListItem) => shoppingListItem.hidden = false);
-            }));
-
-        this.shoppingListItemForm = this.formBuilder.group({
-            name: ['', Validators.required]
-        });
+        this.numberOfSelectedItems = this.determineNumberOfSelectedItems();
+        this.observeDeleteService();
+        this.createForm();
     }
 
     public ngOnChanges(): void {
         this.shoppingListGroup.shoppingListItems.sort(this.compareItems.bind(this));
-        this.clearButtonActive = this.shoppingListGroup.shoppingListItems.some((item: ShoppingListItem) => item.selected === true);
+        this.clearButtonActive = this.shoppingListGroup.shoppingListItems.some((item: ShoppingListItem) => item.selected);
         this.checked = this.shoppingListGroup.shoppingListItems.length > 0
             && this.shoppingListGroup.shoppingListItems.every((item: ShoppingListItem) => item.selected);
     }
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+    }
+
+    private observeDeleteService(): void {
+        this.subscriptions.push(this.deleteHintService.onUndo()
+            .subscribe(() => {
+                this.shoppingListGroup.hidden = false;
+                this.shoppingListGroup.shoppingListItems
+                    .forEach((shoppingListItem: ShoppingListItem) => shoppingListItem.hidden = false);
+            }));
+    }
+
+    private createForm(): void {
+        this.shoppingListItemForm = this.formBuilder.group({
+            name: ['', Validators.required]
+        });
     }
 
     private isInitiallyExpanded(): boolean {
@@ -123,7 +132,14 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges, OnDestroy 
 
     public handleShoppingList(shoppingList: ShoppingList): void {
         this.shoppingListEmitter.emit(shoppingList);
+        // this.numberOfSelectedItems = this.determineNumberOfSelectedItems();
         this.loading = false;
+    }
+
+    private determineNumberOfSelectedItems(): number {
+        return this.shoppingListGroup.shoppingListItems
+            .filter((shoppingListItem: ShoppingListItem) => shoppingListItem.selected)
+            .length;
     }
 
     public toggleGroup(): void {
