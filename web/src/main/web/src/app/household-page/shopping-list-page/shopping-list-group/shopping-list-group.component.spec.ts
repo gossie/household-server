@@ -16,7 +16,11 @@ import {CheckboxComponent} from "../../../common-elements/checkbox/checkbox.comp
 })
 class MockComponent{
     @Input()
-    public shoppingListItem: ShoppingListItem
+    public shoppingListItem: ShoppingListItem;
+    @Input()
+    public numberOfSelectedItems: number;
+    @Input()
+    public numberOfItems: number;
 }
 
 describe('ShoppingListGroupComponent', () => {
