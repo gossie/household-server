@@ -56,7 +56,7 @@ public class CookbookServiceTest {
 		when(cookbookRepository.determineCookbook(18L)).thenReturn(cookbook);
 		when(cookbookRepository.saveCookbook(cookbook)).thenReturn(cookbook);
 
-		Recipe recipeToAdd = new Recipe(1L, "Recipe3", "Description", asList(mock(Ingredient.class), mock(Ingredient.class)));
+		Recipe recipeToAdd = new Recipe(1L, "Recipe3", "Description", asList(mock(Ingredient.class), mock(Ingredient.class)), "");
 
 		cookbookService = new CookbookService(mock(EventBus.class), cookbookRepository);
 		Cookbook result = cookbookService.addRecipe(18L, recipeToAdd);
@@ -76,7 +76,7 @@ public class CookbookServiceTest {
 		when(cookbookRepository.saveCookbook(cookbook)).thenReturn(cookbook);
 
 		cookbookService = new CookbookService(mock(EventBus.class), cookbookRepository);
-		Cookbook result = cookbookService.editRecipe(8L, 15L, new Recipe(1L, "Recipe1", "", asList(mock(Ingredient.class), mock(Ingredient.class), mock(Ingredient.class))));
+		Cookbook result = cookbookService.editRecipe(8L, 15L, new Recipe(1L, "Recipe1", "", asList(mock(Ingredient.class), mock(Ingredient.class), mock(Ingredient.class)), ""));
 
 		assertThat(result)
 		    .hasSize(2)
@@ -98,8 +98,8 @@ public class CookbookServiceTest {
     }
 
 	private Cookbook createCookbook() {
-		Recipe recipe1 = new Recipe(1L, "Recipe1", "", asList(mock(Ingredient.class), mock(Ingredient.class)));
-		Recipe recipe2 = new Recipe(2L, "Recipe2", "", asList(mock(Ingredient.class), mock(Ingredient.class)));
+		Recipe recipe1 = new Recipe(1L, "Recipe1", "", asList(mock(Ingredient.class), mock(Ingredient.class)), "");
+		Recipe recipe2 = new Recipe(2L, "Recipe2", "", asList(mock(Ingredient.class), mock(Ingredient.class)), "");
 
 		Cookbook cookbook = new Cookbook(6L, new ArrayList<>(asList(recipe1, recipe2)));
 		return cookbook;

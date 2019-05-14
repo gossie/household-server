@@ -25,8 +25,8 @@ public class CookbookDTOMapperTest {
 	}
 
 	private Cookbook createCookbook() {
-		Recipe recipe1 = new Recipe(1L, "Recipe1", "", asList(mock(Ingredient.class), mock(Ingredient.class)));
-		Recipe recipe2 = new Recipe(2L, "Recipe2", "", asList(mock(Ingredient.class), mock(Ingredient.class)));
+		Recipe recipe1 = new Recipe(1L, "Recipe1", "", asList(mock(Ingredient.class), mock(Ingredient.class)), "");
+		Recipe recipe2 = new Recipe(2L, "Recipe2", "", asList(mock(Ingredient.class), mock(Ingredient.class)), "");
 		
 		Cookbook cookbook = new Cookbook(6L, asList(recipe1, recipe2));
 		return cookbook;

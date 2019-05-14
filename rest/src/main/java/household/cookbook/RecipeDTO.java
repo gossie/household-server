@@ -16,4 +16,5 @@ public class RecipeDTO extends AbstractDTO {
 	private Long databaseId;
 	private String name;
 	private List<IngredientDTO> ingredients;
+	private String url;
 }

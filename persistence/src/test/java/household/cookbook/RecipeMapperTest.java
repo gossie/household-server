@@ -17,7 +17,7 @@ public class RecipeMapperTest {
 		recipeMapper = new RecipeMapper(new IngredientMapper());
 		
 		List<IngredientEntity> ingredients = Arrays.asList(new IngredientEntity(1L, 500, "g", "Hack"), new IngredientEntity(2L, 500, "ml", "Gemüsebrühe"));
-		RecipeEntity recipe = new RecipeEntity(3L, "Chili", "", ingredients);
+		RecipeEntity recipe = new RecipeEntity(3L, "Chili", "", ingredients, "");
 		
 		Recipe result = recipeMapper.map(recipe);
 		
@@ -33,7 +33,7 @@ public class RecipeMapperTest {
         recipeMapper = new RecipeMapper(new IngredientMapper());
 		
 		List<Ingredient> ingredients = Arrays.asList(new Ingredient(1L, 500, "g", "Hack"), new Ingredient(2L, 500, "ml", "Gemüsebrühe"));
-		Recipe recipe = new Recipe(3L, null, "Chili", ingredients);
+		Recipe recipe = new Recipe(3L, null, "Chili", ingredients, "");
 		
 		RecipeEntity result = recipeMapper.map(recipe);
 		

@@ -15,11 +15,11 @@ class RecipeDTOMapper {
 	
 	RecipeDTO map(Recipe recipe) {
 		List<IngredientDTO> ingredients = recipe.getIngredients().stream().map(ingredientMapper::map).collect(Collectors.toList());
-		return new RecipeDTO(recipe.getId(), recipe.getName(), ingredients);
+		return new RecipeDTO(recipe.getId(), recipe.getName(), ingredients, recipe.getUrl());
 	}
 
 	Recipe map(RecipeDTO recipe) {
 		List<Ingredient> ingredients = recipe.getIngredients().stream().map(ingredientMapper::map).collect(Collectors.toList());
-		return new Recipe(recipe.getDatabaseId(), recipe.getName(), "", ingredients);
+		return new Recipe(recipe.getDatabaseId(), recipe.getName(), "", ingredients, recipe.getUrl());
 	}
 }

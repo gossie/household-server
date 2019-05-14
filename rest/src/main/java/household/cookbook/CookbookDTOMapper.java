@@ -18,6 +18,6 @@ class CookbookDTOMapper {
 				.map(recipeMapper::map)
 				.collect(Collectors.toList());
 		
-		return new CookbookDTO(cookbook.getId(), recipes );
+		return new CookbookDTO(cookbook.getId(), recipes);
 	}
 }

@@ -18,7 +18,7 @@ public class RecipeDTOMapperTest {
 		recipeMapper = new RecipeDTOMapper(new IngredientDTOMapper());
 		
 		List<Ingredient> ingredients = asList(new Ingredient(1L, 500, "g", "Hack"), new Ingredient(2L, 500, "ml", "Gemüsebrühe"));
-		Recipe recipe = new Recipe(3L, "Chili", "", ingredients);
+		Recipe recipe = new Recipe(3L, "Chili", "", ingredients, "");
 		
 		RecipeDTO result = recipeMapper.map(recipe);
 		
@@ -33,7 +33,7 @@ public class RecipeDTOMapperTest {
         recipeMapper = new RecipeDTOMapper(new IngredientDTOMapper());
 		
 		List<IngredientDTO> ingredients = Arrays.asList(new IngredientDTO(500, "g", "Hack"), new IngredientDTO(500, "ml", "Gemüsebrühe"));
-		RecipeDTO recipe = new RecipeDTO(null, "Chili", ingredients);
+		RecipeDTO recipe = new RecipeDTO(null, "Chili", ingredients, "");
 		
 		Recipe result = recipeMapper.map(recipe);
 		

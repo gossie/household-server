@@ -12,13 +12,13 @@ public class CookbookTest {
 
 	@Test
 	public void testEditRecipe() throws Exception {
-		Recipe recipe1 = new Recipe(1L, "Recipe1", "", emptyList());
+		Recipe recipe1 = new Recipe(1L, "Recipe1", "", emptyList(), "");
 
-		Recipe recipe2 = new Recipe(2L, "Recipe2", "", emptyList());
+		Recipe recipe2 = new Recipe(2L, "Recipe2", "", emptyList(), "");
 
 		Cookbook cookbook = new Cookbook(3L, asList(recipe1, recipe2));
 
-		Recipe changedRecipe = new Recipe(2L, "Recipe2_changed", "description", singletonList(mock(Ingredient.class)));
+		Recipe changedRecipe = new Recipe(2L, "Recipe2_changed", "description", singletonList(mock(Ingredient.class)), "");
 
 		cookbook.editRecipe(2L, changedRecipe);
 
@@ -30,9 +30,9 @@ public class CookbookTest {
 
     @Test
 	public void testDeleteRecipe() throws Exception {
-		Recipe recipe1 = new Recipe(1L, "Recipe1", "", emptyList());
+		Recipe recipe1 = new Recipe(1L, "Recipe1", "", emptyList(), "");
 
-		Recipe recipe2 = new Recipe(2L, "Recipe2", "", emptyList());
+		Recipe recipe2 = new Recipe(2L, "Recipe2", "", emptyList(), "");
 
 		Cookbook cookbook = new Cookbook(3L, asList(recipe1, recipe2));
 
