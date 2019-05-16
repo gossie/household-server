@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.api.Assertions;
+import org.assertj.core.util.Strings;
 
 public class RecipeAssert extends AbstractAssert<RecipeAssert, Recipe> {
 
@@ -33,8 +34,17 @@ public class RecipeAssert extends AbstractAssert<RecipeAssert, Recipe> {
 	public RecipeAssert hasSize(int size) {
 		Assertions.assertThat(actual.getIngredients()).hasSize(size);
 		return this;
-		
 	}
+
+    public RecipeAssert hasUrl(String url) {
+	    Assertions.assertThat(actual.getUrl()).isEqualTo(url);
+	    return this;
+    }
+
+    public RecipeAssert hasNoUrl() {
+	    Assertions.assertThat(actual.getUrl()).isEmpty();
+	    return this;
+    }
 
 	public RecipeAssert hasNoIngredients() {
 		Assertions.assertThat(actual.getIngredients()).isEmpty();

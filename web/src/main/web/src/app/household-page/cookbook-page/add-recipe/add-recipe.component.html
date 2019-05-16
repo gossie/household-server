@@ -4,13 +4,18 @@
     <div class="modal-background"></div>
     <div class="modal-content">
         <div class="box">
-            <div class="columns is-mobile">
-                <div class="column">
-                    <form [formGroup]="recipeForm">
+            <form [formGroup]="recipeForm">
+                <div class="columns is-mobile">
+                    <div class="column">
                         <input id="recipe-name-field" class="input" type="text" formControlName="recipeName" placeholder="Rezept" />
-                    </form>
+                    </div>
                 </div>
-            </div>
+                <div class="columns is-mobile">
+                    <div class="column">
+                        <input id="recipe-url-field" class="input" type="text" formControlName="recipeUrl" placeholder="Url" />
+                    </div>
+                </div>
+            </form>
             <form [formGroup]="ingredientForm">
                 <h5 class="title is-5">Zutaten</h5>
                 <div *ngFor="let ingredient of ingredients; let i = index" class="columns is-mobile">

@@ -18,14 +18,14 @@ public class CookbookTest {
 
 		Cookbook cookbook = new Cookbook(3L, asList(recipe1, recipe2));
 
-		Recipe changedRecipe = new Recipe(2L, "Recipe2_changed", "description", singletonList(mock(Ingredient.class)), "");
+		Recipe changedRecipe = new Recipe(2L, "Recipe2_changed", "description", singletonList(mock(Ingredient.class)), "link_to_recipe");
 
 		cookbook.editRecipe(2L, changedRecipe);
 
 		assertThat(cookbook)
 		    .hasSize(2)
-		    .recipe(0, recipeAssert -> recipeAssert.hasName("Recipe1").hasDescription("").hasNoIngredients())
-		    .recipe(1, recipeAssert -> recipeAssert.hasName("Recipe2_changed").hasDescription("description").hasSize(1));
+		    .recipe(0, recipeAssert -> recipeAssert.hasName("Recipe1").hasDescription("").hasNoIngredients().hasNoUrl())
+		    .recipe(1, recipeAssert -> recipeAssert.hasName("Recipe2_changed").hasDescription("description").hasUrl("link_to_recipe").hasSize(1));
 	}
 
     @Test
