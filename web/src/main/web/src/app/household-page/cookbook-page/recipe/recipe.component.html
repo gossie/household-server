@@ -18,7 +18,9 @@
     </header>
     <div *ngIf="isExpanded()" class="card-content">
         <div class="content">
-            <a *ngIf="recipe.url" [href]="recipe.url">Zum Rezept</a>
+            <p>
+                <a *ngIf="recipe.url" [href]="recipe.url" target="_blank">Zum Rezept</a>
+            </p>
             <app-ingredient *ngFor="let ingredient of recipe.ingredients"
                             [ingredient]="ingredient">
             </app-ingredient>
