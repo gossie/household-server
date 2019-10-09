@@ -38,6 +38,12 @@
                                 </goals>
                             </execution>
                             <execution>
+                                <id>npm update:webdriver</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                            </execution>
+                            <execution>
                                 <id>npm run test</id>
                                 <goals>
                                     <goal>npm</goal>
