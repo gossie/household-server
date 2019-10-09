@@ -38,7 +38,7 @@
                                 </goals>
                             </execution>
                             <execution>
-                                <id>npm update:webdriver</id>
+                                <id>npm run update:webdriver</id>
                                 <goals>
                                     <goal>npm</goal>
                                 </goals>
