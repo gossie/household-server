@@ -18,19 +18,15 @@ public class FoodPlan extends AbstractModel {
 		super(id);
 		this.meals = new HashMap<>(meals);
 	}
-	
+
 	public void clear() {
 		meals.values().forEach(Meal::clear);
 	}
 
 	public void update(FoodPlan foodPlan) {
-		foodPlan.getMeals().entrySet().stream().forEach(e -> {
-		    Meal saved = meals.get(e.getKey());
-		    Meal meal = new Meal(saved.getId(), e.getValue().getName());
-		    meals.put(e.getKey(), meal);
-		});
+		foodPlan.getMeals().forEach((key, value) -> meals.compute(key, (k, saved) -> new Meal(saved.getId(), value.getName())));
 	}
-	
+
 	public Map<String, Meal> getMeals() {
 		return Collections.unmodifiableMap(meals);
 	}
