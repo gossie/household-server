@@ -1,21 +1,23 @@
-image: atlassian/default-image:2
+image: ubuntu:18.04
 
 clone:
     depth: full
 pipelines:
     default:
         - step:
-            caches:
-                - maven
             script:
-                - apt-get install firefox
+                - apt-get install -y firefox
+                - apt-get install -y openjdk-11-jdk
+                - apt-get install -y maven
+                - apt-get clean
                 - mvn -B verify -Pci
     branches:
         master:
             - step:
-                caches:
-                    - maven
                 script:
-                    - apt-get install firefox
+                    - apt-get install -y firefox
+                    - apt-get install -y openjdk-11-jdk
+                    - apt-get install -y maven
+                    - apt-get clean
                     - mvn -B verify -Pci
                     - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git HEAD
