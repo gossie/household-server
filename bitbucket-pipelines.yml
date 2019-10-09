@@ -6,7 +6,7 @@ pipelines:
     default:
         - step:
             script:
-                - apt-get install -y firefox
+#                - apt-get install -y firefox
                 - apt-get install -y openjdk-11-jdk
                 - apt-get install -y maven
                 - apt-get clean
@@ -15,7 +15,7 @@ pipelines:
         master:
             - step:
                 script:
-                    - apt-get install -y firefox
+#                    - apt-get install -y firefox
                     - apt-get install -y openjdk-11-jdk
                     - apt-get install -y maven
                     - apt-get clean
