@@ -64,21 +64,21 @@
                                     </arguments>
                                 </configuration>
                             </execution>
-                            <execution>
-                                <id>e2e tests</id>
-                                <phase>compile</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <workingDirectory>src/main/web</workingDirectory>
-                                    <executable>npm</executable>
-                                    <arguments>
-                                        <argument>run</argument>
-                                        <argument>e2e:ci</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
+<!--                            <execution>-->
+<!--                                <id>e2e tests</id>-->
+<!--                                <phase>compile</phase>-->
+<!--                                <goals>-->
+<!--                                    <goal>exec</goal>-->
+<!--                                </goals>-->
+<!--                                <configuration>-->
+<!--                                    <workingDirectory>src/main/web</workingDirectory>-->
+<!--                                    <executable>npm</executable>-->
+<!--                                    <arguments>-->
+<!--                                        <argument>run</argument>-->
+<!--                                        <argument>e2e:ci</argument>-->
+<!--                                    </arguments>-->
+<!--                                </configuration>-->
+<!--                            </execution>-->
                         </executions>
                     </plugin>
                 </plugins>
