@@ -38,9 +38,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers(HttpMethod.GET, "/*").permitAll()
                 .mvcMatchers(HttpMethod.POST, "/api/users").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/api/status").permitAll()
-                .anyRequest().fullyAuthenticated()
+                .anyRequest().authenticated()
             .and()
-                .httpBasic()
+                .formLogin()
+                .loginPage("/index")
+                .permitAll()
+            .and()
+                .logout()
             .and()
                 .csrf().disable();
     }
