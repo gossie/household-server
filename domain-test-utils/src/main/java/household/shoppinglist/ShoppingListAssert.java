@@ -1,6 +1,6 @@
 package household.shoppinglist;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.function.Consumer;
 
@@ -11,16 +11,16 @@ public class ShoppingListAssert extends AbstractAssert<ShoppingListAssert, Shopp
 	private ShoppingListAssert(ShoppingList actual) {
 		super(actual, ShoppingListAssert.class);
 	}
-	
+
 	public static ShoppingListAssert assertThat(ShoppingList actual) {
 		return new ShoppingListAssert(actual);
 	}
-	
+
 	public ShoppingListAssert hasSize(int amount) {
 		assertEquals(amount, actual.getShoppingListGroups().size());
 		return this;
 	}
-	
+
 	public ShoppingListAssert shoppingListGroup(int index, Consumer<ShoppingListGroupAssert> consumer) {
 		consumer.accept(ShoppingListGroupAssert.assertThat(actual.getShoppingListGroups().get(index)));
 		return this;

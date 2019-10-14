@@ -8,8 +8,8 @@ import static org.mockito.Mockito.when;
 
 import java.util.Collections;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import com.google.common.eventbus.EventBus;
 import household.user.InvitationAcceptedEvent;
@@ -33,7 +33,7 @@ public class HouseholdServiceTest {
 	}
 
 	@Test
-	@Ignore
+	@Disabled
 	public void testCreateHousehold() throws Exception {
 		throw new RuntimeException("not yet implemented");
 	}

@@ -1,6 +1,6 @@
 package household.cookbook;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.assertj.core.api.AbstractAssert;
 
@@ -15,17 +15,17 @@ public class IngredientDTOAssert extends AbstractAssert<IngredientDTOAssert, Ing
 	public static IngredientDTOAssert assertThat(IngredientDTO actual) {
 		return new IngredientDTOAssert(actual);
 	}
-	
+
 	public IngredientDTOAssert hasAmount(double amount) {
-		assertEquals(amount, actual.getAmount(), 0.0);
+		assertEquals(amount, actual.getAmount(), 0.001);
 		return this;
 	}
-	
+
 	public IngredientDTOAssert hasUnit(String unit) {
 		assertEquals(unit, actual.getUnit());
 		return this;
 	}
-	
+
 	public IngredientDTOAssert hasName(String name) {
 		assertEquals(name, actual.getName());
 		return this;

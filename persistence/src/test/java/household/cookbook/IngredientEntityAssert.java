@@ -1,6 +1,6 @@
 package household.cookbook;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.assertj.core.api.AbstractAssert;
 
@@ -15,17 +15,17 @@ public class IngredientEntityAssert extends AbstractAssert<IngredientEntityAsser
 	public static IngredientEntityAssert assertThat(IngredientEntity actual) {
 		return new IngredientEntityAssert(actual);
 	}
-	
+
 	public IngredientEntityAssert hasAmount(double amount) {
-		assertEquals(amount, actual.getAmount(), 0.0);
+		assertEquals(amount, actual.getAmount(), 0.001);
 		return this;
 	}
-	
+
 	public IngredientEntityAssert hasUnit(String unit) {
 		assertEquals(unit, actual.getUnit());
 		return this;
 	}
-	
+
 	public IngredientEntityAssert hasName(String name) {
 		assertEquals(name, actual.getName());
 		return this;
