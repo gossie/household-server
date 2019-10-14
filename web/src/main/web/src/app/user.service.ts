@@ -16,14 +16,9 @@ export class UserService extends AbstractNetworkService {
 
     constructor(private httpClient: HttpClient) {
         super();
-        const userData: string = localStorage.getItem('userData');
-        if (userData) {
-            this.userStream.next(JSON.parse(userData));
-        }
     }
 
     public setUserData(userData: UserData) {
-        localStorage.setItem('userData', JSON.stringify(userData));
         this.userStream.next(userData);
     }
 
@@ -73,9 +68,6 @@ export class UserService extends AbstractNetworkService {
                 Accept: 'application/vnd.household.v1+json'
             }
         };
-        return this.httpClient.put<User>(url, body, options)
-            .pipe(
-                tap((user: User) => this.setUserData({user: user, authData: `Basic ${btoa(user.email.toLowerCase() + ':' + newPassword)}`}))
-            );
+        return this.httpClient.put<User>(url, body, options);
     }
 }
