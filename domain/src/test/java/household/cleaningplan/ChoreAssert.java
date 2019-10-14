@@ -1,7 +1,8 @@
 package household.cleaningplan;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.assertj.core.api.AbstractAssert;
-import org.junit.Assert;
 
 public class ChoreAssert extends AbstractAssert<ChoreAssert, Chore> {
 
@@ -12,24 +13,24 @@ public class ChoreAssert extends AbstractAssert<ChoreAssert, Chore> {
 	public static ChoreAssert assertThat(Chore actual) {
 		return new ChoreAssert(actual);
 	}
-	
+
 	public ChoreAssert hasId(Long id) {
-		Assert.assertEquals(id, actual.getId());
+		assertEquals(id, actual.getId());
 		return this;
 	}
-	
+
 	public ChoreAssert hasName(String name) {
-		Assert.assertEquals(name, actual.getName());
+		assertEquals(name, actual.getName());
 		return this;
 	}
-	
+
 	public ChoreAssert wasLastChangedAt(long lastPerformed) {
-		Assert.assertEquals(lastPerformed, actual.getLastPerformed());
+		assertEquals(lastPerformed, actual.getLastPerformed());
 		return this;
 	}
 
 	public ChoreAssert isDue(long date) {
-		Assert.assertEquals(date, actual.determineNextTime());
+		assertEquals(date, actual.determineNextTime());
 		return this;
 	}
 }

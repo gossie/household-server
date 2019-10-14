@@ -1,6 +1,6 @@
 package household.cleaningplan;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.function.Consumer;
 
@@ -20,7 +20,7 @@ public class CleaningPlanAssert extends AbstractAssert<CleaningPlanAssert, Clean
 		assertEquals(id, actual.getId());
 		return this;
 	}
-	
+
 	public CleaningPlanAssert hasSize(int amount) {
 		assertEquals(amount, actual.getChores().size());
 		return this;
