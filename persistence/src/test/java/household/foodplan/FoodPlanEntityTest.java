@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 
 public class FoodPlanEntityTest {
@@ -20,11 +20,11 @@ public class FoodPlanEntityTest {
 		meals.put("friday", new MealEntity(5L, "Pizza"));
 		meals.put("saturday", new MealEntity(6L, "Brot"));
 		meals.put("sunday", new MealEntity(7L, "Salat"));
-		
+
 		FoodPlanEntity foodPlan = new FoodPlanEntity(8L, meals);
-		
+
 		foodPlan.clear();
-		
+
 		assertThat(foodPlan.getMeals())
 				.hasSize(7)
 				.containsEntry("monday", new MealEntity(1L, ""))
@@ -47,7 +47,7 @@ public class FoodPlanEntityTest {
 		changedMeals.put("saturday", new MealEntity(6L, "Brot"));
 		changedMeals.put("sunday", new MealEntity(7L, "Salat"));
 		FoodPlanEntity changedFoodPlan = new FoodPlanEntity(8L, changedMeals);
-		
+
 		Map<String, MealEntity> meals = new HashMap<>();
 		meals.put("monday", new MealEntity(1L, "Hegarty's"));
 		meals.put("tuesday", new MealEntity(2L, "Chili"));
@@ -57,9 +57,9 @@ public class FoodPlanEntityTest {
 		meals.put("saturday", new MealEntity(6L, "Döner"));
 		meals.put("sunday", new MealEntity(7L, "Salat"));
 		FoodPlanEntity foodPlan = new FoodPlanEntity(8L, meals);
-		
+
 		foodPlan.update(changedFoodPlan);
-		
+
 		assertThat(foodPlan.getMeals())
 				.hasSize(7)
 				.containsEntry("monday", new MealEntity(1L, "Hegarty's"))

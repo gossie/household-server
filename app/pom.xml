@@ -84,6 +84,11 @@
         	<scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>household</groupId>
             <artifactId>plan-domain-test-utils</artifactId>
             <version>0.0.1-SNAPSHOT</version>

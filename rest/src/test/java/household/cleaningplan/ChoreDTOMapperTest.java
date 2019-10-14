@@ -3,7 +3,7 @@ package household.cleaningplan;
 import static household.cleaningplan.ChoreAssert.assertThat;
 import static household.cleaningplan.ChoreTOAssert.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ChoreDTOMapperTest {
 
