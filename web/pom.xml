@@ -64,20 +64,20 @@
                                     </arguments>
                                 </configuration>
                             </execution>
-<!--                            <execution>-->
-<!--                                <id>e2e tests</id>-->
-<!--                                <phase>compile</phase>-->
-<!--                                <goals>-->
-<!--                                    <goal>exec</goal>-->
-<!--                                </goals>-->
-<!--                                <configuration>-->
-<!--                                    <executable>npm</executable>-->
-<!--                                    <arguments>-->
-<!--                                        <argument>run</argument>-->
-<!--                                        <argument>e2e:ci</argument>-->
-<!--                                    </arguments>-->
-<!--                                </configuration>-->
-<!--                            </execution>-->
+                            <execution>
+                                <id>e2e tests</id>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>npm</executable>
+                                    <arguments>
+                                        <argument>run</argument>
+                                        <argument>e2e:ci</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
                         </executions>
                     </plugin>
                 </plugins>
