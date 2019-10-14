@@ -71,6 +71,7 @@
                                     <goal>exec</goal>
                                 </goals>
                                 <configuration>
+                                    <workingDirectory>src/main/web</workingDirectory>
                                     <executable>npm</executable>
                                     <arguments>
                                         <argument>run</argument>
