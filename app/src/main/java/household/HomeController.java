@@ -13,4 +13,9 @@ public class HomeController {
     public String home(Model model) {
         return "forward:/index.html";
     }
+
+    @GetMapping
+    public String login() {
+        return "login";
+    }
 }
