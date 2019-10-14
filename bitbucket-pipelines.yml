@@ -1,4 +1,4 @@
-image: gossiemcschreck/ldwas-ci
+image: gossiemcschreck/ldwas-ci:1.0
 
 clone:
     depth: full
