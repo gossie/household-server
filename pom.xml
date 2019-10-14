@@ -18,7 +18,7 @@
     <packaging>pom</packaging>
 
     <name>plan-parent</name>
-    <description>Demo project for Spring Boot</description>
+    <description>household planner</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
