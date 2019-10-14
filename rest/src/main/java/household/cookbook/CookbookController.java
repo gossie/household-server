@@ -61,7 +61,7 @@ public class CookbookController {
 	}
 
 	private Resource<CookbookDTO> createResource(Cookbook cookbook) {
-		Resource<CookbookDTO> resource = new Resource<CookbookDTO>(cookbookMapper.map(cookbook));
+		var resource = new Resource<CookbookDTO>(cookbookMapper.map(cookbook));
 		return cookbookResourceProcessor.process(resource);
 	}
 
@@ -70,7 +70,7 @@ public class CookbookController {
 	}
 
 	private Resource<RecipeDTO> map(Long cookbookId, RecipeDTO recipe) {
-		Resource<RecipeDTO> resource = new Resource<>(recipe);
+		var resource = new Resource<>(recipe);
 		resource.add(entityLinks.linkForSingleResource(CookbookDTO.class, cookbookId).slash("recipes").slash(recipe.getDatabaseId()).withSelfRel());
 		return resource;
 	}

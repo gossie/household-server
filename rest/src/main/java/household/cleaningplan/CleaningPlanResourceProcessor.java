@@ -16,24 +16,24 @@ public class CleaningPlanResourceProcessor implements ResourceProcessor<Resource
 
     @Override
     public Resource<CleaningPlanDTO> process(Resource<CleaningPlanDTO> resource) {
-        CleaningPlanDTO cleaningPlan = resource.getContent();
+        var cleaningPlan = resource.getContent();
         resource.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId()).withSelfRel());
         resource.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId()).slash("chores").withRel("add"));
 
-        cleaningPlan.getChores().forEach(c -> {
-            c.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId())
+        cleaningPlan.getChores().forEach(chore -> {
+            chore.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId())
                 .slash("chores")
-                .slash(c.getDatabaseId())
+                .slash(chore.getDatabaseId())
                 .withRel("delete"));
 
-            c.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId())
+            chore.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId())
                 .slash("chores")
-                .slash(c.getDatabaseId())
+                .slash(chore.getDatabaseId())
                 .withRel("select"));
 
-            c.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId())
+            chore.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId())
                 .slash("chores")
-                .slash(c.getDatabaseId())
+                .slash(chore.getDatabaseId())
                 .withRel("save"));
         });
 
@@ -41,7 +41,7 @@ public class CleaningPlanResourceProcessor implements ResourceProcessor<Resource
     }
 
     private void addLink(CleaningPlanDTO cleaningPlan, ChoreDTO chore, String rel) {
-        Link link = entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId())
+        var link = entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId())
             .slash("chores")
             .slash(chore.getDatabaseId())
             .withRel(rel);
