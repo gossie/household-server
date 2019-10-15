@@ -26,10 +26,10 @@
                     <div class="navbar-brand">
                         <div class="navbar-item">
                             <div class="buttons">
-                                <a th:href="@{/registration}" id="registration-tab" class="button is-primary">
+                                <a id="registration-tab" class="button is-primary">
                                     <strong>Sign up</strong>
                                 </a>
-                                <a id="login-tab" class="button is-light">
+                                <a th:href="@{/login}" id="login-tab" class="button is-light">
                                     Log in
                                 </a>
                             </div>
@@ -38,10 +38,10 @@
                 </nav>
                 <div class="columns">
                     <div class="column">
-                        <form th:action="@{/login}" method="post">
+                        <form th:action="@{/register}" method="post">
                             <div class="field">
                                 <p class="control has-icons-left has-icons-right">
-                                    <input id="email-field" name="username" class="input" type="email" placeholder="E-Mail" />
+                                    <input class="input" type="email" placeholder="E-Mail" />
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-envelope"></i>
                                     </span>
@@ -49,22 +49,37 @@
                             </div>
                             <div class="field">
                                 <p class="control has-icons-left">
-                                    <input id="password-field" name="password" class="input" type="password" placeholder="Passwort" />
+                                    <input class="input" type="password" placeholder="Passwort" />
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="field">
+                                <p class="control has-icons-left">
+                                    <input class="input" type="password" placeholder="Passwort wiederholen" />
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-lock"></i>
                                     </span>
                                 </p>
                             </div>
 
+                            <div class="field">
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    Ich akzeptieren die <a onclick="document.getElementById('data-protection').classList.add('is-active')">Datenschutz-Bestimmungen</a>.
+                                </label>
+                            </div>
+
                             <div class="field is-grouped">
                                 <div class="control">
-                                    <button id="login-button" class="button is-link" type="submit">Login</button>
+                                    <button class="button is-link" type="submit">Registrieren</button>
                                 </div>
                             </div>
 
                             <div style="display:none;" class="notification is-warning">
                                 <button class="delete"></button>
-                                E-Mail Adresse und Passwort passen nicht zueinander.
+                                Die E-Mail Adresse ist schon vorhanden.
                             </div>
                         </form>
                     </div>
