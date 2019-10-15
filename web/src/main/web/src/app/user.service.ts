@@ -44,9 +44,7 @@ export class UserService extends AbstractNetworkService {
     }
 
     public updateUser(): void {
-        const user: User = this.getUser();
-        const url: string = this.determineUrl(user, 'self');
-        this.httpClient.get<User>(url, {
+        this.httpClient.get<User>(`${environment.apiUrl}/users/current`, {
             headers: {
                 Accept: 'application/vnd.household.v1+json'
             }

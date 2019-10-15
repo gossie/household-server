@@ -51,15 +51,9 @@ public class UserController {
         return ResponseEntity.ok(createResource(user));
     }
 
-	@GetMapping(path="/{userId}", produces={"application/vnd.household.v1+json"})
-	public HttpEntity<Resource<UserDTO>> getUser(@PathVariable Long userId) {
-		User user = userService.determineUser(userId);
-		return ResponseEntity.ok(createResource(user));
-	}
-
-	@PostMapping(path="/current", produces={"application/vnd.household.v1+json"})
-	public HttpEntity<Resource<UserDTO>> login() {
-	    try {
+	@GetMapping(path="/current", produces={"application/vnd.household.v1+json"})
+	public HttpEntity<Resource<UserDTO>> getCurrentUser() {
+        try {
             User user = userService.determineCurrentUser();
             return ResponseEntity.ok(createResource(user));
         } catch(IllegalStateException e) {
