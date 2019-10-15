@@ -5,7 +5,7 @@ import { filter } from 'rxjs/operators';
 import { HouseholdService } from "./household.service";
 import { Subscription } from "rxjs/index";
 import { UserService } from "../user.service";
-import { User } from "../splash-page/login-page/user";
+import { User } from "../user";
 import { UserData } from "../user-data";
 import { Page } from "../page.enum";
 

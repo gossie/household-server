@@ -6,7 +6,7 @@ import { HouseholdServiceMock } from "./household.service.mock";
 import { UserService } from "../user.service";
 import { UserServiceMock } from "../user.service.mock";
 import { Component, Input } from "@angular/core";
-import { User } from "../splash-page/login-page/user";
+import { User } from "../user";
 
 @Component({
     selector: [

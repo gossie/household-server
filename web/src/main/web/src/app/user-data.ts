@@ -1,4 +1,4 @@
-import { User } from './splash-page/login-page/user';
+import { User } from './user';
 
 export interface UserData {
     user: User;

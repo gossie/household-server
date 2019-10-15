@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { User } from "../../../splash-page/login-page/user";
+import { User } from "../../../user";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { PasswordValidation } from "../../../splash-page/registration-page/password-validation";
 import { UserService } from "../../../user.service";
+import { PasswordValidation } from "./password-validation";
 
 @Component({
     selector: 'app-change-password',

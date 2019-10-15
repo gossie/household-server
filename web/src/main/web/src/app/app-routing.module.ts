@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginPageComponent } from './splash-page/login-page/login-page.component';
 import { HouseholdPageComponent } from './household-page/household-page.component';
 import { Page } from './page.enum';
 import { CleaningPlanPageComponent } from './household-page/cleaning-plan-page/cleaning-plan-page.component';
 import { FoodPlanPageComponent } from './household-page/food-plan-page/food-plan-page.component';
 import { CookbookPageComponent } from './household-page/cookbook-page/cookbook-page.component';
 import { HouseholdResolverService } from './household-page/household-resolver.service';
-import { SplashPageComponent } from "./splash-page/splash-page.component";
-import { RegistrationPageComponent } from "./splash-page/registration-page/registration-page.component";
 import { CoverPageComponent } from "./household-page/cover-page/cover-page.component";
 import { ShoppingListPageComponent } from "./household-page/shopping-list-page/shopping-list-page.component";
 

@@ -1,5 +1,5 @@
 import {Model} from '../model';
-import {User} from '../splash-page/login-page/user';
+import {User} from '../user';
 
 export interface Household extends Model {
     participants: Array<User>;

@@ -1,7 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import { Invitation } from "../../splash-page/login-page/invitation";
+import { Invitation } from "../../invitation";
 import { InvitationService } from "../cover-page/invitation.service";
-import { User } from "../../splash-page/login-page/user";
+import { User } from "../../user";
 import { UserService } from "../../user.service";
 
 @Component({

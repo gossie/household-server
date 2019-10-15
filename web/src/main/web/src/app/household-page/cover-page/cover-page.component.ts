@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Subscription } from "rxjs/index";
 import { InvitationService } from "./invitation.service";
 import { Household } from "../household";
-import { Subscription } from "rxjs/index";
 import { HouseholdService } from "../household.service";
 import { UserService } from "../../user.service";
-import { User } from "../../splash-page/login-page/user";
+import { User } from "../../user";
 import { UserData } from "../../user-data";
 
 @Component({

@@ -6,7 +6,7 @@ import { HouseholdServiceMock } from "../household.service.mock";
 import { UserService } from "../../user.service";
 import { UserServiceMock } from "../../user.service.mock";
 import { Component, Input } from "@angular/core";
-import { Invitation } from "../../splash-page/login-page/invitation";
+import { Invitation } from "../../invitation";
 import {RouterTestingModule} from "@angular/router/testing";
 
 @Component({

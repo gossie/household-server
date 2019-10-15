@@ -3,8 +3,8 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/index";
 import { UserService } from "../../user.service";
 import { AbstractNetworkService} from "../../abstract-network.service";
-import { User } from "../../splash-page/login-page/user";
-import {Invitation} from "../../splash-page/login-page/invitation";
+import { User } from "../../user";
+import {Invitation} from "../../invitation";
 
 @Injectable({
     providedIn: 'root'

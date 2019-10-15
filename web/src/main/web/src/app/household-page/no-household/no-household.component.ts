@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { HouseholdService } from "../household.service";
 import { interval, Subscription } from "rxjs/index";
 import { UserService } from "../../user.service";
-import { User } from "../../splash-page/login-page/user";
+import { User } from "../../user";
 import { Page } from "../../page.enum";
 import { Router } from "@angular/router";
 

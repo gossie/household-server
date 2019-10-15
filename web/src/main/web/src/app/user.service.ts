@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import {filter, tap} from 'rxjs/internal/operators';
 import { UserData } from './user-data';
 import { ObjectUtils } from './object.utils';
-import { User } from "./splash-page/login-page/user";
+import { User } from "./user";
 import { HttpClient } from "@angular/common/http";
 import { AbstractNetworkService } from "./abstract-network.service";
 
