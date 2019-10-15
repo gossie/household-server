@@ -9,7 +9,7 @@ import { Household } from "../household";
 import { CleaningPlanModule } from './cleaning-plan.module';
 
 @Injectable({
-    providedIn: CleaningPlanModule
+    providedIn: 'root'
 })
 export class CleaningPlanService extends AbstractNetworkService {
 
