@@ -3,7 +3,6 @@ import { HouseholdService } from "../household.service";
 import { interval, Subscription } from "rxjs/index";
 import { UserService } from "../../user.service";
 import { User } from "../../user";
-import { Page } from "../../page.enum";
 import { Router } from "@angular/router";
 
 @Component({
@@ -40,10 +39,5 @@ export class NoHouseholdComponent implements OnInit, OnDestroy {
 
     public toggleNavbar(): void {
         this.expanded = !this.expanded;
-    }
-
-    public logout(): void {
-        this.userService.setUser(null);
-        this.router.navigate([Page.Splash]);
     }
 }

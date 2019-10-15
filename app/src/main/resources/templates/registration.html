@@ -77,7 +77,7 @@
                                 </div>
                             </div>
 
-                            <div style="display:none;" class="notification is-warning">
+                            <div th:if="${param.error}" class="notification is-warning">
                                 <button class="delete"></button>
                                 Die E-Mail Adresse ist schon vorhanden.
                             </div>

@@ -48,9 +48,9 @@
 
             <div class="navbar-end">
                 <div class="navbar-item">
-                    <a id="logout-button" (click)="logout()" class="button is-light">
-                        Log out
-                    </a>
+                    <form action="/logout" method="post">
+                        <input type="submit" value="Log out" class="button is-light" />
+                    </form>
                 </div>
             </div>
         </div>

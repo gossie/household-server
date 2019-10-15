@@ -1,7 +1,4 @@
 export enum Page {
-    Splash = 'splash',
-    Registration = 'registration',
-    Login = 'login',
     Cover = 'cover',
     Household = 'household',
     ShoppingList = 'shopping-list',

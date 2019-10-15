@@ -62,7 +62,7 @@
                                 </div>
                             </div>
 
-                            <div style="display:none;" class="notification is-warning">
+                            <div th:if="${param.error}" class="notification is-warning">
                                 <button class="delete"></button>
                                 E-Mail Adresse und Passwort passen nicht zueinander.
                             </div>

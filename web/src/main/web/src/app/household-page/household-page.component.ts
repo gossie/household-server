@@ -6,7 +6,6 @@ import { HouseholdService } from "./household.service";
 import { Subscription } from "rxjs/index";
 import { UserService } from "../user.service";
 import { User } from "../user";
-import { Page } from "../page.enum";
 
 @Component({
     selector: 'app-household-page',
@@ -63,10 +62,5 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
 
     public toggleNavbar(): void {
         this.expanded = !this.expanded;
-    }
-
-    public logout(): void {
-        this.userService.setUser(null);
-        this.router.navigate([Page.Splash]);
     }
 }
