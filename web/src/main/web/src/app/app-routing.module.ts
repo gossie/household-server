@@ -36,7 +36,7 @@ const routes: Routes = [{
             outlet: 'inner'
         }, {
             path: Page.CleaningPlan,
-            component: CleaningPlanPageComponent,
+            loadChildren: () => import('./household-page/cleaning-plan-page/cleaning-plan.module').then(m => m.CleaningPlanModule),
             outlet: 'inner'
         }, {
             path: Page.FoodPlan,

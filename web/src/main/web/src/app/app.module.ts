@@ -1,15 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule }   from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HouseholdPageComponent } from './household-page/household-page.component';
-import { CleaningPlanPageComponent } from './household-page/cleaning-plan-page/cleaning-plan-page.component';
 import { FoodPlanPageComponent } from './household-page/food-plan-page/food-plan-page.component';
 import { CookbookPageComponent } from './household-page/cookbook-page/cookbook-page.component';
-import { ChoreComponent } from './household-page/cleaning-plan-page/chore/chore.component';
 import { CoverPageComponent } from './household-page/cover-page/cover-page.component';
 import { InvitationComponent } from './household-page/invitation/invitation.component';
 import { ShoppingListPageComponent } from "./household-page/shopping-list-page/shopping-list-page.component";
@@ -21,7 +19,6 @@ import { IngredientComponent } from './household-page/cookbook-page/recipe/ingre
 import { AddRecipeComponent } from './household-page/cookbook-page/add-recipe/add-recipe.component';
 import { SelectRecipeComponent } from './household-page/food-plan-page/select-recipe/select-recipe.component';
 import { NoHouseholdComponent } from './household-page/no-household/no-household.component';
-import { DatePipe } from './household-page/cleaning-plan-page/chore/date.pipe';
 import { LoadingInterceptor } from "./household-page/loading.interceptor";
 import { LoadingComponent } from './household-page/loading/loading.component';
 import { CheckboxComponent } from './common-elements/checkbox/checkbox.component';
@@ -36,12 +33,10 @@ import { ProgressBarComponent } from './household-page/shopping-list-page/shoppi
         AppComponent,
         HouseholdPageComponent,
         ShoppingListPageComponent,
-        CleaningPlanPageComponent,
         FoodPlanPageComponent,
         CookbookPageComponent,
         ShoppingListGroupComponent,
         ShoppingListItemComponent,
-        ChoreComponent,
         CoverPageComponent,
         InvitationComponent,
         MealComponent,
@@ -50,7 +45,6 @@ import { ProgressBarComponent } from './household-page/shopping-list-page/shoppi
         AddRecipeComponent,
         SelectRecipeComponent,
         NoHouseholdComponent,
-        DatePipe,
         LoadingComponent,
         CheckboxComponent,
         UndoHintComponent,
