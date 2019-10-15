@@ -65,14 +65,4 @@ public class PlanApplication {
 		return new UserService(eventBus(), userRepository);
 	}
 
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurerAdapter() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/**").allowedOrigins("*");
-			}
-		};
-	}
-
 }
