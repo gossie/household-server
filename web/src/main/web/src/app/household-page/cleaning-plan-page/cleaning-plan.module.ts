@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -13,7 +12,6 @@ import { DatePipe } from './chore/date.pipe';
         CommonModule,
         ReactiveFormsModule,
         HttpClientModule,
-        BrowserModule,
         CleaningPlanRoutingModule
     ],
     declarations: [
