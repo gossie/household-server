@@ -34,7 +34,7 @@ export class UserService extends AbstractNetworkService {
     }
 
     public determineCurrentUser(): Observable<User> {
-        return this.httpClient.get<User>('${environment.apiUrl}/users/current', {
+        return this.httpClient.get<User>(`${environment.apiUrl}/users/current`, {
             headers: {
                 Accept: 'application/vnd.household.v1+json'
             }
