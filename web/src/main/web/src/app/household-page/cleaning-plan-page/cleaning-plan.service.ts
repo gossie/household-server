@@ -6,6 +6,7 @@ import { CleaningPlan } from './cleaning-plan';
 import { AbstractNetworkService } from "../../abstract-network.service";
 import { Chore } from "./chore/chore";
 import { Household } from "../household";
+import { CleaningPlanModule } from './cleaning-plan.module';
 
 @Injectable({
     providedIn: 'root'
