@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule }   from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { CommonElementsModule } from './common-elements/common-elements.module';
 import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HouseholdPageComponent } from './household-page/household-page.component';
@@ -10,9 +11,6 @@ import { FoodPlanPageComponent } from './household-page/food-plan-page/food-plan
 import { CookbookPageComponent } from './household-page/cookbook-page/cookbook-page.component';
 import { CoverPageComponent } from './household-page/cover-page/cover-page.component';
 import { InvitationComponent } from './household-page/invitation/invitation.component';
-import { ShoppingListPageComponent } from "./household-page/shopping-list-page/shopping-list-page.component";
-import { ShoppingListGroupComponent}  from "./household-page/shopping-list-page/shopping-list-group/shopping-list-group.component";
-import { ShoppingListItemComponent } from "./household-page/shopping-list-page/shopping-list-group/shopping-list-item/shopping-list-item.component";
 import { MealComponent } from './household-page/food-plan-page/meal/meal.component';
 import { RecipeComponent } from './household-page/cookbook-page/recipe/recipe.component';
 import { IngredientComponent } from './household-page/cookbook-page/recipe/ingredient/ingredient.component';
@@ -26,17 +24,13 @@ import { DeleteInterceptor } from "./household-page/delete.interceptor";
 import { UndoHintComponent } from './common-elements/undo-hint/undo-hint.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ChangePasswordComponent } from './household-page/cover-page/change-password/change-password.component';
-import { ProgressBarComponent } from './household-page/shopping-list-page/shopping-list-group/progress-bar/progress-bar.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HouseholdPageComponent,
-        ShoppingListPageComponent,
         FoodPlanPageComponent,
         CookbookPageComponent,
-        ShoppingListGroupComponent,
-        ShoppingListItemComponent,
         CoverPageComponent,
         InvitationComponent,
         MealComponent,
@@ -46,10 +40,7 @@ import { ProgressBarComponent } from './household-page/shopping-list-page/shoppi
         SelectRecipeComponent,
         NoHouseholdComponent,
         LoadingComponent,
-        CheckboxComponent,
-        UndoHintComponent,
         ChangePasswordComponent,
-        ProgressBarComponent
     ],
     imports: [
         FormsModule,
@@ -57,6 +48,7 @@ import { ProgressBarComponent } from './household-page/shopping-list-page/shoppi
         HttpClientModule,
         BrowserModule,
         BrowserAnimationsModule,
+        CommonElementsModule,
         AppRoutingModule
     ],
     providers: [
