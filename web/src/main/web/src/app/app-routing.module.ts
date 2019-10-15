@@ -7,7 +7,6 @@ import { FoodPlanPageComponent } from './household-page/food-plan-page/food-plan
 import { CookbookPageComponent } from './household-page/cookbook-page/cookbook-page.component';
 import { HouseholdResolverService } from './household-page/household-resolver.service';
 import { CoverPageComponent } from "./household-page/cover-page/cover-page.component";
-import { ShoppingListPageComponent } from "./household-page/shopping-list-page/shopping-list-page.component";
 
 const routes: Routes = [{
     path: '',
@@ -32,7 +31,7 @@ const routes: Routes = [{
         },
         {
             path: Page.ShoppingList,
-            component: ShoppingListPageComponent,
+            loadChildren: () => import('./household-page/shopping-list-page/shopping-list.module').then(m => m.ShoppingListModule),
             outlet: 'inner'
         }, {
             path: Page.CleaningPlan,
