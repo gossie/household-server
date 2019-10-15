@@ -17,14 +17,13 @@ export class InvitationService extends AbstractNetworkService {
     }
 
     public sendInvitation(email: string): Observable<User> {
-        const url: string = this.determineUrl(this.userService.getUserData().user, 'invite');
+        const url: string = this.determineUrl(this.userService.getUser(), 'invite');
         const body: object = {
             email
         };
 
         return this.httpClient.post<User>(url, body, {
             headers: {
-                Authorization: this.userService.getUserData().authData,
                 'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.v1+json'
             }
@@ -35,7 +34,6 @@ export class InvitationService extends AbstractNetworkService {
         const url: string = this.determineUrl(invitation, 'accept');
         return this.httpClient.post<User>(url, null, {
             headers: {
-                Authorization: this.userService.getUserData().authData,
                 Accept: 'application/vnd.household.v1+json'
             }
         });
@@ -45,7 +43,6 @@ export class InvitationService extends AbstractNetworkService {
         const url: string = this.determineUrl(invitation, 'reject');
         return this.httpClient.delete<User>(url, {
             headers: {
-                Authorization: this.userService.getUserData().authData,
                 Accept: 'application/vnd.household.v1+json'
             }
         });

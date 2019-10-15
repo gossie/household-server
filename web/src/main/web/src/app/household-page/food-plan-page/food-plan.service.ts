@@ -20,7 +20,6 @@ export class FoodPlanService extends AbstractNetworkService {
         const url: string = this.determineUrl(household, 'foodPlan');
         return this.httpClient.get<FoodPlan>(url, {
             headers: {
-                Authorization: this.userService.getUserData().authData,
                 Accept: 'application/vnd.household.v1+json'
             }
         });
@@ -31,7 +30,6 @@ export class FoodPlanService extends AbstractNetworkService {
 
         return this.httpClient.put<FoodPlan>(url, foodPlan, {
             headers: {
-                Authorization: this.userService.getUserData().authData,
                 'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.v1+json'
             }
@@ -43,7 +41,6 @@ export class FoodPlanService extends AbstractNetworkService {
 
         return this.httpClient.delete<FoodPlan>(url, {
             headers: {
-                Authorization: this.userService.getUserData().authData,
                 Accept: 'application/vnd.household.v1+json'
             }
         });

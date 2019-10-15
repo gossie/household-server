@@ -21,7 +21,6 @@ export class CleaningPlanService extends AbstractNetworkService {
         const url: string = this.determineUrl(household, 'cleaningPlan');
         return this.httpClient.get<CleaningPlan>(url, {
             headers: {
-                Authorization: this.userService.getUserData().authData,
                 Accept: 'application/vnd.household.v1+json'
             }
         });
@@ -32,7 +31,6 @@ export class CleaningPlanService extends AbstractNetworkService {
 
         return this.httpClient.post<CleaningPlan>(url, chore, {
             headers: {
-                Authorization: this.userService.getUserData().authData,
                 'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.v1+json'
             }
@@ -45,7 +43,6 @@ export class CleaningPlanService extends AbstractNetworkService {
 
         return this.httpClient.patch<CleaningPlan>(url, chore, {
             headers: {
-                Authorization: this.userService.getUserData().authData,
                 'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.v1+json'
             }
@@ -57,7 +54,6 @@ export class CleaningPlanService extends AbstractNetworkService {
 
         return this.httpClient.patch<CleaningPlan>(url, chore, {
             headers: {
-                Authorization: this.userService.getUserData().authData,
                 'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.v1+json'
             }
@@ -68,7 +64,6 @@ export class CleaningPlanService extends AbstractNetworkService {
         const url: string = this.determineUrl(chore, 'delete');
         return this.httpClient.delete<CleaningPlan>(url, {
             headers: {
-                Authorization: this.userService.getUserData().authData,
                 Accept: 'application/vnd.household.v1+json'
             }
         });

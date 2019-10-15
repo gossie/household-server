@@ -6,7 +6,6 @@ import { HouseholdService } from "./household.service";
 import { Subscription } from "rxjs/index";
 import { UserService } from "../user.service";
 import { User } from "../user";
-import { UserData } from "../user-data";
 import { Page } from "../page.enum";
 
 @Component({
@@ -38,10 +37,10 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
     }
 
     private observeUser(): void {
-        this.subscriptions.push(this.userService.observeUserData()
-            .subscribe((userData: UserData) => {
-                this.user = userData.user;
-                this.householdService.updateHousehold(userData);
+        this.subscriptions.push(this.userService.observeUser()
+            .subscribe((user: User) => {
+                this.user = user;
+                this.householdService.updateHousehold(user);
             })
         );
     }
@@ -67,7 +66,7 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
     }
 
     public logout(): void {
-        this.userService.setUserData(null);
+        this.userService.setUser(null);
         this.router.navigate([Page.Splash]);
     }
 }

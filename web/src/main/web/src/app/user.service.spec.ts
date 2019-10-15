@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { UserService } from './user.service';
-import { UserData } from './user-data';
+import { User } from "./user";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 
 describe('UserService', () => {
@@ -21,20 +21,17 @@ describe('UserService', () => {
     it('should provide user', done => {
         const userService: UserService = TestBed.get(UserService);
 
-        const expectedUserData: UserData = {
-            user: {
-                email: 'user@email.de',
-                invitations: [],
-                links: []
-            },
-            authData: 'authData'
+        const expectedUser: User = {
+            email: 'user@email.de',
+            invitations: [],
+            links: []
         };
 
-        userService.observeUserData().subscribe((userData: UserData) => {
-            expect(userData).toEqual(expectedUserData);
+        userService.observeUser().subscribe((user: User) => {
+            expect(user).toEqual(expectedUser);
             done();
         });
 
-        userService.setUserData(expectedUserData);
+        userService.setUser(expectedUser);
     });
 });

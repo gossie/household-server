@@ -1,32 +1,29 @@
 import { Observable, of } from 'rxjs/index';
-import { UserData } from './user-data';
 import { Injectable } from '@angular/core';
+import { User } from "./user";
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserServiceMock {
 
-    private userData: UserData = {
-        user: {
-            email: 'user@email.de',
-            invitations: [],
-            links: []
-        },
-        authData: 'authData'
+    private user: User = {
+        email: 'user@email.de',
+        invitations: [],
+        links: []
     };
 
     constructor() { }
 
-    public setUserData(userData: UserData): void {
-        this.userData = userData;
+    public setUser(user: User): void {
+        this.user = user;
     }
 
-    public getUserData(): UserData {
-        return this.userData;
+    public getUser(): User {
+        return this.user;
     }
 
-    public observeUserData(): Observable<UserData> {
-        return of(this.userData);
+    public observeUser(): Observable<User> {
+        return of(this.user);
     }
 }

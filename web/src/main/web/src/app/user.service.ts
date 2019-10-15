@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import {filter, tap} from 'rxjs/internal/operators';
-import { UserData } from './user-data';
+import { filter, tap } from 'rxjs/internal/operators';
 import { ObjectUtils } from './object.utils';
 import { User } from "./user";
 import { HttpClient } from "@angular/common/http";
@@ -12,39 +11,32 @@ import { AbstractNetworkService } from "./abstract-network.service";
 })
 export class UserService extends AbstractNetworkService {
 
-    private userStream: BehaviorSubject<UserData> = new BehaviorSubject(null);
+    private userStream: BehaviorSubject<User> = new BehaviorSubject(null);
 
     constructor(private httpClient: HttpClient) {
         super();
     }
 
-    public setUserData(userData: UserData) {
-        this.userStream.next(userData);
-    }
-
     public setUser(user: User) {
-        const userData: UserData = this.getUserData();
-        userData.user = user;
-        this.setUserData(userData);
+        this.userStream.next(user);
     }
 
-    public getUserData(): UserData {
+    public getUser(): User {
         return this.userStream.getValue();
     }
 
-    public observeUserData(): Observable<UserData> {
+    public observeUser(): Observable<User> {
         return this.userStream.asObservable()
           .pipe(
-              filter((userData: UserData) => ObjectUtils.isObject(userData))
+              filter((user: User) => ObjectUtils.isObject(user))
           );
     }
 
     public updateUser(): void {
-        const userData = this.getUserData();
-        const url: string = this.determineUrl(userData.user, 'self');
+        const user: User = this.getUser();
+        const url: string = this.determineUrl(user, 'self');
         this.httpClient.get<User>(url, {
             headers: {
-                Authorization: userData.authData,
                 Accept: 'application/vnd.household.v1+json'
             }
         })
@@ -52,10 +44,10 @@ export class UserService extends AbstractNetworkService {
     }
 
     public changePassword(user: User, currentPassword: string, newPassword: string): Observable<User> {
-        const userData = this.getUserData();
-        let url: string = this.determineUrl(userData.user, 'changePassword');
+        const currentUser: User = this.getUser();
+        let url: string = this.determineUrl(currentUser, 'changePassword');
         if (url === undefined) {
-            url = this.determineUrl(userData.user, 'self');
+            url = this.determineUrl(currentUser, 'self');
         }
         const body: object = {
             currentPassword,
@@ -63,7 +55,6 @@ export class UserService extends AbstractNetworkService {
         };
         const options = {
             headers: {
-                Authorization: userData.authData,
                 'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.v1+json'
             }

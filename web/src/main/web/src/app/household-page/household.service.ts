@@ -4,7 +4,7 @@ import { Household } from "./household";
 import { UserService } from "../user.service";
 import { HttpClient } from "@angular/common/http";
 import { AbstractNetworkService } from "../abstract-network.service";
-import { UserData } from "../user-data";
+import { User } from "../user";
 import { tap } from "rxjs/internal/operators";
 
 @Injectable({
@@ -20,10 +20,9 @@ export class HouseholdService extends AbstractNetworkService {
     }
 
     public createHousehold(): Observable<Household> {
-        const url: string = this.determineUrl(this.userService.getUserData().user, 'create');
+        const url: string = this.determineUrl(this.userService.getUser(), 'create');
         return this.httpClient.post<Household>(url, null, {
             headers: {
-                Authorization: this.userService.getUserData().authData,
                 Accept: 'application/vnd.household.v1+json'
             }
         }).pipe(
@@ -32,12 +31,11 @@ export class HouseholdService extends AbstractNetworkService {
     }
 
     public determineHousehold(): Observable<Household> {
-        const userData: UserData = this.userService.getUserData();
-        const url: string = this.determineUrl(userData.user, 'household');
+        const user: User = this.userService.getUser();
+        const url: string = this.determineUrl(user, 'household');
         if (url !== undefined) {
             return this.httpClient.get<Household>(url, {
                 headers: {
-                    Authorization: userData.authData,
                     Accept: 'application/vnd.household.v1+json'
                 }
             }).pipe(
@@ -48,12 +46,11 @@ export class HouseholdService extends AbstractNetworkService {
         }
     }
 
-    public updateHousehold(userData: UserData): void {
-        const url: string = this.determineUrl(userData.user, 'household');
+    public updateHousehold(user: User): void {
+        const url: string = this.determineUrl(user, 'household');
         if (url !== undefined) {
             this.httpClient.get<Household>(url, {
                 headers: {
-                    Authorization: userData.authData,
                     Accept: 'application/vnd.household.v1+json'
                 }
             }).subscribe((household: Household) => this.subject.next(household));

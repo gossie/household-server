@@ -6,7 +6,6 @@ import { Household } from "../household";
 import { HouseholdService } from "../household.service";
 import { UserService } from "../../user.service";
 import { User } from "../../user";
-import { UserData } from "../../user-data";
 
 @Component({
     selector: 'app-cover-page',
@@ -39,10 +38,8 @@ export class CoverPageComponent implements OnInit, OnDestroy {
     }
 
     private observeUser(): void {
-        this.subscriptions.push(this.userService.observeUserData()
-            .subscribe((userData: UserData) => {
-                this.user = userData.user;
-            })
+        this.subscriptions.push(this.userService.observeUser()
+            .subscribe((user: User) => this.user = user)
         );
     }
 

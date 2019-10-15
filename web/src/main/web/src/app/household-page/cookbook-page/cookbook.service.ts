@@ -25,7 +25,6 @@ export class CookbookService extends AbstractNetworkService {
         const url: string = this.determineUrl(household, 'cookbook');
         return this.httpClient.get<Cookbook>(url, {
             headers: {
-                Authorization: this.userService.getUserData().authData,
                 Accept: 'application/vnd.household.min.v1+json'
             }
         })
@@ -38,7 +37,6 @@ export class CookbookService extends AbstractNetworkService {
         const url: string = this.determineUrl(minRecipe, 'self');
         return this.httpClient.get<Recipe>(url, {
             headers: {
-                Authorization: this.userService.getUserData().authData,
                 Accept: 'application/vnd.household.v1+json'
             }
         });
@@ -48,7 +46,6 @@ export class CookbookService extends AbstractNetworkService {
         const url: string = this.determineUrl(recipe, 'self');
         return this.httpClient.delete<Cookbook>(url, {
             headers: {
-                Authorization: this.userService.getUserData().authData,
                 Accept: 'application/vnd.household.min.v1+json'
             }
         })
@@ -61,7 +58,6 @@ export class CookbookService extends AbstractNetworkService {
         const url: string = this.determineUrl(cookbook, 'create');
         return this.httpClient.post<Cookbook>(url, recipe, {
             headers: {
-                Authorization: this.userService.getUserData().authData,
                 'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.min.v1+json'
             }
@@ -75,7 +71,6 @@ export class CookbookService extends AbstractNetworkService {
         const url: string = this.determineUrl(recipe, 'self');
         return this.httpClient.put<Cookbook>(url, recipe, {
             headers: {
-                Authorization: this.userService.getUserData().authData,
                 'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.min.v1+json'
             }

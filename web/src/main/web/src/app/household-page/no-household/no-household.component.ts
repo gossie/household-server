@@ -43,7 +43,7 @@ export class NoHouseholdComponent implements OnInit, OnDestroy {
     }
 
     public logout(): void {
-        this.userService.setUserData(null);
+        this.userService.setUser(null);
         this.router.navigate([Page.Splash]);
     }
 }
