@@ -57,7 +57,7 @@ public class UserController {
 		return ResponseEntity.ok(createResource(user));
 	}
 
-	@PostMapping(path="/login", produces={"application/vnd.household.v1+json"})
+	@PostMapping(path="/current", produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<UserDTO>> login() {
 	    try {
             User user = userService.determineCurrentUser();
