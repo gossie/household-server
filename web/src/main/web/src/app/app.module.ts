@@ -8,10 +8,10 @@ import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HouseholdPageComponent } from './household-page/household-page.component';
 import { NoHouseholdComponent } from './household-page/no-household/no-household.component';
-import { LoadingInterceptor } from "./household-page/loading.interceptor";
+import { LoadingInterceptor } from './household-page/loading.interceptor';
 import { LoadingComponent } from './household-page/loading/loading.component';
-import { DeleteInterceptor } from "./household-page/delete.interceptor";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { DeleteInterceptor } from './household-page/delete.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [
