@@ -8,7 +8,7 @@ import { HouseholdService } from "../household.service";
 import { HouseholdServiceMock } from "../household.service.mock";
 import { CookbookService } from "../cookbook-page/cookbook.service";
 import { CookbookServiceMock } from "../cookbook-page/cookbook.service.mock";
-import { SelectRecipeComponent } from "./select-recipe/select-recipe.component";
+import { SelectRecipeComponent } from "../../common-elements/select-recipe/select-recipe.component";
 import { ShoppingListService } from "../shopping-list-page/shopping-list.service";
 import { ShoppingListServiceMock } from "../shopping-list-page/shopping-list.service.mock";
 import { CheckboxComponent } from "../../common-elements/checkbox/checkbox.component";
