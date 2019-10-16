@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs/index";
-import { InvitationService } from "./invitation.service";
+import { InvitationService } from "../../common-elements/invitation/invitation.service";
 import { Household } from "../household";
 import { HouseholdService } from "../household.service";
 import { UserService } from "../../user.service";

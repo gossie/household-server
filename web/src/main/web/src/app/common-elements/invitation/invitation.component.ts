@@ -1,6 +1,6 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Invitation } from "../../invitation";
-import { InvitationService } from "../cover-page/invitation.service";
+import { InvitationService } from "./invitation.service";
 import { User } from "../../user";
 import { UserService } from "../../user.service";
 
