@@ -9,8 +9,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HouseholdPageComponent } from './household-page/household-page.component';
 import { FoodPlanPageComponent } from './household-page/food-plan-page/food-plan-page.component';
 import { CookbookPageComponent } from './household-page/cookbook-page/cookbook-page.component';
-import { CoverPageComponent } from './household-page/cover-page/cover-page.component';
-import { InvitationComponent } from './household-page/invitation/invitation.component';
 import { MealComponent } from './household-page/food-plan-page/meal/meal.component';
 import { RecipeComponent } from './household-page/cookbook-page/recipe/recipe.component';
 import { IngredientComponent } from './household-page/cookbook-page/recipe/ingredient/ingredient.component';
@@ -23,7 +21,6 @@ import { CheckboxComponent } from './common-elements/checkbox/checkbox.component
 import { DeleteInterceptor } from "./household-page/delete.interceptor";
 import { UndoHintComponent } from './common-elements/undo-hint/undo-hint.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ChangePasswordComponent } from './household-page/cover-page/change-password/change-password.component';
 
 @NgModule({
     declarations: [
@@ -31,16 +28,13 @@ import { ChangePasswordComponent } from './household-page/cover-page/change-pass
         HouseholdPageComponent,
         FoodPlanPageComponent,
         CookbookPageComponent,
-        CoverPageComponent,
-        InvitationComponent,
         MealComponent,
         RecipeComponent,
         IngredientComponent,
         AddRecipeComponent,
         SelectRecipeComponent,
         NoHouseholdComponent,
-        LoadingComponent,
-        ChangePasswordComponent,
+        LoadingComponent
     ],
     imports: [
         FormsModule,

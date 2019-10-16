@@ -6,7 +6,6 @@ import { CleaningPlanPageComponent } from './household-page/cleaning-plan-page/c
 import { FoodPlanPageComponent } from './household-page/food-plan-page/food-plan-page.component';
 import { CookbookPageComponent } from './household-page/cookbook-page/cookbook-page.component';
 import { HouseholdResolverService } from './household-page/household-resolver.service';
-import { CoverPageComponent } from "./household-page/cover-page/cover-page.component";
 
 const routes: Routes = [{
     path: '',
@@ -26,7 +25,7 @@ const routes: Routes = [{
         },
         {
             path: Page.Cover,
-            component: CoverPageComponent,
+            loadChildren: () => import('./household-page/cover-page/cover.module').then(m => m.CoverModule),
             outlet: 'inner'
         },
         {
