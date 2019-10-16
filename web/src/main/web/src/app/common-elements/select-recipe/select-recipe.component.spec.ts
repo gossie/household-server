@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SelectRecipeComponent } from './select-recipe.component';
 import { EventEmitter } from "@angular/core";
 import { By } from "@angular/platform-browser";
-import { CheckboxComponent } from "../../../common-elements/checkbox/checkbox.component";
+import { CheckboxComponent } from "../checkbox/checkbox.component";
 
 describe('SelectRecipeComponent', () => {
     let component: SelectRecipeComponent;

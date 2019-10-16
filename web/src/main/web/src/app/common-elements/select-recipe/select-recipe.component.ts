@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Recipe} from "../../cookbook-page/recipe/recipe";
-import {Ingredient} from "../../cookbook-page/recipe/ingredient/ingredient";
-import {CheckboxValue} from "../../../common-elements/checkbox/checkbox-value";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Recipe } from "../../household-page/cookbook-page/recipe/recipe";
+import { Ingredient } from "../../household-page/cookbook-page/recipe/ingredient/ingredient";
+import { CheckboxValue } from "../checkbox/checkbox-value";
 
 @Component({
     selector: 'app-select-recipe',

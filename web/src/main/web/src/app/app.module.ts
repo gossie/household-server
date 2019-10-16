@@ -8,18 +8,11 @@ import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HouseholdPageComponent } from './household-page/household-page.component';
 import { FoodPlanPageComponent } from './household-page/food-plan-page/food-plan-page.component';
-import { CookbookPageComponent } from './household-page/cookbook-page/cookbook-page.component';
 import { MealComponent } from './household-page/food-plan-page/meal/meal.component';
-import { RecipeComponent } from './household-page/cookbook-page/recipe/recipe.component';
-import { IngredientComponent } from './household-page/cookbook-page/recipe/ingredient/ingredient.component';
-import { AddRecipeComponent } from './household-page/cookbook-page/add-recipe/add-recipe.component';
-import { SelectRecipeComponent } from './household-page/food-plan-page/select-recipe/select-recipe.component';
 import { NoHouseholdComponent } from './household-page/no-household/no-household.component';
 import { LoadingInterceptor } from "./household-page/loading.interceptor";
 import { LoadingComponent } from './household-page/loading/loading.component';
-import { CheckboxComponent } from './common-elements/checkbox/checkbox.component';
 import { DeleteInterceptor } from "./household-page/delete.interceptor";
-import { UndoHintComponent } from './common-elements/undo-hint/undo-hint.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
@@ -27,12 +20,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
         AppComponent,
         HouseholdPageComponent,
         FoodPlanPageComponent,
-        CookbookPageComponent,
         MealComponent,
-        RecipeComponent,
-        IngredientComponent,
-        AddRecipeComponent,
-        SelectRecipeComponent,
         NoHouseholdComponent,
         LoadingComponent
     ],

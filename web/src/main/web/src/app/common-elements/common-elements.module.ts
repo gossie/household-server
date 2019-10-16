@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { UndoHintComponent } from './undo-hint/undo-hint.component';
 import { InvitationComponent } from './invitation/invitation.component';
+import { SelectRecipeComponent } from './select-recipe/select-recipe.component';
 
 @NgModule({
     imports: [
@@ -11,12 +12,14 @@ import { InvitationComponent } from './invitation/invitation.component';
     declarations: [
         CheckboxComponent,
         UndoHintComponent,
-        InvitationComponent
+        InvitationComponent,
+        SelectRecipeComponent
     ],
     exports: [
         CheckboxComponent,
         UndoHintComponent,
-        InvitationComponent
+        InvitationComponent,
+        SelectRecipeComponent
     ]
 })
 export class CommonElementsModule { }
