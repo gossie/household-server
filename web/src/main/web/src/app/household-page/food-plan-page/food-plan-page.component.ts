@@ -26,7 +26,7 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
 
     private shoppingList: ShoppingList;
     private subscriptions: Array<Subscription> = [];
-    private loading: boolean = false;
+    private loading = false;
 
     constructor(private householdService: HouseholdService,
                 private cookbookService: CookbookService,

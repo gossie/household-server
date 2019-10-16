@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HouseholdPageComponent } from './household-page/household-page.component';
 import { Page } from './page.enum';
-import { FoodPlanPageComponent } from './household-page/food-plan-page/food-plan-page.component';
 import { HouseholdResolverService } from './household-page/household-resolver.service';
 
 const routes: Routes = [{
@@ -38,7 +37,7 @@ const routes: Routes = [{
         },
         {
             path: Page.FoodPlan,
-            component: FoodPlanPageComponent,
+            loadChildren: () => import('./household-page/food-plan-page/food-plan.module').then(m => m.FoodPlanModule),
             outlet: 'inner'
         },
         {
