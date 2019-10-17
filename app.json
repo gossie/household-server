@@ -1,4 +1,5 @@
 {
+    "image": "gossiemcschreck/ldwas-ci:2.0",
     "addons": [
         "heroku-postgresql"
     ],
