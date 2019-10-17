@@ -172,6 +172,24 @@
                                 </goals>
                             </execution>
                             <execution>
+                                <id>npm run update:webdriver</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>run update:webdriver</arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>npm run test</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>run test:ci</arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
                                 <id>npm run build</id>
                                 <goals>
                                     <goal>npm</goal>
