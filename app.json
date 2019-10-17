@@ -1,5 +1,5 @@
 {
-    "image": "gossiemcschreck/ldwas-ci:2.0",
+    "image": "heroku/dod-locale-base",
     "addons": [
         "heroku-postgresql"
     ],
