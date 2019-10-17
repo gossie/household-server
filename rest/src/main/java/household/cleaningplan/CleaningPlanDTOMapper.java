@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Component
 class CleaningPlanDTOMapper {
-	
+
 	private final ChoreDTOMapper choreMapper;
 
 	CleaningPlanDTO map(CleaningPlan from) {

@@ -4,7 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.hateoas.config.EnableEntityLinks;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.google.common.eventbus.EventBus;
 import household.cleaningplan.CleaningPlanRepository;
 import household.cleaningplan.CleaningPlanService;
 import household.cookbook.CookbookRepository;
@@ -21,39 +25,44 @@ import household.user.UserService;
 @SpringBootApplication
 @EnableEntityLinks
 public class PlanApplication {
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(PlanApplication.class, args);
 	}
-	
+
 	@Bean
+    public EventBus eventBus() {
+	    return new EventBus();
+    }
+
+	@Bean(initMethod = "init")
 	public HouseholdService householdService(HouseholdRepository householdRepository) {
-		return new HouseholdService(householdRepository);
+		return new HouseholdService(eventBus(), householdRepository);
 	}
 
-	@Bean
+	@Bean(initMethod = "init")
 	public CleaningPlanService cleaningPlanService(CleaningPlanRepository cleaningPlanRepository) {
-		return new CleaningPlanService(cleaningPlanRepository);
+		return new CleaningPlanService(eventBus(), cleaningPlanRepository);
 	}
 
-	@Bean
+	@Bean(initMethod = "init")
 	public CookbookService cookbookService(CookbookRepository cookbookRepository) {
-		return new CookbookService(cookbookRepository);
+		return new CookbookService(eventBus(), cookbookRepository);
 	}
 
-	@Bean
+	@Bean(initMethod = "init")
 	public FoodPlanService foodPlanService(FoodPlanRepository foodPlanRepository) {
-		return new FoodPlanService(foodPlanRepository);
+		return new FoodPlanService(eventBus(), foodPlanRepository);
 	}
 
-	@Bean
+	@Bean(initMethod = "init")
 	public ShoppingListService shoppingListService(ShoppingListRepository shoppingListRepository) {
-		return new ShoppingListService(shoppingListRepository);
+		return new ShoppingListService(eventBus(), shoppingListRepository);
 	}
-	
-	@Bean
+
+	@Bean(initMethod = "init")
 	public UserService userService(UserRepository userRepository) {
-		return new UserService(userRepository);
+		return new UserService(eventBus(), userRepository);
 	}
-	
+
 }

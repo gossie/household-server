@@ -8,4 +8,6 @@ public interface ShoppingListRepository {
 
 //	ShoppingList createShoppingList();
 
+    void deleteShoppingList(Long shoppingListId);
+
 }

@@ -41,6 +41,7 @@ public class Cookbook extends AbstractModel {
 	public void editRecipe(Long recipeId, Recipe recipe) {
 		findRecipe(recipeId).ifPresent(r -> {
 			r.setName(recipe.getName());
+			r.setUrl(recipe.getUrl());
 			r.setDescription(recipe.getDescription());
 			r.setIngredients(recipe.getIngredients());
 		});

@@ -8,4 +8,5 @@ public interface CookbookRepository {
 
 	Cookbook createCookbook();
 
+    void deleteCookbook(Long cookbookId);
 }

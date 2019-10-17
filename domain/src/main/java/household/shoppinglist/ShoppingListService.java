@@ -2,23 +2,31 @@ package household.shoppinglist;
 
 import java.util.List;
 
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
+import household.household.HouseholdDeletedEvent;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class ShoppingListService {
 
+    private final EventBus eventBus;
 	private final ShoppingListRepository shoppingListRepository;
-	
+
+    public void init() {
+        eventBus.register(this);
+    }
+
 	public ShoppingList getShoppingList(Long shoppingListId) {
 		return shoppingListRepository.determineShoppingList(shoppingListId);
 	}
-	
+
     public ShoppingList removeAllSelectedItems(Long shoppingListId) {
         ShoppingList shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
         shoppingList.clearAllSelectedItems();
         return shoppingListRepository.saveShoppingList(shoppingList);
     }
-	
+
 	public ShoppingList removeSelectedItemsFromShoppingListGroup(Long shoppingListId, Long shoppingListGroupId) {
 		ShoppingList shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
 		shoppingList.clearSelectedItemsFromShoppingListGroup(shoppingListGroupId);
@@ -49,7 +57,22 @@ public class ShoppingListService {
 		return shoppingListRepository.saveShoppingList(shoppingList);
 	}
 
+    public ShoppingList toggleShoppingListGroup(Long shoppingListId, Long shoppingListGroupId) {
+        ShoppingList shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
+        shoppingList.toggleGroup(shoppingListGroupId);
+        return shoppingListRepository.saveShoppingList(shoppingList);
+    }
+
 	public ShoppingList createShoppingList() {
 		return shoppingListRepository.saveShoppingList(new ShoppingList(null));
 	}
+
+    private void deleteCookbook(Long shoppingListId) {
+        shoppingListRepository.deleteShoppingList(shoppingListId);
+    }
+
+    @Subscribe
+    public void onHouseholdDeleted(HouseholdDeletedEvent event) {
+        deleteCookbook(event.getHousehold().getShoppingListId());
+    }
 }

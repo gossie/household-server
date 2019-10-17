@@ -1,0 +1,37 @@
+<div class="container">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a (click)="toggleNavbar()" role="button" class="navbar-burger burger" [ngClass]="{'is-active': expanded}" aria-label="menu" aria-expanded="false" data-target="householdNavbar">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="householdNavbar" class="navbar-menu" [ngClass]="{'is-active': expanded}">
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <form action="/logout" method="post">
+                        <input onclick="this.form.submit();" value="Log out" class="button is-light" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="columns is-mobile">
+        <div class="column">
+            <a (click)="createHousehold()" class="button is-primary">
+                Haushalt erstellen
+            </a>
+        </div>
+    </div>
+    <div class="columns is-mobile">
+        <div class="column">
+            <h5 class="title is-5">Offene Einladungen</h5>
+            <app-invitation *ngFor="let invitation of user.invitations"
+                            [invitation]="invitation">
+            </app-invitation>
+        </div>
+    </div>
+</div>

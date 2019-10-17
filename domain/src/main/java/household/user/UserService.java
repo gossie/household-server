@@ -2,15 +2,23 @@ package household.user;
 
 import java.util.List;
 
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
+import household.household.HouseholdDeletedEvent;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class UserService {
 
+    private final EventBus eventBus;
     private final UserRepository userRepository;
 
+    public void init() {
+        eventBus.register(this);
+    }
+
     public User createUser(User user) {
-        userRepository.determineUser(user.getEmail()).ifPresent(u -> {
+        userRepository.determineUser(user.getEmail().toLowerCase()).ifPresent(u -> {
             throw new UserAlreadyExistsException();
         });
         return userRepository.createUser(user);
@@ -46,7 +54,25 @@ public class UserService {
 
     public void acceptInvitation(Long userId, Long invitationId) {
         User user = userRepository.determineUser(userId);
+        Long oldHouseholdId = user.getHouseholdId();
         user.acceptInvitation(invitationId);
         userRepository.saveUser(user);
+
+        List<User> leftUsers = userRepository.determineUsers(oldHouseholdId);
+        eventBus.post(new InvitationAcceptedEvent(oldHouseholdId, leftUsers));
+    }
+
+    @Subscribe
+    public void onHouseholdDeletion(HouseholdDeletedEvent event) {
+        userRepository.determineUsers(event.getHousehold().getId()).forEach(user -> {
+            user.setHouseholdId(null);
+            userRepository.saveUser(user);
+        });
+    }
+
+    public User changePassword(Long userId, String currentPassword, String newPassword) {
+        User user = userRepository.determineUser(userId);
+        user.setPassword(newPassword);
+        return userRepository.saveUserAndHashPassword(user, currentPassword);
     }
 }

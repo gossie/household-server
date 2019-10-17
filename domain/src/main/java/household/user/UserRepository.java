@@ -17,4 +17,6 @@ public interface UserRepository {
 
     User saveUser(User user);
 
+    User saveUserAndHashPassword(User user, String currentPassword);
+
 }

@@ -7,4 +7,6 @@ public interface FoodPlanRepository {
 	FoodPlan saveFoodPlan(FoodPlan foodPlan);
 
 	FoodPlan createFoodPlan();
+
+    void deleteFoodPlan(Long foodPlanId);
 }

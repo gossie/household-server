@@ -1,0 +1,26 @@
+<div class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="box">
+            <h4 class="title is-4">Was muss noch auf die Einkaufsliste?</h4>
+            <div *ngFor="let ingredient of recipe.ingredients; let i = index" class="columns is-mobile">
+                <div class="column">
+                    <app-checkbox id="ingredient-{{i}}"
+                                  [label]="ingredient.name"
+                                  [selected]="isSelected(ingredient)"
+                                  (onSelect)="toggleIngredient($event)"></app-checkbox>
+                </div>
+            </div>
+            <div class="columns is-mobile">
+                <div class="column">
+                    <button id="save-ingredients-button"
+                            class="button is-primary"
+                            [ngClass]="{'is-loading': loading}"
+                            (click)="saveIngredients()">
+                        Speichern
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

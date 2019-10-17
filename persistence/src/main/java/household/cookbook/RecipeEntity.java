@@ -30,6 +30,7 @@ class RecipeEntity {
 	private String description;
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<IngredientEntity> ingredients = new ArrayList<>();
+	private String url;
 
 	private RecipeEntity(Long id, String name) {
 		this.id = id;
@@ -51,4 +52,8 @@ class RecipeEntity {
 	void setIngredients(List<IngredientEntity> ingredients) {
 		this.ingredients = new ArrayList<>(ingredients);
 	}
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

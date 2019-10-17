@@ -11,16 +11,18 @@ public class Recipe extends AbstractModel {
 	private String name;
 	private String description;
 	private List<Ingredient> ingredients;
+    private String url;
 	
-	Recipe(Long id, String name, String description, List<Ingredient> ingredients) {
+	Recipe(Long id, String name, String description, List<Ingredient> ingredients, String url) {
 		super(id);
 		this.name = name;
 		this.description = description;
 		this.ingredients = new ArrayList<>(ingredients);
+		this.url = url;
 	}
 	
 	private Recipe(Long id, String name) {
-		this(id, name, "", Collections.emptyList());
+		this(id, name, "", Collections.emptyList(), "");
 	}
 
 	public Recipe minify() {
@@ -50,4 +52,12 @@ public class Recipe extends AbstractModel {
 	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = new ArrayList<>(ingredients);
 	}
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

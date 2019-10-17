@@ -25,7 +25,7 @@ class DefaultUserRepository implements UserRepository {
 
     @Override
     public User determineUser(Long userId) {
-        UserEntity user = userEntityRepository.findOne(userId);
+        UserEntity user = userEntityRepository.findById(userId).orElseThrow(IllegalStateException::new);
         return userMapper.map(user);
     }
 
@@ -57,6 +57,22 @@ class DefaultUserRepository implements UserRepository {
     @Override
     public User saveUser(User user) {
         return userMapper.map(userEntityRepository.save(userMapper.map(user)));
+    }
+
+    @Override
+    public User saveUserAndHashPassword(User user, String currentPassword) {
+        return userEntityRepository.findById(user.getId())
+            .filter(unchangedUser -> passwordEncoder.matches(currentPassword, unchangedUser.getPassword()))
+            .map(unchangedUser -> setHashedPassword(user))
+            .map(userMapper::map)
+            .map(userEntityRepository::save)
+            .map(userMapper::map)
+            .orElseThrow(IllegalStateException::new);
+    }
+
+    private User setHashedPassword(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return user;
     }
 
 }

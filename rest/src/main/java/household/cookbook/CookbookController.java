@@ -5,6 +5,7 @@ import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/cookbooks")
 @ExposesResourceFor(CookbookDTO.class)
+@CrossOrigin
 @RequiredArgsConstructor
 public class CookbookController {
 
@@ -46,7 +48,7 @@ public class CookbookController {
 		return ResponseEntity.ok(createResource(minifiedCookbook));
 	}
 
-    @DeleteMapping(path="/{cookbookId}/recipes/{recipeId}", produces={"application/vnd.household.min.v1+json"}, consumes={"application/vnd.household.v1+json"})
+    @DeleteMapping(path="/{cookbookId}/recipes/{recipeId}", produces={"application/vnd.household.min.v1+json"})
 	public HttpEntity<Resource<CookbookDTO>> deleteRecipe(@PathVariable Long cookbookId, @PathVariable Long recipeId) {
 		Cookbook minifiedCookbook = cookbookService.deleteRecipe(cookbookId, recipeId);
 		return ResponseEntity.ok(createResource(minifiedCookbook));
@@ -59,7 +61,7 @@ public class CookbookController {
 	}
 
 	private Resource<CookbookDTO> createResource(Cookbook cookbook) {
-		Resource<CookbookDTO> resource = new Resource<CookbookDTO>(cookbookMapper.map(cookbook));
+		var resource = new Resource<CookbookDTO>(cookbookMapper.map(cookbook));
 		return cookbookResourceProcessor.process(resource);
 	}
 
@@ -68,7 +70,7 @@ public class CookbookController {
 	}
 
 	private Resource<RecipeDTO> map(Long cookbookId, RecipeDTO recipe) {
-		Resource<RecipeDTO> resource = new Resource<>(recipe);
+		var resource = new Resource<>(recipe);
 		resource.add(entityLinks.linkForSingleResource(CookbookDTO.class, cookbookId).slash("recipes").slash(recipe.getDatabaseId()).withSelfRel());
 		return resource;
 	}
