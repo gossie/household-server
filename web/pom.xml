@@ -180,6 +180,7 @@
                                     <arguments>run update:webdriver</arguments>
                                 </configuration>
                             </execution>
+                            <!--
                             <execution>
                                 <id>npm run test</id>
                                 <goals>
@@ -189,6 +190,7 @@
                                     <arguments>run test:ci</arguments>
                                 </configuration>
                             </execution>
+                            -->
                             <execution>
                                 <id>npm run build</id>
                                 <goals>
