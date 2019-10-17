@@ -1,22 +1,25 @@
 {
-  "addons": [
-    "heroku-postgresql"
-  ],
-  "buildpacks": [
-    {
-      "url": "heroku/java"
-    }
-  ],
-  "description": "",
-  "env": {
-  },
-  "formation": {
-    "web": {
-      "quantity": 1
-    }
-  },
-  "name": "household-server",
-  "scripts": {
-  },
-  "stack": "heroku-16"
+    "addons": [
+        "heroku-postgresql"
+    ],
+    "buildpacks": [
+        {
+            "url": "heroku/java"
+        },
+        {
+            "url": "https://github.com/ivandeex/heroku-buildpack-firefox"
+        }
+    ],
+    "description": "",
+    "env": {
+    },
+    "formation": {
+        "web": {
+            "quantity": 1
+        }
+    },
+    "name": "household-server",
+    "scripts": {
+    },
+    "stack": "heroku-16"
 }
