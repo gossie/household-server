@@ -18,7 +18,7 @@
     <packaging>pom</packaging>
 
     <name>plan-parent</name>
-    <description>household planner</description>
+    <description>ldwas household planner</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
