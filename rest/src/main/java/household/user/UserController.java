@@ -35,16 +35,6 @@ public class UserController {
 	private final UserDTOMapper userMapper;
 	private final UserResourceProcessor userResourceProcessor;
 
-	@PostMapping(consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
-	public HttpEntity<Resource<UserDTO>> createUser(@RequestBody Map<String, String> data) {
-	    try {
-            User createUser = userService.createUser(new User(null, data.get("email").toLowerCase(), data.get("password")));
-            return ResponseEntity.ok(createResource(createUser));
-        } catch(UserAlreadyExistsException e) {
-            throw new ConflictException(e);
-        }
-	}
-
 	@PutMapping(path="/{userId}",  consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
     public HttpEntity<Resource<UserDTO>> changePassword(@PathVariable Long userId, @RequestBody Map<String, String> data) {
 	    User user = userService.changePassword(userId, data.get("currentPassword"), data.get("newPassword"));
