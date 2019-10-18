@@ -24,8 +24,8 @@ public class FoodPlanResourceProcessor implements ResourceProcessor<Resource<Foo
 
 		FoodPlan foodPlan = foodPlanRepository.determineFoodPlan(foodPlanDTO.getDatabaseId());
 		foodPlan.getMeals().forEach((key, value) -> {
-			value.getRecipe().ifPresent(r -> {
-				foodPlanDTO.getMeals().get(key).add(entityLinks.linkForSingleResource(RecipeDTO.class, r.getId()).withRel("recipe"));
+			value.getRecipeId().ifPresent(recipeId -> {
+				foodPlanDTO.getMeals().get(key).add(entityLinks.linkForSingleResource(RecipeDTO.class, recipeId).withRel("recipe"));
 			});
 		});
 

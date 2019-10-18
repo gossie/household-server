@@ -3,8 +3,6 @@ package household.foodplan;
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.api.Assertions;
 
-import household.cookbook.Recipe;
-
 public class MealAssert extends AbstractAssert<MealAssert, Meal> {
 
 	private MealAssert(Meal actual) {
@@ -26,12 +24,12 @@ public class MealAssert extends AbstractAssert<MealAssert, Meal> {
 	}
 
 	public MealAssert hasNoRecipe() {
-		Assertions.assertThat(actual.getRecipe()).isEmpty();
+		Assertions.assertThat(actual.getRecipeId()).isEmpty();
 		return this;
 	}
 
-	public MealAssert hasRecipe(Recipe recipe) {
-		Assertions.assertThat(actual.getRecipe()).contains(recipe);
+	public MealAssert hasRecipeId(Long recipeId) {
+		Assertions.assertThat(actual.getRecipeId()).contains(recipeId);
 		return this;
 	}
 }

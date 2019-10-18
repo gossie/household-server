@@ -15,9 +15,9 @@ public class MealTest {
 		Recipe recipe = mock(Recipe.class);
 		when(recipe.getName()).thenReturn("Kartoffelbrei mit Fischstäbchen");
 
-		Meal meal = new Meal(2L, recipe);
+		Meal meal = new Meal(2L, "Kartoffelbrei mit Fischstäbchen", 5L);
 
-		assertThat(meal).hasName("Kartoffelbrei mit Fischstäbchen").hasRecipe(recipe);
+		assertThat(meal).hasName("Kartoffelbrei mit Fischstäbchen").hasRecipeId(5L);
 	}
 
 	@Test

@@ -24,7 +24,7 @@ public class MealDTOMapperTest {
 	public void testMap_toMeal() throws Exception {
         mealMapper = new MealDTOMapper();
 
-		MealDTO meal = new MealDTO(1L, "meal1");
+		MealDTO meal = new MealDTO(1L, "meal1", null);
 		Meal result = mealMapper.map(meal);
 
 		assertThat(result).hasName("meal1");

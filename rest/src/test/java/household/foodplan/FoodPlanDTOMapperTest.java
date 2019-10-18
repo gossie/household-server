@@ -39,8 +39,8 @@ public class FoodPlanDTOMapperTest {
 		foodPlanMapper = new FoodPlanDTOMapper(new MealDTOMapper());
 
 		Map<String, MealDTO> meals = new HashMap<>();
-		meals.put("one", new MealDTO(1L, "meal1"));
-		meals.put("two", new MealDTO(2L, "meal2"));
+		meals.put("one", new MealDTO(1L, "meal1", null));
+		meals.put("two", new MealDTO(2L, "meal2", null));
 		FoodPlanDTO foodPlan = new FoodPlanDTO(1L, meals);
 
 		FoodPlan result = foodPlanMapper.map(foodPlan);

@@ -9,10 +9,10 @@ import lombok.RequiredArgsConstructor;
 class MealDTOMapper {
 
 	Meal map(MealDTO meal) {
-		return new Meal(null, meal.getName());
+		return new Meal(null, meal.getName(), null);
 	}
 	
 	MealDTO map(Meal meal) {
-		return new MealDTO(meal.getId(), meal.getName());
+		return new MealDTO(meal.getId(), meal.getName(), meal.getRecipeId().orElse(null));
 	}
 }

@@ -24,7 +24,7 @@ public class FoodPlan extends AbstractModel {
 	}
 
 	public void update(FoodPlan foodPlan) {
-		foodPlan.getMeals().forEach((key, value) -> meals.compute(key, (k, saved) -> new Meal(saved.getId(), value.getName())));
+		foodPlan.getMeals().forEach((key, value) -> meals.compute(key, (k, saved) -> new Meal(saved.getId(), value.getName(), value.getRecipeId().orElse(null))));
 	}
 
 	public Map<String, Meal> getMeals() {

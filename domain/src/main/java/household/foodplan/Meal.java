@@ -3,7 +3,6 @@ package household.foodplan;
 import java.util.Optional;
 
 import household.AbstractModel;
-import household.cookbook.Recipe;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -12,28 +11,28 @@ import lombok.ToString;
 public class Meal extends AbstractModel {
 
 	private String name;
-	private Recipe recipe;
+	private Long recipeId;
 	
-    Meal(Long id, String name) {
+    Meal(Long id, String name, Long recipeId) {
 		super(id);
 		this.name = name;
+		this.recipeId = recipeId;
+	}
+
+	Meal(Long id, String name) {
+		this(id, name, null);
 	}
 	
-	public Meal(Long id, Recipe recipe) {
-		super(id);
-		this.recipe = recipe;
-	}
-	
-	public Optional<Recipe> getRecipe() {
-		return Optional.ofNullable(recipe);
+	public Optional<Long> getRecipeId() {
+		return Optional.ofNullable(recipeId);
 	}
 	
 	public String getName() {
-		return getRecipe().map(Recipe::getName).orElse(name);
+		return name;
 	}
 	
 	public void clear() {
 		name = "";
-		recipe = null;
+		recipeId = null;
 	}
 }
