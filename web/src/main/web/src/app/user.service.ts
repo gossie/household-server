@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/internal/operators';
 import { ObjectUtils } from './object.utils';
-import { User } from "./user";
-import { HttpClient } from "@angular/common/http";
-import { AbstractNetworkService } from "./abstract-network.service";
-import { environment } from "../environments/environment";
+import { User } from './user';
+import { HttpClient } from '@angular/common/http';
+import { AbstractNetworkService } from './abstract-network.service';
 
 @Injectable({
     providedIn: 'root'
@@ -34,7 +33,7 @@ export class UserService extends AbstractNetworkService {
     }
 
     public determineCurrentUser(): Observable<User> {
-        return this.httpClient.get<User>(`${environment.apiUrl}/users/current`, {
+        return this.httpClient.get<User>('users/current', {
             headers: {
                 Accept: 'application/vnd.household.v1+json'
             }
@@ -44,7 +43,7 @@ export class UserService extends AbstractNetworkService {
     }
 
     public updateUser(): void {
-        this.httpClient.get<User>(`${environment.apiUrl}/users/current`, {
+        this.httpClient.get<User>('users/current', {
             headers: {
                 Accept: 'application/vnd.household.v1+json'
             }
