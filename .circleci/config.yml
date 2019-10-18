@@ -33,6 +33,8 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
   deploy:
+    docker:
+      - image: gossiemcschreck/ldwas-ci:2.0
     steps:
       - checkout
       - run:
