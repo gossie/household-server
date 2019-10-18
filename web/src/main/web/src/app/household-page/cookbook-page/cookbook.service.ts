@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Cookbook } from "./cookbook";
-import { UserService } from "../../user.service";
-import { HttpClient } from "@angular/common/http";
-import { BehaviorSubject, Observable, Subject } from "rxjs/index";
-import { AbstractNetworkService } from "../../abstract-network.service";
-import { Household } from "../household";
-import { Recipe } from "./recipe/recipe";
-import { filter, tap } from "rxjs/internal/operators";
-import { ObjectUtils } from "../../object.utils";
+import { Cookbook } from './cookbook';
+import { UserService } from '../../user.service';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, Subject } from 'rxjs/index';
+import { AbstractNetworkService } from '../../abstract-network.service';
+import { Household } from '../household';
+import { Recipe } from './recipe/recipe';
+import { filter, tap } from 'rxjs/internal/operators';
+import { ObjectUtils } from '../../object.utils';
 
 @Injectable({
     providedIn: 'root'

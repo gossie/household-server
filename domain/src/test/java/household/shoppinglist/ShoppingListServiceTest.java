@@ -14,8 +14,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import com.google.common.eventbus.EventBus;
-import household.foodplan.FoodPlanRepository;
-import household.foodplan.FoodPlanService;
 import household.household.Household;
 import household.household.HouseholdDeletedEvent;
 

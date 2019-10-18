@@ -38,10 +38,10 @@
                 </nav>
                 <div class="columns">
                     <div class="column">
-                        <form th:action="@{/register}" method="post">
+                        <form th:action="@{/api/users}" method="post">
                             <div class="field">
                                 <p class="control has-icons-left has-icons-right">
-                                    <input class="input" type="email" placeholder="E-Mail" />
+                                    <input name="email" class="input" type="email" th:value="*{email}" placeholder="E-Mail" />
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-envelope"></i>
                                     </span>
@@ -49,7 +49,7 @@
                             </div>
                             <div class="field">
                                 <p class="control has-icons-left">
-                                    <input class="input" type="password" placeholder="Passwort" />
+                                    <input name="password" class="input" type="password" th:value="*{password}" placeholder="Passwort" />
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-lock"></i>
                                     </span>
@@ -57,7 +57,7 @@
                             </div>
                             <div class="field">
                                 <p class="control has-icons-left">
-                                    <input class="input" type="password" placeholder="Passwort wiederholen" />
+                                    <input name="passwordRepeat" class="input" type="password" th:value="*{passwordRepeat}" placeholder="Passwort wiederholen" />
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-lock"></i>
                                     </span>
