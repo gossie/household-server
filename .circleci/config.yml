@@ -1,7 +1,3 @@
-# Java Maven CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-java/ for more details
-#
 version: 2
 jobs:
   build:
@@ -10,14 +6,9 @@ jobs:
 
     working_directory: ~/repo
 
-    environment:
-      # Customize the JVM maximum heap limit
-      #MAVEN_OPTS: -Xmx3200m
-
     steps:
       - checkout
 
-      # Download and cache dependencies
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "pom.xml" }}
@@ -52,8 +43,6 @@ workflows:
               ignore:
                 - master
       - deploy:
-#          requires:
-#            - build
           filters:
             branches:
               only: master
