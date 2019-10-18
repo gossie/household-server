@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/internal/operators';
 import { ObjectUtils } from './object.utils';
-import { User } from "./user";
-import { HttpClient } from "@angular/common/http";
-import { AbstractNetworkService } from "./abstract-network.service";
-import { environment } from "../environments/environment";
+import { User } from './user';
+import { HttpClient } from '@angular/common/http';
+import { AbstractNetworkService } from './abstract-network.service';
+import { environment } from '../environments/environment';
 
 @Injectable({
     providedIn: 'root'

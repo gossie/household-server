@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    apiUrl: 'https://ldwas-household-stage.herokuapp.com/api'
+    apiUrl: 'api'
 };
 
 /*
