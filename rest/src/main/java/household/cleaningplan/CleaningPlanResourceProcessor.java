@@ -1,7 +1,6 @@
 package household.cleaningplan;
 
 import org.springframework.hateoas.EntityLinks;
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
 import org.springframework.stereotype.Component;
@@ -21,20 +20,9 @@ public class CleaningPlanResourceProcessor implements ResourceProcessor<Resource
         resource.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId()).slash("chores").withRel("add"));
 
         cleaningPlan.getChores().forEach(chore -> {
-            chore.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId())
-                .slash("chores")
-                .slash(chore.getDatabaseId())
-                .withRel("delete"));
-
-            chore.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId())
-                .slash("chores")
-                .slash(chore.getDatabaseId())
-                .withRel("select"));
-
-            chore.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, cleaningPlan.getDatabaseId())
-                .slash("chores")
-                .slash(chore.getDatabaseId())
-                .withRel("save"));
+            addLink(cleaningPlan, chore, "delete");
+            addLink(cleaningPlan, chore, "select");
+            addLink(cleaningPlan, chore, "save");
         });
 
         return resource;
