@@ -5,6 +5,7 @@ import { ObjectUtils } from './object.utils';
 import { User } from './user';
 import { HttpClient } from '@angular/common/http';
 import { AbstractNetworkService } from './abstract-network.service';
+import { environment } from '../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -33,7 +34,7 @@ export class UserService extends AbstractNetworkService {
     }
 
     public determineCurrentUser(): Observable<User> {
-        return this.httpClient.get<User>('users/current', {
+        return this.httpClient.get<User>(`${environment.apiUrl}/users/current`, {
             headers: {
                 Accept: 'application/vnd.household.v1+json'
             }
@@ -43,7 +44,7 @@ export class UserService extends AbstractNetworkService {
     }
 
     public updateUser(): void {
-        this.httpClient.get<User>('users/current', {
+        this.httpClient.get<User>(`${environment.apiUrl}/users/current`, {
             headers: {
                 Accept: 'application/vnd.household.v1+json'
             }
