@@ -38,7 +38,7 @@
                 </nav>
                 <div class="columns">
                     <div class="column">
-                        <form th:action="@{/api/users}" method="post">
+                        <form th:action="@{/registrations}" method="post">
                             <div class="field">
                                 <p class="control has-icons-left has-icons-right">
                                     <input name="email" class="input" type="email" th:value="*{email}" placeholder="E-Mail" />
@@ -66,7 +66,7 @@
 
                             <div class="field">
                                 <label class="checkbox">
-                                    <input type="checkbox">
+                                    <input name="dataProtection" type="checkbox" th:value="*{dataProtection}">
                                     Ich akzeptieren die <a onclick="document.getElementById('data-protection').classList.add('is-active')">Datenschutz-Bestimmungen</a>.
                                 </label>
                             </div>

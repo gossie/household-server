@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/api/users")
+@RequestMapping("registrations")
 @RequiredArgsConstructor
 public class RegistrationController {
 
@@ -23,11 +23,13 @@ public class RegistrationController {
 	private final UserService userService;
 
 	@PostMapping
-	public String createUser(@RequestBody MultiValueMap<String, String> data, Model model) {
+	public String createUser(@RequestBody MultiValueMap<String, Object> data, Model model) {
         String nextPage = "registration";
 		if (!Objects.equals(data.getFirst("password"), data.getFirst("passwordRepeat"))) {
 			model.addAttribute("errorMessage", "Die Passwörter stimmen nicht überein.");
-		} else {
+        } else  if (data.getFirst("dataProtection") == null) {
+            model.addAttribute("errorMessage", "Bitte stimmen Sie den Datenschutz-Bestimmungen zu.");
+        } else {
             try {
                 userService.createUser(new User(null, ((String) data.getFirst("email")).toLowerCase(), ((String) data.getFirst("password"))));
                 model.addAttribute("successMessage", "Benutzer wurde angelegt");
