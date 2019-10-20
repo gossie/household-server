@@ -62,16 +62,6 @@
             <!--<artifactId>spring-boot-starter-actuator</artifactId>-->
         <!--</dependency>-->
 
-<!--         <dependency> -->
-<!--             <groupId>com.zaxxer</groupId> -->
-<!--             <artifactId>HikariCP</artifactId> -->
-<!--             <version>2.6.0</version> -->
-<!--         </dependency> -->
-<!--         <dependency> -->
-<!--             <groupId>org.postgresql</groupId> -->
-<!--             <artifactId>postgresql</artifactId> -->
-<!--             <version>9.4.1212</version> -->
-<!--         </dependency> -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
