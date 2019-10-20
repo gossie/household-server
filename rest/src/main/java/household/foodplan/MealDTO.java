@@ -1,5 +1,7 @@
 package household.foodplan;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import household.AbstractDTO;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -13,5 +15,6 @@ public class MealDTO extends AbstractDTO {
 
 	private Long databaseId;
 	private String name;
+	@JsonIgnore
 	private Long recipeId;
 }

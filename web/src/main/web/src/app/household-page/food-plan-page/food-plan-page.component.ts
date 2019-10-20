@@ -1,16 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FoodPlan } from "./food-plan";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { FoodPlanService } from "./food-plan.service";
-import { Subscription } from "rxjs/index";
-import { HouseholdService } from "../household.service";
-import { Household } from "../household";
-import { Recipe } from "../cookbook-page/recipe/recipe";
-import { ShoppingListService } from "../shopping-list-page/shopping-list.service";
-import { ShoppingList } from "../shopping-list-page/shopping-list";
-import { CookbookService } from "../cookbook-page/cookbook.service";
-import { Cookbook } from "../cookbook-page/cookbook";
-import {DeleteHintService} from "../delete-hint.service";
+import { FoodPlan } from './food-plan';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { FoodPlanService } from './food-plan.service';
+import { Subscription } from 'rxjs/index';
+import { HouseholdService } from '../household.service';
+import { Household } from '../household';
+import { Recipe } from '../cookbook-page/recipe/recipe';
+import { ShoppingListService } from '../shopping-list-page/shopping-list.service';
+import { ShoppingList } from '../shopping-list-page/shopping-list';
+import { CookbookService } from '../cookbook-page/cookbook.service';
+import { Cookbook } from '../cookbook-page/cookbook';
+import {DeleteHintService} from '../delete-hint.service';
 
 @Component({
     selector: 'app-food-plan-page',
