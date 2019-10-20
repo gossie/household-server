@@ -77,9 +77,9 @@
                                 </div>
                             </div>
 
-                            <div th:if="${param.error}" class="notification is-warning">
+                            <div th:if="${errorMessage}" class="notification is-warning">
                                 <button class="delete"></button>
-                                Die E-Mail Adresse ist schon vorhanden.
+                                <span th:text="${errorMessage}">
                             </div>
                         </form>
                     </div>

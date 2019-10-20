@@ -24,17 +24,20 @@ public class RegistrationController {
 
 	@PostMapping
 	public String createUser(@RequestBody MultiValueMap<String, String> data, Model model) {
+        String nextPage = "registration";
 		if (!Objects.equals(data.getFirst("password"), data.getFirst("passwordRepeat"))) {
-			throw new BadRequestException();
-		}
-
-	    try {
-            userService.createUser(new User(null, ((String) data.getFirst("email")).toLowerCase(), ((String) data.getFirst("password"))));
-            model.addAttribute("successMessage", "Benutzer wurde angelegt");
-            return "login";
-        } catch(UserAlreadyExistsException e) {
-            throw new ConflictException(e);
+			model.addAttribute("errorMessage", "Die Passwörter stimmen nicht überein.");
+		} else {
+            try {
+                userService.createUser(new User(null, ((String) data.getFirst("email")).toLowerCase(), ((String) data.getFirst("password"))));
+                model.addAttribute("successMessage", "Benutzer wurde angelegt");
+                nextPage = "login";
+            } catch(UserAlreadyExistsException e) {
+                model.addAttribute("errorMessage", "Die E-Mail Adresse ist schon vergeben.");
+            }
         }
+
+        return nextPage;
     }
     
 }
