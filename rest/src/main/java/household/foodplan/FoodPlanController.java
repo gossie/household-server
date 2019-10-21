@@ -22,27 +22,28 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FoodPlanController {
 
-	private final FoodPlanDTOMapper foodPlanMapper;
-	private final FoodPlanService foodPlanService;
-	private final FoodPlanResourceProcessor foodPlanResourceProcessor;
+    private final FoodPlanDTOMapper foodPlanMapper;
+    private final MealDTOMapper mealMapper;
+    private final FoodPlanService foodPlanService;
+    private final FoodPlanResourceProcessor foodPlanResourceProcessor;
 
-	@GetMapping(path="/{id}", produces={"application/vnd.household.v1+json"})
-	public HttpEntity<Resource<FoodPlanDTO>> getFoodPlan(@PathVariable Long id) {
-		return ResponseEntity.ok(createResource(foodPlanService.getFoodPlan(id)));
-	}
+    @GetMapping(path="/{id}", produces={"application/vnd.household.v1+json"})
+    public HttpEntity<Resource<FoodPlanDTO>> getFoodPlan(@PathVariable Long id) {
+        return ResponseEntity.ok(createResource(foodPlanService.getFoodPlan(id)));
+    }
 
-	@PutMapping(path="/{id}", produces={"application/vnd.household.v1+json"}, consumes={"application/vnd.household.v1+json"})
-	public HttpEntity<Resource<FoodPlanDTO>> save(@PathVariable Long id, @RequestBody FoodPlanDTO foodPlan) {
-		return ResponseEntity.ok(createResource(foodPlanService.update(id, foodPlanMapper.map(foodPlan))));
-	}
+    @DeleteMapping(path="/{id}/meals", produces={"application/vnd.household.v1+json"})
+    public HttpEntity<Resource<FoodPlanDTO>> clear(@PathVariable Long id) {
+        return ResponseEntity.ok(createResource(foodPlanService.clear(id)));
+    }
 
-	@DeleteMapping(path="/{id}/meals", produces={"application/vnd.household.v1+json"})
-	public HttpEntity<Resource<FoodPlanDTO>> clear(@PathVariable Long id) {
-		return ResponseEntity.ok(createResource(foodPlanService.clear(id)));
-	}
+    @PutMapping(path="/{id}/meals/{mealId}", produces={"application/vnd.household.v1+json"}, consumes={"application/vnd.household.v1+json"})
+    public HttpEntity<Resource<FoodPlanDTO>> saveMeal(@PathVariable Long id, @PathVariable Long mealId, ChangeMealRequest request) {
+        return ResponseEntity.ok(createResource(foodPlanService.saveMeal(id, mealId, mealMapper.map(request.getMeal()))));
+    }
 
-	private Resource<FoodPlanDTO> createResource(FoodPlan foodPlan) {
-		Resource<FoodPlanDTO> resource = new Resource<FoodPlanDTO>(foodPlanMapper.map(foodPlan));
-		return foodPlanResourceProcessor.process(resource);
-	}
+    private Resource<FoodPlanDTO> createResource(FoodPlan foodPlan) {
+        Resource<FoodPlanDTO> resource = new Resource<FoodPlanDTO>(foodPlanMapper.map(foodPlan));
+        return foodPlanResourceProcessor.process(resource);
+    }
 }
