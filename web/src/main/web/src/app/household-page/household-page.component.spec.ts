@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HouseholdPageComponent } from './household-page.component';
-import { RouterTestingModule } from "@angular/router/testing";
-import { HouseholdService } from "./household.service";
-import { HouseholdServiceMock } from "./household.service.mock";
-import { UserService } from "../user.service";
-import { UserServiceMock } from "../user.service.mock";
-import { Component, Input } from "@angular/core";
-import { User } from "../user";
+import { RouterTestingModule } from '@angular/router/testing';
+import { HouseholdService } from './household.service';
+import { HouseholdServiceMock } from './household.service.mock';
+import { UserService } from '../user.service';
+import { UserServiceMock } from '../user.service.mock';
+import { Component, Input } from '@angular/core';
+import { User } from '../user';
 
 @Component({
     selector: [

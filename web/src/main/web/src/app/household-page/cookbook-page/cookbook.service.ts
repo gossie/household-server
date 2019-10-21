@@ -15,6 +15,7 @@ import { ObjectUtils } from '../../object.utils';
 export class CookbookService extends AbstractNetworkService {
 
     private cookbookSubject: Subject<Cookbook> = new BehaviorSubject(null);
+    private recipeSubject: Subject<Recipe> = new BehaviorSubject(null);
 
     constructor(private userService: UserService,
                 private httpClient: HttpClient) {
@@ -63,7 +64,7 @@ export class CookbookService extends AbstractNetworkService {
             }
         })
         .pipe(
-            tap((cookbook: Cookbook) => this.cookbookSubject.next(cookbook))
+            tap((newCookbook: Cookbook) => this.cookbookSubject.next(newCookbook))
         );
     }
 
@@ -80,10 +81,27 @@ export class CookbookService extends AbstractNetworkService {
         );
     }
 
+    public determineRecipeByUrl(url: string): void {
+        this.httpClient.get<Recipe>(url, {
+            headers: {
+                Accept: 'application/vnd.household.v1+json'
+            }
+        }).subscribe((recipe: Recipe) => {
+            this.recipeSubject.next(recipe);
+        });
+    }
+
     public observeCookbook(): Observable<Cookbook> {
         return this.cookbookSubject.asObservable()
             .pipe(
                 filter((cookbook: Cookbook) => ObjectUtils.isObject(cookbook))
+            );
+    }
+
+    public observeRecipe(): Observable<Recipe> {
+        return this.recipeSubject.asObservable()
+            .pipe(
+                filter((recipe: Recipe) => ObjectUtils.isObject(recipe))
             );
     }
 }

@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Recipe } from "./recipe";
-import { CookbookService } from "../cookbook.service";
-import { Cookbook } from "../cookbook";
-import { Subscription } from "rxjs/index";
-import { DeleteHintService} from "../../delete-hint.service";
-import { CookbookAction } from "../cookbook-action.enum";
-import { CookbookEvent } from "../cookbook-event";
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ElementRef, ViewChild } from '@angular/core';
+import { Recipe } from './recipe';
+import { CookbookService } from '../cookbook.service';
+import { Cookbook } from '../cookbook';
+import { Subscription } from 'rxjs/index';
+import { DeleteHintService} from '../../delete-hint.service';
+import { CookbookAction } from '../cookbook-action.enum';
+import { CookbookEvent } from '../cookbook-event';
+import { filter } from 'rxjs/operators';
 
 @Component({
     selector: 'app-recipe',
@@ -21,14 +22,18 @@ export class RecipeComponent implements OnInit, OnDestroy {
     @Output()
     public recipeEmitter: EventEmitter<CookbookEvent> = new EventEmitter();
 
+    @ViewChild('recipeCard', {static: false})
+    private element: ElementRef;
+
     private subscriptions: Array<Subscription> = [];
-    private expanded: boolean = false;
+    private expanded = false;
 
     constructor(private cookbookService: CookbookService,
                 private deleteHintService: DeleteHintService) { }
 
     public ngOnInit() {
         this.observeUndo();
+        this.observeRecipe();
     }
 
     public ngOnDestroy(): void {
@@ -40,6 +45,18 @@ export class RecipeComponent implements OnInit, OnDestroy {
             .subscribe(() => this.recipe.hidden = false));
     }
 
+    private observeRecipe(): void {
+        this.subscriptions.push(this.cookbookService.observeRecipe()
+            .pipe(
+                filter((referencedRecipe: Recipe) => referencedRecipe.name === this.recipe.name)
+            )
+            .subscribe((referencedRecipe: Recipe) => {
+                this.recipe = referencedRecipe;
+                this.expanded = true;
+                window.setTimeout(() => this.element.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+            }));
+    }
+
     public isExpanded(): boolean {
         return this.expanded;
     }
@@ -48,7 +65,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
         if (!this.expanded) {
             this.cookbookService.determineRecipe(this.recipe)
                 .subscribe((recipe: Recipe) => {
-                    this.recipe = recipe
+                    this.recipe = recipe;
                     this.expanded = !this.expanded;
                 });
         } else {

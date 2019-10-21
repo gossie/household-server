@@ -6,13 +6,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@NoArgsConstructor(access=AccessLevel.PACKAGE, force = true)
+@NoArgsConstructor(access = AccessLevel.PACKAGE, force = true)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Getter
 @EqualsAndHashCode
 @ToString
@@ -22,10 +24,10 @@ class MealEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private final Long id;
 	private String name;
+	private String recipeReference;
 	
 	MealEntity(Long id, String name) {
-		this.id = id;
-		this.name = name;
+		this(id, name, null);
 	}
 	
 	void clear() {

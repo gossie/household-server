@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { FoodPlan } from "./food-plan";
-import { Observable, of } from "rxjs/index";
-import { Household } from "../household";
+import { FoodPlan } from './food-plan';
+import { Observable, of } from 'rxjs/index';
+import { Household } from '../household';
+import { Meal } from './meal/meal';
+import { Recipe } from '../cookbook-page/recipe/recipe';
 
 @Injectable()
 export class FoodPlanServiceMock {
@@ -13,30 +15,37 @@ export class FoodPlanServiceMock {
             meals: {
                 monday: {
                     name: '',
+                    links: []
                 },
                 tuesday: {
                     name: '',
+                    links: []
                 },
                 wednesday: {
                     name: '',
+                    links: []
                 },
                 thursday: {
                     name: '',
+                    links: []
                 },
                 friday: {
                     name: '',
+                    links: []
                 },
                 saturday: {
                     name: '',
+                    links: []
                 },
                 sunday: {
                     name: '',
+                    links: []
                 }
             }
         });
     }
 
-    public saveFoodPlan(foodPlan: FoodPlan): Observable<FoodPlan> {
+     public saveMeal(meal: Meal, recipe: Recipe): Observable<FoodPlan> {
         return of();
     }
 

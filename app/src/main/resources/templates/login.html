@@ -22,6 +22,10 @@
         </section>
         <div class="section">
             <div class="container">
+                <div th:if="${successMessage}" class="notification is-success">
+                    <button class="delete"></button>
+                    <span th:text="${successMessage}"></span>
+                </div>
                 <nav class="navbar" role="navigation" aria-label="main navigation">
                     <div class="navbar-brand">
                         <div class="navbar-item">

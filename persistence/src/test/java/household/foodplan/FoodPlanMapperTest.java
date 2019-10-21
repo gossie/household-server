@@ -8,6 +8,7 @@ import static household.foodplan.MealEntityAssert.assertThat;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class FoodPlanMapperTest {
@@ -31,7 +32,8 @@ public class FoodPlanMapperTest {
 
 		assertThat(result)
 		    .hasId(2L)
-		    .hasSize(2);
+			.hasSize(2);
+			
 		assertThat(result.getMeals().get("one")).hasId(3L).hasName("meal1");
 		assertThat(result.getMeals().get("two")).hasId(4L).hasName("meal2");
 	}

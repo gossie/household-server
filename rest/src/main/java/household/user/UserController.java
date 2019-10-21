@@ -31,37 +31,37 @@ public class UserController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-	private final UserService userService;
-	private final UserDTOMapper userMapper;
-	private final UserResourceProcessor userResourceProcessor;
+    private final UserService userService;
+    private final UserDTOMapper userMapper;
+    private final UserResourceProcessor userResourceProcessor;
 
-	@PutMapping(path="/{userId}",  consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
+    @PutMapping(path="/{userId}",  consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
     public HttpEntity<Resource<UserDTO>> changePassword(@PathVariable Long userId, @RequestBody Map<String, String> data) {
-	    User user = userService.changePassword(userId, data.get("currentPassword"), data.get("newPassword"));
+        User user = userService.changePassword(userId, data.get("currentPassword"), data.get("newPassword"));
         return ResponseEntity.ok(createResource(user));
     }
 
-	@GetMapping(path="/current", produces={"application/vnd.household.v1+json"})
-	public HttpEntity<Resource<UserDTO>> getCurrentUser() {
+    @GetMapping(path="/current", produces={"application/vnd.household.v1+json"})
+    public HttpEntity<Resource<UserDTO>> getCurrentUser() {
         try {
             User user = userService.determineCurrentUser();
             return ResponseEntity.ok(createResource(user));
         } catch(IllegalStateException e) {
             throw new NotAuthenticatedException(e);
         }
-	}
+    }
 
-	@PostMapping(path="/{userId}/invitations", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
-	@ResponseStatus(value = HttpStatus.OK)
-	public HttpEntity<Resource<UserDTO>> invite(@PathVariable Long userId, @RequestBody InvitationRequestDTO invitation) {
-		User invitingUser = userService.determineUser(userId);
-		try {
+    @PostMapping(path="/{userId}/invitations", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
+    @ResponseStatus(value = HttpStatus.OK)
+    public HttpEntity<Resource<UserDTO>> invite(@PathVariable Long userId, @RequestBody InvitationRequestDTO invitation) {
+        User invitingUser = userService.determineUser(userId);
+        try {
             userService.invite(invitation.getEmail().toLowerCase(), invitingUser);
             return ResponseEntity.ok(createResource(invitingUser));
         } catch(IllegalStateException e) {
-		    throw new NotFoundException(e);
+            throw new NotFoundException(e);
         }
-	}
+    }
 
     @PostMapping(path="/{userId}/invitations/{invitationId}", produces={"application/vnd.household.v1+json"})
     @ResponseStatus(value = HttpStatus.OK)
@@ -70,15 +70,15 @@ public class UserController {
         return ResponseEntity.ok(createResource(userService.determineUser(userId)));
     }
 
-	@DeleteMapping(path="/{userId}/invitations/{invitationId}", produces={"application/vnd.household.v1+json"})
-	@ResponseStatus(value = HttpStatus.OK)
-	public HttpEntity<Resource<UserDTO>> rejectInvitation(@PathVariable Long userId, @PathVariable Long invitationId) {
-		userService.rejectInvitation(userId, invitationId);
-		return ResponseEntity.ok(createResource(userService.determineUser(userId)));
-	}
+    @DeleteMapping(path="/{userId}/invitations/{invitationId}", produces={"application/vnd.household.v1+json"})
+    @ResponseStatus(value = HttpStatus.OK)
+    public HttpEntity<Resource<UserDTO>> rejectInvitation(@PathVariable Long userId, @PathVariable Long invitationId) {
+        userService.rejectInvitation(userId, invitationId);
+        return ResponseEntity.ok(createResource(userService.determineUser(userId)));
+    }
 
-	private Resource<UserDTO> createResource(User user) {
-		Resource<UserDTO> resource = new Resource<>(userMapper.map(user));
-		return userResourceProcessor.process(resource);
-	}
+    private Resource<UserDTO> createResource(User user) {
+        Resource<UserDTO> resource = new Resource<>(userMapper.map(user));
+        return userResourceProcessor.process(resource);
+    }
 }

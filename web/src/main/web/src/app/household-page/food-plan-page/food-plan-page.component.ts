@@ -1,16 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FoodPlan } from "./food-plan";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { FoodPlanService } from "./food-plan.service";
-import { Subscription } from "rxjs/index";
-import { HouseholdService } from "../household.service";
-import { Household } from "../household";
-import { Recipe } from "../cookbook-page/recipe/recipe";
-import { ShoppingListService } from "../shopping-list-page/shopping-list.service";
-import { ShoppingList } from "../shopping-list-page/shopping-list";
-import { CookbookService } from "../cookbook-page/cookbook.service";
-import { Cookbook } from "../cookbook-page/cookbook";
-import {DeleteHintService} from "../delete-hint.service";
+import { FoodPlan } from './food-plan';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { FoodPlanService } from './food-plan.service';
+import { Subscription } from 'rxjs/index';
+import { HouseholdService } from '../household.service';
+import { Household } from '../household';
+import { Recipe } from '../cookbook-page/recipe/recipe';
+import { ShoppingListService } from '../shopping-list-page/shopping-list.service';
+import { ShoppingList } from '../shopping-list-page/shopping-list';
+import { CookbookService } from '../cookbook-page/cookbook.service';
+import { Cookbook } from '../cookbook-page/cookbook';
+import { DeleteHintService } from '../delete-hint.service';
+import { Meal } from './meal/meal';
+import { RecipeSelectionEvent } from './meal/recipe-selection.event';
 
 @Component({
     selector: 'app-food-plan-page',
@@ -24,6 +26,7 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
     public foodPlanForm: FormGroup;
     public selectedRecipe: Recipe;
 
+    private currentMeal: Meal;
     private shoppingList: ShoppingList;
     private subscriptions: Array<Subscription> = [];
     private loading = false;
@@ -82,19 +85,6 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
         this.foodPlanForm = this.formBuilder.group({});
     }
 
-    public saveFoodPlan(): void {
-        this.loading = true;
-
-        this.copyDataFromForm();
-
-        this.foodPlanService.saveFoodPlan(this.foodPlan)
-            .subscribe((foodPlan: FoodPlan) => {
-                this.foodPlan = foodPlan;
-                this.copyDataToForm();
-                this.loading = false;
-            })
-    }
-
     public clearFoodPlan(): void {
         this.loading = true;
 
@@ -103,21 +93,11 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
                 this.foodPlan = foodPlan;
                 this.copyDataToForm();
                 this.loading = false;
-            })
+            });
     }
 
     public isLoading(): boolean {
         return this.loading;
-    }
-
-    private copyDataFromForm(): void {
-        this.foodPlan.meals.monday.name = this.foodPlanForm.controls.monday.value;
-        this.foodPlan.meals.tuesday.name = this.foodPlanForm.controls.tuesday.value;
-        this.foodPlan.meals.wednesday.name = this.foodPlanForm.controls.wednesday.value;
-        this.foodPlan.meals.thursday.name = this.foodPlanForm.controls.thursday.value;
-        this.foodPlan.meals.friday.name = this.foodPlanForm.controls.friday.value;
-        this.foodPlan.meals.saturday.name = this.foodPlanForm.controls.saturday.value;
-        this.foodPlan.meals.sunday.name = this.foodPlanForm.controls.sunday.value;
     }
 
     private copyDataToForm(): void {
@@ -130,16 +110,22 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
         this.foodPlanForm.controls.sunday.setValue(this.foodPlan.meals.sunday.name);
     }
 
-    public onRecipeSelection(recipe: Recipe): void {
-        this.selectedRecipe = recipe;
+    public onRecipeSelection(event: RecipeSelectionEvent): void {
+        this.selectedRecipe = event.recipe;
+        this.currentMeal = event.meal;
     }
 
     public onIngredientSelection(ingredients: Set<string>): void {
+        this.loading = true;
+
         const ingredientNames: Array<string> = [];
         ingredients.forEach((name: string) => ingredientNames.push(name));
-        this.shoppingListService.addShoppingListItems(this.shoppingList.shoppingListGroups[0], ingredientNames)
-            .subscribe(() => this.selectedRecipe = null);
-
-        this.saveFoodPlan();
+        this.shoppingListService.addShoppingListItems(this.shoppingList.shoppingListGroups[0], ingredientNames).subscribe(() => {
+            this.foodPlanService.saveMeal(this.currentMeal, this.selectedRecipe).subscribe((foodPlan: FoodPlan) => {
+                this.foodPlan = foodPlan;
+                this.currentMeal = null;
+                this.selectedRecipe = null;
+            });
+        });
     }
 }

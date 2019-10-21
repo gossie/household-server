@@ -9,9 +9,9 @@
     <app-meal [parentForm]="foodPlanForm" controlName="sunday" day="Sonntag" [cookbook]="cookbook" [meal]="foodPlan.meals.sunday" (recipeEmitter)="onRecipeSelection($event)"></app-meal>
 
     <div class="columns is-mobile">
-        <div class="column">
+        <!-- <div class="column">
             <button class="button is-link" [ngClass]="{'is-loading': isLoading()}" (click)="saveFoodPlan()" [disabled]="!foodPlanForm.valid">Speichern</button>
-        </div>
+        </div> -->
         <div class="column">
             <button id="clear-button" class="button" [ngClass]="{'is-loading': isLoading()}" (click)="clearFoodPlan()" [disabled]="!foodPlanForm.valid">Leeren</button>
         </div>

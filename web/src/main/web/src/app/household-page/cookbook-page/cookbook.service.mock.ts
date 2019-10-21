@@ -69,4 +69,8 @@ export class CookbookServiceMock {
             tap((cookbook: Cookbook) => this.subject.next(cookbook))
         );
     }
+
+    public observeRecipe(): Observable<Recipe> {
+        return of();
+    }
 }

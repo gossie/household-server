@@ -5,7 +5,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Haushalt</title>
+        <title>Haushalt mit Plan</title>
 
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
@@ -22,66 +22,10 @@
         </section>
         <div class="section">
             <div class="container">
-                <nav class="navbar" role="navigation" aria-label="main navigation">
-                    <div class="navbar-brand">
-                        <div class="navbar-item">
-                            <div class="buttons">
-                                <a id="registration-tab" class="button is-primary">
-                                    <strong>Sign up</strong>
-                                </a>
-                                <a th:href="@{/login}" id="login-tab" class="button is-light">
-                                    Log in
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
                 <div class="columns">
                     <div class="column">
-                        <form th:action="@{/registrations}" method="post">
-                            <div class="field">
-                                <p class="control has-icons-left has-icons-right">
-                                    <input name="email" class="input" type="email" th:value="*{email}" placeholder="E-Mail" />
-                                    <span class="icon is-small is-left">
-                                        <i class="fas fa-envelope"></i>
-                                    </span>
-                                </p>
-                            </div>
-                            <div class="field">
-                                <p class="control has-icons-left">
-                                    <input name="password" class="input" type="password" th:value="*{password}" placeholder="Passwort" />
-                                    <span class="icon is-small is-left">
-                                        <i class="fas fa-lock"></i>
-                                    </span>
-                                </p>
-                            </div>
-                            <div class="field">
-                                <p class="control has-icons-left">
-                                    <input name="passwordRepeat" class="input" type="password" th:value="*{passwordRepeat}" placeholder="Passwort wiederholen" />
-                                    <span class="icon is-small is-left">
-                                        <i class="fas fa-lock"></i>
-                                    </span>
-                                </p>
-                            </div>
-
-                            <div class="field">
-                                <label class="checkbox">
-                                    <input name="dataProtection" type="checkbox" th:value="*{dataProtection}">
-                                    Ich akzeptieren die <a onclick="document.getElementById('data-protection').classList.add('is-active')">Datenschutz-Bestimmungen</a>.
-                                </label>
-                            </div>
-
-                            <div class="field is-grouped">
-                                <div class="control">
-                                    <button class="button is-link" type="submit">Registrieren</button>
-                                </div>
-                            </div>
-
-                            <div th:if="${errorMessage}" class="notification is-warning">
-                                <button class="delete"></button>
-                                <span th:text="${errorMessage}">
-                            </div>
-                        </form>
+                        <div>Hast du schon einen Account? Dann <a href="/login">log dich ein</a>.</div>
+                        <div>Sonst <a href="/registration">registrier dich doch</a>.</div>
                     </div>
                 </div>
             </div>

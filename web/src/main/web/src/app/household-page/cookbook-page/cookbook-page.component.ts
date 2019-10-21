@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Cookbook } from "./cookbook";
-import { HouseholdService } from "../household.service";
-import { Subscription } from "rxjs/index";
-import { Household } from "../household";
-import { CookbookService } from "./cookbook.service";
-import { Recipe } from "./recipe/recipe";
-import { ShoppingListService } from "../shopping-list-page/shopping-list.service";
-import { ShoppingList } from "../shopping-list-page/shopping-list";
-import {CookbookEvent} from "./cookbook-event";
-import {CookbookAction} from "./cookbook-action.enum";
+import { Cookbook } from './cookbook';
+import { HouseholdService } from '../household.service';
+import { Subscription } from 'rxjs/index';
+import { Household } from '../household';
+import { CookbookService } from './cookbook.service';
+import { Recipe } from './recipe/recipe';
+import { ShoppingListService } from '../shopping-list-page/shopping-list.service';
+import { ShoppingList } from '../shopping-list-page/shopping-list';
+import {CookbookEvent} from './cookbook-event';
+import {CookbookAction} from './cookbook-action.enum';
 
 @Component({
     selector: 'app-cookbook-page',

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from "rxjs/index";
-import { Household } from "./household";
-import { User } from "../user";
+import { Observable, of } from 'rxjs/index';
+import { Household } from './household';
+import { User } from '../user';
 
 @Injectable()
 export class HouseholdServiceMock {

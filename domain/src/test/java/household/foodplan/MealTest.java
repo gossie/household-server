@@ -6,23 +6,18 @@ import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 
-import household.cookbook.Recipe;
-
 public class MealTest {
 
-	@Test
-	public void testGetName_withRecipe() throws Exception {
-		Recipe recipe = mock(Recipe.class);
-		when(recipe.getName()).thenReturn("Kartoffelbrei mit Fischstäbchen");
+    @Test
+    public void testGetName_withRecipe() throws Exception {
+        Meal meal = new Meal(2L, "Kartoffelbrei mit Fischstäbchen", new Recipe(5L, 3L));
 
-		Meal meal = new Meal(2L, recipe);
+        assertThat(meal).hasName("Kartoffelbrei mit Fischstäbchen").hasRecipe(new Recipe(5L, 3L));
+    }
 
-		assertThat(meal).hasName("Kartoffelbrei mit Fischstäbchen").hasRecipe(recipe);
-	}
-
-	@Test
-	public void testGetName_withoutRecipe() throws Exception {
-		Meal meal = new Meal(1L, "Kartoffelbrei mit Fischstäbchen");
-		assertThat(meal).hasName("Kartoffelbrei mit Fischstäbchen").hasNoRecipe();
-	}
+    @Test
+    public void testGetName_withoutRecipe() throws Exception {
+        Meal meal = new Meal(1L, "Kartoffelbrei mit Fischstäbchen");
+        assertThat(meal).hasName("Kartoffelbrei mit Fischstäbchen").hasNoRecipe();
+    }
 }
