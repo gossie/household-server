@@ -25,7 +25,7 @@ public class FoodPlanService {
         return foodPlanRepository.saveFoodPlan(foodPlan);
     }
 
-    public FoodPlan saveMeal(Long foodPlanId, Long mealId, Meal meal) {
+    public FoodPlan updateMeal(Long foodPlanId, Long mealId, Meal meal) {
         FoodPlan saved = foodPlanRepository.determineFoodPlan(foodPlanId);
         saved.updateMeal(mealId, meal);
         return foodPlanRepository.saveFoodPlan(saved);
