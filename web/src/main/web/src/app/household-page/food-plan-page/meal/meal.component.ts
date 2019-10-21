@@ -92,6 +92,6 @@ export class MealComponent implements OnInit, OnDestroy {
     }
 
     public hasConnectedRecipe(): boolean {
-        return ObjectUtils.isObject(this.meal.links.find(link => link.rel === 'recipe'));
+        return this.meal && ObjectUtils.isObject(this.meal.links.find(link => link.rel === 'recipe'));
     }
 }
