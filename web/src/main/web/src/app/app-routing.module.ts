@@ -1,52 +1,33 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HouseholdPageComponent } from './household-page/household-page.component';
 import { Page } from './page.enum';
-import { HouseholdResolverService } from './household-page/household-resolver.service';
 
 const routes: Routes = [{
-    path: '',
-    redirectTo: `/${Page.Household}/(inner:${Page.Cover})`,
-    pathMatch: 'full'
-}, {
-    path: Page.Household,
-    component: HouseholdPageComponent,
-    resolve: {
-        household: HouseholdResolverService
+        path: '',
+        redirectTo: `${Page.Cover}`,
+        pathMatch: 'full'
     },
-    children: [
-        {
-            path: '',
-            redirectTo: `/${Page.Household}/(inner:${Page.Cover})`,
-            pathMatch: 'full'
-        },
-        {
-            path: Page.Cover,
-            loadChildren: () => import('./household-page/cover-page/cover.module').then(m => m.CoverModule),
-            outlet: 'inner'
-        },
-        {
-            path: Page.ShoppingList,
-            loadChildren: () => import('./household-page/shopping-list-page/shopping-list.module').then(m => m.ShoppingListModule),
-            outlet: 'inner'
-        },
-        {
-            path: Page.CleaningPlan,
-            loadChildren: () => import('./household-page/cleaning-plan-page/cleaning-plan.module').then(m => m.CleaningPlanModule),
-            outlet: 'inner'
-        },
-        {
-            path: Page.FoodPlan,
-            loadChildren: () => import('./household-page/food-plan-page/food-plan.module').then(m => m.FoodPlanModule),
-            outlet: 'inner'
-        },
-        {
-            path: Page.Cookbook,
-            loadChildren: () => import('./household-page/cookbook-page/cookbook.module').then(m => m.CookbookModule),
-            outlet: 'inner'
-        }
-    ]
-}];
+    {
+        path: Page.Cover,
+        loadChildren: () => import('./household-page/cover-page/cover.module').then(m => m.CoverModule),
+    },
+    {
+        path: Page.ShoppingList,
+        loadChildren: () => import('./household-page/shopping-list-page/shopping-list.module').then(m => m.ShoppingListModule),
+    },
+    {
+        path: Page.CleaningPlan,
+        loadChildren: () => import('./household-page/cleaning-plan-page/cleaning-plan.module').then(m => m.CleaningPlanModule),
+    },
+    {
+        path: Page.FoodPlan,
+        loadChildren: () => import('./household-page/food-plan-page/food-plan.module').then(m => m.FoodPlanModule),
+    },
+    {
+        path: Page.Cookbook,
+        loadChildren: () => import('./household-page/cookbook-page/cookbook.module').then(m => m.CookbookModule),
+    }
+];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes, {useHash: true})],

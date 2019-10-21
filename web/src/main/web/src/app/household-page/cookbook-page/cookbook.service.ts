@@ -84,7 +84,7 @@ export class CookbookService extends AbstractNetworkService {
     public determineRecipeByUrl(url: string): void {
         this.httpClient.get<Recipe>(url, {
             headers: {
-                Accept: 'application/vnd.household.min.v1+json'
+                Accept: 'application/vnd.household.v1+json'
             }
         }).subscribe((recipe: Recipe) => {
             this.recipeSubject.next(recipe);

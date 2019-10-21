@@ -1,6 +1,6 @@
 import { Observable, of } from 'rxjs/index';
 import { Injectable } from '@angular/core';
-import { User } from "./user";
+import { User } from './user';
 
 @Injectable({
     providedIn: 'root'
@@ -21,6 +21,10 @@ export class UserServiceMock {
 
     public getUser(): User {
         return this.user;
+    }
+
+    public determineCurrentUser(): Observable<User> {
+        return of();
     }
 
     public observeUser(): Observable<User> {

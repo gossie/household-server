@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CookbookPageComponent } from './cookbook-page.component';
-import { RouterTestingModule } from "@angular/router/testing";
-import { UserService } from "../../user.service";
-import { UserServiceMock } from "../../user.service.mock";
-import { RecipeComponent } from "./recipe/recipe.component";
-import { HouseholdService } from "../household.service";
-import { HouseholdServiceMock } from "../household.service.mock";
-import { CookbookServiceMock } from "./cookbook.service.mock";
-import { CookbookService } from "./cookbook.service";
-import { IngredientComponent } from "./recipe/ingredient/ingredient.component";
-import { AddRecipeComponent } from "./add-recipe/add-recipe.component";
-import { ReactiveFormsModule } from "@angular/forms";
-import { SelectRecipeComponent } from "../../common-elements/select-recipe/select-recipe.component";
-import { CheckboxComponent } from "../../common-elements/checkbox/checkbox.component";
-import { ShoppingListService } from "../shopping-list-page/shopping-list.service";
-import { ShoppingListServiceMock } from "../shopping-list-page/shopping-list.service.mock";
+import { RouterTestingModule } from '@angular/router/testing';
+import { UserService } from '../../user.service';
+import { UserServiceMock } from '../../user.service.mock';
+import { RecipeComponent } from './recipe/recipe.component';
+import { HouseholdService } from '../household.service';
+import { HouseholdServiceMock } from '../household.service.mock';
+import { CookbookServiceMock } from './cookbook.service.mock';
+import { CookbookService } from './cookbook.service';
+import { IngredientComponent } from './recipe/ingredient/ingredient.component';
+import { AddRecipeComponent } from './add-recipe/add-recipe.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SelectRecipeComponent } from '../../common-elements/select-recipe/select-recipe.component';
+import { CheckboxComponent } from '../../common-elements/checkbox/checkbox.component';
+import { ShoppingListService } from '../shopping-list-page/shopping-list.service';
+import { ShoppingListServiceMock } from '../shopping-list-page/shopping-list.service.mock';
 
 describe('CookbookPageComponent', () => {
     let component: CookbookPageComponent;

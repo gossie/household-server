@@ -1,4 +1,4 @@
-<div *ngIf="!recipe.hidden" class="card">
+<div #recipeCard *ngIf="!recipe.hidden" class="card">
     <header class="card-header">
         <p class="card-header-title" (click)="toggleRecipe()">
             {{ recipe.name }}

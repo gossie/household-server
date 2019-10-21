@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Household } from './household';
-import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { HouseholdService } from "./household.service";
-import { Subscription } from "rxjs/index";
-import { UserService } from "../user.service";
-import { User } from "../user";
+import { HouseholdService } from './household.service';
+import { Subscription } from 'rxjs/index';
+import { UserService } from '../user.service';
+import { User } from '../user';
 
 @Component({
     selector: 'app-household-page',
@@ -16,14 +16,13 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
 
     public household: Household;
     public user: User;
-    public expanded: boolean = false;
+    public expanded = false;
 
     private subscriptions: Array<Subscription> = [];
 
     constructor(private householdService: HouseholdService,
                 private userService: UserService,
-                private router: Router,
-                private route: ActivatedRoute) { }
+                private router: Router) { }
 
     public ngOnInit(): void {
         this.observeUser();
@@ -42,13 +41,14 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
                 this.householdService.updateHousehold(user);
             })
         );
+        this.userService.determineCurrentUser().subscribe((user: User) => this.user = user);
     }
 
     private observeHousehold(): void {
-        this.household = this.route.snapshot.data.household;
         this.subscriptions.push(this.householdService.observeHousehold()
             .subscribe((household: Household) => this.household = household)
         );
+        this.householdService.determineHousehold().subscribe((household: Household) => this.household = household);
     }
 
     private observeRouter(): void {

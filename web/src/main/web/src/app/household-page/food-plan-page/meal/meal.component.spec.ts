@@ -6,6 +6,7 @@ import { CookbookServiceMock } from '../../cookbook-page/cookbook.service.mock';
 import { By } from '@angular/platform-browser';
 import { FoodPlanService } from '../food-plan.service';
 import { FoodPlanServiceMock } from '../food-plan.service.mock';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('MealComponent', () => {
     let component: MealComponent;
@@ -14,7 +15,8 @@ describe('MealComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
-                ReactiveFormsModule
+                ReactiveFormsModule,
+                RouterTestingModule
             ],
             declarations: [
                 MealComponent

@@ -1,9 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { HouseholdService } from "../household.service";
-import { interval, Subscription } from "rxjs/index";
-import { UserService } from "../../user.service";
-import { User } from "../../user";
-import { Router } from "@angular/router";
+import { HouseholdService } from '../household.service';
+import { interval, Subscription } from 'rxjs/index';
+import { UserService } from '../../user.service';
+import { User } from '../../user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-no-household',
@@ -15,13 +15,12 @@ export class NoHouseholdComponent implements OnInit, OnDestroy {
     @Input()
     public user: User;
 
-    public expanded: boolean = false;
+    public expanded = false;
 
     private subscriptions: Array<Subscription> = [];
 
     constructor(private userService: UserService,
-                private householdService: HouseholdService,
-                private router: Router) { }
+                private householdService: HouseholdService) { }
 
     public ngOnInit(): void {
         this.subscriptions.push(interval(10000)
