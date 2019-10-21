@@ -38,8 +38,8 @@ public class FoodPlanController {
     }
 
     @PutMapping(path="/{id}/meals/{mealId}", produces={"application/vnd.household.v1+json"}, consumes={"application/vnd.household.v1+json"})
-    public HttpEntity<Resource<FoodPlanDTO>> saveMeal(@PathVariable Long id, @PathVariable Long mealId, ChangeMealRequest request) {
-        return ResponseEntity.ok(createResource(foodPlanService.updateMeal(id, mealId, mealMapper.map(request.getMeal()))));
+    public HttpEntity<Resource<FoodPlanDTO>> updateMeal(@PathVariable Long id, @PathVariable Long mealId, @RequestBody ChangeMealRequest request) {
+        return ResponseEntity.ok(createResource(foodPlanService.updateMeal(id, mealId, new Recipe(request.getRecipeId(), request.getCookbookId()), mealMapper.map(request.getMeal()))));
     }
 
     private Resource<FoodPlanDTO> createResource(FoodPlan foodPlan) {

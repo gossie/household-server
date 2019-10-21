@@ -1,13 +1,16 @@
 <div class="columns is-mobile" [formGroup]="parentForm">
-    <div class="column">
+    <div class="column is-8">
         <div class="field">
             <label [for]="controlName" class="label">{{ day }}</label>
             <div class="control">
-                <input [id]="controlName" (blur)="unfocus()" class="input" type="text" [formControlName]="controlName" autocorrect="off" autocomplete="off">
+                <input [id]="controlName" (change)="changeMealName()" (blur)="unfocus()" class="input" type="text" [formControlName]="controlName" autocorrect="off" autocomplete="off">
                 <div *ngFor="let recipe of recipes">
                     <a (click)="selectRecipe(recipe)">{{ recipe.name }}</a>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="column is-4">
+        <a *ngIf="hasConnectedRecipe()" >Zum Rezept</a>
     </div>
 </div>

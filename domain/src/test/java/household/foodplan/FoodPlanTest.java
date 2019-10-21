@@ -48,13 +48,13 @@ public class FoodPlanTest {
         meals.put("sunday", new Meal(7L, "Salat"));
         FoodPlan foodPlan = new FoodPlan(8L, meals);
 
-        foodPlan.updateMeal(3L, new Meal(null, "Curry"));
+        foodPlan.updateMeal(3L, new Recipe(17L, 11L), new Meal(null, "Curry"));
 
         assertThat(foodPlan.getMeals())
                 .hasSize(7)
                 .containsEntry("monday", new Meal(1L, "Hegarty's"))
                 .containsEntry("tuesday", new Meal(2L, "Chili"))
-                .containsEntry("wednesday", new Meal(3L, "Curry"))
+                .containsEntry("wednesday", new Meal(3L, "Curry", new Recipe(17L, 11L)))
                 .containsEntry("thursday", new Meal(4L, "Gnotschi"))
                 .containsEntry("friday", new Meal(5L, "Pizza"))
                 .containsEntry("saturday", new Meal(6L, "Döner"))
@@ -74,7 +74,7 @@ public class FoodPlanTest {
         meals.put("sunday", new Meal(7L, "Salat"));
         FoodPlan foodPlan = new FoodPlan(8L, meals);
 
-        foodPlan.updateMeal(6L, new Meal(null, "Brot"));
+        foodPlan.updateMeal(6L, null, new Meal(null, "Brot"));
 
         assertThat(foodPlan.getMeals())
                 .hasSize(7)

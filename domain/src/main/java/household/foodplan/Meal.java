@@ -11,20 +11,20 @@ import lombok.ToString;
 public class Meal extends AbstractModel {
 
     private final String name;
-    private final Long recipeId;
+    private final Recipe recipe;
     
-    Meal(Long id, String name, Long recipeId) {
+    Meal(Long id, String name, Recipe recipe) {
         super(id);
         this.name = name;
-        this.recipeId = recipeId;
+        this.recipe = recipe;
     }
 
     Meal(Long id, String name) {
         this(id, name, null);
     }
     
-    public Optional<Long> getRecipeId() {
-        return Optional.ofNullable(recipeId);
+    public Optional<Recipe> getRecipe() {
+        return Optional.ofNullable(recipe);
     }
     
     public String getName() {

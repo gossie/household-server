@@ -38,10 +38,10 @@ public class FoodPlanServiceTest {
         when(foodPlanRepository.saveFoodPlan(saved)).thenReturn(expected);
 
         foodPlanService = new FoodPlanService(mock(EventBus.class), foodPlanRepository );
-        FoodPlan actual = foodPlanService.updateMeal(1L, 3L, new Meal(null, "name", 2L));
+        FoodPlan actual = foodPlanService.updateMeal(1L, 3L, new Recipe(2L, 17L), new Meal(null, "name", null));
 
         assertThat(actual).isSameAs(expected);
-        verify(saved).updateMeal(3L, new Meal(null, "name", 2L));
+        verify(saved).updateMeal(3L, new Recipe(2L, 17L), new Meal(null, "name", null));
     }
 
     @Test

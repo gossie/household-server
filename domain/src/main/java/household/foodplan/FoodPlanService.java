@@ -2,6 +2,7 @@ package household.foodplan;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
+
 import household.household.HouseholdDeletedEvent;
 import lombok.RequiredArgsConstructor;
 
@@ -25,9 +26,9 @@ public class FoodPlanService {
         return foodPlanRepository.saveFoodPlan(foodPlan);
     }
 
-    public FoodPlan updateMeal(Long foodPlanId, Long mealId, Meal meal) {
+    public FoodPlan updateMeal(Long foodPlanId, Long mealId, Recipe recipe, Meal meal) {
         FoodPlan saved = foodPlanRepository.determineFoodPlan(foodPlanId);
-        saved.updateMeal(mealId, meal);
+        saved.updateMeal(mealId, recipe, meal);
         return foodPlanRepository.saveFoodPlan(saved);
     }
 

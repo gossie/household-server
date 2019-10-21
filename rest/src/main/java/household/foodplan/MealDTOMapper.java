@@ -13,6 +13,9 @@ class MealDTOMapper {
 	}
 	
 	MealDTO map(Meal meal) {
-		return new MealDTO(meal.getId(), meal.getName(), meal.getRecipeId().orElse(null));
+		Long cookbookId = meal.getRecipe().map(Recipe::getCookbookId).orElse(null);
+		Long recipeId = meal.getRecipe().map(Recipe::getId).orElse(null);
+
+		return new MealDTO(meal.getId(), meal.getName(), cookbookId, recipeId);
 	}
 }

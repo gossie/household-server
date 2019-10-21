@@ -24,7 +24,7 @@ class MealEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private final Long id;
 	private String name;
-	private Long recipeId;
+	private String recipeReference;
 	
 	MealEntity(Long id, String name) {
 		this(id, name, null);

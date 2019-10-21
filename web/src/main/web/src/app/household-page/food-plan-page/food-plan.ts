@@ -1,5 +1,5 @@
-import { Model } from "../../model";
-import { Meal } from "./meal/meal";
+import { Meal } from './meal/meal';
+import { Model } from '../../model';
 
 export interface FoodPlan extends Model {
     meals: {

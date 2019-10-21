@@ -25,14 +25,12 @@ public class FoodPlan extends AbstractModel {
         meals.keySet().forEach(key -> meals.compute(key, (k, saved) -> new Meal(saved.getId(), "")));
     }
 
-    public void updateMeal(Long mealId, Meal meal) {
+    public void updateMeal(Long mealId, Recipe recipe, Meal meal) {
         meals.entrySet().stream()
                 .filter(entry -> Objects.equals(mealId, entry.getValue().getId()))
                 .map(Entry::getKey)
                 .findFirst()
-                .ifPresent(day -> {
-                    meals.compute(day, (k, saved) -> new Meal(saved.getId(), meal.getName(), meal.getRecipeId().orElse(null)));
-                });
+                .ifPresent(day -> meals.compute(day, (k, saved) -> new Meal(saved.getId(), meal.getName(), recipe)));
     }
 
     public Map<String, Meal> getMeals() {

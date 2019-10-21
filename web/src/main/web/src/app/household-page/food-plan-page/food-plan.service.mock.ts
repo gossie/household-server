@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { FoodPlan } from "./food-plan";
-import { Observable, of } from "rxjs/index";
-import { Household } from "../household";
+import { FoodPlan } from './food-plan';
+import { Observable, of } from 'rxjs/index';
+import { Household } from '../household';
+import { Meal } from './meal/meal';
+import { Recipe } from '../cookbook-page/recipe/recipe';
 
 @Injectable()
 export class FoodPlanServiceMock {
@@ -36,7 +38,7 @@ export class FoodPlanServiceMock {
         });
     }
 
-    public saveFoodPlan(foodPlan: FoodPlan): Observable<FoodPlan> {
+     public saveMeal(meal: Meal, recipe: Recipe): Observable<FoodPlan> {
         return of();
     }
 
