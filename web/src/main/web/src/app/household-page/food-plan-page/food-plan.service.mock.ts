@@ -15,24 +15,31 @@ export class FoodPlanServiceMock {
             meals: {
                 monday: {
                     name: '',
+                    links: []
                 },
                 tuesday: {
                     name: '',
+                    links: []
                 },
                 wednesday: {
                     name: '',
+                    links: []
                 },
                 thursday: {
                     name: '',
+                    links: []
                 },
                 friday: {
                     name: '',
+                    links: []
                 },
                 saturday: {
                     name: '',
+                    links: []
                 },
                 sunday: {
                     name: '',
+                    links: []
                 }
             }
         });

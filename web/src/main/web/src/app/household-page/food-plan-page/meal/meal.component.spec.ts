@@ -1,9 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MealComponent } from './meal.component';
-import { FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { CookbookService } from "../../cookbook-page/cookbook.service";
-import { CookbookServiceMock } from "../../cookbook-page/cookbook.service.mock";
-import { By } from "@angular/platform-browser";
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CookbookService } from '../../cookbook-page/cookbook.service';
+import { CookbookServiceMock } from '../../cookbook-page/cookbook.service.mock';
+import { By } from '@angular/platform-browser';
+import { FoodPlanService } from '../food-plan.service';
+import { FoodPlanServiceMock } from '../food-plan.service.mock';
 
 describe('MealComponent', () => {
     let component: MealComponent;
@@ -18,7 +20,8 @@ describe('MealComponent', () => {
                 MealComponent
             ],
             providers: [
-                { provide: CookbookService, useClass: CookbookServiceMock }
+                { provide: CookbookService, useClass: CookbookServiceMock },
+                { provide: FoodPlanService, useClass: FoodPlanServiceMock }
             ]
 
         })
@@ -44,7 +47,8 @@ describe('MealComponent', () => {
             ]
         };
         component.meal = {
-            name: ''
+            name: '',
+            links: []
         };
         fixture.detectChanges();
     });

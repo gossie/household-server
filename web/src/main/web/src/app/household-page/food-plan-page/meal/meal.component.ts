@@ -72,6 +72,7 @@ export class MealComponent implements OnInit, OnDestroy {
         this.cookbookService.determineRecipe(recipe)
             .subscribe((completeRecipe: Recipe) => {
                 this.parentForm.controls[this.controlName].setValue(completeRecipe.name);
+                this.meal.name = completeRecipe.name;
                 this.recipes = [];
                 this.recipeEmitter.emit({
                     recipe: completeRecipe,
@@ -82,9 +83,8 @@ export class MealComponent implements OnInit, OnDestroy {
 
     public changeMealName(): void {
         this.meal.name = this.parentForm.controls[this.controlName].value;
-        this.foodPlanService.saveMeal(this.meal, null).subscribe(() => {
-            console.log('meal name changed');
-        });
+        this.foodPlanService.saveMeal(this.meal, null)
+                .toPromise();
     }
 
     public unfocus(): void {

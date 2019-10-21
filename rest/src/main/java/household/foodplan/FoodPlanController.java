@@ -39,7 +39,14 @@ public class FoodPlanController {
 
     @PutMapping(path="/{id}/meals/{mealId}", produces={"application/vnd.household.v1+json"}, consumes={"application/vnd.household.v1+json"})
     public HttpEntity<Resource<FoodPlanDTO>> updateMeal(@PathVariable Long id, @PathVariable Long mealId, @RequestBody ChangeMealRequest request) {
-        return ResponseEntity.ok(createResource(foodPlanService.updateMeal(id, mealId, new Recipe(request.getRecipeId(), request.getCookbookId()), mealMapper.map(request.getMeal()))));
+        return ResponseEntity.ok(createResource(foodPlanService.updateMeal(id, mealId, createRecipe(request) , mealMapper.map(request.getMeal()))));
+    }
+
+    private Recipe createRecipe(ChangeMealRequest request) {
+        if (request.getCookbookId() != null && request.getRecipeId() != null) {
+            return new Recipe(request.getRecipeId(), request.getCookbookId());
+        }
+        return null;
     }
 
     private Resource<FoodPlanDTO> createResource(FoodPlan foodPlan) {
