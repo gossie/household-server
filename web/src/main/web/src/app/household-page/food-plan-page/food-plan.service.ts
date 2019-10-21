@@ -63,7 +63,6 @@ export class FoodPlanService extends AbstractNetworkService {
 
     public clearFoodPlan(foodPlan: FoodPlan): Observable<FoodPlan> {
         const url: string = this.determineUrl(foodPlan, 'clear');
-
         return this.httpClient.delete<FoodPlan>(url, {
             headers: {
                 Accept: 'application/vnd.household.v1+json'

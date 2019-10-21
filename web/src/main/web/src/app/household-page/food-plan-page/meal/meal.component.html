@@ -11,6 +11,6 @@
         </div>
     </div>
     <div class="column is-4">
-        <a *ngIf="hasConnectedRecipe()" >Zum Rezept</a>
+        <a *ngIf="hasConnectedRecipe()" (click)="jumpToRecipe()" >Zum Rezept</a>
     </div>
 </div>

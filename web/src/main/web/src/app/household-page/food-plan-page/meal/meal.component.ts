@@ -8,6 +8,7 @@ import { Recipe } from '../../cookbook-page/recipe/recipe';
 import { RecipeSelectionEvent } from './recipe-selection.event';
 import { ObjectUtils } from 'src/app/object.utils';
 import { FoodPlanService } from '../food-plan.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-meal',
@@ -34,7 +35,8 @@ export class MealComponent implements OnInit, OnDestroy {
     private subscriptions: Array<Subscription> = [];
 
     constructor(private foodPlanService: FoodPlanService,
-                private cookbookService: CookbookService) { }
+                private cookbookService: CookbookService,
+                private router: Router) { }
 
     public ngOnInit(): void {
         this.createForm();
@@ -93,5 +95,13 @@ export class MealComponent implements OnInit, OnDestroy {
 
     public hasConnectedRecipe(): boolean {
         return this.meal && ObjectUtils.isObject(this.meal.links.find(link => link.rel === 'recipe'));
+    }
+
+    public jumpToRecipe(): void {
+        this.router.navigate(['/household/cookbook'])
+            .then(() => {
+                const url: string = this.meal.links.find(link => link.rel === 'recipe').href;
+                this.cookbookService.determineRecipeByUrl(url);
+            });
     }
 }
