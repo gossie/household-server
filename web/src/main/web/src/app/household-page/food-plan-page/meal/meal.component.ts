@@ -9,6 +9,7 @@ import { RecipeSelectionEvent } from './recipe-selection.event';
 import { ObjectUtils } from 'src/app/object.utils';
 import { FoodPlanService } from '../food-plan.service';
 import { Router } from '@angular/router';
+import { FoodPlan } from '../food-plan';
 
 @Component({
     selector: 'app-meal',
@@ -27,6 +28,8 @@ export class MealComponent implements OnInit, OnDestroy {
     public controlName: string;
     @Input()
     public parentForm: FormGroup;
+    @Output()
+    public foodPlanEmitter: EventEmitter<FoodPlan> = new EventEmitter();
     @Output()
     public recipeEmitter: EventEmitter<RecipeSelectionEvent> = new EventEmitter();
 
@@ -86,7 +89,7 @@ export class MealComponent implements OnInit, OnDestroy {
     public changeMealName(): void {
         this.meal.name = this.parentForm.controls[this.controlName].value;
         this.foodPlanService.saveMeal(this.meal, null)
-                .toPromise();
+            .subscribe((foodPlan: FoodPlan) => this.foodPlanEmitter.emit(foodPlan));
     }
 
     public unfocus(): void {

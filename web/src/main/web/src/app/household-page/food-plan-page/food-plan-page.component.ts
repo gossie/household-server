@@ -52,9 +52,7 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
 
     private observeUndo(): void {
         this.subscriptions.push(this.deleteHintService.onUndo()
-            .subscribe(() => {
-                this.loading = false;
-            }));
+            .subscribe(() => this.loading = false));
     }
 
     private observeHousehold(): void {
@@ -115,17 +113,23 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
         this.currentMeal = event.meal;
     }
 
+    public onMealNameChange(foodPlan: FoodPlan): void {
+        this.foodPlan = foodPlan;
+    }
+
     public onIngredientSelection(ingredients: Set<string>): void {
         this.loading = true;
 
         const ingredientNames: Array<string> = [];
         ingredients.forEach((name: string) => ingredientNames.push(name));
-        this.shoppingListService.addShoppingListItems(this.shoppingList.shoppingListGroups[0], ingredientNames).subscribe(() => {
-            this.foodPlanService.saveMeal(this.currentMeal, this.selectedRecipe).subscribe((foodPlan: FoodPlan) => {
-                this.foodPlan = foodPlan;
-                this.currentMeal = null;
-                this.selectedRecipe = null;
+        this.shoppingListService.addShoppingListItems(this.shoppingList.shoppingListGroups[0], ingredientNames)
+            .subscribe(() => {
+                this.foodPlanService.saveMeal(this.currentMeal, this.selectedRecipe)
+                    .subscribe((foodPlan: FoodPlan) => {
+                        this.foodPlan = foodPlan;
+                        this.currentMeal = null;
+                        this.selectedRecipe = null;
+                    });
             });
-        });
     }
 }
