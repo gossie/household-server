@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Household } from './household';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { HouseholdService } from './household.service';
 import { Subscription } from 'rxjs/index';
@@ -48,7 +48,6 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
         this.subscriptions.push(this.householdService.observeHousehold()
             .subscribe((household: Household) => this.household = household)
         );
-        this.householdService.determineHousehold().subscribe((household: Household) => this.household = household);
     }
 
     private observeRouter(): void {
