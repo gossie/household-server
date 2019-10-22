@@ -1,5 +1,5 @@
-import { LoginPage } from "../pages/login.po";
-import { CoverPage } from "../pages/cover-page.po";
+import { LoginPage } from '../pages/login.po';
+import { CoverPage } from '../pages/cover-page.po';
 
 describe('change password', () => {
     const loginPage: LoginPage = new LoginPage();

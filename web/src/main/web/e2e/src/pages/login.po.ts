@@ -1,9 +1,9 @@
-import { browser, by, element } from "protractor";
+import { browser, by, element } from 'protractor';
 
 export class LoginPage {
 
     public async navigateTo() {
-        await browser.get('/');
+        await browser.get('http://localhost:5000/login.html');
         await browser.driver.manage().window().maximize();
         return element(by.css('#login-tab')).click();
     }

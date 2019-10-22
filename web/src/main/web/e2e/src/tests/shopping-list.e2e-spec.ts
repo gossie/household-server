@@ -1,6 +1,6 @@
-import { LoginPage } from "../pages/login.po";
-import { ShoppingListPage } from "../pages/shopping-list.po";
-import { browser } from "protractor";
+import { LoginPage } from '../pages/login.po';
+import { ShoppingListPage } from '../pages/shopping-list.po';
+import { browser } from 'protractor';
 
 describe('shopping list', () => {
     const loginPage: LoginPage = new LoginPage();

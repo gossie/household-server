@@ -1,7 +1,7 @@
-import { LoginPage } from "../pages/login.po";
-import { ShoppingListPage } from "../pages/shopping-list.po";
-import { FoodPlanPage } from "../pages/food-plan.po";
-import { browser } from "protractor";
+import { LoginPage } from '../pages/login.po';
+import { ShoppingListPage } from '../pages/shopping-list.po';
+import { FoodPlanPage } from '../pages/food-plan.po';
+import { browser } from 'protractor';
 
 describe('food plan', () => {
     const loginPage: LoginPage = new LoginPage();

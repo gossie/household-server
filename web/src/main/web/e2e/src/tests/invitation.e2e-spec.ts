@@ -1,6 +1,6 @@
-import { LoginPage } from "../pages/login.po";
-import { CoverPage } from "../pages/cover-page.po";
-import { browser, by, element, ExpectedConditions } from "protractor";
+import { LoginPage } from '../pages/login.po';
+import { CoverPage } from '../pages/cover-page.po';
+import { browser, by, element, ExpectedConditions } from 'protractor';
 
 describe('invitation', () => {
     const loginPage: LoginPage = new LoginPage();
