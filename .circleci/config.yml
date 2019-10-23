@@ -20,7 +20,7 @@ jobs:
       #- run: npm run --prefix web/src/main/web webdriver:clean
       #- run: npm run --prefix web/src/main/web webdriver:update
       #- run: ls -all /root/repo/web/src/main/web/node_modules/protractor/node_modules/webdriver-manager/selenium
-      - run: npm run --prefix web/src/main/web/ e2e:ci
+      - run: web/src/main/node/npm run --prefix web/src/main/web/ e2e:ci
       - run: mvn dependency:go-offline
 
       - save_cache:
