@@ -2,10 +2,12 @@ import { LoginPage } from '../pages/login.po';
 import { ShoppingListPage } from '../pages/shopping-list.po';
 import { browser } from 'protractor';
 import { RegistrationPage } from '../pages/registration.po';
+import { NoHouseholdPage } from '../pages/no-household.po';
 
 describe('shopping list', () => {
     const registrationPage: RegistrationPage = new RegistrationPage();
     const loginPage: LoginPage = new LoginPage();
+    const noHouseholdPage: NoHouseholdPage = new NoHouseholdPage();
     const shoppingListPage: ShoppingListPage = new ShoppingListPage();
 
     beforeAll(async () => {
@@ -23,6 +25,10 @@ describe('shopping list', () => {
 
     it('should login', async () => {
         await loginPage.login('shopping@user.de', 'shopping@user.de');
+    });
+
+    it('should create household', async () => {
+        await noHouseholdPage.createHousehold();
     });
 
     it('should open shopping list', async () => {
