@@ -41,7 +41,6 @@ describe('change password', () => {
 
     it('should login again', async () => {
         await loginPage.login('password@user.de', 'changedPassword');
-        await loginPage.login('password@user.de', 'changedPassword');
     });
 
     it('should change password back', async () => {
