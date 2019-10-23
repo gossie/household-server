@@ -9,7 +9,8 @@ exports.config = {
     './src/**/*.e2e-spec.ts'
   ],
   capabilities: {
-    'browserName': 'Firefox'
+    'browserName': 'firefox',
+    'marionette': true
   },
   directConnect: true,
   baseUrl: 'http://localhost:5000/',
