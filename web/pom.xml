@@ -12,7 +12,7 @@
 
     <profiles>
         <profile>
-            <id>ci</id>
+            <id>test:ci</id>
             <build>
                 <plugins>
                     <plugin>
@@ -62,6 +62,40 @@
                                 </goals>
                                 <configuration>
                                     <arguments>run build:prod</arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>e2e:ci</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+                        <version>1.8.0</version>
+                        <configuration>
+                            <nodeVersion>v10.16.3</nodeVersion>
+                            <npmVersion>6.3.0</npmVersion>
+                            <workingDirectory>src/main/web/</workingDirectory>
+                        </configuration>
+                        <executions>
+                            <!-- <execution>
+                                <id>install node and npm</id>
+                                <goals>
+                                    <goal>install-node-and-npm</goal>
+                                </goals>
+                            </execution> -->
+                            <execution>
+                                <id>e2e tests</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <configuration>
+                                        <arguments>run e2e:ci</arguments>
                                 </configuration>
                             </execution>
                         </executions>
