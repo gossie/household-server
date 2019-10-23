@@ -4,8 +4,7 @@ export class LoginPage {
 
     public async navigateTo() {
         await browser.get('http://localhost:5000/login.html');
-        await browser.driver.manage().window().maximize();
-        return element(by.css('#login-tab')).click();
+        return browser.driver.manage().window().maximize();
     }
 
     public async login(email: string, password: string) {

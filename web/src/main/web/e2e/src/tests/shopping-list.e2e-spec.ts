@@ -1,10 +1,17 @@
 import { LoginPage } from '../pages/login.po';
 import { ShoppingListPage } from '../pages/shopping-list.po';
 import { browser } from 'protractor';
+import { RegistrationPage } from '../pages/registration.po';
 
-describe('shopping list', () => {
+xdescribe('shopping list', () => {
+    const registrationPage: RegistrationPage = new RegistrationPage();
     const loginPage: LoginPage = new LoginPage();
     const shoppingListPage: ShoppingListPage = new ShoppingListPage();
+
+    it('should register', async () => {
+        await registrationPage.navigateTo();
+        await registrationPage.register('neuer1@user.de', 'neuer1@user.de');
+    });
 
     it('should login', async () => {
         await loginPage.navigateTo();

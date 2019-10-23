@@ -2,7 +2,7 @@ import { LoginPage } from '../pages/login.po';
 import { CoverPage } from '../pages/cover-page.po';
 import { browser, by, element, ExpectedConditions } from 'protractor';
 
-describe('invitation', () => {
+xdescribe('invitation', () => {
     const loginPage: LoginPage = new LoginPage();
     const coverPage: CoverPage = new CoverPage();
 
