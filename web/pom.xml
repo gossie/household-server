@@ -45,7 +45,7 @@
                                     <executable>npm</executable>
                                     <arguments>
                                         <argument>run</argument>
-                                        <argument>update:webdriver</argument>
+                                        <argument>webdriver:update</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
