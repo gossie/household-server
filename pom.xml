@@ -34,6 +34,8 @@
 	    <module>web</module>
         <module>app</module>
     </modules>
+    
+    <!-- TODO: plugin management -->
 
     <dependencyManagement>
         <dependencies>
