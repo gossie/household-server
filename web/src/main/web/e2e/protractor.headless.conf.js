@@ -15,8 +15,7 @@ exports.config = {
     },
     'moz:firefoxOptions': {
       args: [ '--headless' ]
-    },
-    'marionette': true
+    }
   },
   directConnect: true,
   baseUrl: 'http://localhost:5000/',
