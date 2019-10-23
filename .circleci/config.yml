@@ -15,7 +15,7 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: mvn -B install -Pci
+      - run: mvn -B install -Ptest:ci
       - run: java -jar app/target/plan-app-0.0.1-SNAPSHOT.jar &
       #- run: npm run --prefix web/src/main/web webdriver:clean
       #- run: npm run --prefix web/src/main/web webdriver:update
