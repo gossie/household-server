@@ -129,6 +129,7 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
                         this.foodPlan = foodPlan;
                         this.currentMeal = null;
                         this.selectedRecipe = null;
+                        this.loading = false;
                     });
             });
     }
