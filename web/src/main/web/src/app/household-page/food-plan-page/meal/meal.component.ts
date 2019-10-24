@@ -87,9 +87,11 @@ export class MealComponent implements OnInit, OnDestroy {
     }
 
     public changeMealName(): void {
-        this.meal.name = this.parentForm.controls[this.controlName].value;
-        this.foodPlanService.saveMeal(this.meal, null)
-            .subscribe((foodPlan: FoodPlan) => this.foodPlanEmitter.emit(foodPlan));
+        window.setTimeout(() => {
+            this.meal.name = this.parentForm.controls[this.controlName].value;
+            this.foodPlanService.saveMeal(this.meal, null)
+                .subscribe((foodPlan: FoodPlan) => this.foodPlanEmitter.emit(foodPlan));
+        }, 50);
     }
 
     public unfocus(): void {

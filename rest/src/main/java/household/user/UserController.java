@@ -56,7 +56,7 @@ public class UserController {
     public HttpEntity<Resource<UserDTO>> invite(@PathVariable Long userId, @RequestBody InvitationRequestDTO invitation) {
         User invitingUser = userService.determineUser(userId);
         try {
-            userService.invite(invitation.getEmail().toLowerCase(), invitingUser);
+            userService.invite(invitation.getEmail(), invitingUser);
             return ResponseEntity.ok(createResource(invitingUser));
         } catch(IllegalStateException e) {
             throw new NotFoundException(e);

@@ -9,15 +9,20 @@ exports.config = {
     './src/**/*.e2e-spec.ts'
   ],
   capabilities: {
-    'browserName': 'firefox',
-    'marionette': true
+    browserName: 'firefox',
+    firefoxOptions: {
+      args: ['--headless']
+    },
+    'moz:firefoxOptions': {
+      args: [ '--headless' ]
+    }
   },
   directConnect: true,
-  baseUrl: 'http://localhost:4200/',
+  baseUrl: 'http://localhost:5000/',
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
-    defaultTimeoutInterval: 30000,
+    defaultTimeoutInterval: 10000,
     print: function() {}
   },
   onPrepare() {

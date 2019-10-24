@@ -1,5 +1,10 @@
 package household;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -7,7 +12,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
 
 import lombok.RequiredArgsConstructor;
 
@@ -43,12 +51,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
             .and()
                 .formLogin()
-                .defaultSuccessUrl("/household.html")
                 .loginPage("/login.html")
+                .successHandler(this::successHandler)
                 .permitAll()
             .and()
                 .logout()
             .and()
                 .csrf().disable();
+    }
+
+    private void successHandler(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+        RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+        try {
+            redirectStrategy.sendRedirect(request, response, "/household.html");
+        } catch(IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

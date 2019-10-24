@@ -76,14 +76,14 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges, OnDestroy 
     }
 
     private compareItems(item1: ShoppingListItem, item2: ShoppingListItem): number {
-        if(item1.selected === item2.selected) {
-            if(item1.name.toLowerCase() < item2.name.toLowerCase()) {
+        if (item1.selected === item2.selected) {
+            if (item1.name.toLowerCase() < item2.name.toLowerCase()) {
                 return -1;
             } else {
                 return 1;
             }
         } else {
-            if(item1.selected) {
+            if (item1.selected) {
                 return 1;
             } else {
                 return -1;

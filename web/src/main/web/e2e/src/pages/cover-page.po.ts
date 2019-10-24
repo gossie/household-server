@@ -1,4 +1,4 @@
-import { by, element } from "protractor";
+import { by, element, browser, ExpectedConditions } from 'protractor';
 
 export class CoverPage {
 
@@ -8,7 +8,7 @@ export class CoverPage {
     }
 
     public async rejectInvitation(): Promise<void> {
-        return element(by.css('#reject-button')).click()
+        return element(by.css('#reject-button')).click();
     }
 
     public async logout(): Promise<void> {
@@ -16,6 +16,8 @@ export class CoverPage {
     }
 
     public async changePassword(currentPassword: string, newPassword: string): Promise<void> {
+        await browser.wait(ExpectedConditions.presenceOf(element(by.css('#current-password'))));
+
         await element(by.css('#current-password')).sendKeys(currentPassword);
         await element(by.css('#new-password')).sendKeys(newPassword);
         await element(by.css('#new-password-repeat')).sendKeys(newPassword);

@@ -1,4 +1,4 @@
-import { by, element } from "protractor";
+import { by, element, browser, ExpectedConditions } from 'protractor';
 
 export class FoodPlanPage {
 
@@ -11,10 +11,12 @@ export class FoodPlanPage {
     }
 
     public async selectMealFromCookbook(meal: string): Promise<void> {
+        await browser.wait(ExpectedConditions.presenceOf(element(by.linkText(meal))));
         return element(by.linkText(meal)).click();
     }
 
     public async selectIngredient(index: number): Promise<void> {
+        await browser.wait(ExpectedConditions.presenceOf(element(by.css(`#ingredient-${index}`))));
         return element(by.css(`#ingredient-${index}`)).click();
     }
 
@@ -28,13 +30,13 @@ export class FoodPlanPage {
 
     public async isFoodPlanEmpty(): Promise<boolean> {
         return Promise.all([
-            element(by.css('#monday')).getText().then((text: string) => text.length == 0),
-            element(by.css('#tuesday')).getText().then((text: string) => text.length == 0),
-            element(by.css('#wednesday')).getText().then((text: string) => text.length == 0),
-            element(by.css('#thursday')).getText().then((text: string) => text.length == 0),
-            element(by.css('#friday')).getText().then((text: string) => text.length == 0),
-            element(by.css('#saturday')).getText().then((text: string) => text.length == 0),
-            element(by.css('#sunday')).getText().then((text: string) => text.length == 0)
+            element(by.css('#monday')).getText().then((text: string) => text.length === 0),
+            element(by.css('#tuesday')).getText().then((text: string) => text.length === 0),
+            element(by.css('#wednesday')).getText().then((text: string) => text.length === 0),
+            element(by.css('#thursday')).getText().then((text: string) => text.length === 0),
+            element(by.css('#friday')).getText().then((text: string) => text.length === 0),
+            element(by.css('#saturday')).getText().then((text: string) => text.length === 0),
+            element(by.css('#sunday')).getText().then((text: string) => text.length === 0)
         ])
         .then((all: Array<boolean>) => all.every((value: boolean) => value === true));
     }

@@ -1,14 +1,34 @@
-import { LoginPage } from "../pages/login.po";
-import { ShoppingListPage } from "../pages/shopping-list.po";
-import { browser } from "protractor";
+import { LoginPage } from '../pages/login.po';
+import { ShoppingListPage } from '../pages/shopping-list.po';
+import { browser } from 'protractor';
+import { RegistrationPage } from '../pages/registration.po';
+import { NoHouseholdPage } from '../pages/no-household.po';
 
 describe('shopping list', () => {
+    const registrationPage: RegistrationPage = new RegistrationPage();
     const loginPage: LoginPage = new LoginPage();
+    const noHouseholdPage: NoHouseholdPage = new NoHouseholdPage();
     const shoppingListPage: ShoppingListPage = new ShoppingListPage();
 
+    beforeAll(async () => {
+        await browser.waitForAngularEnabled(false);
+    });
+
+    afterAll(async () => {
+        await browser.waitForAngularEnabled(true);
+    });
+
+    it('should register', async () => {
+        await registrationPage.navigateTo();
+        await registrationPage.register('shopping@user.de', 'shopping@user.de');
+    });
+
     it('should login', async () => {
-        await loginPage.navigateTo();
-        await loginPage.login('neuer1@user.de', 'neuer1@user.de');
+        await loginPage.login('shopping@user.de', 'shopping@user.de');
+    });
+
+    it('should create household', async () => {
+        await noHouseholdPage.createHousehold();
     });
 
     it('should open shopping list', async () => {
@@ -40,7 +60,7 @@ describe('shopping list', () => {
     });
 
     describe('new group', () => {
-        it('should create new group', async ()=> {
+        it('should create new group', async () => {
             await shoppingListPage.addGroup('Weihnachten');
             expect(await shoppingListPage.getNumberOfGroups()).toBe(2);
         });

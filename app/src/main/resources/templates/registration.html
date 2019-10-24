@@ -41,7 +41,7 @@
                         <form th:action="@{/registrations}" method="post">
                             <div class="field">
                                 <p class="control has-icons-left has-icons-right">
-                                    <input name="email" class="input" type="email" th:value="*{email}" placeholder="E-Mail" />
+                                    <input id="email-field" name="email" class="input" type="email" th:value="*{email}" placeholder="E-Mail" />
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-envelope"></i>
                                     </span>
@@ -49,7 +49,7 @@
                             </div>
                             <div class="field">
                                 <p class="control has-icons-left">
-                                    <input name="password" class="input" type="password" th:value="*{password}" placeholder="Passwort" />
+                                    <input id="password-field" name="password" class="input" type="password" th:value="*{password}" placeholder="Passwort" />
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-lock"></i>
                                     </span>
@@ -57,7 +57,7 @@
                             </div>
                             <div class="field">
                                 <p class="control has-icons-left">
-                                    <input name="passwordRepeat" class="input" type="password" th:value="*{passwordRepeat}" placeholder="Passwort wiederholen" />
+                                    <input id="password-repeat-field" name="passwordRepeat" class="input" type="password" th:value="*{passwordRepeat}" placeholder="Passwort wiederholen" />
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-lock"></i>
                                     </span>
@@ -66,14 +66,14 @@
 
                             <div class="field">
                                 <label class="checkbox">
-                                    <input name="dataProtection" type="checkbox" th:value="*{dataProtection}">
+                                    <input id="data-protection" name="dataProtection" type="checkbox" th:value="*{dataProtection}">
                                     Ich akzeptieren die <a onclick="document.getElementById('data-protection').classList.add('is-active')">Datenschutz-Bestimmungen</a>.
                                 </label>
                             </div>
 
                             <div class="field is-grouped">
                                 <div class="control">
-                                    <button class="button is-link" type="submit">Registrieren</button>
+                                    <button id="register-button" class="button is-link" type="submit">Registrieren</button>
                                 </div>
                             </div>
 

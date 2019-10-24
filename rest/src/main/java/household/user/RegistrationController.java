@@ -31,7 +31,7 @@ public class RegistrationController {
             model.addAttribute("errorMessage", "Bitte stimmen Sie den Datenschutz-Bestimmungen zu.");
         } else {
             try {
-                userService.createUser(new User(null, ((String) data.getFirst("email")).toLowerCase(), ((String) data.getFirst("password"))));
+                userService.createUser(new User(null, ((String) data.getFirst("email")), ((String) data.getFirst("password"))));
                 model.addAttribute("successMessage", "Benutzer wurde angelegt");
                 nextPage = "login";
             } catch(UserAlreadyExistsException e) {
