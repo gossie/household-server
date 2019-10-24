@@ -3,8 +3,7 @@ import { browser, by, element, ExpectedConditions } from 'protractor';
 export class LoginPage {
 
     public async navigateTo() {
-        await browser.get('http://localhost:5000/login.html');
-        return browser.driver.manage().window().maximize();
+        return browser.get('http://localhost:5000/login.html');
     }
 
     public async login(email: string, password: string) {

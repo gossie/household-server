@@ -26,7 +26,6 @@ describe('invitation', () => {
     });
 
     it('should login', async () => {
-        await loginPage.navigateTo();
         await loginPage.login('neuer1@user.de', 'neuer1@user.de');
     });
 
