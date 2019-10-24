@@ -10,7 +10,6 @@ import household.household.HouseholdPersistenceContext;
 import household.shoppinglist.ShoppingListPersistenceContext;
 
 @Configuration
-@Import({HouseholdPersistenceContext.class, CleaningPlanPersistenceContext.class, CookbookPersistenceContext.class, FoodPlanPersistenceContext.class, ShoppingListPersistenceContext.class})
 public class PersistenceContext {
 
 }

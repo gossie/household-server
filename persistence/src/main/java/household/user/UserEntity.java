@@ -31,6 +31,7 @@ class UserEntity {
 	private final Long id;
 	private final String email;
 	private String password;
+	private boolean registrationConfirmed;
 	private Long householdId;
 	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	private final List<InvitationEntity> invitations = new ArrayList<>();

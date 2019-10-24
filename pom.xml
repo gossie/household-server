@@ -31,6 +31,7 @@
         <module>domain-test-utils</module>
         <module>persistence</module>
         <module>rest</module>
+        <module>mail</module>
 	    <module>web</module>
         <module>app</module>
     </modules>
@@ -54,6 +55,11 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>28.1-jre</version>
+            </dependency>
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>3.3.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
