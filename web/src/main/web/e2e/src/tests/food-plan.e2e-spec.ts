@@ -7,7 +7,7 @@ import { NoHouseholdPage } from '../pages/no-household.po';
 import { CookbookPage } from '../pages/cookbook.po';
 import { AddRecipeDialog } from '../pages/cookbook-components/add-recipe-dialog.co';
 
-fdescribe('food plan', () => {
+describe('food plan', () => {
     const registrationPage: RegistrationPage = new RegistrationPage();
     const loginPage: LoginPage = new LoginPage();
     const noHouseholdPage: NoHouseholdPage = new NoHouseholdPage();
