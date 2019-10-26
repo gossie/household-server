@@ -1,8 +1,6 @@
 package household.foodplan;
 
 import static household.foodplan.MealAssert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 

@@ -4,7 +4,6 @@ import java.util.function.Consumer;
 
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.api.Assertions;
-import org.assertj.core.util.Strings;
 
 public class RecipeAssert extends AbstractAssert<RecipeAssert, Recipe> {
 
