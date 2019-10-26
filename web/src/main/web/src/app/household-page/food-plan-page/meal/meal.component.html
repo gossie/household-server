@@ -1,4 +1,4 @@
-<div class="columns is-mobile" [formGroup]="parentForm">
+<div class="columns is-mobile is-vcentered" [formGroup]="parentForm">
     <div class="column is-8">
         <div class="field">
             <label [for]="controlName" class="label">{{ day }}</label>
@@ -11,6 +11,8 @@
         </div>
     </div>
     <div class="column is-4">
-        <a *ngIf="hasConnectedRecipe()" (click)="jumpToRecipe()" >Zum Rezept</a>
+        <span class="icon" *ngIf="hasConnectedRecipe()" (click)="jumpToRecipe()">
+            <i class="fas fa-utensil-spoon"></i>
+        </span>
     </div>
 </div>
