@@ -3,8 +3,6 @@ package household.shoppinglist;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
@@ -31,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ShoppingListController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ShoppingListController.class);
+    // private static final Logger LOGGER = LoggerFactory.getLogger(ShoppingListController.class);
 
     private final ShoppingListGroupDTOMapper shoppingListGroupMapper;
 	private final ShoppingListItemDTOMapper shoppingListItemMapper;

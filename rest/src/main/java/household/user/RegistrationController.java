@@ -2,8 +2,6 @@ package household.user;
 
 import java.util.Objects;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
@@ -18,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RegistrationController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+    // private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
 	private final UserService userService;
 

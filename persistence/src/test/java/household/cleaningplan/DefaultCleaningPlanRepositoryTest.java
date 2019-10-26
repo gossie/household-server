@@ -1,7 +1,6 @@
 package household.cleaningplan;
 
 import static org.mockito.Mockito.mock;
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.Test;
