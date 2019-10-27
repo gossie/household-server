@@ -27,11 +27,12 @@
     </properties>
 
     <modules>
+        <module>shopping-list</module>
         <module>domain</module>
         <module>domain-test-utils</module>
         <module>persistence</module>
         <module>rest</module>
-	    <module>web</module>
+	<module>web</module>
         <module>app</module>
     </modules>
     

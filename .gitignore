@@ -46,6 +46,7 @@ speed-measure-plugin.json
 # IDE - VSCode
 .vscode
 *.factorypath
+*.springBeans
 
 # misc
 /.sass-cache
