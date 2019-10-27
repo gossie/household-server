@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 
-import household.AbstractModel;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 

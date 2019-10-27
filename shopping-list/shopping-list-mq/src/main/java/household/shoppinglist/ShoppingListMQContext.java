@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 class ShoppingListMQContext {
 
-    @Bean
+    @Bean(initMethod = "init")
     public ShoppingListEventHandler shoppingListEventHandler(EventBus eventBus, ShoppingListService shoppingListService) {
         return new ShoppingListEventHandler(eventBus, shoppingListService);
     }

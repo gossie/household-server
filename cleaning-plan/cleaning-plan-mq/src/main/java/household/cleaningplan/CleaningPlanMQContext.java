@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 class CleaningPlanMQContext {
 
-    @Bean
+    @Bean(initMethod = "init")
     public CleaningPlanEventHandler cleaningPlanEventHandler(EventBus eventBus, CleaningPlanService cleaningPlanService) {
         return new CleaningPlanEventHandler(eventBus, cleaningPlanService);
     }

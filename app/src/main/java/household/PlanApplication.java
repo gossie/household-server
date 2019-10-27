@@ -48,9 +48,9 @@ public class PlanApplication {
 		return new CookbookService(eventBus(), cookbookRepository);
 	}
 
-	@Bean(initMethod = "init")
+	@Bean
 	public FoodPlanService foodPlanService(FoodPlanRepository foodPlanRepository) {
-		return new FoodPlanService(eventBus(), foodPlanRepository);
+		return new FoodPlanService(foodPlanRepository);
 	}
 
 	@Bean

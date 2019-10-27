@@ -3,7 +3,6 @@ package household.household;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import household.cookbook.Cookbook;
-import household.foodplan.FoodPlan;
 import household.user.InvitationAcceptedEvent;
 import lombok.RequiredArgsConstructor;
 
@@ -21,8 +20,8 @@ public class HouseholdService {
 		return householdRepository.determineHousehold(householdId);
 	}
 
-	public Household createHousehold(Long shoppingListId, Long cleaningPlanId, FoodPlan foodPlan, Cookbook cookbook) {
-		return householdRepository.saveHousehold(new Household(null, shoppingListId, cleaningPlanId, foodPlan.getId(), cookbook.getId()));
+	public Household createHousehold(Long shoppingListId, Long cleaningPlanId, Long foodPlanId, Cookbook cookbook) {
+		return householdRepository.saveHousehold(new Household(null, shoppingListId, cleaningPlanId, foodPlanId, cookbook.getId()));
 	}
 
 	private void deleteHousehold(Long householdId) {

@@ -56,6 +56,16 @@
         </dependency>
         <dependency>
             <groupId>household</groupId>
+            <artifactId>food-plan-rest</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>household</groupId>
+            <artifactId>food-plan-persistence</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>household</groupId>
             <artifactId>plan-web</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>runtime</scope>
