@@ -1,19 +1,11 @@
 package household.cleaningplan;
 
-import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
-import household.household.HouseholdDeletedEvent;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class CleaningPlanService {
 
-    private final EventBus eventBus;
 	private final CleaningPlanRepository cleaningPlanRepository;
-
-    public void init() {
-        eventBus.register(this);
-    }
 
 	public CleaningPlan getCleaningPlan(Long cleaningPlanId) {
 		return cleaningPlanRepository.determineCleaningPlan(cleaningPlanId);
@@ -41,12 +33,7 @@ public class CleaningPlanService {
 		return cleaningPlanRepository.createCleaningPlan();
 	}
 
-	private void deleteCleaningPlan(Long cleaningPlanId) {
+	public void deleteCleaningPlan(Long cleaningPlanId) {
         cleaningPlanRepository.deleteCleaningPlan(cleaningPlanId);
-    }
-
-	@Subscribe
-	public void onHouseholdDeleted(HouseholdDeletedEvent event) {
-	    deleteCleaningPlan(event.getHousehold().getCleaningPlanId());
     }
 }

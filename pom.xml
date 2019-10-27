@@ -27,6 +27,7 @@
     </properties>
 
     <modules>
+        <module>cleaning-plan</module>
         <module>shopping-list</module>
         <module>domain</module>
         <module>domain-test-utils</module>

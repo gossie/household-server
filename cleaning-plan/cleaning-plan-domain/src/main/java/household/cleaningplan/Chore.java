@@ -2,8 +2,6 @@ package household.cleaningplan;
 
 import java.util.Optional;
 
-import household.AbstractModel;
-
 public class Chore extends AbstractModel {
 
     private String name;
