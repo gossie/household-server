@@ -14,7 +14,7 @@
     <artifactId>cookbook-mq</artifactId>
     <packaging>jar</packaging>
 
-    <name>cookbook-domain</name>
+    <name>cookbook-mq</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

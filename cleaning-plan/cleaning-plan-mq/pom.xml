@@ -14,7 +14,7 @@
     <artifactId>cleaning-plan-mq</artifactId>
     <packaging>jar</packaging>
 
-    <name>cleaning-plan-domain</name>
+    <name>cleaning-plan-mq</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
