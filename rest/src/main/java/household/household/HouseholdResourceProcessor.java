@@ -1,14 +1,11 @@
 package household.household;
 
 import org.springframework.hateoas.EntityLinks;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
 import org.springframework.stereotype.Component;
 
-import household.cleaningplan.CleaningPlanDTO;
-import household.cookbook.CookbookDTO;
-import household.foodplan.FoodPlanDTO;
-import household.shoppinglist.ShoppingListDTO;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -23,10 +20,10 @@ class HouseholdResourceProcessor implements ResourceProcessor<Resource<Household
 
 		resource.add(entityLinks.linkForSingleResource(HouseholdDTO.class, household.getDatabaseId()).withSelfRel());
 
-		resource.add(entityLinks.linkForSingleResource(ShoppingListDTO.class, household.getShoppingListId()).withRel("shoppingList"));
-		resource.add(entityLinks.linkForSingleResource(CleaningPlanDTO.class, household.getCleaningPlanId()).withRel("cleaningPlan"));
-		resource.add(entityLinks.linkForSingleResource(FoodPlanDTO.class, household.getFoodPlanId()).withRel("foodPlan"));
-		resource.add(entityLinks.linkForSingleResource(CookbookDTO.class, household.getCookbookId()).withRel("cookbook"));
+        resource.add(new Link("/api/shoppingLists/" + household.getShoppingListId(), "shoppingList"));
+        resource.add(new Link("/api/cleaningPlans/" + household.getCleaningPlanId(), "cleaningPlan"));
+        resource.add(new Link("/api/foodPlans/" + household.getFoodPlanId(), "foodPlan"));
+        resource.add(new Link("/api/cookbooks/" + household.getCookbookId(), "cookbook"));
 
 		return resource;
 	}

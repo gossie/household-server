@@ -14,7 +14,7 @@
     <artifactId>shopping-list-mq</artifactId>
     <packaging>jar</packaging>
 
-    <name>shopping-list-domain</name>
+    <name>shopping-list-mq</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

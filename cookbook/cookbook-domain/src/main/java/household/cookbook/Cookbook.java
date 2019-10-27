@@ -7,8 +7,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import household.AbstractModel;
-
 public class Cookbook extends AbstractModel {
 
 	private List<Recipe> recipes;

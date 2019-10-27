@@ -14,7 +14,7 @@
     <artifactId>food-plan-mq</artifactId>
     <packaging>jar</packaging>
 
-    <name>food-plan-domain</name>
+    <name>food-plan-mq</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
