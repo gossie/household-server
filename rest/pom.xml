@@ -39,6 +39,16 @@
             <artifactId>shopping-list-rest</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>household</groupId>
+            <artifactId>cleaning-plan-domain</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>household</groupId>
+            <artifactId>cleaning-plan-rest</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

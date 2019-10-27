@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import household.AbstractModel;
-
 public class CleaningPlan extends AbstractModel {
 
 	private List<Chore> chores;

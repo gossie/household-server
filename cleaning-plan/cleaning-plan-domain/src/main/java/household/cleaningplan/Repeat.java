@@ -1,7 +1,5 @@
 package household.cleaningplan;
 
-import household.AbstractModel;
-
 public class Repeat extends AbstractModel {
 
     private final int number;
