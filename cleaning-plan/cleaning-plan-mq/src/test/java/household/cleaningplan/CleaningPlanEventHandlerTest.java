@@ -13,17 +13,17 @@ import org.junit.jupiter.api.Test;
 
 public class CleaningPlanEventHandlerTest {
 
-	private CleaningPlanEventHandler shoppingListEventHandler;
+	private CleaningPlanEventHandler cleaningPlanEventHandler;
 
 	@Test
 	public void testOnHouseholdDeleted() throws Exception {
-		var shoppingListService = mock(CleaningPlanService.class);
+		var cleaningPlanService = mock(CleaningPlanService.class);
 		var household = mock(Household.class);
 		when(household.getCleaningPlanId()).thenReturn(2L);
 
-		shoppingListEventHandler = new CleaningPlanEventHandler(mock(EventBus.class), shoppingListService);
-		shoppingListEventHandler.onHouseholdDeleted(new HouseholdDeletedEvent(household));
+		cleaningPlanEventHandler = new CleaningPlanEventHandler(mock(EventBus.class), cleaningPlanService);
+		cleaningPlanEventHandler.onHouseholdDeleted(new HouseholdDeletedEvent(household));
 
-		verify(shoppingListService).deleteCleaningPlan(2L);
+		verify(cleaningPlanService).deleteCleaningPlan(2L);
 	}
 }
