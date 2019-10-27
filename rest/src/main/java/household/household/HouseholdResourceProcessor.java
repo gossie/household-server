@@ -20,9 +20,9 @@ class HouseholdResourceProcessor implements ResourceProcessor<Resource<Household
 
 		resource.add(entityLinks.linkForSingleResource(HouseholdDTO.class, household.getDatabaseId()).withSelfRel());
 
-        resource.add(new Link("/api/shoppinglists/" + household.getShoppingListId(), "shoppingList"));
-        resource.add(new Link("/api/cleaningplans/" + household.getCleaningPlanId(), "cleaningPlan"));
-        resource.add(new Link("/api/foodplans/" + household.getFoodPlanId(), "foodPlan"));
+        resource.add(new Link("/api/shoppingLists/" + household.getShoppingListId(), "shoppingList"));
+        resource.add(new Link("/api/cleaningPlans/" + household.getCleaningPlanId(), "cleaningPlan"));
+        resource.add(new Link("/api/foodPlans/" + household.getFoodPlanId(), "foodPlan"));
         resource.add(new Link("/api/cookbooks/" + household.getCookbookId(), "cookbook"));
 
 		return resource;
