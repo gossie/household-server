@@ -11,7 +11,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>shopping-list-domain</artifactId>
+    <artifactId>shopping-list-mq</artifactId>
     <packaging>jar</packaging>
 
     <name>shopping-list-domain</name>
@@ -25,9 +25,28 @@
 
     <dependencies>
         <dependency>
+            <groupId>household</groupId>
+            <artifactId>shopping-list-domain</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>household</groupId>
+            <artifactId>plan-domain</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
 
         <dependency>

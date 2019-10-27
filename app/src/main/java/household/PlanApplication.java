@@ -52,9 +52,9 @@ public class PlanApplication {
 		return new FoodPlanService(eventBus(), foodPlanRepository);
 	}
 
-	@Bean(initMethod = "init")
+	@Bean
 	public ShoppingListService shoppingListService(ShoppingListRepository shoppingListRepository) {
-		return new ShoppingListService(eventBus(), shoppingListRepository);
+		return new ShoppingListService(shoppingListRepository);
 	}
 
 	@Bean(initMethod = "init")
