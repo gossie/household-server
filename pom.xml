@@ -27,6 +27,7 @@
     </properties>
 
     <modules>
+        <module>food-plan</module>
         <module>cleaning-plan</module>
         <module>shopping-list</module>
         <module>domain</module>

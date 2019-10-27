@@ -1,11 +1,8 @@
 package household.foodplan;
 
-import org.springframework.hateoas.EntityLinks;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.ResourceProcessor;
+import org.springframework.hateoas.*;
 import org.springframework.stereotype.Component;
 
-import household.cookbook.CookbookDTO;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -23,9 +20,10 @@ public class FoodPlanResourceProcessor implements ResourceProcessor<Resource<Foo
 
         foodPlanDTO.getMeals().forEach((key, value) -> {
             value.add(entityLinks.linkForSingleResource(FoodPlanDTO.class, foodPlanDTO.getDatabaseId()).slash("/meals").slash(value.getDatabaseId()).withSelfRel());
+
             value.getCookbookId().ifPresent(cookbookId -> {
                 value.getRecipeId().ifPresent(recipeId -> {
-                    value.add(entityLinks.linkForSingleResource(CookbookDTO.class, cookbookId).slash("/recipes").slash(recipeId).withRel("recipe"));
+                    value.add(new Link("/api/cookbooks/" + cookbookId + "/recipes/" + recipeId, "recipe"));
                 });
             });
         });
