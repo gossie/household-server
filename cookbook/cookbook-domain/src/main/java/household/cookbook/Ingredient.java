@@ -1,13 +1,11 @@
 package household.cookbook;
 
-import household.AbstractModel;
-
 public class Ingredient extends AbstractModel {
 
 	private double amount;
 	private String unit;
 	private String name;
-	
+
 	Ingredient(Long id, double amount, String unit, String name) {
 		super(id);
 		this.amount = amount;

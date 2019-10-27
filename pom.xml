@@ -27,6 +27,7 @@
     </properties>
 
     <modules>
+        <module>cookbook</module>
         <module>food-plan</module>
         <module>cleaning-plan</module>
         <module>shopping-list</module>
@@ -37,7 +38,7 @@
 	<module>web</module>
         <module>app</module>
     </modules>
-    
+
     <!-- TODO: plugin management -->
 
     <dependencyManagement>

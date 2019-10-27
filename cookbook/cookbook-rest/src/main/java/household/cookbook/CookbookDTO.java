@@ -2,7 +2,6 @@ package household.cookbook;
 
 import java.util.List;
 
-import household.AbstractDTO;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
