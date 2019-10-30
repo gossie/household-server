@@ -34,7 +34,8 @@
                 "node_modules"
               ]
             },
-            "scripts": []
+            "scripts": [],
+            "crossOrigin": "use-credentials"
           },
           "configurations": {
             "production": {
