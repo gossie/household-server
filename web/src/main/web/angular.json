@@ -34,7 +34,8 @@
                 "node_modules"
               ]
             },
-            "scripts": []
+            "scripts": [],
+            "crossOrigin": "use-credentials"
           },
           "configurations": {
             "production": {
@@ -53,6 +54,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "crossOrigin": "use-credentials",
               "budgets": [
                 {
                   "type": "initial",
