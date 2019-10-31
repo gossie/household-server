@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { CommonElementsModule } from '../../common-elements/common-elements.module';
 import { FoodPlanRoutingModule } from './food-plan-routing.module';
 import { FoodPlanPageComponent } from './food-plan-page.component';
-import { FoodPlanPageService } from './food-plan.service';
+import { FoodPlanService } from './food-plan.service';
 import { MealComponent } from './meal/meal.component';
 
 @NgModule({
