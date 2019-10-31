@@ -9,6 +9,9 @@ describe('FoodPlanService', () => {
     beforeEach(() => TestBed.configureTestingModule({
         imports: [
             HttpClientTestingModule
+        ],
+        providers: [
+            FoodPlanService
         ]
     }));
 
