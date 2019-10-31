@@ -9,9 +9,7 @@ import { Meal } from './meal/meal';
 import { Recipe } from '../cookbook-page/recipe/recipe';
 import { ObjectUtils } from 'src/app/object.utils';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class FoodPlanService extends AbstractNetworkService {
 
     constructor(private userService: UserService,

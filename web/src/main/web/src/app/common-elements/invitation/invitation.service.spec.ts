@@ -10,6 +10,7 @@ describe('InvitationService', () => {
             HttpClientTestingModule
         ],
         providers: [
+            InvitationService,
             { provide: UserService, useClass: UserServiceMock }
         ]
     }));
