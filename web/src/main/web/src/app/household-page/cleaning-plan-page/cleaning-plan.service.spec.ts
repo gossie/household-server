@@ -6,6 +6,9 @@ describe('CleaningPlanService', () => {
     beforeEach(() => TestBed.configureTestingModule({
         imports: [
             HttpClientTestingModule
+        ],
+        providers: [
+            CleaningPlanService
         ]
     }));
 

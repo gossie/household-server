@@ -7,9 +7,7 @@ import { AbstractNetworkService } from '../../abstract-network.service';
 import { Chore } from './chore/chore';
 import { Household } from '../household';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class CleaningPlanService extends AbstractNetworkService {
 
     constructor(private userService: UserService,
