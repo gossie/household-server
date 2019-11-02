@@ -55,9 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(this::successHandler)
                 .permitAll()
             .and()
-                .logout()
-            .and()
-                .csrf().disable();
+                .logout();
     }
 
     private void successHandler(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
