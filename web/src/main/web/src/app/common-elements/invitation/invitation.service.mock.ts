@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from "rxjs/index";
-import { User } from "../../user";
+import { Observable, of } from 'rxjs/index';
+import { User } from '../../user';
 
 @Injectable()
 export class InvitationServiceMock {

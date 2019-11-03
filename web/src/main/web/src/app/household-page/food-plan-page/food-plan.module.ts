@@ -19,9 +19,6 @@ import { MealComponent } from './meal/meal.component';
     declarations: [
         FoodPlanPageComponent,
         MealComponent
-    ],
-    providers: [
-        FoodPlanService
     ]
 })
 export class FoodPlanModule { }

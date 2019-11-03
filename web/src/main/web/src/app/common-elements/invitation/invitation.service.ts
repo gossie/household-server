@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/index';
 import { UserService } from '../../user.service';
-import { AbstractNetworkService} from "../../abstract-network.service";
+import { AbstractNetworkService} from '../../abstract-network.service';
 import { User } from '../../user';
 import { Invitation } from '../../invitation';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class InvitationService extends AbstractNetworkService {
 
     constructor(private userService: UserService,

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Cookbook } from "./cookbook";
-import {Observable, of, Subject} from "rxjs/index";
-import { Household } from "../household";
-import {Recipe} from "./recipe/recipe";
-import {tap} from "rxjs/internal/operators";
+import { Cookbook } from './cookbook';
+import {Observable, of, Subject} from 'rxjs/index';
+import { Household } from '../household';
+import {Recipe} from './recipe/recipe';
+import {tap} from 'rxjs/internal/operators';
 
 @Injectable()
 export class CookbookServiceMock {
