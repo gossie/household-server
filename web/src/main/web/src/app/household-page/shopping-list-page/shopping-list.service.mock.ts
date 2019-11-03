@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ShoppingList } from "./shopping-list";
-import { Observable, of } from "rxjs/index";
-import { Household } from "../household";
+import { ShoppingList } from './shopping-list';
+import { Observable, of } from 'rxjs/index';
+import { Household } from '../household';
 
 @Injectable()
 export class ShoppingListServiceMock {

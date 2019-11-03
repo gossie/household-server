@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { ShoppingListService } from './shopping-list.service';
-import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
-import { ShoppingList } from "./shopping-list";
-import { ShoppingListGroup } from "./shopping-list-group/shopping-list-group";
-import { UserService } from "../../user.service";
-import { UserServiceMock } from "../../user.service.mock";
-import {Household} from "../household";
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { ShoppingList } from './shopping-list';
+import { ShoppingListGroup } from './shopping-list-group/shopping-list-group';
+import { UserService } from '../../user.service';
+import { UserServiceMock } from '../../user.service.mock';
+import { Household } from '../household';
 
 describe('ShoppingListService', () => {
 

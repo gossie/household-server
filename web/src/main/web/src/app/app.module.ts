@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { CommonElementsModule } from './common-elements/common-elements.module';
 import { AppComponent } from './app.component';
-import { HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HouseholdPageComponent } from './household-page/household-page.component';
 import { NoHouseholdComponent } from './household-page/no-household/no-household.component';
 import { LoadingInterceptor } from './household-page/loading.interceptor';
@@ -25,10 +25,6 @@ import { CustomXsrfInterceptor } from './custom-xsrf.interceptor';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        HttpClientXsrfModule.withOptions({
-            cookieName: 'XSRF-TOKEN',
-            headerName: 'XSRF-TOKEN'
-        }),
         BrowserModule,
         BrowserAnimationsModule,
         CommonElementsModule,

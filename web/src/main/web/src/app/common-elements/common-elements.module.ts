@@ -21,9 +21,6 @@ import { SelectRecipeComponent } from './select-recipe/select-recipe.component';
         UndoHintComponent,
         InvitationComponent,
         SelectRecipeComponent
-    ],
-    providers: [
-        InvitationService
     ]
 })
 export class CommonElementsModule { }

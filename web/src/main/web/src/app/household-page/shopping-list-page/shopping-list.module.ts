@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { CommonElementsModule } from '../../common-elements/common-elements.module';
 import { ShoppingListRoutingModule } from './shopping-list-routing.module';
@@ -14,10 +14,6 @@ import { ProgressBarComponent } from './shopping-list-group/progress-bar/progres
         CommonModule,
         ReactiveFormsModule,
         HttpClientModule,
-        HttpClientXsrfModule.withOptions({
-            cookieName: 'XSRF-TOKEN',
-            headerName: 'XSRF-TOKEN'
-        }),
         CommonElementsModule,
         ShoppingListRoutingModule
     ],

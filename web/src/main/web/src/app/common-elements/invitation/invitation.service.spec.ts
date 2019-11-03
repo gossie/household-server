@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { InvitationService } from './invitation.service';
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { UserService } from "../../user.service";
-import { UserServiceMock } from "../../user.service.mock";
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { UserService } from '../../user.service';
+import { UserServiceMock } from '../../user.service.mock';
 
 describe('InvitationService', () => {
     beforeEach(() => TestBed.configureTestingModule({
@@ -10,7 +10,6 @@ describe('InvitationService', () => {
             HttpClientTestingModule
         ],
         providers: [
-            InvitationService,
             { provide: UserService, useClass: UserServiceMock }
         ]
     }));
