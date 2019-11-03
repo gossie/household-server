@@ -54,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
             .and()
                 .csrf()
+                .ignoringAntMatchers("/logout")
                 .csrfTokenRepository(csrfTokenRepository())
             .and()
             .addFilterAfter(this::csrfFilter, CsrfFilter.class)
