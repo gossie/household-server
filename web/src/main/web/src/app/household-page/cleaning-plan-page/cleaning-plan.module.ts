@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { CleaningPlanRoutingModule } from './cleaning-plan-routing.module';
 import { CleaningPlanPageComponent } from './cleaning-plan-page.component';
@@ -13,6 +13,10 @@ import { DatePipe } from './chore/date.pipe';
         CommonModule,
         ReactiveFormsModule,
         HttpClientModule,
+        HttpClientXsrfModule.withOptions({
+            cookieName: 'XSRF-TOKEN',
+            headerName: 'XSRF-TOKEN'
+        }),
         CleaningPlanRoutingModule
     ],
     declarations: [
