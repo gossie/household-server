@@ -62,4 +62,13 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
     public toggleNavbar(): void {
         this.expanded = !this.expanded;
     }
+
+    public logout(): void {
+        console.debug('perform logout');
+        this.userService.logout()
+            .subscribe(
+                () => location.href = 'login.html',
+                () => location.href = 'login.html'
+            );
+    }
 }
