@@ -7,14 +7,14 @@
 
     <parent>
         <groupId>household</groupId>
-        <artifactId>household-parent</artifactId>
+        <artifactId>user-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>household-domain</artifactId>
+    <artifactId>user-mq</artifactId>
     <packaging>jar</packaging>
 
-    <name>household-domain</name>
+    <name>user-mq</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -25,14 +25,28 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
+            <groupId>household</groupId>
+            <artifactId>user-domain</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>household</groupId>
+            <artifactId>plan-domain</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
 
         <dependency>

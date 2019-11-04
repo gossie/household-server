@@ -12,11 +12,11 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>shopping-list-parent</artifactId>
+    <artifactId>user-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>shopping-list-parent</name>
+    <name>user-parent</name>
     <description>ldwas household planner</description>
 
     <properties>
@@ -26,10 +26,10 @@
     </properties>
 
     <modules>
-        <module>shopping-list-domain</module>
-        <module>shopping-list-domain-test-utils</module>
-        <module>shopping-list-persistence</module>
-        <module>shopping-list-rest</module>
-        <module>shopping-list-mq</module>
+        <module>user-domain</module>
+        <module>user-domain-test-utils</module>
+        <module>user-persistence</module>
+        <module>user-rest</module>
+        <module>user-mq</module>
     </modules>
 </project>
