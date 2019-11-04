@@ -2,7 +2,6 @@ package household.cleaningplan;
 
 import java.util.List;
 
-import household.AbstractDTO;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;

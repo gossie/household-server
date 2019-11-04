@@ -31,7 +31,7 @@
         </dependency>
         <dependency>
             <groupId>household</groupId>
-            <artifactId>plan-domain</artifactId>
+            <artifactId>household-domain</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 

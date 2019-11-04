@@ -26,16 +26,6 @@
     <dependencies>
         <dependency>
             <groupId>household</groupId>
-            <artifactId>plan-rest</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>plan-persistence</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
             <artifactId>shopping-list-rest</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
@@ -96,6 +86,36 @@
         </dependency>
         <dependency>
             <groupId>household</groupId>
+            <artifactId>user-rest</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>household</groupId>
+            <artifactId>user-mq</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>household</groupId>
+            <artifactId>user-persistence</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>household</groupId>
+            <artifactId>household-rest</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>household</groupId>
+            <artifactId>household-mq</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>household</groupId>
+            <artifactId>household-persistence</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>household</groupId>
             <artifactId>plan-web</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>runtime</scope>
@@ -140,12 +160,6 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>plan-domain-test-utils</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
