@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { CleaningPlanRoutingModule } from './cleaning-plan-routing.module';
 import { CleaningPlanPageComponent } from './cleaning-plan-page.component';
+import { CleaningPlanService } from './cleaning-plan.service';
 import { ChoreComponent } from './chore/chore.component';
 import { DatePipe } from './chore/date.pipe';
 

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ShoppingList } from "./shopping-list";
-import {BehaviorSubject, Observable, Subject} from "rxjs/index";
-import { HttpClient } from "@angular/common/http";
-import { ShoppingListGroup } from "./shopping-list-group/shopping-list-group";
-import { ShoppingListItem } from "./shopping-list-group/shopping-list-item/shopping-list-item";
-import { AbstractNetworkService } from "../../abstract-network.service";
-import { UserService } from "../../user.service";
-import { Household } from "../household";
-import {tap} from "rxjs/internal/operators";
+import { ShoppingList } from './shopping-list';
+import { BehaviorSubject, Observable, Subject } from 'rxjs/index';
+import { HttpClient } from '@angular/common/http';
+import { ShoppingListGroup } from './shopping-list-group/shopping-list-group';
+import { ShoppingListItem } from './shopping-list-group/shopping-list-item/shopping-list-item';
+import { AbstractNetworkService } from '../../abstract-network.service';
+import { UserService } from '../../user.service';
+import { Household } from '../household';
+import {tap} from 'rxjs/internal/operators';
 
 @Injectable({
     providedIn: 'root'

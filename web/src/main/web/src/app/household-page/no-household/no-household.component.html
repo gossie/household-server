@@ -11,9 +11,9 @@
         <div id="householdNavbar" class="navbar-menu" [ngClass]="{'is-active': expanded}">
             <div class="navbar-end">
                 <div class="navbar-item">
-                    <form action="/logout" method="post">
-                        <input id="logout-button" onclick="this.form.submit();" value="Log out" class="button is-light" />
-                    </form>
+                    <a id="logout-button" (click)="logout()" class="button is-light">
+                        Log out
+                    </a>
                 </div>
             </div>
         </div>

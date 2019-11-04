@@ -70,4 +70,8 @@ export class UserService extends AbstractNetworkService {
         };
         return this.httpClient.put<User>(url, body, options);
     }
+
+    public logout(): Observable<void> {
+        return this.httpClient.post<void>('/logout', {}, {});
+    }
 }

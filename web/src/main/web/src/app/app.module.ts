@@ -12,6 +12,7 @@ import { LoadingInterceptor } from './household-page/loading.interceptor';
 import { LoadingComponent } from './household-page/loading/loading.component';
 import { DeleteInterceptor } from './household-page/delete.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CustomXsrfInterceptor } from './custom-xsrf.interceptor';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: DeleteInterceptor, multi: true }
+        { provide: HTTP_INTERCEPTORS, useClass: DeleteInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: CustomXsrfInterceptor, multi: true }
     ],
     bootstrap: [AppComponent]
 })

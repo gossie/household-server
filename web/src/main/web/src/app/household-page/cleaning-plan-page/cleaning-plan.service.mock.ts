@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from "rxjs/index";
+import { Observable, of } from 'rxjs/index';
 import { CleaningPlan } from './cleaning-plan';
-import { Chore } from "./chore/chore";
-import { Household } from "../household";
+import { Chore } from './chore/chore';
+import { Household } from '../household';
 
 @Injectable()
 export class CleaningPlanServiceMock {

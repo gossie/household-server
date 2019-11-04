@@ -67,7 +67,7 @@
                             <div class="field">
                                 <label class="checkbox">
                                     <input id="data-protection" name="dataProtection" type="checkbox" th:value="*{dataProtection}">
-                                    Ich akzeptieren die <a onclick="document.getElementById('data-protection').classList.add('is-active')">Datenschutz-Bestimmungen</a>.
+                                    Ich akzeptieren die <a onclick="document.getElementById('data-protection-dialog').classList.add('is-active')">Datenschutz-Bestimmungen</a>.
                                 </label>
                             </div>
 
@@ -95,7 +95,7 @@
                                 Impressum
                             </p>
                             <p class="bd-footer-link">
-                                <a onclick="document.getElementById('data-protection').classList.add('is-active')">Datenschutz</a>
+                                <a onclick="document.getElementById('data-protection-dialog').classList.add('is-active')">Datenschutz</a>
                             </p>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
             </div>
         </footer>
 
-        <div id="data-protection" class="modal">
+        <div id="data-protection-dialog" class="modal">
             <div class="modal-background"></div>
             <div class="modal-content">
                 <div class="box">
@@ -119,9 +119,6 @@
                         <p>
                             <span class="tsmcontroller">
                                 André Schreck<br>
-                                Benquestr. 30<br>
-                                28209 Bremen<br>
-                                Deutschland<br>
                                 <br>
                                 mail@haushalt-mit-plan.de
                             </span>
@@ -290,7 +287,7 @@
                     </div>
                 </div>
             </div>
-            <button id="close-button" class="modal-close is-large" aria-label="close" onclick="document.getElementById('data-protection').classList.remove('is-active')"></button>
+            <button id="close-button" class="modal-close is-large" aria-label="close" onclick="document.getElementById('data-protection-dialog').classList.remove('is-active')"></button>
         </div>
 
     </body>

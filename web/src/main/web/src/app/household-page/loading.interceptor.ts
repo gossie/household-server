@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import {
     HttpErrorResponse, HttpEvent, HttpEventType, HttpHandler, HttpInterceptor,
     HttpRequest
-} from "@angular/common/http";
-import {Observable, throwError} from "rxjs/index";
-import {catchError, tap} from "rxjs/internal/operators";
-import { LoadingService } from "./loading.service";
+} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs/index';
+import {catchError, tap} from 'rxjs/internal/operators';
+import { LoadingService } from './loading.service';
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
