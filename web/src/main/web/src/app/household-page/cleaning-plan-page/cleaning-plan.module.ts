@@ -19,9 +19,6 @@ import { DatePipe } from './chore/date.pipe';
         CleaningPlanPageComponent,
         ChoreComponent,
         DatePipe
-    ],
-    providers: [
-        CleaningPlanService
     ]
 })
 export class CleaningPlanModule { }
