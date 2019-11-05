@@ -1,11 +1,12 @@
 package household;
 
+import com.google.common.eventbus.EventBus;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.hateoas.config.EnableEntityLinks;
 
-import com.google.common.eventbus.EventBus;
 import household.cleaningplan.CleaningPlanRepository;
 import household.cleaningplan.CleaningPlanService;
 import household.cookbook.CookbookRepository;
@@ -37,24 +38,24 @@ public class PlanApplication {
 		return new HouseholdService(eventBus(), householdRepository);
 	}
 
-	@Bean(initMethod = "init")
+	@Bean
 	public CleaningPlanService cleaningPlanService(CleaningPlanRepository cleaningPlanRepository) {
-		return new CleaningPlanService(eventBus(), cleaningPlanRepository);
+		return new CleaningPlanService(cleaningPlanRepository);
 	}
 
-	@Bean(initMethod = "init")
+	@Bean
 	public CookbookService cookbookService(CookbookRepository cookbookRepository) {
-		return new CookbookService(eventBus(), cookbookRepository);
+		return new CookbookService(cookbookRepository);
 	}
 
-	@Bean(initMethod = "init")
+	@Bean
 	public FoodPlanService foodPlanService(FoodPlanRepository foodPlanRepository) {
-		return new FoodPlanService(eventBus(), foodPlanRepository);
+		return new FoodPlanService(foodPlanRepository);
 	}
 
-	@Bean(initMethod = "init")
+	@Bean
 	public ShoppingListService shoppingListService(ShoppingListRepository shoppingListRepository) {
-		return new ShoppingListService(eventBus(), shoppingListRepository);
+		return new ShoppingListService(shoppingListRepository);
 	}
 
 	@Bean(initMethod = "init")

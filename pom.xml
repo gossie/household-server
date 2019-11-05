@@ -27,14 +27,20 @@
     </properties>
 
     <modules>
-        <module>domain</module>
-        <module>domain-test-utils</module>
-        <module>persistence</module>
-        <module>rest</module>
+        <module>household/household-domain-test-utils</module>
+        <module>household/household-domain</module>
+        <module>cookbook</module>
+        <module>food-plan</module>
+        <module>cleaning-plan</module>
+        <module>shopping-list</module>
+        <module>user</module>
+        <module>household/household-rest</module>
+        <module>household/household-persistence</module>
+        <module>household/household-mq</module>
 	    <module>web</module>
         <module>app</module>
     </modules>
-    
+
     <!-- TODO: plugin management -->
 
     <dependencyManagement>
