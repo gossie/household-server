@@ -30,6 +30,13 @@ export class HouseholdService extends AbstractNetworkService {
         );
     }
 
+    public deleteHousehold(household: Household): Observable<void> {
+        const url: string = this.determineUrl(household, 'self');
+        return this.httpClient.delete<void>(url, {}).pipe(
+            tap(() => this.subject.next(null))
+        );
+    }
+
     public determineHousehold(): Observable<Household> {
         const user: User = this.userService.getUser();
         const url: string = this.determineUrl(user, 'household');

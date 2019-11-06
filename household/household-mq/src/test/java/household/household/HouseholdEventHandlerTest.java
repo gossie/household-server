@@ -1,9 +1,9 @@
 package household.household;
 
-import com.google.common.eventbus.EventBus;
 import household.user.InvitationAcceptedEvent;
 import household.user.User;
 import org.junit.jupiter.api.Test;
+import org.springframework.messaging.MessageChannel;
 
 import java.util.Collections;
 
@@ -16,7 +16,7 @@ class HouseholdEventHandlerTest {
     public void testOnInvitationAccepted_noExistingHousehold() throws Exception {
         HouseholdService HouseholdService = mock(HouseholdService.class);
 
-        HouseholdEventHandler HouseholdEventHandler = new HouseholdEventHandler(mock(EventBus.class), HouseholdService);
+        HouseholdEventHandler HouseholdEventHandler = new HouseholdEventHandler(HouseholdService, mock(MessageChannel.class));
         HouseholdEventHandler.onInvitationAccepted(new InvitationAcceptedEvent(null, null));
 
         verifyZeroInteractions(HouseholdService);
@@ -26,7 +26,7 @@ class HouseholdEventHandlerTest {
     public void testOnInvitationAccepted_usersLeft() throws Exception {
         HouseholdService HouseholdService = mock(HouseholdService.class);
 
-        HouseholdEventHandler HouseholdEventHandler = new HouseholdEventHandler(mock(EventBus.class), HouseholdService);
+        HouseholdEventHandler HouseholdEventHandler = new HouseholdEventHandler(HouseholdService, mock(MessageChannel.class));
         HouseholdEventHandler.onInvitationAccepted(new InvitationAcceptedEvent(5L, Collections.singletonList(mock(User.class))));
 
         verifyZeroInteractions(HouseholdService);
@@ -38,7 +38,7 @@ class HouseholdEventHandlerTest {
 
         HouseholdService HouseholdService = mock(HouseholdService.class);
 
-        HouseholdEventHandler HouseholdEventHandler = new HouseholdEventHandler(mock(EventBus.class), HouseholdService);
+        HouseholdEventHandler HouseholdEventHandler = new HouseholdEventHandler(HouseholdService, mock(MessageChannel.class));
         HouseholdEventHandler.onInvitationAccepted(new InvitationAcceptedEvent(5L, Collections.emptyList()));
 
         verify(HouseholdService).deleteHousehold(5L);

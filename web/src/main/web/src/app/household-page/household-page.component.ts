@@ -64,7 +64,6 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
     }
 
     public logout(): void {
-        console.debug('perform logout');
         this.userService.logout()
             .subscribe(
                 () => location.href = 'login.html',

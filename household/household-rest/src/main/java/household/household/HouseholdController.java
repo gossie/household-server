@@ -3,13 +3,9 @@ package household.household;
 import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import household.cleaningplan.CleaningPlan;
 import household.cleaningplan.CleaningPlanService;
@@ -54,6 +50,12 @@ public class HouseholdController {
 
 		return ResponseEntity.ok(createResource(household));
 	}
+
+	@DeleteMapping(path="/{id}")
+    @ResponseStatus(value = HttpStatus.OK)
+	public void deleteHousehold(@PathVariable Long id) {
+	    householdService.deleteHousehold(id);
+    }
 
 	@GetMapping(path="/{id}", produces={"application/vnd.household.v1+json"})
 	public HttpEntity<Resource<HouseholdDTO>> getHoushold(@PathVariable Long id) {

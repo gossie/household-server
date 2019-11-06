@@ -12,11 +12,11 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>household-parent</artifactId>
+    <artifactId>household-messaging</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
-    <name>household-parent</name>
+    <name>household-messaging</name>
     <description>ldwas household planner</description>
 
     <properties>
@@ -25,11 +25,10 @@
         <java.version>11</java.version>
     </properties>
 
-    <modules>
-        <module>household-domain</module>
-        <module>household-domain-test-utils</module>
-        <module>household-persistence</module>
-        <module>household-rest</module>
-        <module>household-mq</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-stream</artifactId>
+        </dependency>
+    </dependencies>
 </project>

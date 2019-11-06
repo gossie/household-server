@@ -1,9 +1,8 @@
 package household;
 
-import com.google.common.eventbus.EventBus;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.context.annotation.Bean;
 import org.springframework.hateoas.config.EnableEntityLinks;
 
@@ -22,6 +21,7 @@ import household.user.UserService;
 
 @SpringBootApplication
 @EnableEntityLinks
+@EnableBinding(HouseholdMessageChannels.class)
 public class PlanApplication {
 
 	public static void main(String[] args) {
@@ -29,13 +29,8 @@ public class PlanApplication {
 	}
 
 	@Bean
-    public EventBus eventBus() {
-	    return new EventBus();
-    }
-
-	@Bean(initMethod = "init")
 	public HouseholdService householdService(HouseholdRepository householdRepository) {
-		return new HouseholdService(eventBus(), householdRepository);
+		return new HouseholdService(householdRepository);
 	}
 
 	@Bean
@@ -58,9 +53,9 @@ public class PlanApplication {
 		return new ShoppingListService(shoppingListRepository);
 	}
 
-	@Bean(initMethod = "init")
+	@Bean
 	public UserService userService(UserRepository userRepository) {
-		return new UserService(eventBus(), userRepository);
+		return new UserService(userRepository);
 	}
 
 }

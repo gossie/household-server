@@ -7,8 +7,6 @@ import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import com.google.common.eventbus.EventBus;
-
 public class HouseholdServiceTest {
 
 	private HouseholdService householdService;
@@ -20,7 +18,7 @@ public class HouseholdServiceTest {
 		HouseholdRepository householdRepository = mock(HouseholdRepository.class);
 		when(householdRepository.determineHousehold(7L)).thenReturn(expected);
 
-		householdService = new HouseholdService(mock(EventBus.class), householdRepository);
+		householdService = new HouseholdService(householdRepository);
 		Household result = householdService.getHousehold(7L);
 
 		assertThat(result).isSameAs(expected);

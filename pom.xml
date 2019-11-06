@@ -27,24 +27,36 @@
     </properties>
 
     <modules>
-        <module>household/household-domain-test-utils</module>
-        <module>household/household-domain</module>
+        <module>messaging</module>
         <module>cookbook</module>
         <module>food-plan</module>
         <module>cleaning-plan</module>
         <module>shopping-list</module>
         <module>user</module>
-        <module>household/household-rest</module>
-        <module>household/household-persistence</module>
-        <module>household/household-mq</module>
+        <module>household</module>
 	    <module>web</module>
         <module>app</module>
     </modules>
 
     <!-- TODO: plugin management -->
 
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+        </repository>
+    </repositories>
+
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Greenwich.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter</artifactId>
@@ -55,11 +67,6 @@
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
                 <version>3.6.2</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>28.1-jre</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

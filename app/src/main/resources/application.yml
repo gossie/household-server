@@ -1,0 +1,33 @@
+spring:
+    jpa:
+        generate-ddl: true
+        hibernate.ddl-auto: update
+    datasource.url: ${JDBC_DATABASE_URL:jdbc:h2:mem:testdb}
+    cloud:
+        stream:
+            bindings:
+                producer:
+                    destination: household
+                    binder: local_rabbit
+                consumer:
+                    destination: household
+                    binder: local_rabbit
+            binders:
+                local_rabbit:
+                    type: rabbit
+                    environment:
+                        spring:
+                            rabbitmq:
+                                host: localhost
+                                port: 5672
+                                username: ${RABBIT_MQ_USERNAME:guest}
+                                password: ${RABBIT_MQ_PASSWORD:guest}
+                                virtual-host: /
+
+logging:
+    level:
+        org.springframework.web: ERROR
+        .org.hibernate: ERROR
+
+server:
+    port: ${PORT:5000}

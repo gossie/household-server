@@ -1,16 +1,18 @@
 package household.household;
 
-import com.google.common.eventbus.EventBus;
 import lombok.RequiredArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 public class HouseholdService {
 
-    private final EventBus eventBus;
 	private final HouseholdRepository householdRepository;
+	private final List<HouseholdObserver> householdObservers = new ArrayList<>();
 
-    public void init() {
-        eventBus.register(this);
+	public void addObserver(HouseholdObserver observer) {
+	    householdObservers.add(observer);
     }
 
 	public Household getHousehold(Long householdId) {
@@ -18,12 +20,14 @@ public class HouseholdService {
 	}
 
 	public Household createHousehold(Long shoppingListId, Long cleaningPlanId, Long foodPlanId, Long cookbookId) {
-		return householdRepository.saveHousehold(new Household(null, shoppingListId, cleaningPlanId, foodPlanId, cookbookId));
+        Household household = householdRepository.saveHousehold(new Household(null, shoppingListId, cleaningPlanId, foodPlanId, cookbookId));
+        householdObservers.forEach(observer -> observer.onHouseholdCreation(household));
+        return household;
 	}
 
 	public void deleteHousehold(Long householdId) {
         Household household = householdRepository.determineHousehold(householdId);
         householdRepository.deleteHousehold(householdId);
-        eventBus.post(new HouseholdDeletedEvent(household));
+        householdObservers.forEach(observer -> observer.onHouseholdDeletion(household));
     }
 }

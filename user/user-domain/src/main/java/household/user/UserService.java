@@ -2,19 +2,12 @@ package household.user;
 
 import java.util.List;
 
-import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class UserService {
 
-    private final EventBus eventBus;
     private final UserRepository userRepository;
-
-    public void init() {
-        eventBus.register(this);
-    }
 
     public User createUser(User user) {
         userRepository.determineUser(user.getEmail()).ifPresent(u -> {
@@ -58,7 +51,7 @@ public class UserService {
         userRepository.saveUser(user);
 
         List<User> leftUsers = userRepository.determineUsers(oldHouseholdId);
-        eventBus.post(new InvitationAcceptedEvent(oldHouseholdId, leftUsers));
+        //eventBus.post(new InvitationAcceptedEvent(oldHouseholdId, leftUsers));
     }
 
     public void removeHouseholdFromUsers(Long householdId) {

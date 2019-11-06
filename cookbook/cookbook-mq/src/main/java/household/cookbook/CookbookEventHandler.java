@@ -1,24 +1,19 @@
 package household.cookbook;
 
-import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
-import household.household.HouseholdDeletedEvent;
-
+import household.HouseholdMessageChannels;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.annotation.StreamListener;
 
 @RequiredArgsConstructor
+@EnableBinding(HouseholdMessageChannels.class)
 class CookbookEventHandler {
 
-    private final EventBus eventBus;
-    private final CookbookService shoppingListService;
+    private final CookbookService cookbookService;
 
-    public void init() {
-        eventBus.register(this);
-    }
-
-    @Subscribe
+    @StreamListener(HouseholdMessageChannels.PRODUCER)
     public void onHouseholdDeleted(HouseholdDeletedEvent event) {
-        shoppingListService.deleteCookbook(event.getHousehold().getShoppingListId());
+        cookbookService.deleteCookbook(event.getCookbookId());
     }
 
 }
