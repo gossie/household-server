@@ -1,6 +1,5 @@
 package household.household;
 
-import household.AbstractDTO;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

@@ -1,7 +1,5 @@
 <!doctype html>
-<html lang="en"
-      xmlns:th="https://www.thymeleaf.org">
-
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,15 +20,17 @@
         </section>
         <div class="section">
             <div class="container">
-                <div th:if="${successMessage}" class="notification is-success">
-                    <button class="delete"></button>
-                    <span th:text="${successMessage}"></span>
-                </div>
+                <#if successMessage??>
+                    <div class="notification is-success">
+                        <button class="delete"></button>
+                        <span>${successMessage}</span>
+                    </div>
+                </#if>
                 <nav class="navbar" role="navigation" aria-label="main navigation">
                     <div class="navbar-brand">
                         <div class="navbar-item">
                             <div class="buttons">
-                                <a th:href="@{/registration.html}" id="registration-tab" class="button is-primary">
+                                <a href="/registration.html" id="registration-tab" class="button is-primary">
                                     <strong>Sign up</strong>
                                 </a>
                                 <a id="login-tab" class="button is-light">
@@ -42,7 +42,10 @@
                 </nav>
                 <div class="columns">
                     <div class="column">
-                        <form th:action="@{/login.html}" method="post">
+                        <form action="/login.html" method="post">
+                            <#if _csrf??>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            </#if>
                             <div class="field">
                                 <p class="control has-icons-left has-icons-right">
                                     <input id="email-field" name="username" class="input" type="email" placeholder="E-Mail" />
@@ -66,10 +69,12 @@
                                 </div>
                             </div>
 
-                            <div th:if="${param.error}" class="notification is-warning">
-                                <button class="delete"></button>
-                                E-Mail Adresse und Passwort passen nicht zueinander.
-                            </div>
+                            <#if errorMessage??>
+                                <div class="notification is-warning">
+                                    <button class="delete"></button>
+                                    <span>${errorMessage}</span>
+                                </div>
+                            </#if>
                         </form>
                     </div>
                 </div>

@@ -1,9 +1,6 @@
 package household.household;
 
-import org.springframework.hateoas.ExposesResourceFor;
-import org.springframework.hateoas.Resource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
+import org.springframework.hateoas.Link;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,10 +19,13 @@ import household.shoppinglist.ShoppingListService;
 import household.user.User;
 import household.user.UserService;
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Mono;
+
+import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api/households")
-@ExposesResourceFor(HouseholdDTO.class)
 @CrossOrigin
 @RequiredArgsConstructor
 public class HouseholdController {
@@ -38,36 +38,70 @@ public class HouseholdController {
 
 	private final HouseholdService householdService;
 	private final HouseholdDTOMapper householdMapper;
-	private final HouseholdResourceProcessor householdResourceProcessor;
 
 	@PostMapping(produces={"application/vnd.household.v1+json"})
-	public HttpEntity<Resource<HouseholdDTO>> createHousehold() {
+	public Mono<HouseholdDTO> createHousehold() {
 		ShoppingList shoppingList = shoppingListService.createShoppingList();
 		CleaningPlan cleaningPlan = cleaningPlanService.createCleaningPlan();
 		FoodPlan foodPlan = foodPlanService.createFoodPlan();
 		Cookbook cookbook = cookbookService.createCookbook();
 
 		Household household = householdService.createHousehold(shoppingList.getId(), cleaningPlan.getId(), foodPlan.getId(), cookbook.getId());
-		User currentUser = userService.determineCurrentUser();
-		currentUser.setHouseholdId(household.getId());
-		userService.updateUser(currentUser);
-
-		return ResponseEntity.ok(createResource(household));
+		return userService.determineCurrentUser()
+            .map(currentUser -> {
+                currentUser.setHouseholdId(household.getId());
+                userService.updateUser(currentUser);
+                return household;
+            })
+            .map(this::createResource)
+            .flatMap(this::addLinks);
 	}
 
 	@GetMapping(path="/{id}", produces={"application/vnd.household.v1+json"})
-	public HttpEntity<Resource<HouseholdDTO>> getHoushold(@PathVariable Long id) {
-		return ResponseEntity.ok(createResource(householdService.getHousehold(id)));
+	public Mono<HouseholdDTO> getHousehold(@PathVariable Long id) {
+		return Mono.just(createResource(householdService.getHousehold(id)))
+            .flatMap(this::addLinks);
 	}
 
-	private Resource<HouseholdDTO> createResource(Household household) {
-		HouseholdDTO housholdDTO = householdMapper.map(household);
+	private HouseholdDTO createResource(Household household) {
+		HouseholdDTO householdDTO = householdMapper.map(household);
 		userService.determineUsers(household.getId())
                 .stream()
                 .map(user -> new ParticipantDTO(user.getId(), user.getEmail()))
-                .forEach(housholdDTO::addParticipant);
+                .forEach(householdDTO::addParticipant);
 
-        Resource<HouseholdDTO> resource = new Resource<HouseholdDTO>(housholdDTO);
-		return householdResourceProcessor.process(resource);
+		return householdDTO;
 	}
+
+    private Mono<HouseholdDTO> addLinks(HouseholdDTO household) {
+        return addSelfLink(household)
+            .map(this::addShoppingListLink)
+            .map(this::addCleaningPlanLink)
+            .map(this::addFoodPlanLink)
+            .map(this::addCookbookLink);
+    }
+
+    private Mono<HouseholdDTO> addSelfLink(HouseholdDTO household) {
+        return linkTo(methodOn(HouseholdController.class).getHousehold(household.getDatabaseId()))
+            .withSelfRel()
+            .toMono()
+            .map(household::add)
+            .map(HouseholdDTO.class::cast);
+    }
+
+    private HouseholdDTO addShoppingListLink(HouseholdDTO household) {
+        return (HouseholdDTO) household.add(new Link("/api/shoppingLists/" + household.getShoppingListId(), "shoppingList"));
+    }
+
+    private HouseholdDTO addCleaningPlanLink(HouseholdDTO household) {
+        return (HouseholdDTO) household.add(new Link("/api/cleaningPlans/" + household.getCleaningPlanId(), "cleaningPlan"));
+    }
+
+    private HouseholdDTO addFoodPlanLink(HouseholdDTO household) {
+        return (HouseholdDTO) household.add(new Link("/api/foodPlans/" + household.getFoodPlanId(), "foodPlan"));
+    }
+
+    private HouseholdDTO addCookbookLink(HouseholdDTO household) {
+        return (HouseholdDTO) household.add(new Link("/api/cookbooks/" + household.getCookbookId(), "cookbook"));
+    }
 }

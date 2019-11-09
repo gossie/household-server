@@ -6,6 +6,7 @@ import static java.util.Arrays.asList;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ShoppingListDTOMapperTest {
@@ -44,5 +45,4 @@ public class ShoppingListDTOMapperTest {
                         .shoppingListItem(0, item -> item.hasName("three").isDeselected())
                         .shoppingListItem(1, item -> item.hasName("four")));
 	}
-
 }

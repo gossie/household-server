@@ -1,5 +1,7 @@
 package household.user;
 
+import reactor.core.publisher.Mono;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +13,7 @@ public interface UserRepository {
 
     Optional<User> determineUser(String email);
 
-    User determineCurrentUser();
+    Mono<User> determineCurrentUser();
 
     List<User> determineUsers(Long householdId);
 

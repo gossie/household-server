@@ -2,11 +2,8 @@ package household.user;
 
 import java.util.Map;
 
-import org.springframework.hateoas.ExposesResourceFor;
-import org.springframework.hateoas.Resource;
-import org.springframework.http.HttpEntity;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,31 +16,34 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Mono;
+
+import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api/users")
-@ExposesResourceFor(UserDTO.class)
 @CrossOrigin
 @RequiredArgsConstructor
 public class UserController {
 
-    // private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-
     private final UserService userService;
     private final UserDTOMapper userMapper;
-    private final UserResourceProcessor userResourceProcessor;
 
     @PutMapping(path="/{userId}",  consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
-    public HttpEntity<Resource<UserDTO>> changePassword(@PathVariable Long userId, @RequestBody Map<String, String> data) {
+    public Mono<UserDTO> changePassword(@PathVariable Long userId, @RequestBody Map<String, String> data) {
         User user = userService.changePassword(userId, data.get("currentPassword"), data.get("newPassword"));
-        return ResponseEntity.ok(createResource(user));
+        return Mono.just(createResource(user))
+            .flatMap(this::addLinks);
     }
 
     @GetMapping(path="/current", produces={"application/vnd.household.v1+json"})
-    public HttpEntity<Resource<UserDTO>> getCurrentUser() {
+    public Mono<UserDTO> getCurrentUser() {
+        // TODO
         try {
-            User user = userService.determineCurrentUser();
-            return ResponseEntity.ok(createResource(user));
+            return userService.determineCurrentUser()
+                .map(this::createResource)
+                .flatMap(this::addLinks);
         } catch(IllegalStateException e) {
             throw new NotAuthenticatedException(e);
         }
@@ -51,11 +51,12 @@ public class UserController {
 
     @PostMapping(path="/{userId}/invitations", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
     @ResponseStatus(value = HttpStatus.OK)
-    public HttpEntity<Resource<UserDTO>> invite(@PathVariable Long userId, @RequestBody InvitationRequestDTO invitation) {
+    public Mono<UserDTO> invite(@PathVariable Long userId, @RequestBody InvitationRequestDTO invitation) {
         User invitingUser = userService.determineUser(userId);
         try {
             userService.invite(invitation.getEmail(), invitingUser);
-            return ResponseEntity.ok(createResource(invitingUser));
+            return Mono.just(createResource(invitingUser))
+                .flatMap(this::addLinks);
         } catch(IllegalStateException e) {
             throw new NotFoundException(e);
         }
@@ -63,20 +64,60 @@ public class UserController {
 
     @PostMapping(path="/{userId}/invitations/{invitationId}", produces={"application/vnd.household.v1+json"})
     @ResponseStatus(value = HttpStatus.OK)
-    public HttpEntity<Resource<UserDTO>> acceptInvitation(@PathVariable Long userId, @PathVariable Long invitationId) {
+    public Mono<UserDTO> acceptInvitation(@PathVariable Long userId, @PathVariable Long invitationId) {
         userService.acceptInvitation(userId, invitationId);
-        return ResponseEntity.ok(createResource(userService.determineUser(userId)));
+        return Mono.just(createResource(userService.determineUser(userId)))
+            .flatMap(this::addLinks);
     }
 
     @DeleteMapping(path="/{userId}/invitations/{invitationId}", produces={"application/vnd.household.v1+json"})
     @ResponseStatus(value = HttpStatus.OK)
-    public HttpEntity<Resource<UserDTO>> rejectInvitation(@PathVariable Long userId, @PathVariable Long invitationId) {
+    public Mono<UserDTO> rejectInvitation(@PathVariable Long userId, @PathVariable Long invitationId) {
         userService.rejectInvitation(userId, invitationId);
-        return ResponseEntity.ok(createResource(userService.determineUser(userId)));
+        return Mono.just(createResource(userService.determineUser(userId)))
+            .flatMap(this::addLinks);
     }
 
-    private Resource<UserDTO> createResource(User user) {
-        Resource<UserDTO> resource = new Resource<>(userMapper.map(user));
-        return userResourceProcessor.process(resource);
+    private UserDTO createResource(User user) {
+        return userMapper.map(user);
     }
+
+    private Mono<UserDTO> addLinks(UserDTO user) {
+        return addChangePasswordLink(user)
+            .map(this::addHouseholdLinkLink);
+    }
+
+    private Mono<UserDTO> addChangePasswordLink(UserDTO user) {
+        return linkTo(methodOn(UserController.class).getCurrentUser())
+            .withRel("changePassword")
+            .toMono()
+            .map(user::add)
+            .map(UserDTO.class::cast);
+    }
+
+
+
+    private UserDTO addHouseholdLinkLink(UserDTO user) {
+        if (user.getHouseholdId() != null) {
+            return (UserDTO) user.add(new Link("api/households/" + user.getHouseholdId(), "household"));
+        } else {
+            return (UserDTO) user.add(new Link("api/households", "create"));
+        }
+    }
+/*
+    public UserDTO process(UserDTO user) {
+        if(user.getHouseholdId() != null) {
+            user.add(new Link("api/households/" + user.getHouseholdId(), "household"));
+        } else {
+            user.add(new Link("api/households", "create"));
+        }
+        user.add(entityLinks.linkForItemResource(UserDTO.class, user.getDatabaseId()).slash("/invitations").withRel("invite"));
+        user.getInvitations().forEach(invitation -> {
+            invitation.add(entityLinks.linkForItemResource(UserDTO.class, user.getDatabaseId()).slash("/invitations/").slash(invitation.getDatabaseId()).withRel("reject"));
+            invitation.add(entityLinks.linkForItemResource(UserDTO.class, user.getDatabaseId()).slash("/invitations/").slash(invitation.getDatabaseId()).withRel("accept"));
+        });
+        return user;
+    }
+
+ */
 }

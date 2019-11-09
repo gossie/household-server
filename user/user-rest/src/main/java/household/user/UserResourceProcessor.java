@@ -1,35 +1,31 @@
 package household.user;
 
-import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.ResourceProcessor;
+import org.springframework.hateoas.server.EntityLinks;
+import org.springframework.hateoas.server.RepresentationModelProcessor;
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Component
-public class UserResourceProcessor implements ResourceProcessor<Resource<UserDTO>> {
+public class UserResourceProcessor implements RepresentationModelProcessor<UserDTO> {
 
-	private final EntityLinks entityLinks;
+	private EntityLinks entityLinks;
 
 	@Override
-	public Resource<UserDTO> process(Resource<UserDTO> resource) {
-		UserDTO user = resource.getContent();
-        resource.add(entityLinks.linkForSingleResource(UserDTO.class, user.getDatabaseId()).withSelfRel());
-        resource.add(entityLinks.linkForSingleResource(UserDTO.class, user.getDatabaseId()).withRel("changePassword"));
+	public UserDTO process(UserDTO user) {
 		if(user.getHouseholdId() != null) {
-		    resource.add(new Link("api/households/" + user.getHouseholdId(), "household"));
+            user.add(new Link("api/households/" + user.getHouseholdId(), "household"));
 		} else {
-            resource.add(new Link("api/households", "create"));
+            user.add(new Link("api/households", "create"));
         }
-		resource.add(entityLinks.linkForSingleResource(UserDTO.class, user.getDatabaseId()).slash("/invitations").withRel("invite"));
+        user.add(entityLinks.linkForItemResource(UserDTO.class, user.getDatabaseId()).slash("/invitations").withRel("invite"));
 		user.getInvitations().forEach(invitation -> {
-		    invitation.add(entityLinks.linkForSingleResource(UserDTO.class, user.getDatabaseId()).slash("/invitations/").slash(invitation.getDatabaseId()).withRel("reject"));
-		    invitation.add(entityLinks.linkForSingleResource(UserDTO.class, user.getDatabaseId()).slash("/invitations/").slash(invitation.getDatabaseId()).withRel("accept"));
+		    invitation.add(entityLinks.linkForItemResource(UserDTO.class, user.getDatabaseId()).slash("/invitations/").slash(invitation.getDatabaseId()).withRel("reject"));
+		    invitation.add(entityLinks.linkForItemResource(UserDTO.class, user.getDatabaseId()).slash("/invitations/").slash(invitation.getDatabaseId()).withRel("accept"));
 		});
-		return resource;
+		return user;
 	}
 
 }

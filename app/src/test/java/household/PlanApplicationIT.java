@@ -27,7 +27,7 @@ import org.springframework.web.context.WebApplicationContext;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class PlanApplicationIT {
-
+/*
 	@Autowired
 	private WebApplicationContext context;
 	@Autowired
@@ -39,7 +39,7 @@ public class PlanApplicationIT {
 	public void setUp() throws Exception {
 		mvc = MockMvcBuilders
 				.webAppContextSetup(context)
-				.addFilters(filterChainProxy)
+				//.addFilters(filterChainProxy)
 				.build();
 
 		createTestData();
@@ -304,4 +304,6 @@ public class PlanApplicationIT {
 		}
 		return null;
 	}
+
+ */
 }

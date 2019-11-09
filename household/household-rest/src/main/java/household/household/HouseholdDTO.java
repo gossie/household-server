@@ -2,7 +2,6 @@ package household.household;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import household.AbstractDTO;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
