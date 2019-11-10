@@ -3,6 +3,7 @@ package household.user;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
+import org.reactivestreams.Publisher;
 
 @RequiredArgsConstructor
 public class UserService {
@@ -16,7 +17,7 @@ public class UserService {
         return userRepository.createUser(user);
     }
 
-    public User determineCurrentUser() {
+    public Publisher<User> determineCurrentUser() {
         return userRepository.determineCurrentUser();
     }
 
@@ -51,7 +52,7 @@ public class UserService {
         userRepository.saveUser(user);
 
         List<User> leftUsers = userRepository.determineUsers(oldHouseholdId);
-        //eventBus.post(new InvitationAcceptedEvent(oldHouseholdId, leftUsers));
+        // TODO: eventBus.post(new InvitationAcceptedEvent(oldHouseholdId, leftUsers));
     }
 
     public void removeHouseholdFromUsers(Long householdId) {

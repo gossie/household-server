@@ -1,7 +1,5 @@
 <!doctype html>
-<html lang="en"
-      xmlns:th="https://www.thymeleaf.org">
-
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -29,7 +27,7 @@
                                 <a id="registration-tab" class="button is-primary">
                                     <strong>Sign up</strong>
                                 </a>
-                                <a th:href="@{/login.html}" id="login-tab" class="button is-light">
+                                <a href="/login.html" id="login-tab" class="button is-light">
                                     Log in
                                 </a>
                             </div>
@@ -38,10 +36,11 @@
                 </nav>
                 <div class="columns">
                     <div class="column">
-                        <form th:action="@{/registrations}" method="post">
+                        <form action="/registrations" method="post">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <div class="field">
                                 <p class="control has-icons-left has-icons-right">
-                                    <input id="email-field" name="email" class="input" type="email" th:value="*{email}" placeholder="E-Mail" />
+                                    <input id="email-field" name="email" class="input" type="email" placeholder="E-Mail" />
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-envelope"></i>
                                     </span>
@@ -49,7 +48,7 @@
                             </div>
                             <div class="field">
                                 <p class="control has-icons-left">
-                                    <input id="password-field" name="password" class="input" type="password" th:value="*{password}" placeholder="Passwort" />
+                                    <input id="password-field" name="password" class="input" type="password" placeholder="Passwort" />
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-lock"></i>
                                     </span>
@@ -57,7 +56,7 @@
                             </div>
                             <div class="field">
                                 <p class="control has-icons-left">
-                                    <input id="password-repeat-field" name="passwordRepeat" class="input" type="password" th:value="*{passwordRepeat}" placeholder="Passwort wiederholen" />
+                                    <input id="password-repeat-field" name="passwordRepeat" class="input" type="password" placeholder="Passwort wiederholen" />
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-lock"></i>
                                     </span>
@@ -66,7 +65,7 @@
 
                             <div class="field">
                                 <label class="checkbox">
-                                    <input id="data-protection" name="dataProtection" type="checkbox" th:value="*{dataProtection}">
+                                    <input id="data-protection" name="dataProtection" type="checkbox">
                                     Ich akzeptieren die <a onclick="document.getElementById('data-protection-dialog').classList.add('is-active')">Datenschutz-Bestimmungen</a>.
                                 </label>
                             </div>
@@ -77,10 +76,12 @@
                                 </div>
                             </div>
 
-                            <div th:if="${errorMessage}" class="notification is-warning">
-                                <button class="delete"></button>
-                                <span th:text="${errorMessage}">
-                            </div>
+                            <#if errorMessage??>
+                                <div class="notification is-warning">
+                                    <button class="delete"></button>
+                                    <span>${errorMessage}</span>
+                                </div>
+                            </#if>
                         </form>
                     </div>
                 </div>

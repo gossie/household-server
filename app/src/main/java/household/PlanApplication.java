@@ -3,8 +3,8 @@ package household;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.boot.autoconfigure.hateoas.HypermediaAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.hateoas.config.EnableEntityLinks;
 
 import household.cleaningplan.CleaningPlanRepository;
 import household.cleaningplan.CleaningPlanService;
@@ -18,9 +18,11 @@ import household.shoppinglist.ShoppingListRepository;
 import household.shoppinglist.ShoppingListService;
 import household.user.UserRepository;
 import household.user.UserService;
+import org.springframework.hateoas.config.EnableHypermediaSupport;
+import org.springframework.web.reactive.config.EnableWebFlux;
 
-@SpringBootApplication
-@EnableEntityLinks
+@SpringBootApplication(exclude = HypermediaAutoConfiguration.class)
+@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 @EnableBinding(HouseholdMessageChannels.class)
 public class PlanApplication {
 

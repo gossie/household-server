@@ -1,114 +1,98 @@
 package household;
 
-import java.io.IOException;
+import java.net.URI;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpCookie;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.DefaultRedirectStrategy;
-import org.springframework.security.web.RedirectStrategy;
+import org.springframework.http.ResponseCookie;
+import org.springframework.security.authentication.ReactiveAuthenticationManager;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.web.csrf.CsrfFilter;
-import org.springframework.security.web.csrf.CsrfToken;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
-import org.springframework.web.util.WebUtils;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.authentication.RedirectServerAuthenticationSuccessHandler;
+import org.springframework.security.web.server.authentication.ServerAuthenticationSuccessHandler;
+import org.springframework.security.web.server.csrf.CsrfToken;
+import org.springframework.security.web.server.csrf.ServerCsrfTokenRepository;
+import org.springframework.security.web.server.csrf.WebSessionServerCsrfTokenRepository;
+import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.WebFilterChain;
+import reactor.core.publisher.Mono;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebFluxSecurity
 @RequiredArgsConstructor
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
     private static final String CSRF_COOKIE_NAME = "XSRF-TOKEN";
 
-	private final UserDetailsService userDetailsService;
-	private final AuthenticationProvider authenticationProvider;
+    private final ReactiveAuthenticationManager authenticationManager;
 
-	@Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService);
-        auth.authenticationProvider(authenticationProvider);
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.requiresChannel()
-            .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
-            .requiresSecure()
-            .and()
+    @Bean
+    public SecurityWebFilterChain securitygWebFilterChain(ServerHttpSecurity http) {
+        return http
+            .authenticationManager(authenticationManager)
                 .cors()
             .and()
                 .csrf()
                 .csrfTokenRepository(csrfTokenRepository())
             .and()
-            .addFilterAfter(this::csrfFilter, CsrfFilter.class)
-                .authorizeRequests()
-                .antMatchers("/registration.html").permitAll()
-                .antMatchers("/index.html").permitAll()
-                .antMatchers("/").permitAll()
-                .mvcMatchers(HttpMethod.OPTIONS).permitAll()
-                .mvcMatchers(HttpMethod.POST, "/registrations").permitAll()
-                .mvcMatchers(HttpMethod.GET, "/api/status").permitAll()
-                .anyRequest().authenticated()
+                .addFilterAfter(this::csrfFilter, SecurityWebFiltersOrder.CSRF)
+                .authorizeExchange()
+                .pathMatchers("/", "/index.html", "/registration.html", "/login.html").permitAll()
+                .pathMatchers(HttpMethod.OPTIONS).permitAll()
+                .pathMatchers(HttpMethod.POST, "/registrations").permitAll()
+                .pathMatchers(HttpMethod.GET, "/api/status").permitAll()
+                .anyExchange().authenticated()
             .and()
                 .formLogin()
                 .loginPage("/login.html")
-                .successHandler(this::successHandler)
-                .permitAll()
+                .authenticationSuccessHandler(successHandler())
             .and()
-                .logout();
+                .logout()
+            .and()
+                .build();
+            // TODO: .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
     }
 
-    private CsrfTokenRepository csrfTokenRepository() {
-        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+    private ServerCsrfTokenRepository csrfTokenRepository() {
+        WebSessionServerCsrfTokenRepository repository = new WebSessionServerCsrfTokenRepository();
         repository.setHeaderName(CSRF_COOKIE_NAME);
         return repository;
     }
 
-    private void csrfFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) {
-        CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+    private Mono<Void> csrfFilter(ServerWebExchange exchange, WebFilterChain filterChain) {
+        Mono<CsrfToken> csrfToken = exchange.getAttribute(CsrfToken.class.getName());
+        if (csrfToken != null) {
+            return csrfToken
+                .map(csrf -> {
+                    if (csrf != null) {
 
-        if (csrf != null) {
+                        HttpCookie cookie = exchange.getRequest().getCookies().getFirst(CSRF_COOKIE_NAME);
+                        String token = csrf.getToken();
 
-            Cookie cookie = WebUtils.getCookie((HttpServletRequest) request, CSRF_COOKIE_NAME);
-            String token = csrf.getToken();
-
-            if (cookie == null || token != null && !token.equals(cookie.getValue())) {
-                cookie = new Cookie(CSRF_COOKIE_NAME, token);
-                cookie.setPath("/");
-                cookie.setHttpOnly(false);
-                ((HttpServletResponse) response).addCookie(cookie);
-            }
-        }
-
-        try {
-            filterChain.doFilter(request, response);
-        } catch (ServletException | IOException e) {
-            throw new RuntimeException(e);
+                        if (cookie == null || token != null && !token.equals(cookie.getValue())) {
+                            exchange.getResponse().addCookie(ResponseCookie.from(CSRF_COOKIE_NAME, token)
+                                .path("/")
+                                .httpOnly(false)
+                                .build());
+                        }
+                    }
+                    return csrf;
+                })
+                .flatMap(csrf -> filterChain.filter(exchange));
+        } else {
+            return filterChain.filter(exchange);
         }
     }
 
-    private void successHandler(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-        try {
-            redirectStrategy.sendRedirect(request, response, "/household.html");
-        } catch(IOException e) {
-            throw new RuntimeException(e);
-        }
+    private ServerAuthenticationSuccessHandler successHandler() {
+        RedirectServerAuthenticationSuccessHandler successHandler = new RedirectServerAuthenticationSuccessHandler();
+        successHandler.setLocation(URI.create("/household.html"));
+        return successHandler;
     }
 }

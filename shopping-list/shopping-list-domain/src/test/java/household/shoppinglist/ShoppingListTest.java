@@ -59,5 +59,4 @@ public class ShoppingListTest {
                 .shoppingListItem(0, el -> el.hasName("one").isDeselected())
                 .shoppingListItem(1, el -> el.hasName("two").isDeselected()));
 	}
-
 }

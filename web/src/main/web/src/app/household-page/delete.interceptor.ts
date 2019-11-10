@@ -28,10 +28,7 @@ export class DeleteInterceptor implements HttpInterceptor {
                     filter(() => !canceled),
                     tap(() => this.deleteHintService.hide()),
                     tap(() => subscription.unsubscribe()),
-                    mergeMap(() => {
-                        console.log('perform request');
-                        return next.handle(req)
-                    })
+                    mergeMap(() => next.handle(req))
                 );
         } else {
             return next.handle(req);
