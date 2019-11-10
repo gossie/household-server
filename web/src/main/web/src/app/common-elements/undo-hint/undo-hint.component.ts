@@ -28,17 +28,14 @@ import { animate, state, style, transition, trigger } from "@angular/animations"
 })
 export class UndoHintComponent implements OnInit, OnDestroy {
 
-    public visible: boolean = false;
+    public visible = false;
     private subscriptions: Array<Subscription> = [];
 
     constructor(private deleteHintService: DeleteHintService) { }
 
     public ngOnInit() {
         this.deleteHintService.onVisibilityChange()
-            .subscribe((value: boolean) => {
-                console.log('change visibility to', value);
-                this.visible = value
-            });
+            .subscribe((value: boolean) => this.visible = value);
     }
 
     public ngOnDestroy(): void {

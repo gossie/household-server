@@ -3,18 +3,15 @@ package household.cookbook;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @NoArgsConstructor(access=AccessLevel.PACKAGE, force=true)
@@ -28,7 +25,9 @@ class RecipeEntity {
 	private final Long id;
 	private String name;
 	private String description;
-	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
+
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
 	private List<IngredientEntity> ingredients = new ArrayList<>();
 	private String url;
 

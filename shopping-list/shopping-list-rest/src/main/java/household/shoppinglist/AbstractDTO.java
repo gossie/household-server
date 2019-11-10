@@ -1,8 +1,7 @@
-package household.cleaningplan;
-
-import org.springframework.hateoas.RepresentationModel;
+package household.shoppinglist;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.hateoas.RepresentationModel;
 
 public abstract class AbstractDTO extends RepresentationModel<AbstractDTO> {
 

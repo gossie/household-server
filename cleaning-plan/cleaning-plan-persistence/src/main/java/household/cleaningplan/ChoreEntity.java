@@ -2,19 +2,17 @@ package household.cleaningplan;
 
 import java.util.Optional;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 @NoArgsConstructor(access=AccessLevel.PACKAGE, force=true)
@@ -25,11 +23,10 @@ import lombok.ToString;
 class ChoreEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private final Long id;
 	private String name;
 	private long lastPerformed;
-	@OneToOne(cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToOne(cascade= CascadeType.ALL, orphanRemoval=true)
 	private RepeatEntity repeat;
 
 	Optional<RepeatEntity> getRepeat() {

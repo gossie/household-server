@@ -2,7 +2,6 @@ package household.foodplan;
 
 import java.util.Map;
 
-import household.AbstractDTO;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
