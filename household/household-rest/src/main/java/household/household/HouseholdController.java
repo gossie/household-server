@@ -47,7 +47,7 @@ public class HouseholdController {
 		Cookbook cookbook = cookbookService.createCookbook();
 
 		Household household = householdService.createHousehold(shoppingList.getId(), cleaningPlan.getId(), foodPlan.getId(), cookbook.getId());
-		return userService.determineCurrentUser()
+		return Mono.from(userService.determineCurrentUser())
             .map(currentUser -> {
                 currentUser.setHouseholdId(household.getId());
                 userService.updateUser(currentUser);

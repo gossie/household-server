@@ -1,6 +1,6 @@
 package household.user;
 
-import reactor.core.publisher.Mono;
+import org.reactivestreams.Publisher;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +13,7 @@ public interface UserRepository {
 
     Optional<User> determineUser(String email);
 
-    Mono<User> determineCurrentUser();
+    Publisher<User> determineCurrentUser();
 
     List<User> determineUsers(Long householdId);
 

@@ -41,7 +41,7 @@ public class UserController {
     public Mono<UserDTO> getCurrentUser() {
         // TODO
         try {
-            return userService.determineCurrentUser()
+            return Mono.from(userService.determineCurrentUser())
                 .map(this::createResource)
                 .flatMap(this::addLinks);
         } catch(IllegalStateException e) {
@@ -84,18 +84,21 @@ public class UserController {
 
     private Mono<UserDTO> addLinks(UserDTO user) {
         return addChangePasswordLink(user)
-            .map(this::addHouseholdLinkLink);
+            .map(this::addHouseholdLinkLink)
+            .flatMap(this::addInviteLink)
+            .flatMapIterable(UserDTO::getInvitations)
+            .flatMap(invitation -> addAcceptLink(invitation, user))
+            .flatMap(invitation -> addRejectLink(invitation, user))
+            .collect(() -> user, (a, b) -> {});
     }
 
     private Mono<UserDTO> addChangePasswordLink(UserDTO user) {
-        return linkTo(methodOn(UserController.class).getCurrentUser())
+        return linkTo(methodOn(UserController.class).changePassword(user.getDatabaseId(), null))
             .withRel("changePassword")
             .toMono()
             .map(user::add)
             .map(UserDTO.class::cast);
     }
-
-
 
     private UserDTO addHouseholdLinkLink(UserDTO user) {
         if (user.getHouseholdId() != null) {
@@ -104,20 +107,29 @@ public class UserController {
             return (UserDTO) user.add(new Link("api/households", "create"));
         }
     }
-/*
-    public UserDTO process(UserDTO user) {
-        if(user.getHouseholdId() != null) {
-            user.add(new Link("api/households/" + user.getHouseholdId(), "household"));
-        } else {
-            user.add(new Link("api/households", "create"));
-        }
-        user.add(entityLinks.linkForItemResource(UserDTO.class, user.getDatabaseId()).slash("/invitations").withRel("invite"));
-        user.getInvitations().forEach(invitation -> {
-            invitation.add(entityLinks.linkForItemResource(UserDTO.class, user.getDatabaseId()).slash("/invitations/").slash(invitation.getDatabaseId()).withRel("reject"));
-            invitation.add(entityLinks.linkForItemResource(UserDTO.class, user.getDatabaseId()).slash("/invitations/").slash(invitation.getDatabaseId()).withRel("accept"));
-        });
-        return user;
+
+    private Mono<UserDTO> addInviteLink(UserDTO user) {
+        return linkTo(methodOn(UserController.class).invite(user.getDatabaseId(), null))
+            .withRel("invite")
+            .toMono()
+            .map(user::add)
+            .map(UserDTO.class::cast);
     }
 
- */
+    private Mono<InvitationDTO> addAcceptLink(InvitationDTO invitation, UserDTO user) {
+        return linkTo(methodOn(UserController.class).acceptInvitation(user.getDatabaseId(), invitation.getDatabaseId()))
+            .withRel("accept")
+            .toMono()
+            .map(invitation::add)
+            .map(InvitationDTO.class::cast);
+    }
+
+    private Mono<InvitationDTO> addRejectLink(InvitationDTO invitation, UserDTO user) {
+        return linkTo(methodOn(UserController.class).rejectInvitation(user.getDatabaseId(), invitation.getDatabaseId()))
+            .withRel("reject")
+            .toMono()
+            .map(invitation::add)
+            .map(InvitationDTO.class::cast);
+    }
+
 }

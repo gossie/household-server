@@ -4,15 +4,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.reactivestreams.Publisher;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 class DefaultUserRepository implements UserRepository {
@@ -46,7 +45,7 @@ class DefaultUserRepository implements UserRepository {
     }
 
     @Override
-    public Mono<User> determineCurrentUser() {
+    public Publisher<User> determineCurrentUser() {
         return ReactiveSecurityContextHolder.getContext()
             .map(SecurityContext::getAuthentication)
             .map(Authentication::getName)

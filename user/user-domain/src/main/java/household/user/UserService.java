@@ -3,9 +3,8 @@ package household.user;
 import java.util.List;
 
 import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
 import lombok.RequiredArgsConstructor;
-import reactor.core.publisher.Mono;
+import org.reactivestreams.Publisher;
 
 @RequiredArgsConstructor
 public class UserService {
@@ -24,7 +23,7 @@ public class UserService {
         return userRepository.createUser(user);
     }
 
-    public Mono<User> determineCurrentUser() {
+    public Publisher<User> determineCurrentUser() {
         return userRepository.determineCurrentUser();
     }
 

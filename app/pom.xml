@@ -192,6 +192,21 @@
                             </resources>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>copy-static</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/classes/static</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.parent.basedir}/web/src/main/web/dist/web-frontend/</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>

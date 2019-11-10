@@ -17,6 +17,8 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @NoArgsConstructor(access=AccessLevel.PACKAGE, force=true)
@@ -32,9 +34,11 @@ class UserEntity {
 	private final String email;
 	private String password;
 	private Long householdId;
-	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+
+	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
 	private final List<InvitationEntity> invitations = new ArrayList<>();
-	
+
 	public void addInvitation(InvitationEntity invitation) {
 		invitations.add(invitation);
 	}
