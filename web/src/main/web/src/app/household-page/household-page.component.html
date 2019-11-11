@@ -1,5 +1,5 @@
 <div *ngIf="user">
-    <div *ngIf="household; else noHousehold" class="container">
+    <div *ngIf="household" class="container">
         <app-loading></app-loading>
         <nav class="navbar" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
@@ -62,8 +62,8 @@
         </div>
     </div>
 
-    <ng-template #noHousehold>
+    <div *ngIf="userHasNoHousehold">
         <app-no-household [user]="user"></app-no-household>
         <app-undo-hint></app-undo-hint>
-    </ng-template>
+    </div>
 </div>

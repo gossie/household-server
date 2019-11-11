@@ -10,6 +10,7 @@ import { IngredientComponent } from './recipe/ingredient/ingredient.component';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 import { EditableIngredientComponent } from './add-recipe/editable-ingredient/editable-ingredient.component';
 import { IngredientFormComponent } from './add-recipe/ingredient-form/ingredient-form.component';
+import { AmountPipe } from './amount.pipe';
 
 @NgModule({
     imports: [
@@ -25,7 +26,8 @@ import { IngredientFormComponent } from './add-recipe/ingredient-form/ingredient
         IngredientComponent,
         AddRecipeComponent,
         EditableIngredientComponent,
-        IngredientFormComponent
+        IngredientFormComponent,
+        AmountPipe
     ]
 })
 export class CookbookModule { }

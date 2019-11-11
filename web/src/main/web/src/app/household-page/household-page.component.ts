@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Household } from './household';
 import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 import { HouseholdService } from './household.service';
 import { Subscription } from 'rxjs/index';
 import { UserService } from '../user.service';
@@ -14,6 +14,7 @@ import { User } from '../user';
 })
 export class HouseholdPageComponent implements OnInit, OnDestroy {
 
+    public userHasNoHousehold = false;
     public household: Household;
     public user: User;
     public expanded = false;
@@ -46,6 +47,9 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
 
     private observeHousehold(): void {
         this.subscriptions.push(this.householdService.observeHousehold()
+            .pipe(
+                tap((household: Household) => this.userHasNoHousehold = household === null)
+            )
             .subscribe((household: Household) => this.household = household)
         );
     }
