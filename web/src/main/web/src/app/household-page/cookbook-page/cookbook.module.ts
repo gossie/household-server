@@ -8,6 +8,8 @@ import { CookbookPageComponent } from './cookbook-page.component';
 import { RecipeComponent } from './recipe/recipe.component';
 import { IngredientComponent } from './recipe/ingredient/ingredient.component';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
+import { EditableIngredientComponent } from './add-recipe/editable-ingredient/editable-ingredient.component';
+import { IngredientFormComponent } from './add-recipe/ingredient-form/ingredient-form.component';
 
 @NgModule({
     imports: [
@@ -21,7 +23,9 @@ import { AddRecipeComponent } from './add-recipe/add-recipe.component';
         CookbookPageComponent,
         RecipeComponent,
         IngredientComponent,
-        AddRecipeComponent
+        AddRecipeComponent,
+        EditableIngredientComponent,
+        IngredientFormComponent
     ]
 })
 export class CookbookModule { }
