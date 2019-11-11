@@ -15,6 +15,8 @@ import { SelectRecipeComponent } from '../../common-elements/select-recipe/selec
 import { CheckboxComponent } from '../../common-elements/checkbox/checkbox.component';
 import { ShoppingListService } from '../shopping-list-page/shopping-list.service';
 import { ShoppingListServiceMock } from '../shopping-list-page/shopping-list.service.mock';
+import { EditableIngredientComponent } from './add-recipe/editable-ingredient/editable-ingredient.component';
+import { IngredientFormComponent } from './add-recipe/ingredient-form/ingredient-form.component';
 
 describe('CookbookPageComponent', () => {
     let component: CookbookPageComponent;
@@ -31,6 +33,8 @@ describe('CookbookPageComponent', () => {
                 RecipeComponent,
                 IngredientComponent,
                 AddRecipeComponent,
+                EditableIngredientComponent,
+                IngredientFormComponent,
                 SelectRecipeComponent,
                 CheckboxComponent
             ],
