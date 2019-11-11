@@ -12,7 +12,7 @@ import { tap } from 'rxjs/internal/operators';
 })
 export class HouseholdService extends AbstractNetworkService {
 
-    private subject: Subject<Household> = new BehaviorSubject(null);
+    private subject: Subject<Household> = new BehaviorSubject(undefined);
 
     constructor(private userService: UserService,
                 private httpClient: HttpClient) {

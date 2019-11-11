@@ -4,6 +4,7 @@ import { EventEmitter } from '@angular/core';
 import { Ingredient } from '../../recipe/ingredient/ingredient';
 import { IngredientFormComponent } from '../ingredient-form/ingredient-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AmountPipe } from '../../amount.pipe';
 
 describe('EditableIngredientComponent', () => {
     let component: EditableIngredientComponent;
@@ -15,6 +16,7 @@ describe('EditableIngredientComponent', () => {
                 ReactiveFormsModule
             ],
             declarations: [
+                AmountPipe,
                 IngredientFormComponent,
                 EditableIngredientComponent
             ]

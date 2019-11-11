@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { CommonElementsModule } from './common-elements/common-elements.module';
 import { AppComponent } from './app.component';
@@ -22,7 +21,6 @@ import { CustomXsrfInterceptor } from './custom-xsrf.interceptor';
         LoadingComponent
     ],
     imports: [
-        FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
         BrowserModule,

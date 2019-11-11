@@ -17,6 +17,7 @@ import { ShoppingListService } from '../shopping-list-page/shopping-list.service
 import { ShoppingListServiceMock } from '../shopping-list-page/shopping-list.service.mock';
 import { EditableIngredientComponent } from './add-recipe/editable-ingredient/editable-ingredient.component';
 import { IngredientFormComponent } from './add-recipe/ingredient-form/ingredient-form.component';
+import { AmountPipe } from './amount.pipe';
 
 describe('CookbookPageComponent', () => {
     let component: CookbookPageComponent;
@@ -31,6 +32,7 @@ describe('CookbookPageComponent', () => {
             declarations: [
                 CookbookPageComponent,
                 RecipeComponent,
+                AmountPipe,
                 IngredientComponent,
                 AddRecipeComponent,
                 EditableIngredientComponent,
