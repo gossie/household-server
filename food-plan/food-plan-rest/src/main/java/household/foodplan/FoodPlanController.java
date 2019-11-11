@@ -83,7 +83,7 @@ public class FoodPlanController {
     private MealDTO addRecipeLink(MealDTO meal) {
         return meal.getCookbookId()
             .flatMap(cookbookId -> meal.getRecipeId())
-            .map(recipeId ->  meal.add(new Link("/api/cookbooks/" + meal.getCookbookId() + "/recipes/" + recipeId, "recipe")))
+            .map(recipeId ->  meal.add(new Link("/api/cookbooks/" + meal.getCookbookId().get() + "/recipes/" + recipeId, "recipe")))
             .map(MealDTO.class::cast)
             .orElse(meal);
     }
