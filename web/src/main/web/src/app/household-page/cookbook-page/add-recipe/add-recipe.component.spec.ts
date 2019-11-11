@@ -1,11 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AddRecipeComponent } from './add-recipe.component';
-import { ReactiveFormsModule } from "@angular/forms";
-import { CookbookService } from "../cookbook.service";
-import { CookbookServiceMock } from "../cookbook.service.mock";
-import { By } from "@angular/platform-browser";
-import { Cookbook } from "../cookbook";
-import { EventEmitter } from "@angular/core";
+import { ReactiveFormsModule } from '@angular/forms';
+import { CookbookService } from '../cookbook.service';
+import { CookbookServiceMock } from '../cookbook.service.mock';
+import { By } from '@angular/platform-browser';
+import { Cookbook } from '../cookbook';
+import { EventEmitter } from '@angular/core';
+import { EditableIngredientComponent } from './editable-ingredient/editable-ingredient.component';
 
 describe('AddRecipeComponent', () => {
     let component: AddRecipeComponent;
@@ -17,6 +18,7 @@ describe('AddRecipeComponent', () => {
                 ReactiveFormsModule
             ],
             declarations: [
+                EditableIngredientComponent,
                 AddRecipeComponent
             ],
             providers: [

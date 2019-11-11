@@ -19,16 +19,7 @@
 
             <h5 class="title is-5">Zutaten</h5>
             <form [formGroup]="ingredientForm">
-                <div *ngFor="let ingredient of ingredients; let i = index" class="columns is-mobile">
-                    <div class="column is-2">{{ ingredient.amount }}</div>
-                    <div class="column is-2">{{ ingredient.unit }}</div>
-                    <div class="column is-6">{{ ingredient.name }}</div>
-                    <div class="column is-2">
-                        <span id="delete-ingredient-button-{{i}}" class="icon" (click)="deleteIngredient(ingredient)">
-                            <i class="fas fa-trash"></i>
-                        </span>
-                    </div>
-                </div>
+                <app-editable-ingredient *ngFor="let ingredient of ingredients; let i = index" [ingredient]="ingredient" [index]="i" (ingredientDeletionEmitter)="deleteIngredient($event)"></app-editable-ingredient>
                 <div class="columns is-mobile">
                     <div class="column is-2">
                         <div class="control">

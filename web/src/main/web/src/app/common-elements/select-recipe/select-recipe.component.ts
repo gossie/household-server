@@ -15,7 +15,7 @@ export class SelectRecipeComponent implements OnInit {
     @Output()
     public ingredientsEmitter: EventEmitter<Set<string>> = new EventEmitter();
 
-    public loading: boolean = false;
+    public loading = false;
 
     private selectedIngredients: Set<string> = new Set();
 

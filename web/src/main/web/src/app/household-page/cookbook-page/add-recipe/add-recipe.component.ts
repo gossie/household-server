@@ -20,8 +20,8 @@ export class AddRecipeComponent implements OnInit, OnChanges {
     @Output()
     public cookbookEmitter: EventEmitter<Cookbook> = new EventEmitter();
 
-    public open: boolean = false;
-    public loading: boolean = false;
+    public open = false;
+    public loading = false;
     public ingredients: Array<Ingredient> = [];
     public recipeForm: FormGroup;
     public ingredientForm: FormGroup;
