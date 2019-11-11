@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs/index';
+import { Observable, Subject } from 'rxjs/index';
 import { Household } from './household';
 import { UserService } from '../user.service';
 import { HttpClient } from '@angular/common/http';
@@ -12,7 +12,7 @@ import { tap } from 'rxjs/internal/operators';
 })
 export class HouseholdService extends AbstractNetworkService {
 
-    private subject: Subject<Household> = new BehaviorSubject(null);
+    private subject: Subject<Household> = new Subject();
 
     constructor(private userService: UserService,
                 private httpClient: HttpClient) {
