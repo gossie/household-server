@@ -18,8 +18,8 @@ spring:
                     environment:
                         spring:
                             rabbitmq:
-                                host: localhost
-                                port: 5672
+                                host: ${RABBIT_MQ_HOST:localhost}
+                                port: ${RABBIT_MQ_PORT:5672}
                                 username: ${RABBIT_MQ_USERNAME:guest}
                                 password: ${RABBIT_MQ_PASSWORD:guest}
                                 virtual-host: /
