@@ -2,6 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EditableIngredientComponent } from './editable-ingredient.component';
 import { EventEmitter } from '@angular/core';
 import { Ingredient } from '../../recipe/ingredient/ingredient';
+import { IngredientFormComponent } from '../ingredient-form/ingredient-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('EditableIngredientComponent', () => {
     let component: EditableIngredientComponent;
@@ -9,7 +11,13 @@ describe('EditableIngredientComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ EditableIngredientComponent ]
+            imports: [
+                ReactiveFormsModule
+            ],
+            declarations: [
+                IngredientFormComponent,
+                EditableIngredientComponent
+            ]
         })
         .compileComponents();
     }));
@@ -28,6 +36,7 @@ describe('EditableIngredientComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
+        expect(component.editMode).toBeFalsy();
     });
 
     it('should emit`deleted event', done => {
@@ -43,5 +52,23 @@ describe('EditableIngredientComponent', () => {
         component.ingredientDeletionEmitter = ingredientDeletionEmitter;
 
         component.deleteIngredient();
+    });
+
+    it('should edit an ingredient', () => {
+        component.editIngredient();
+        expect(component.editMode).toBeTruthy();
+
+        component.saveIngredient({
+            amount: 750,
+            unit: 'g',
+            name: 'Hack'
+        });
+
+        expect(component.editMode).toBeFalsy();
+        expect(component.ingredient).toEqual({
+            amount: 750,
+            unit: 'g',
+            name: 'Hack'
+        });
     });
 });

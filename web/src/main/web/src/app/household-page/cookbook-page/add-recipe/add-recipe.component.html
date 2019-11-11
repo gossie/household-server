@@ -18,36 +18,8 @@
             </form>
 
             <h5 class="title is-5">Zutaten</h5>
-            <form [formGroup]="ingredientForm">
-                <app-editable-ingredient *ngFor="let ingredient of ingredients; let i = index" [ingredient]="ingredient" [index]="i" (ingredientDeletionEmitter)="deleteIngredient($event)"></app-editable-ingredient>
-                <div class="columns is-mobile">
-                    <div class="column is-2">
-                        <div class="control">
-                            <input id="amount-field" class="input" type="text" formControlName="amount" placeholder="Anzahl" />
-                        </div>
-                    </div>
-                    <div class="column is-2">
-                        <div class="control">
-                            <input id="unit-field" class="input" type="text" formControlName="unit" placeholder="Einheit" />
-                        </div>
-                    </div>
-                    <div class="column is-6">
-                        <div class="control">
-                            <input id="name-field" class="input" type="text" formControlName="name" placeholder="Zutat" />
-                        </div>
-                    </div>
-                    <div class="column is-2">
-                        <div class="control">
-                            <span class="icon has-text-grey-light" *ngIf="!ingredientForm.valid">
-                                <i class="fas fa-plus"></i>
-                            </span>
-                            <span id="add-ingredient-button" class="icon" *ngIf="ingredientForm.valid" (click)="addIngredient()">
-                                <i class="fas fa-plus"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            <app-editable-ingredient *ngFor="let ingredient of ingredients; let i = index" [ingredient]="ingredient" [index]="i" (ingredientDeletionEmitter)="deleteIngredient($event)"></app-editable-ingredient>
+            <app-ingredient-form (ingredientEmitter)="addIngredient($event)"></app-ingredient-form>
             <div class="columns is-mobile">
                 <div class="column">
                     <button id="save-recipe-button" class="button is-primary" (click)="saveRecipe()" [ngClass]="{'is-loading': loading}" [disabled]="!recipeForm.valid">Speichern</button>

@@ -6,23 +6,28 @@ import { Ingredient } from '../../recipe/ingredient/ingredient';
     templateUrl: './editable-ingredient.component.html',
     styleUrls: ['./editable-ingredient.component.sass']
 })
-export class EditableIngredientComponent implements OnInit {
+export class EditableIngredientComponent {
 
     @Input()
     public ingredient: Ingredient;
     @Input()
     public index: number;
-
     @Output()
     public ingredientDeletionEmitter: EventEmitter<Ingredient> = new EventEmitter();
 
+    public editMode = false;
+
     constructor() { }
 
-    public ngOnInit(): void {
+    public editIngredient(): void {
+        this.editMode = true;
     }
 
-    public editIngredient(): void {
-        
+    public saveIngredient(ingredient: Ingredient): void {
+        this.ingredient.amount = ingredient.amount;
+        this.ingredient.unit = ingredient.unit;
+        this.ingredient.name = ingredient.name;
+        this.editMode = false;
     }
 
     public deleteIngredient(): void {

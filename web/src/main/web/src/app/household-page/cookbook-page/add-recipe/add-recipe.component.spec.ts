@@ -7,6 +7,7 @@ import { By } from '@angular/platform-browser';
 import { Cookbook } from '../cookbook';
 import { EventEmitter } from '@angular/core';
 import { EditableIngredientComponent } from './editable-ingredient/editable-ingredient.component';
+import { IngredientFormComponent } from './ingredient-form/ingredient-form.component';
 
 describe('AddRecipeComponent', () => {
     let component: AddRecipeComponent;
@@ -19,6 +20,7 @@ describe('AddRecipeComponent', () => {
             ],
             declarations: [
                 EditableIngredientComponent,
+                IngredientFormComponent,
                 AddRecipeComponent
             ],
             providers: [

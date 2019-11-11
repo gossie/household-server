@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { Ingredient } from "../recipe/ingredient/ingredient";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { CookbookService } from "../cookbook.service";
-import { Cookbook } from "../cookbook";
-import { Recipe } from "../recipe/recipe";
-import { ObjectUtils } from "../../../object.utils";
+import { Ingredient } from '../recipe/ingredient/ingredient';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CookbookService } from '../cookbook.service';
+import { Cookbook } from '../cookbook';
+import { Recipe } from '../recipe/recipe';
+import { ObjectUtils } from '../../../object.utils';
 
 @Component({
     selector: 'app-add-recipe',
@@ -24,7 +24,6 @@ export class AddRecipeComponent implements OnInit, OnChanges {
     public loading = false;
     public ingredients: Array<Ingredient> = [];
     public recipeForm: FormGroup;
-    public ingredientForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder,
                 private cookbookService: CookbookService) { }
@@ -47,12 +46,6 @@ export class AddRecipeComponent implements OnInit, OnChanges {
             recipeName: ['', Validators.required],
             recipeUrl: ['']
         });
-
-        this.ingredientForm = this.formBuilder.group({
-            amount: [''],
-            unit: [''],
-            name: ['', Validators.required]
-        });
     }
 
     public openDialog(): void {
@@ -65,15 +58,8 @@ export class AddRecipeComponent implements OnInit, OnChanges {
         this.cookbookEmitter.emit(this.cookbook);
     }
 
-    public addIngredient(): void {
-        this.ingredients.push({
-            amount: parseFloat(this.ingredientForm.controls.amount.value),
-            unit: this.ingredientForm.controls.unit.value,
-            name: this.ingredientForm.controls.name.value,
-        });
-        this.ingredientForm.controls.amount.reset();
-        this.ingredientForm.controls.unit.reset();
-        this.ingredientForm.controls.name.reset();
+    public addIngredient(ingredient: Ingredient): void {
+        this.ingredients.push(ingredient);
     }
 
     public deleteIngredient(ingredient: Ingredient): void {
@@ -124,8 +110,9 @@ export class AddRecipeComponent implements OnInit, OnChanges {
 
         this.recipeForm.controls.recipeName.reset();
         this.recipeForm.controls.recipeUrl.reset();
-        this.ingredientForm.controls.amount.reset();
-        this.ingredientForm.controls.unit.reset();
-        this.ingredientForm.controls.name.reset();
+        // TODO: AS
+        // this.ingredientForm.controls.amount.reset();
+        // this.ingredientForm.controls.unit.reset();
+        // this.ingredientForm.controls.name.reset();
     }
 }
