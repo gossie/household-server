@@ -6,7 +6,6 @@ import { HouseholdService } from './household.service';
 import { Subscription } from 'rxjs/index';
 import { UserService } from '../user.service';
 import { User } from '../user';
-import { ObjectUtils } from '../object.utils';
 
 @Component({
     selector: 'app-household-page',
@@ -49,7 +48,7 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
     private observeHousehold(): void {
         this.subscriptions.push(this.householdService.observeHousehold()
             .pipe(
-                tap((household: Household) => this.userHasNoHousehold = !ObjectUtils.isObject(household))
+                tap((household: Household) => this.userHasNoHousehold = household === null)
             )
             .subscribe((household: Household) => this.household = household)
         );
