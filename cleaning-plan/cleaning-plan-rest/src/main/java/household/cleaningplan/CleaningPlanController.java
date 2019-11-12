@@ -56,6 +56,7 @@ public class CleaningPlanController {
             .flatMap(this::addAddChoreLink)
             .flatMapIterable(CleaningPlanDTO::getChores)
             .flatMap(chore -> this.addSelectChoreLink(cleaningPlan.getDatabaseId(), chore))
+            .flatMap(chore -> this.addDeleteChoreLink(cleaningPlan.getDatabaseId(), chore))
             .collect(() -> cleaningPlan, (a, b) -> {});
     }
 
@@ -78,6 +79,14 @@ public class CleaningPlanController {
     private Mono<ChoreDTO> addSelectChoreLink(Long cleaningPlanId, ChoreDTO chore) {
         return linkTo(methodOn(CleaningPlanController.class).updateChore(cleaningPlanId, chore.getDatabaseId(), null))
             .withRel("select")
+            .toMono()
+            .map(chore::add)
+            .map(ChoreDTO.class::cast);
+    }
+
+    private Mono<ChoreDTO> addDeleteChoreLink(Long cleaningPlanId, ChoreDTO chore) {
+        return linkTo(methodOn(CleaningPlanController.class).removeChore(cleaningPlanId, chore.getDatabaseId()))
+            .withRel("delete")
             .toMono()
             .map(chore::add)
             .map(ChoreDTO.class::cast);
