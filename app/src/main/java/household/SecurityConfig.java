@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .csrf()
                 .csrfTokenRepository(csrfTokenRepository())
             .and()
-                .addFilterAfter(this::csrfFilter, SecurityWebFiltersOrder.CSRF)
+                .addFilterAt(this::csrfFilter, SecurityWebFiltersOrder.CSRF)
                 .authorizeExchange()
                 .pathMatchers("/", "/index.html", "/registration.html", "/login.html").permitAll()
                 .pathMatchers(HttpMethod.OPTIONS).permitAll()

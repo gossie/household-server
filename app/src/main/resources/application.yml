@@ -1,8 +1,15 @@
 spring:
     jpa:
         generate-ddl: true
-        hibernate.ddl-auto: update
-    datasource.url: ${JDBC_DATABASE_URL:jdbc:h2:mem:testdb}
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+    datasource:
+        url: ${JDBC_DATABASE_URL:jdbc:h2:mem:testdb}
+        username: ${DB_USER}
+        password: ${DB_PASSWORD}
     cloud:
         stream:
             bindings:
@@ -18,10 +25,10 @@ spring:
                     environment:
                         spring:
                             rabbitmq:
-                                host: ${RABBIT_MQ_HOST:localhost}
-                                port: ${RABBIT_MQ_PORT:5672}
-                                username: ${RABBIT_MQ_USERNAME:guest}
-                                password: ${RABBIT_MQ_PASSWORD:guest}
+                                host: ${RABBIT_MQ_HOST}
+                                port: ${RABBIT_MQ_PORT}
+                                username: ${RABBIT_MQ_USERNAME}
+                                password: ${RABBIT_MQ_PASSWORD}
                                 virtual-host: /
     freemarker:
         template-loader-path: classpath:/templates
@@ -30,7 +37,7 @@ spring:
 logging:
     level:
         org.springframework.web: ERROR
-        .org.hibernate: ERROR
+        org.hibernate: ERROR
 
 server:
-    port: ${PORT:5000}
+    port: ${PORT:8080}

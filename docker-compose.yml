@@ -1,0 +1,43 @@
+version: '2'
+services:
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    restart: unless-stopped
+
+  db:
+    image: postgres
+    network_mode: bridge
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=household
+      - POSTGRES_PASSWORD=h0us3h0ld
+      - POSTGRES_DB=household
+    restart: unless-stopped
+      
+  app:
+    build: ./app
+    network_mode: bridge
+    depends_on:
+      - db
+      - rabbitmq
+    links:
+      - db
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    environment:
+      - JDBC_DATABASE_URL=jdbc:postgresql://db:5432/household
+      - DB_USER=household
+      - DB_PASSWORD=h0us3h0ld
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBIT_MQ_USERNAME=guest
+      - RABBIT_MQ_PASSWORD=guest
+    restart: unless-stopped

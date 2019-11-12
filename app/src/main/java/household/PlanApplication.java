@@ -19,7 +19,6 @@ import household.shoppinglist.ShoppingListService;
 import household.user.UserRepository;
 import household.user.UserService;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
-import org.springframework.web.reactive.config.EnableWebFlux;
 
 @SpringBootApplication(exclude = HypermediaAutoConfiguration.class)
 @EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
