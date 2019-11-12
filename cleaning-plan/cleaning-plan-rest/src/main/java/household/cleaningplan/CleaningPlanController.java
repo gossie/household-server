@@ -56,7 +56,7 @@ public class CleaningPlanController {
             .flatMap(this::addAddChoreLink)
             .flatMapIterable(CleaningPlanDTO::getChores)
             .flatMap(chore -> this.addSelectChoreLink(cleaningPlan.getDatabaseId(), chore))
-            .collect(() -> cleaningPlan, (a, b) -> {});;
+            .collect(() -> cleaningPlan, (a, b) -> {});
     }
 
     private Mono<CleaningPlanDTO> addSelfLink(CleaningPlanDTO cleaningPlan) {
