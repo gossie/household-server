@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CookbookService {
 
-	private final CookbookRepository cookbookRepository;
+    private final CookbookRepository cookbookRepository;
 
 	public Cookbook getMinifiedCookbook(Long id) {
 		Cookbook cookbook = cookbookRepository.determineCookbook(id);
