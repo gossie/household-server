@@ -19,12 +19,6 @@
     <name>shopping-list-parent</name>
     <description>ldwas household planner</description>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>13</java.version>
-    </properties>
-
     <modules>
         <module>shopping-list-domain</module>
         <module>shopping-list-domain-test-utils</module>

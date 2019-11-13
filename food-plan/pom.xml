@@ -19,12 +19,6 @@
     <name>food-plan-parent</name>
     <description>ldwas household planner</description>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>13</java.version>
-    </properties>
-
     <modules>
         <module>food-plan-domain</module>
         <module>food-plan-domain-test-utils</module>
