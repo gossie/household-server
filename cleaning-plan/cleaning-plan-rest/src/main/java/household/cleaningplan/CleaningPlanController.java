@@ -52,7 +52,12 @@ public class CleaningPlanController {
 
     private Mono<CleaningPlanDTO> addLinks(CleaningPlanDTO cleaningPlan) {
 	    return addSelfLink(cleaningPlan)
-            .flatMap(this::addAddChoreLink);
+            .flatMap(this::addAddChoreLink)
+            .flatMapIterable(CleaningPlanDTO::getChores)
+            .flatMap(chore -> this.addSelectChoreLink(cleaningPlan.getDatabaseId(), chore))
+            .flatMap(chore -> this.addDeleteChoreLink(cleaningPlan.getDatabaseId(), chore))
+            .flatMap(chore -> this.addSaveChoreLink(cleaningPlan.getDatabaseId(), chore))
+            .collect(() -> cleaningPlan, (a, b) -> {});
     }
 
     private Mono<CleaningPlanDTO> addSelfLink(CleaningPlanDTO cleaningPlan) {
@@ -69,5 +74,29 @@ public class CleaningPlanController {
             .toMono()
             .map(cleaningPlan::add)
             .map(CleaningPlanDTO.class::cast);
+    }
+
+    private Mono<ChoreDTO> addSelectChoreLink(Long cleaningPlanId, ChoreDTO chore) {
+        return linkTo(methodOn(CleaningPlanController.class).updateChore(cleaningPlanId, chore.getDatabaseId(), null))
+            .withRel("select")
+            .toMono()
+            .map(chore::add)
+            .map(ChoreDTO.class::cast);
+    }
+
+    private Mono<ChoreDTO> addDeleteChoreLink(Long cleaningPlanId, ChoreDTO chore) {
+        return linkTo(methodOn(CleaningPlanController.class).removeChore(cleaningPlanId, chore.getDatabaseId()))
+            .withRel("delete")
+            .toMono()
+            .map(chore::add)
+            .map(ChoreDTO.class::cast);
+    }
+
+    private Mono<ChoreDTO> addSaveChoreLink(Long cleaningPlanId, ChoreDTO chore) {
+        return linkTo(methodOn(CleaningPlanController.class).updateChore(cleaningPlanId, chore.getDatabaseId(), null))
+            .withRel("save")
+            .toMono()
+            .map(chore::add)
+            .map(ChoreDTO.class::cast);
     }
 }
