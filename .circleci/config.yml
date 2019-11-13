@@ -33,7 +33,7 @@ jobs:
 
   deploy:
     docker:
-      - image: gossiemcschreck/ldwas-ci:2.0
+      - image: gossiemcschreck/ldwas-ci:1.0
     steps:
       - checkout
       - run:
