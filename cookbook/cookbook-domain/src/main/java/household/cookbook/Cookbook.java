@@ -18,7 +18,7 @@ public class Cookbook extends AbstractModel {
 
 	public Cookbook minify() {
 		List<Recipe> minifiedRecipes = recipes.stream()
-				.map(r -> r.minify())
+				.map(Recipe::minify)
 				.collect(Collectors.toList());
 
 		return new Cookbook(getId(), minifiedRecipes);
