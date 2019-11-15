@@ -11,7 +11,7 @@ class FoodPlanEventHandler {
 
     private final FoodPlanService foodPlanService;
 
-    @StreamListener(HouseholdMessageChannels.PRODUCER)
+    @StreamListener(HouseholdMessageChannels.DELETION_PRODUCER)
     public void onHouseholdDeleted(HouseholdDeletedEvent event) {
         foodPlanService.deleteFoodPlan(event.getFoodPlanId());
     }

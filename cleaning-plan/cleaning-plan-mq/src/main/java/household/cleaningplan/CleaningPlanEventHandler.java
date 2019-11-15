@@ -11,7 +11,7 @@ class CleaningPlanEventHandler {
 
     private final CleaningPlanService cleaningPlanService;
 
-    @StreamListener(HouseholdMessageChannels.PRODUCER)
+    @StreamListener(HouseholdMessageChannels.DELETION_PRODUCER)
     public void onHouseholdDeleted(HouseholdDeletedEvent event) {
         cleaningPlanService.deleteCleaningPlan(event.getCleaningPlanId());
     }

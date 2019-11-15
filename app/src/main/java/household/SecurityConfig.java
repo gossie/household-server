@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .csrf()
                 .csrfTokenRepository(csrfTokenRepository())
             .and()
-                .addFilterAt(this::csrfFilter, SecurityWebFiltersOrder.CSRF)
+                .addFilterAfter(this::csrfFilter, SecurityWebFiltersOrder.CSRF)
                 .authorizeExchange()
                 .pathMatchers("/simple.js").permitAll()
                 .pathMatchers("/", "/index.html", "/registration.html", "/login.html").permitAll()

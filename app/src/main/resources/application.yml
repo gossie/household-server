@@ -13,11 +13,17 @@ spring:
     cloud:
         stream:
             bindings:
-                producer:
-                    destination: household
+                creationProducer:
+                    destination: household_creation
                     binder: local_rabbit
-                consumer:
-                    destination: household
+                creationConsumer:
+                    destination: household_creation
+                    binder: local_rabbit
+                deletionProducer:
+                    destination: household_deletion
+                    binder: local_rabbit
+                deletionConsumer:
+                    destination: household_deletion
                     binder: local_rabbit
             binders:
                 local_rabbit:

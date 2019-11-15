@@ -3,7 +3,7 @@ package household.household;
 import lombok.Value;
 
 @Value
-class HouseholdDeletedEvent {
+public class HouseholdCreatedEvent {
 
     private final Long householdId;
     private final Long shoppingListId;

@@ -11,7 +11,7 @@ class UserEventHandler {
 
     private final UserService userService;
 
-    @StreamListener(HouseholdMessageChannels.PRODUCER)
+    @StreamListener(HouseholdMessageChannels.DELETION_PRODUCER)
     public void onHouseholdDeletion(HouseholdDeletedEvent event) {
         userService.removeHouseholdFromUsers(event.getHouseholdId());
     }

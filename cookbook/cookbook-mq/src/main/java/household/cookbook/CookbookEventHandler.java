@@ -11,7 +11,7 @@ class CookbookEventHandler {
 
     private final CookbookService cookbookService;
 
-    @StreamListener(HouseholdMessageChannels.PRODUCER)
+    @StreamListener(HouseholdMessageChannels.DELETION_PRODUCER)
     public void onHouseholdDeleted(HouseholdDeletedEvent event) {
         cookbookService.deleteCookbook(event.getCookbookId());
     }

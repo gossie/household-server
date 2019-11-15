@@ -11,7 +11,7 @@ class ShoppingListEventHandler {
 
     private final ShoppingListService shoppingListService;
 
-    @StreamListener(HouseholdMessageChannels.PRODUCER)
+    @StreamListener(HouseholdMessageChannels.DELETION_PRODUCER)
     public void onHouseholdDeleted(HouseholdDeletedEvent event) {
         shoppingListService.deleteShoppingList(event.getShoppingListId());
     }

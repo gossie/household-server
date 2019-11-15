@@ -1,7 +1,9 @@
 package household.household;
 
+import household.HouseholdMessageChannels;
 import household.user.InvitationAcceptedEvent;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
@@ -10,7 +12,8 @@ import org.springframework.messaging.support.MessageBuilder;
 class HouseholdEventHandler implements HouseholdObserver {
 
     private final HouseholdService householdService;
-    private final MessageChannel messageChannel;
+    private final MessageChannel deletionMessageChannel;
+    private final MessageChannel creationMessageChannel;
 
     public void init() {
         householdService.addObserver(this);
@@ -24,19 +27,21 @@ class HouseholdEventHandler implements HouseholdObserver {
         });
     }
 
-    private void sendEvent(Household household) {
+    @Override
+    public void onHouseholdCreation(Household household) {
+        Message<HouseholdCreatedEvent> message = MessageBuilder
+            .withPayload(new HouseholdCreatedEvent(household.getId(), household.getShoppingListId(), household.getCleaningPlanId(), household.getFoodPlanId(), household.getCookbookId()))
+            .build();
+
+        creationMessageChannel.send(message);
+    }
+
+    @Override
+    public void onHouseholdDeletion(Household household) {
         Message<HouseholdDeletedEvent> message = MessageBuilder
             .withPayload(new HouseholdDeletedEvent(household.getId(), household.getShoppingListId(), household.getCleaningPlanId(), household.getFoodPlanId(), household.getCookbookId()))
             .build();
 
-        messageChannel.send(message);
-    }
-
-    @Override
-    public void onHouseholdCreation(Household household) { }
-
-    @Override
-    public void onHouseholdDeletion(Household household) {
-        sendEvent(household);
+        deletionMessageChannel.send(message);
     }
 }
