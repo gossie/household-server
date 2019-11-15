@@ -8,6 +8,7 @@ export class RegistrationPage {
     }
 
     public async register(email: string, password: string) {
+        await element(by.css('#consent-button')).click();
         await element(by.css('#email-field')).sendKeys(email);
         await element(by.css('#password-field')).sendKeys(password);
         await element(by.css('#password-repeat-field')).sendKeys(password);
