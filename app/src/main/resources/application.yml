@@ -29,7 +29,6 @@ spring:
                                 port: ${RABBIT_MQ_PORT}
                                 username: ${RABBIT_MQ_USERNAME}
                                 password: ${RABBIT_MQ_PASSWORD}
-                                virtual-host: /
     freemarker:
         template-loader-path: classpath:/templates
         suffix: .html

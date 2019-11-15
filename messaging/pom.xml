@@ -28,7 +28,7 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-stream-reactive</artifactId>
+            <artifactId>spring-cloud-stream</artifactId>
         </dependency>
     </dependencies>
 </project>

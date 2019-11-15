@@ -21,7 +21,7 @@ import household.user.UserService;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
 
 @SpringBootApplication(exclude = HypermediaAutoConfiguration.class)
-@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
+//@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 @EnableBinding(HouseholdMessageChannels.class)
 public class PlanApplication {
 
