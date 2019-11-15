@@ -12,13 +12,15 @@ import { LoadingComponent } from './household-page/loading/loading.component';
 import { DeleteInterceptor } from './household-page/delete.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomXsrfInterceptor } from './custom-xsrf.interceptor';
+import { CookieConsentComponent } from './cookie-consent/cookie-consent.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HouseholdPageComponent,
         NoHouseholdComponent,
-        LoadingComponent
+        LoadingComponent,
+        CookieConsentComponent
     ],
     imports: [
         ReactiveFormsModule,

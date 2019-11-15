@@ -43,6 +43,7 @@ public class SecurityConfig {
             .and()
                 .addFilterAt(this::csrfFilter, SecurityWebFiltersOrder.CSRF)
                 .authorizeExchange()
+                .pathMatchers("/simple.js").permitAll()
                 .pathMatchers("/", "/index.html", "/registration.html", "/login.html").permitAll()
                 .pathMatchers(HttpMethod.OPTIONS).permitAll()
                 .pathMatchers(HttpMethod.POST, "/registrations").permitAll()
