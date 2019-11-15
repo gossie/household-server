@@ -1,3 +1,5 @@
-<div *ngIf="isLayerVisible()">
-
+<div *ngIf="isLayerVisible()" class="cookie-consent">
+    <div class="notification is-info">
+        Haushalt mit Plan nutzt notwendige Cookies. <span (click)="giveConsent()">Ok</span>
+    </div>
 </div>

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { DeleteHintService } from "../../household-page/delete-hint.service";
-import { Subscription } from "rxjs/index";
-import { animate, state, style, transition, trigger } from "@angular/animations";
+import { DeleteHintService } from '../../household-page/delete-hint.service';
+import { Subscription } from 'rxjs/index';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
     selector: 'app-undo-hint',
