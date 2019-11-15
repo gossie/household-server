@@ -8,6 +8,8 @@
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
 
+        <script src="/simple.js" type="text/javascript"></script>
+
         <link rel="icon" type="image/x-icon" href="favicon.ico">
     </head>
     <body>
@@ -44,9 +46,9 @@
                 </div>
             </div>
         </footer>
-        <div class="cookie-consent">
+        <div id="cookie-consent" class="cookie-consent">
             <div class="notification is-info">
-                Haushalt mit Plan nutzt notwendige Cookies. <button class="button">Ok</button>
+                Haushalt mit Plan nutzt notwendige Cookies. <button onclick="giveConsent()" class="button">Ok</button>
             </div>
         </div>
 
