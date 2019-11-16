@@ -12,9 +12,6 @@ jobs:
     steps:
       - checkout
 
-      - setup_remote_docker:
-          docker_layer_caching: true
-
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "pom.xml" }}
