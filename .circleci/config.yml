@@ -28,7 +28,7 @@ jobs:
       - run:
           background: true
           command: |
-            docker-compose up --build --remove-orphans --detach
+            docker-compose up -d --build --remove-orphans
       - run: mvn -B -fweb install -Pci:e2e
       - run: mvn dependency:go-offline
 
