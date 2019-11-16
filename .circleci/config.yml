@@ -18,12 +18,18 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: mvn -B install -Ptest:ci
+      - run: mvn -B install -Pci:test
+      - run:
+          name: Install Docker Compose
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
       - run:
           background: true
           command: |
-            java -jar app/target/plan-app-0.0.1-SNAPSHOT.jar
-      - run: mvn -B -fweb install -Pe2e:ci
+            docker-compose up --build --remove-orphans --detach
+      - run: mvn -B -fweb install -Pci:e2e
       - run: mvn dependency:go-offline
 
       - save_cache:

@@ -18,14 +18,12 @@ import household.shoppinglist.ShoppingListRepository;
 import household.shoppinglist.ShoppingListService;
 import household.user.UserRepository;
 import household.user.UserService;
-import org.springframework.hateoas.config.EnableHypermediaSupport;
 
 @SpringBootApplication(exclude = HypermediaAutoConfiguration.class)
-//@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 @EnableBinding(HouseholdMessageChannels.class)
 public class PlanApplication {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 		SpringApplication.run(PlanApplication.class, args);
 	}
 

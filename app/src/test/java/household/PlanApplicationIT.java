@@ -10,7 +10,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SpringBootTest
 public class PlanApplicationIT {
 
-	//@Test
-    //@Disabled
+	@Test
 	public void contextLoads() throws Exception {}
 }

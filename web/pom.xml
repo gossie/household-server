@@ -12,7 +12,7 @@
 
     <profiles>
         <profile>
-            <id>test:ci</id>
+            <id>ci_test</id>
             <build>
                 <plugins>
                     <plugin>
@@ -52,7 +52,7 @@
                                     <goal>npm</goal>
                                 </goals>
                                 <configuration>
-                                        <arguments>run test:ci</arguments>
+                                        <arguments>run ci:test</arguments>
                                 </configuration>
                             </execution>
                             <execution>
@@ -70,7 +70,7 @@
             </build>
         </profile>
         <profile>
-            <id>e2e:ci</id>
+            <id>ci:e2e</id>
             <build>
                 <plugins>
                     <plugin>
@@ -95,7 +95,7 @@
                                     <goal>npm</goal>
                                 </goals>
                                 <configuration>
-                                        <arguments>run e2e:ci</arguments>
+                                        <arguments>run ci:e2e</arguments>
                                 </configuration>
                             </execution>
                         </executions>
