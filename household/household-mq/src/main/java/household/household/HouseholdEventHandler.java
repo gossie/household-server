@@ -12,8 +12,8 @@ import org.springframework.messaging.support.MessageBuilder;
 class HouseholdEventHandler implements HouseholdObserver {
 
     private final HouseholdService householdService;
-    private final MessageChannel deletionMessageChannel;
     private final MessageChannel creationMessageChannel;
+    private final MessageChannel deletionMessageChannel;
 
     public void init() {
         householdService.addObserver(this);
