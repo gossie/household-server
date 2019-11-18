@@ -13,7 +13,7 @@ exports.config = {
     'marionette': true
   },
   directConnect: true,
-  baseUrl: 'http://localhost:5000/',
+  baseUrl: 'http://localhost:8080/',
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
