@@ -38,43 +38,49 @@ public class ShoppingListController {
 	private final ShoppingListDTOMapper shoppingListMapper;
 	private final ShoppingListService shoppingListService;
 
-	@GetMapping(path="/{id}", produces={"application/vnd.household.v2+json"})
+	@PostMapping(produces = {"application/vnd.household.v1+json"})
+    public Mono<ShoppingListDTO> createShoppingList() {
+        return Mono.just(createResource(shoppingListService.createShoppingList()))
+            .flatMap(this::addLinks);
+    }
+
+	@GetMapping(path="/{id}", produces={"application/vnd.household.v1+json"})
 	public Mono<ShoppingListDTO> getShoppingList(@PathVariable Long id) {
 		return Mono.just(createResource(shoppingListService.getShoppingList(id)))
             .flatMap(this::addLinks);
 	}
 
-	@PatchMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", produces={"application/vnd.household.v2+json"})
+	@PatchMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", produces={"application/vnd.household.v1+json"})
 	public Mono<ShoppingListDTO> toggleItem(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId) {
 	    return Mono.just(createResource(shoppingListService.toggleItem(id, groupId, itemId)))
             .flatMap(this::addLinks);
 	}
 
-	@DeleteMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems", produces={"application/vnd.household.v2+json"})
+	@DeleteMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems", produces={"application/vnd.household.v1+json"})
 	public Mono<ShoppingListDTO> removedSelectedItemsFromShoppingListGroup(@PathVariable Long id, @PathVariable Long groupId) {
 		return Mono.just(createResource(shoppingListService.removeSelectedItemsFromShoppingListGroup(id, groupId)))
             .flatMap(this::addLinks);
 	}
 
-    @PostMapping(path="/{id}/shoppingListGroups", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
+    @PostMapping(path="/{id}/shoppingListGroups", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
     public Mono<ShoppingListDTO> addGroup(@PathVariable Long id, @RequestBody ShoppingListGroupDTO shoppingListGroup) {
         return Mono.just(createResource(shoppingListService.addShoppingListGroup(id, shoppingListGroupMapper.map(shoppingListGroup))))
             .flatMap(this::addLinks);
     }
 
-    @PutMapping(path="/{id}/shoppingListGroups/{groupId}", produces={"application/vnd.household.v2+json"})
+    @PutMapping(path="/{id}/shoppingListGroups/{groupId}", produces={"application/vnd.household.v1+json"})
     public Mono<ShoppingListDTO> toggleGroup(@PathVariable Long id, @PathVariable Long groupId) {
         return Mono.just(createResource(shoppingListService.toggleShoppingListGroup(id, groupId)))
             .flatMap(this::addLinks);
     }
 
-	@DeleteMapping(path="/{id}/shoppingListGroups/{groupId}", produces={"application/vnd.household.v2+json"})
+	@DeleteMapping(path="/{id}/shoppingListGroups/{groupId}", produces={"application/vnd.household.v1+json"})
     public Mono<ShoppingListDTO> deleteGroup(@PathVariable Long id, @PathVariable Long groupId) {
         return Mono.just(createResource(shoppingListService.deleteShoppingListGroup(id, groupId)))
             .flatMap(this::addLinks);
     }
 
-	@PostMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
+	@PostMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
 	public Mono<ShoppingListDTO> addItem(@PathVariable Long id, @PathVariable Long groupId, @RequestBody List<ShoppingListItemDTO> shoppingListItems) {
 		List<ShoppingListItem> entities = shoppingListItems.stream().map(shoppingListItemMapper::map).collect(Collectors.toList());
 		return Mono.just(createResource(shoppingListService.addShoppingListItems(id, groupId, entities)))

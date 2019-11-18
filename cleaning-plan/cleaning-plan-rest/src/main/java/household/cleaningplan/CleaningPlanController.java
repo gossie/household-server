@@ -26,6 +26,12 @@ public class CleaningPlanController {
 	private final ChoreDTOMapper choreMapper;
 	private final CleaningPlanService cleaningPlanService;
 
+    @PostMapping(produces = {"application/vnd.household.v1+json"})
+    public Mono<CleaningPlanDTO> createCleaningPlan() {
+        return Mono.just(cleaningPlanMapper.map(cleaningPlanService.createCleaningPlan()))
+            .flatMap(this::addLinks);
+    }
+
 	@GetMapping(path="/{cleaningPlanId}", produces={"application/vnd.household.v1+json"})
 	public Mono<CleaningPlanDTO> getCleaningPlan(@PathVariable Long cleaningPlanId) {
 		return Mono.just(cleaningPlanMapper.map(cleaningPlanService.getCleaningPlan(cleaningPlanId)))

@@ -9,7 +9,7 @@ public class HouseholdRestContext {
 
     @Bean
     public WebClient webClient() {
-        return WebClient.create("http://app:8080");
+        return WebClient.create("http://localhost:8080");
     }
 
 }
