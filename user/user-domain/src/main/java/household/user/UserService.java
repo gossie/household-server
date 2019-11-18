@@ -1,5 +1,6 @@
 package household.user;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
@@ -9,12 +10,21 @@ import org.reactivestreams.Publisher;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final List<UserServiceObserver> userServiceObservers = new ArrayList<>();
+
+    void addObserver(UserServiceObserver observer) {
+        userServiceObservers.add(observer);
+    }
 
     public User createUser(User user) {
         userRepository.determineUser(user.getEmail()).ifPresent(u -> {
             throw new UserAlreadyExistsException();
         });
-        return userRepository.createUser(user);
+
+        User createdUser = userRepository.createUser(user);
+        userServiceObservers.forEach(UserServiceObserver::onUserCreation);
+
+        return createdUser;
     }
 
     public Publisher<User> determineCurrentUser() {
@@ -67,4 +77,5 @@ public class UserService {
         user.setPassword(newPassword);
         return userRepository.saveUserAndHashPassword(user, currentPassword);
     }
+
 }

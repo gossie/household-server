@@ -1,15 +1,13 @@
 package household.household;
 
-import household.HouseholdMessageChannels;
 import household.user.InvitationAcceptedEvent;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 
 @RequiredArgsConstructor
-class HouseholdEventHandler implements HouseholdObserver {
+class HouseholdServiceEventHandler implements HouseholdServiceObserver {
 
     private final HouseholdService householdService;
     private final MessageChannel creationMessageChannel;

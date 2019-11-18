@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 class HouseholdMQContext {
 
     @Bean(initMethod = "init")
-    public HouseholdEventHandler householdEventHandler(HouseholdService householdService, HouseholdMessageChannels householdMessageChannels) {
-        return new HouseholdEventHandler(householdService, householdMessageChannels.creationConsumer(), householdMessageChannels.deletionConsumer());
+    public HouseholdServiceEventHandler householdEventHandler(HouseholdService householdService, HouseholdMessageChannels householdMessageChannels) {
+        return new HouseholdServiceEventHandler(householdService, householdMessageChannels.creationConsumer(), householdMessageChannels.deletionConsumer());
     }
 
 }

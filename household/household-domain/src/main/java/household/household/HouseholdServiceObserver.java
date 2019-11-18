@@ -1,6 +1,6 @@
 package household.household;
 
-public interface HouseholdObserver {
+public interface HouseholdServiceObserver {
 
     void onHouseholdCreation(Household household);
 

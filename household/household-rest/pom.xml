@@ -20,26 +20,6 @@
     <dependencies>
         <dependency>
             <groupId>household</groupId>
-            <artifactId>shopping-list-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>cleaning-plan-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>food-plan-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>cookbook-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
             <artifactId>user-domain</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

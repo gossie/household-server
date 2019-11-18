@@ -6,7 +6,6 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 
 @RequiredArgsConstructor
-@EnableBinding(HouseholdMessageChannels.class)
 class FoodPlanEventHandler {
 
     private final FoodPlanService foodPlanService;

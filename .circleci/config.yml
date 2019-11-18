@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: gossiemcschreck/ldwas-ci:latest
+      - image: gossiemcschreck/ldwas-ci:1.1
 
     working_directory: ~/repo
 
@@ -18,26 +18,12 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: mvn -B install -Pci:test
-      - run:
-          name: Install Docker
-          command: |
-            set -x
-            VER="17.03.0-ce"
-            curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-$VER.tgz
-            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
-            mv /tmp/docker/* /usr/bin
-      - run:
-          name: Install Docker Compose
-          command: |
-            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-            chmod +x ~/docker-compose
-            mv ~/docker-compose /usr/local/bin/docker-compose
+      - run: mvn -B install -Ptest:ci
       - run:
           background: true
           command: |
-            docker-compose up -d --build --remove-orphans
-      - run: mvn -B -fweb install -Pci:e2e
+            java -jar app/target/plan-app-0.0.1-SNAPSHOT.jar
+      - run: mvn -B -fweb install -Pe2e:ci
       - run: mvn dependency:go-offline
 
       - save_cache:
@@ -47,7 +33,7 @@ jobs:
 
   deploy:
     docker:
-      - image: gossiemcschreck/ldwas-ci:latest
+      - image: gossiemcschreck/ldwas-ci:1.1
     steps:
       - checkout
       - run:

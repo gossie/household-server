@@ -1,11 +1,13 @@
 package household.foodplan;
 
+import household.HouseholdMessageChannels;
+import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
+@EnableBinding(HouseholdMessageChannels.class)
 class FoodPlanMQContext {
 
+    @Bean
     public FoodPlanEventHandler foodPlanEventHandler(FoodPlanService foodPlanService) {
         return new FoodPlanEventHandler(foodPlanService);
     }
