@@ -26,6 +26,12 @@ public class CookbookController {
 	private final RecipeDTOMapper recipeMapper;
 	private final CookbookService cookbookService;
 
+    @PostMapping(produces = {"application/vnd.household.v1+json"})
+    public Mono<CookbookDTO> createCookbook() {
+        return Mono.just(createResource(cookbookService.createCookbook()))
+            .flatMap(this::addLinks);
+    }
+
 	@GetMapping(path="/{cookbookId}", produces={"application/vnd.household.min.v1+json"})
 	public Mono<CookbookDTO> getMinifiedRecipes(@PathVariable Long cookbookId) {
 		return Mono.just(createResource(cookbookService.getMinifiedCookbook(cookbookId)))

@@ -1,6 +1,9 @@
 package household.household;
 
+import lombok.Data;
 import org.springframework.hateoas.Link;
+import org.springframework.http.HttpCookie;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,17 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import household.cleaningplan.CleaningPlan;
-import household.cleaningplan.CleaningPlanService;
-import household.cookbook.Cookbook;
-import household.cookbook.CookbookService;
-import household.foodplan.FoodPlan;
-import household.foodplan.FoodPlanService;
-import household.shoppinglist.ShoppingList;
-import household.shoppinglist.ShoppingListService;
-import household.user.User;
 import household.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.linkTo;
@@ -30,32 +27,58 @@ import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.met
 @RequiredArgsConstructor
 public class HouseholdController {
 
-	private final UserService userService;
-	private final ShoppingListService shoppingListService;
-	private final CleaningPlanService cleaningPlanService;
-	private final FoodPlanService foodPlanService;
-	private final CookbookService cookbookService;
+    private static final MediaType CUSTOM_TYPE = new CustomMediaType();
 
+    private final WebClient webClient;
+	private final UserService userService;
 	private final HouseholdService householdService;
 	private final HouseholdDTOMapper householdMapper;
 
-	@PostMapping(produces={"application/vnd.household.v1+json"})
-	public Mono<HouseholdDTO> createHousehold() {
-		ShoppingList shoppingList = shoppingListService.createShoppingList();
-		CleaningPlan cleaningPlan = cleaningPlanService.createCleaningPlan();
-		FoodPlan foodPlan = foodPlanService.createFoodPlan();
-		Cookbook cookbook = cookbookService.createCookbook();
+    @PostMapping(produces={"application/vnd.household.v1+json"})
+    public Mono<HouseholdDTO> createHousehold(ServerWebExchange exchange) {
+        return Flux.concat(postRequest("/api/shoppingLists", exchange), postRequest("/api/cleaningPlans", exchange), postRequest("/api/foodPlans", exchange), postRequest("/api/cookbooks", exchange))
+            .map(this::determineDatabaseId)
+            .collectList()
+            .map(list -> householdService.createHousehold(list.get(0), list.get(1), list.get(2), list.get(3)))
+            .flatMap(this::handleUser)
+            .map(this::createResource)
+            .flatMap(this::addLinks);
+    }
 
-		Household household = householdService.createHousehold(shoppingList.getId(), cleaningPlan.getId(), foodPlan.getId(), cookbook.getId());
-		return Mono.from(userService.determineCurrentUser())
+    private Long determineDatabaseId(Result result) {
+        return result.getLink("self")
+            .map(Link::getHref)
+            .map(href -> href.split("/"))
+            .map(a -> a[a.length - 1])
+            .map(Long::valueOf)
+            .orElse(null);
+    }
+
+    private Mono<Result> postRequest(String url, ServerWebExchange exchange) {
+        HttpCookie xsrfToken = exchange.getRequest().getCookies().getFirst("XSRF-TOKEN");
+        HttpCookie sessionId = exchange.getRequest().getCookies().getFirst("JSESSIONID");
+        HttpCookie session = exchange.getRequest().getCookies().getFirst("SESSION");
+
+        return webClient
+            .post()
+            .uri(url)
+            .header("XSRF-TOKEN", xsrfToken.getValue())
+            .header("X-XSRF-TOKEN", xsrfToken.getValue())
+            .cookie("JSESSIONID", sessionId.getValue())
+            .cookie("SESSION", session.getValue())
+            .accept(CUSTOM_TYPE)
+            .retrieve()
+            .bodyToMono(Result.class);
+    }
+
+    private Mono<Household> handleUser(Household household) {
+        return Mono.from(userService.determineCurrentUser())
             .map(currentUser -> {
                 currentUser.setHouseholdId(household.getId());
                 userService.updateUser(currentUser);
                 return household;
-            })
-            .map(this::createResource)
-            .flatMap(this::addLinks);
-	}
+            });
+    }
 
 	@GetMapping(path="/{id}", produces={"application/vnd.household.v1+json"})
 	public Mono<HouseholdDTO> getHousehold(@PathVariable Long id) {
@@ -103,5 +126,20 @@ public class HouseholdController {
 
     private HouseholdDTO addCookbookLink(HouseholdDTO household) {
         return (HouseholdDTO) household.add(new Link("/api/cookbooks/" + household.getCookbookId(), "cookbook"));
+    }
+
+
+    private static class CustomMediaType extends MediaType {
+
+        public CustomMediaType() {
+            super("application", "vnd.household.v1+json");
+        }
+    }
+
+    @Data
+    private static class Result extends AbstractDTO {
+
+        private Long databaseId;
+
     }
 }

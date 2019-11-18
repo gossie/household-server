@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.linkTo;
@@ -26,6 +25,12 @@ public class CleaningPlanController {
 	private final CleaningPlanDTOMapper cleaningPlanMapper;
 	private final ChoreDTOMapper choreMapper;
 	private final CleaningPlanService cleaningPlanService;
+
+    @PostMapping(produces = {"application/vnd.household.v1+json"})
+    public Mono<CleaningPlanDTO> createCleaningPlan() {
+        return Mono.just(cleaningPlanMapper.map(cleaningPlanService.createCleaningPlan()))
+            .flatMap(this::addLinks);
+    }
 
 	@GetMapping(path="/{cleaningPlanId}", produces={"application/vnd.household.v1+json"})
 	public Mono<CleaningPlanDTO> getCleaningPlan(@PathVariable Long cleaningPlanId) {

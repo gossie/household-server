@@ -85,7 +85,9 @@ public class SecurityConfig {
                     }
                     return csrf;
                 })
-                .flatMap(csrf -> filterChain.filter(exchange));
+                .flatMap(csrf -> {
+                    return filterChain.filter(exchange);
+                });
         } else {
             return filterChain.filter(exchange);
         }
