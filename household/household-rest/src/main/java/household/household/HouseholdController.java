@@ -56,7 +56,7 @@ public class HouseholdController {
 
     private Mono<Result> postRequest(String url, ServerWebExchange exchange) {
         HttpCookie xsrfToken = exchange.getRequest().getCookies().getFirst("XSRF-TOKEN");
-        HttpCookie sessionId = exchange.getRequest().getCookies().getFirst("JSESSIONID");
+        //HttpCookie sessionId = exchange.getRequest().getCookies().getFirst("JSESSIONID");
         HttpCookie session = exchange.getRequest().getCookies().getFirst("SESSION");
 
         return webClient
@@ -64,7 +64,7 @@ public class HouseholdController {
             .uri(url)
             .header("XSRF-TOKEN", xsrfToken.getValue())
             .header("X-XSRF-TOKEN", xsrfToken.getValue())
-            .cookie("JSESSIONID", sessionId.getValue())
+            //.cookie("JSESSIONID", sessionId.getValue())
             .cookie("SESSION", session.getValue())
             .accept(CUSTOM_TYPE)
             .retrieve()

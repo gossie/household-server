@@ -57,4 +57,8 @@ public class PlanApplication {
 		return new UserService(userRepository);
 	}
 
+	@Bean
+    public LogAspect logAspect() {
+	    return new LogAspect();
+    }
 }

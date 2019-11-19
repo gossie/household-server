@@ -25,7 +25,7 @@ export class ShoppingListService extends AbstractNetworkService {
         const url: string = this.determineUrl(household, 'shoppingList');
         return this.httpClient.get<ShoppingList>(url, {
             headers: {
-                Accept: 'application/vnd.household.v2+json'
+                Accept: 'application/vnd.household.v1+json'
             }
         })
         .pipe(
@@ -43,8 +43,8 @@ export class ShoppingListService extends AbstractNetworkService {
 
         return this.httpClient.post<ShoppingList>(url, body, {
             headers: {
-                'Content-Type': 'application/vnd.household.v2+json',
-                Accept: 'application/vnd.household.v2+json'
+                'Content-Type': 'application/vnd.household.v1+json',
+                Accept: 'application/vnd.household.v1+json'
             }
         })
         .pipe(
@@ -56,7 +56,7 @@ export class ShoppingListService extends AbstractNetworkService {
         const url: string = this.determineUrl(shoppingListGroup, 'delete');
         return this.httpClient.delete<ShoppingList>(url, {
             headers: {
-                Accept: 'application/vnd.household.v2+json'
+                Accept: 'application/vnd.household.v1+json'
             }
         })
         .pipe(
@@ -68,7 +68,7 @@ export class ShoppingListService extends AbstractNetworkService {
         const url: string = this.determineUrl(shoppingListGroup, 'toggle');
         return this.httpClient.put<ShoppingList>(url, null, {
             headers: {
-                Accept: 'application/vnd.household.v2+json'
+                Accept: 'application/vnd.household.v1+json'
             }
         })
         .pipe(
@@ -80,7 +80,7 @@ export class ShoppingListService extends AbstractNetworkService {
         const url: string = this.determineUrl(shoppingListGroup, 'clear');
         return this.httpClient.delete<ShoppingList>(url, {
             headers: {
-                Accept: 'application/vnd.household.v2+json'
+                Accept: 'application/vnd.household.v1+json'
             }
         })
         .pipe(
@@ -100,8 +100,8 @@ export class ShoppingListService extends AbstractNetworkService {
 
         return this.httpClient.post<ShoppingList>(url, body, {
             headers: {
-                'Content-Type': 'application/vnd.household.v2+json',
-                Accept: 'application/vnd.household.v2+json'
+                'Content-Type': 'application/vnd.household.v1+json',
+                Accept: 'application/vnd.household.v1+json'
             }
         })
         .pipe(
@@ -113,7 +113,7 @@ export class ShoppingListService extends AbstractNetworkService {
         const url: string = this.determineUrl(shoppingListItem, 'toggle');
         return this.httpClient.patch<ShoppingList>(url, null, {
             headers: {
-                Accept: 'application/vnd.household.v2+json'
+                Accept: 'application/vnd.household.v1+json'
             }
         })
         .pipe(
