@@ -65,4 +65,8 @@ public class PlanApplication {
 		return new UserService(eventBus(), userRepository);
 	}
 
+	@Bean
+    public LogAspect logAspect() {
+	    return new LogAspect();
+    }
 }
