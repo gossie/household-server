@@ -12,7 +12,7 @@
 
     <profiles>
         <profile>
-            <id>ci_test</id>
+            <id>ci:test</id>
             <build>
                 <plugins>
                     <plugin>

@@ -1,10 +1,7 @@
 package household.cleaningplan;
 
-import org.springframework.stereotype.Component;
-
 import lombok.RequiredArgsConstructor;
 
-@Component
 @RequiredArgsConstructor
 class ChoreDTOMapper {
 

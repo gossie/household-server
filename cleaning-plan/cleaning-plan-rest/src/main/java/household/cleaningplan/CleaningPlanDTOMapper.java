@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@Component
 class CleaningPlanDTOMapper {
 
 	private final ChoreDTOMapper choreMapper;

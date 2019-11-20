@@ -9,10 +9,10 @@
     "webdriver:clean": "webdriver-manager clean",
     "webdriver:update": "webdriver-manager update",
     "test": "ng test --code-coverage",
-    "test:ci": "ng test --browsers FirefoxCi --watch false",
+    "ci:test": "ng test --browsers FirefoxCi --watch false",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "e2e:ci": "ng e2e --protractor-config e2e/protractor.headless.conf.js"
+    "ci:e2e": "ng e2e --protractor-config e2e/protractor.headless.conf.js"
   },
   "private": true,
   "dependencies": {
