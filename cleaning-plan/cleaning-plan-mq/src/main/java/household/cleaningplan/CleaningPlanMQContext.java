@@ -1,10 +1,9 @@
 package household.cleaningplan;
 
-import household.HouseholdMessageChannels;
-import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-@EnableBinding(HouseholdMessageChannels.class)
+@Configuration
 class CleaningPlanMQContext {
 
     @Bean

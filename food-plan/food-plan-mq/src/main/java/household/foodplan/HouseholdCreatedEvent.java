@@ -1,4 +1,4 @@
-package household.cookbook;
+package household.foodplan;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-class HouseholdDeletedEvent {
+public class HouseholdCreatedEvent {
 
-    private Long cookbookId;
+    private Long householdId;
 
 }

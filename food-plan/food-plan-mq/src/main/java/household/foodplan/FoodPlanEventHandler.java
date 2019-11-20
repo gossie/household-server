@@ -14,4 +14,9 @@ class FoodPlanEventHandler {
         foodPlanService.deleteFoodPlan(event.getFoodPlanId());
     }
 
+    @StreamListener(HouseholdMessageChannels.CREATION_INPUT)
+    public void onHouseholdCreation(HouseholdCreatedEvent event) {
+        System.out.println("food-plan-service: noticed that household with id [" + event.getHouseholdId() + "] was created. But I don't care!");
+    }
+
 }

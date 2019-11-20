@@ -36,7 +36,7 @@ public class HouseholdController {
 
     @PostMapping(produces={"application/vnd.household.v1+json"})
     public Mono<HouseholdDTO> createHousehold(ServerWebExchange exchange) {
-        return Flux.concat(postRequest("http://shopping-list:8081/api/shoppingLists", null), postRequest("http://localhost:8080/api/cleaningPlans", exchange), postRequest("http://localhost:8080/api/foodPlans", exchange), postRequest("http://localhost:8080/api/cookbooks", exchange))
+        return Flux.concat(postRequest("http://shopping-list:8081/api/shoppingLists", null), postRequest("http://cleaning-plan:8082/api/cleaningPlans", exchange), postRequest("http://food-plan:8083/api/foodPlans", exchange), postRequest("http://cookbook:8084/api/cookbooks", exchange))
             .map(this::determineDatabaseId)
             .collectList()
             .map(list -> householdService.createHousehold(list.get(0), list.get(1), list.get(2), list.get(3)))
@@ -55,18 +55,10 @@ public class HouseholdController {
     }
 
     private Mono<Result> postRequest(String url, ServerWebExchange exchange) {
-        WebClient.RequestBodySpec spec = webClient
+        return webClient
             .post()
-            .uri(url);
-
-        if (exchange != null) {
-            HttpCookie xsrfToken = exchange.getRequest().getCookies().getFirst("XSRF-TOKEN");
-            HttpCookie session = exchange.getRequest().getCookies().getFirst("SESSION");
-            spec = spec.header("XSRF-TOKEN", xsrfToken.getValue())
-                .header("X-XSRF-TOKEN", xsrfToken.getValue())
-                .cookie("SESSION", session.getValue());
-        }
-        return spec.accept(CUSTOM_TYPE)
+            .uri(url)
+            .accept(CUSTOM_TYPE)
             .retrieve()
             .bodyToMono(Result.class);
     }
@@ -117,15 +109,15 @@ public class HouseholdController {
     }
 
     private HouseholdDTO addCleaningPlanLink(HouseholdDTO household) {
-        return (HouseholdDTO) household.add(new Link("/api/cleaningPlans/" + household.getCleaningPlanId(), "cleaningPlan"));
+        return (HouseholdDTO) household.add(new Link("http://localhost:8082/api/cleaningPlans/" + household.getCleaningPlanId(), "cleaningPlan"));
     }
 
     private HouseholdDTO addFoodPlanLink(HouseholdDTO household) {
-        return (HouseholdDTO) household.add(new Link("/api/foodPlans/" + household.getFoodPlanId(), "foodPlan"));
+        return (HouseholdDTO) household.add(new Link("http://localhost:8083/api/foodPlans/" + household.getFoodPlanId(), "foodPlan"));
     }
 
     private HouseholdDTO addCookbookLink(HouseholdDTO household) {
-        return (HouseholdDTO) household.add(new Link("/api/cookbooks/" + household.getCookbookId(), "cookbook"));
+        return (HouseholdDTO) household.add(new Link("http://localhost:8084/api/cookbooks/" + household.getCookbookId(), "cookbook"));
     }
 
     private static class CustomMediaType extends MediaType {

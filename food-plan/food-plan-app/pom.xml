@@ -7,14 +7,14 @@
 
     <parent>
         <groupId>household</groupId>
-        <artifactId>cleaning-plan-parent</artifactId>
+        <artifactId>food-plan-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>cleaning-plan-app</artifactId>
+    <artifactId>food-plan-app</artifactId>
     <packaging>jar</packaging>
 
-    <name>cleaning-plan-parent</name>
+    <name>food-plan-parent</name>
     <description>Demo project for Spring Boot</description>
 
     <dependencies>
@@ -25,17 +25,17 @@
         </dependency>
         <dependency>
             <groupId>household</groupId>
-            <artifactId>cleaning-plan-rest</artifactId>
+            <artifactId>food-plan-rest</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>household</groupId>
-            <artifactId>cleaning-plan-mq</artifactId>
+            <artifactId>food-plan-mq</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>household</groupId>
-            <artifactId>cleaning-plan-persistence</artifactId>
+            <artifactId>food-plan-persistence</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
