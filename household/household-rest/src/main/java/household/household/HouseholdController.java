@@ -36,7 +36,7 @@ public class HouseholdController {
 
     @PostMapping(produces={"application/vnd.household.v1+json"})
     public Mono<HouseholdDTO> createHousehold(ServerWebExchange exchange) {
-        return Flux.concat(postRequest("/api/shoppingLists", exchange), postRequest("/api/cleaningPlans", exchange), postRequest("/api/foodPlans", exchange), postRequest("/api/cookbooks", exchange))
+        return Flux.concat(postRequest("http://shopping-list:8081/api/shoppingLists", null), postRequest("http://localhost:8080/api/cleaningPlans", exchange), postRequest("http://localhost:8080/api/foodPlans", exchange), postRequest("http://localhost:8080/api/cookbooks", exchange))
             .map(this::determineDatabaseId)
             .collectList()
             .map(list -> householdService.createHousehold(list.get(0), list.get(1), list.get(2), list.get(3)))
@@ -55,18 +55,18 @@ public class HouseholdController {
     }
 
     private Mono<Result> postRequest(String url, ServerWebExchange exchange) {
-        HttpCookie xsrfToken = exchange.getRequest().getCookies().getFirst("XSRF-TOKEN");
-        //HttpCookie sessionId = exchange.getRequest().getCookies().getFirst("JSESSIONID");
-        HttpCookie session = exchange.getRequest().getCookies().getFirst("SESSION");
-
-        return webClient
+        WebClient.RequestBodySpec spec = webClient
             .post()
-            .uri(url)
-            .header("XSRF-TOKEN", xsrfToken.getValue())
-            .header("X-XSRF-TOKEN", xsrfToken.getValue())
-            //.cookie("JSESSIONID", sessionId.getValue())
-            .cookie("SESSION", session.getValue())
-            .accept(CUSTOM_TYPE)
+            .uri(url);
+
+        if (exchange != null) {
+            HttpCookie xsrfToken = exchange.getRequest().getCookies().getFirst("XSRF-TOKEN");
+            HttpCookie session = exchange.getRequest().getCookies().getFirst("SESSION");
+            spec = spec.header("XSRF-TOKEN", xsrfToken.getValue())
+                .header("X-XSRF-TOKEN", xsrfToken.getValue())
+                .cookie("SESSION", session.getValue());
+        }
+        return spec.accept(CUSTOM_TYPE)
             .retrieve()
             .bodyToMono(Result.class);
     }
@@ -113,7 +113,7 @@ public class HouseholdController {
     }
 
     private HouseholdDTO addShoppingListLink(HouseholdDTO household) {
-        return (HouseholdDTO) household.add(new Link("/api/shoppingLists/" + household.getShoppingListId(), "shoppingList"));
+        return (HouseholdDTO) household.add(new Link("http://localhost:8081/api/shoppingLists/" + household.getShoppingListId(), "shoppingList"));
     }
 
     private HouseholdDTO addCleaningPlanLink(HouseholdDTO household) {

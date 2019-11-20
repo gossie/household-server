@@ -13,7 +13,7 @@ class UserEventHandler implements UserServiceObserver {
         userService.addObserver(this);
     }
 
-    @StreamListener(HouseholdMessageChannels.DELETION_PRODUCER)
+    @StreamListener(HouseholdMessageChannels.DELETION_INPUT)
     public void onHouseholdDeletion(HouseholdDeletedEvent event) {
         userService.removeHouseholdFromUsers(event.getHouseholdId());
     }

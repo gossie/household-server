@@ -13,14 +13,11 @@ spring:
     cloud:
         stream:
             bindings:
-                creationOutput:
-                    destination: household_creation
-                    binder: local_rabbit
                 deletionInput:
                     destination: household_deletion
                     binder: local_rabbit
-                deletionOutput:
-                    destination: household_deletion
+                creationInput:
+                    destination: household_creation
                     binder: local_rabbit
             binders:
                 local_rabbit:

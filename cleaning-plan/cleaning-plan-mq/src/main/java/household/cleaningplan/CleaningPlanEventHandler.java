@@ -9,7 +9,7 @@ class CleaningPlanEventHandler {
 
     private final CleaningPlanService cleaningPlanService;
 
-    @StreamListener(HouseholdMessageChannels.DELETION_PRODUCER)
+    @StreamListener(HouseholdMessageChannels.DELETION_INPUT)
     public void onHouseholdDeleted(HouseholdDeletedEvent event) {
         cleaningPlanService.deleteCleaningPlan(event.getCleaningPlanId());
     }

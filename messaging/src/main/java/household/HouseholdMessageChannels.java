@@ -7,19 +7,19 @@ import org.springframework.messaging.SubscribableChannel;
 
 public interface HouseholdMessageChannels {
 
-    String DELETION_PRODUCER = "deletionProducer";
-    String CREATION_PRODUCER = "creationProducer";
+    String DELETION_INPUT = "deletionInput";
+    String CREATION_INPUT = "creationInput";
 
     @Input
-    SubscribableChannel deletionProducer();
+    SubscribableChannel deletionInput();
 
     @Output
-    MessageChannel deletionConsumer();
+    MessageChannel deletionOutput();
 
     @Input
-    SubscribableChannel creationProducer();
+    SubscribableChannel creationInput();
 
     @Output
-    MessageChannel creationConsumer();
+    MessageChannel creationOutput();
 
 }

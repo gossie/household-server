@@ -9,7 +9,7 @@ class HouseholdMQContext {
 
     @Bean(initMethod = "init")
     public HouseholdServiceEventHandler householdEventHandler(HouseholdService householdService, HouseholdMessageChannels householdMessageChannels) {
-        return new HouseholdServiceEventHandler(householdService, householdMessageChannels.creationConsumer(), householdMessageChannels.deletionConsumer());
+        return new HouseholdServiceEventHandler(householdService, householdMessageChannels.creationOutput(), householdMessageChannels.deletionOutput());
     }
 
 }

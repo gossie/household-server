@@ -14,8 +14,6 @@ import household.foodplan.FoodPlanRepository;
 import household.foodplan.FoodPlanService;
 import household.household.HouseholdRepository;
 import household.household.HouseholdService;
-import household.shoppinglist.ShoppingListRepository;
-import household.shoppinglist.ShoppingListService;
 import household.user.UserRepository;
 import household.user.UserService;
 
@@ -45,11 +43,6 @@ public class PlanApplication {
 	@Bean
 	public FoodPlanService foodPlanService(FoodPlanRepository foodPlanRepository) {
 		return new FoodPlanService(foodPlanRepository);
-	}
-
-	@Bean
-	public ShoppingListService shoppingListService(ShoppingListRepository shoppingListRepository) {
-		return new ShoppingListService(shoppingListRepository);
 	}
 
 	@Bean

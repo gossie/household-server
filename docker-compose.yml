@@ -21,13 +21,36 @@ services:
       - POSTGRES_DB=household
     restart: unless-stopped
 
-  app:
-    build: ./app
+  shopping-list:
+    build: ./shopping-list/shopping-list-app
     depends_on:
       - db
       - rabbitmq
     links:
       - db
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    environment:
+      - JDBC_DATABASE_URL=jdbc:postgresql://db:5432/household
+      - DB_USER=household
+      - DB_PASSWORD=h0us3h0ld
+      - RABBIT_MQ_HOST=rabbitmq
+      - RABBIT_MQ_PORT=5672
+      - RABBIT_MQ_USERNAME=guest
+      - RABBIT_MQ_PASSWORD=guest
+    restart: unless-stopped
+
+  app:
+    build: ./app
+    depends_on:
+      - db
+      - rabbitmq
+      - shopping-list
+    links:
+      - db
+      - shopping-list
     expose:
       - 8080
     ports:
