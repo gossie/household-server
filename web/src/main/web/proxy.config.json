@@ -1,8 +1,0 @@
-{
-    "/api": {
-        "target": "https://ldwas-household.herokuapp.com/",
-        "secure": false,
-        "logLevel": "debug",
-        "changeOrigin": true
-    }
-}

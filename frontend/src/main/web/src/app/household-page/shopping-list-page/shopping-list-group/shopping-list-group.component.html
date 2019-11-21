@@ -1,0 +1,72 @@
+<div *ngIf="!shoppingListGroup.hidden" id="group-{{ shoppingListGroup.name }}" class="columns group">
+    <div class="column">
+        <div class="columns is-mobile">
+            <div class="column is-6">
+                <h5 class="title is-5 toggle" (click)="toggleGroup()">
+                    <span *ngIf="!expanded" class="icon">
+                        <i class="fas fa-chevron-right"></i>
+                    </span>
+                            <span *ngIf="expanded" class="icon">
+                        <i class="fas fa-chevron-down"></i>
+                    </span>
+                    {{ shoppingListGroup.name }} ({{numberOfSelectedItems}}/{{ shoppingListGroup.shoppingListItems.length }})
+                </h5>
+            </div>
+            <div class="column is-2">
+                <span *ngIf="isNotGlobal()">
+                    <span id="delete-group-button-{{ shoppingListGroup.name }}" class="icon" (click)="deleteShoppingListGroup()">
+                        <i class="fas fa-trash"></i>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div *ngIf="expanded">
+            <app-progress-bar [numberOfItems]="shoppingListGroup.shoppingListItems.length"
+                              [numberOfSelectedItems]="numberOfSelectedItems"></app-progress-bar>
+            <form [formGroup]="shoppingListItemForm">
+                <div class="columns is-mobile">
+                    <div class="column is-6">
+                        <div class="control">
+                            <input id="item-field-{{ shoppingListGroup.name }}" class="input" type="text" formControlName="name" placeholder="Item" />
+                        </div>
+                    </div>
+                    <div class="column is-2">
+                        <div class="control">
+                            <span *ngIf="shoppingListItemForm.valid" id="add-item-button-{{ shoppingListGroup.name }}" class="icon" (click)="addShoppingListItem()">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                            <span *ngIf="!shoppingListItemForm.valid" class="icon has-text-grey-light">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="column is-2">
+                        <div class="control">
+                            <span *ngIf="clearButtonActive" id="clear-group-button-{{ shoppingListGroup.name }}" class="icon" (click)="clearShoppingListGroup()">
+                                <i class="fas fa-broom"></i>
+                            </span>
+                            <span *ngIf="!clearButtonActive" class="icon has-text-grey-light">
+                                <i class="fas fa-broom"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div *ngIf="shoppingListGroup.shoppingListItems.length > 0" class="columns is-mobile">
+                <div class="column">
+                    <div class="card">
+                        <header class="card-header has-background-light" (click)="toggleAllShoppingListItems()">
+                            <p class="card-header-title">
+                                <app-checkbox label="Alle"
+                                              [selected]="checked"></app-checkbox>
+                            </p>
+                        </header>
+                    </div>
+                    <app-shopping-list-item *ngFor="let item of shoppingListGroup.shoppingListItems"
+                                            [shoppingListItem]="item"
+                                            (shoppingListEmitter)="handleShoppingList($event)"></app-shopping-list-item>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

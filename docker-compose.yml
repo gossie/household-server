@@ -105,8 +105,8 @@ services:
             - RABBIT_MQ_PASSWORD=guest
         restart: unless-stopped
 
-    app:
-        build: ./app
+    gateway:
+        build: ./gateway
         depends_on:
             - db
             - rabbitmq

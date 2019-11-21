@@ -27,15 +27,15 @@
     </properties>
 
     <modules>
+        <module>frontend</module>
         <module>messaging</module>
+        <module>user</module>
+        <module>household</module>
+        <module>gateway</module>
         <module>cookbook</module>
         <module>food-plan</module>
         <module>cleaning-plan</module>
         <module>shopping-list</module>
-        <module>user</module>
-        <module>household</module>
-	    <module>web</module>
-        <module>app</module>
     </modules>
 
     <repositories>

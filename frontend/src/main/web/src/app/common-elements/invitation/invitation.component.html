@@ -1,0 +1,18 @@
+<div class="card">
+    <header class="card-header">
+        <p class="card-header-title">Einladung</p>
+    </header>
+    <div class="card-content">
+        <div class="content">
+            Einladung von {{ invitation.sender }}
+        </div>
+    </div>
+    <footer class="card-footer">
+        <a id="accept-button" class="card-footer-item" (click)="acceptInvitation()">
+            Annehmen
+        </a>
+        <a id="reject-button" class="card-footer-item is-loading" (click)="rejectInvitation()">
+            Ablehnen
+        </a>
+    </footer>
+</div>
