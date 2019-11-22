@@ -18,27 +18,27 @@ jobs:
                       # fallback to using the latest cache if no exact match is found
                       - v1-dependencies-
 
-            - run: mvn -B -T1C install -Pci:test
-            -   run:
-                    background: true
-                    command: |
-                        java -jar shopping-list/target/shopping-list-app-0.0.1-SNAPSHOT.jar
-            -   run:
-                    background: true
-                    command: |
-                        java -jar cleaning-plan/target/cleaning-plan-app-0.0.1-SNAPSHOT.jar
-            -   run:
-                    background: true
-                    command: |
-                        java -jar food-plan/target/food-plan-app-0.0.1-SNAPSHOT.jar
-            -   run:
-                    background: true
-                    command: |
-                        java -jar cookbook/target/cookbook-app-0.0.1-SNAPSHOT.jar
+            - run: mvn -B install -Pci:test
             - run:
-                  background: true
-                  command: |
-                      java -jar gateway/target/gateway-app-0.0.1-SNAPSHOT.jar
+                background: true
+                command: |
+                    java -jar shopping-list/target/shopping-list-app-0.0.1-SNAPSHOT.jar
+            - run:
+                background: true
+                command: |
+                    java -jar cleaning-plan/target/cleaning-plan-app-0.0.1-SNAPSHOT.jar
+            - run:
+                background: true
+                command: |
+                    java -jar food-plan/target/food-plan-app-0.0.1-SNAPSHOT.jar
+            - run:
+                background: true
+                command: |
+                    java -jar cookbook/target/cookbook-app-0.0.1-SNAPSHOT.jar
+            - run:
+                background: true
+                command: |
+                    java -jar gateway/target/gateway-app-0.0.1-SNAPSHOT.jar
             - run: mvn -B -fgateway install -Pci:e2e
             - run: mvn dependency:go-offline
 

@@ -33,13 +33,13 @@ spring:
                                 username: ${RABBIT_MQ_USERNAME}
                                 password: ${RABBIT_MQ_PASSWORD}
 
-shoppingList:
+shopping-list:
     url: http://shopping-list:8081
 
-cleaningPlan:
+cleaning-plan:
     url: http://cleaning-plan:8082
 
-foodPlan:
+food-plan:
     url: http://food-plan:8083
 
 cookbook:

@@ -35,13 +35,13 @@ public class HouseholdController {
 	private final HouseholdService householdService;
 	private final HouseholdDTOMapper householdMapper;
 
-	@Value("shoppingList.url")
+	@Value("${shopping-list.url}")
     private String shoppingListUrl;
-    @Value("cleaningPlan.url")
+    @Value("${cleaning-plan.url}")
     private String cleaningPlanUrl;
-    @Value("foodPlan.url")
+    @Value("${food-plan.url}")
     private String foodPlanUrl;
-    @Value("cookbook.url")
+    @Value("${cookbook.url}")
     private String cookbookUrl;
 
     @PostMapping(produces={"application/vnd.household.v1+json"})

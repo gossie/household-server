@@ -13,13 +13,13 @@ logging:
 server:
     port: ${PORT:8080}
 
-shoppingList:
+shopping-list:
     url: http://localhost:8081
 
-cleaningPlan:
+cleaning-plan:
     url: http://localhost:8082
 
-foodPlan:
+food-plan:
     url: http://localhost:8083
 
 cookbook:

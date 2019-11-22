@@ -40,10 +40,10 @@ public class GatewayApplication {
 
     @Bean
     public RouteLocator routeLocator(RouteLocatorBuilder builder,
-                                     @Value("shoppingList.url") String shoppingListUrl,
-                                     @Value("cleaningPlan.url") String cleaningPlanUrl,
-                                     @Value("foodPlan.url") String foodPlanUrl,
-                                     @Value("cookbook.url") String cookbookUrl) {
+                                     @Value("${shopping-list.url}") String shoppingListUrl,
+                                     @Value("${cleaning-plan.url}") String cleaningPlanUrl,
+                                     @Value("${food-plan.url}") String foodPlanUrl,
+                                     @Value("${cookbook.url}") String cookbookUrl) {
 
         System.out.println("gateway routes are created");
         return builder.routes()
