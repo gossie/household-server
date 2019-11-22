@@ -39,7 +39,7 @@ jobs:
                 background: true
                 command: |
                     java -jar gateway/target/gateway-app-0.0.1-SNAPSHOT.jar
-            - run: mvn -B -fgateway install -Pci:e2e
+            - run: mvn -B -ffrontend install -Pci:e2e
             - run: mvn dependency:go-offline
 
             - save_cache:
