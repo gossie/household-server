@@ -22,19 +22,19 @@ jobs:
             - run:
                 background: true
                 command: |
-                    java -jar shopping-list/target/shopping-list-app-0.0.1-SNAPSHOT.jar
+                    java -jar shopping-list/shopping-list-app/target/shopping-list-app-0.0.1-SNAPSHOT.jar
             - run:
                 background: true
                 command: |
-                    java -jar cleaning-plan/target/cleaning-plan-app-0.0.1-SNAPSHOT.jar
+                    java -jar cleaning-plan/cleaning-plan-app/target/cleaning-plan-app-0.0.1-SNAPSHOT.jar
             - run:
                 background: true
                 command: |
-                    java -jar food-plan/target/food-plan-app-0.0.1-SNAPSHOT.jar
+                    java -jar food-plan/food-plan-app/target/food-plan-app-0.0.1-SNAPSHOT.jar
             - run:
                 background: true
                 command: |
-                    java -jar cookbook/target/cookbook-app-0.0.1-SNAPSHOT.jar
+                    java -jar cookbook/cookbook-app/target/cookbook-app-0.0.1-SNAPSHOT.jar
             - run:
                 background: true
                 command: |
