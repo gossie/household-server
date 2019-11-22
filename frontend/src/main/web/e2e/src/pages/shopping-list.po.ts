@@ -3,7 +3,10 @@ import { by, element, browser, ExpectedConditions } from 'protractor';
 export class ShoppingListPage {
 
     public async navigateTo(): Promise<void> {
-        await browser.wait(ExpectedConditions.visibilityOf(element(by.css('#shopping-list-tab'))));
+        await browser.wait(ExpectedConditions.elementToBeClickable(element(by.css('#shopping-list-tab'))));
+        console.debug('button should be clickable now');
+        await browser.sleep(10000);
+        console.debug('but i slept anyway');
         return element(by.css('#shopping-list-tab')).click();
     }
 

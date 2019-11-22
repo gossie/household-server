@@ -1,56 +1,72 @@
 version: 2
 jobs:
-  build:
-    docker:
-      - image: gossiemcschreck/ldwas-ci:1.1
+    build:
+        docker:
+            - image: gossiemcschreck/ldwas-ci:latest
 
-    working_directory: ~/repo
+        working_directory: ~/repo
 
-    environment:
-      MAVEN_OPTS: -Xmx4096m
+        environment:
+            MAVEN_OPTS: -Xmx4096m
 
-    steps:
-      - checkout
+        steps:
+            - checkout
 
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - restore_cache:
+                  keys:
+                      - v1-dependencies-{{ checksum "pom.xml" }}
+                      # fallback to using the latest cache if no exact match is found
+                      - v1-dependencies-
 
-      - run: mvn -B -T1C install -Pci:test
-      - run:
-          background: true
-          command: |
-            java -jar app/target/plan-app-0.0.1-SNAPSHOT.jar
-      - run: mvn -B -fgateway install -Pci:e2e
-      - run: mvn dependency:go-offline
+            - run: mvn -B -T1C install -Pci:test
+            -   run:
+                    background: true
+                    command: |
+                        java -jar shopping-list/target/shopping-list-app-0.0.1-SNAPSHOT.jar
+            -   run:
+                    background: true
+                    command: |
+                        java -jar cleaning-plan/target/cleaning-plan-app-0.0.1-SNAPSHOT.jar
+            -   run:
+                    background: true
+                    command: |
+                        java -jar food-plan/target/food-plan-app-0.0.1-SNAPSHOT.jar
+            -   run:
+                    background: true
+                    command: |
+                        java -jar cookbook/target/cookbook-app-0.0.1-SNAPSHOT.jar
+            - run:
+                  background: true
+                  command: |
+                      java -jar gateway/target/gateway-app-0.0.1-SNAPSHOT.jar
+            - run: mvn -B -fgateway install -Pci:e2e
+            - run: mvn dependency:go-offline
 
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
+            - save_cache:
+                  paths:
+                      - ~/.m2
+                  key: v1-dependencies-{{ checksum "pom.xml" }}
 
-  deploy:
-    docker:
-      - image: gossiemcschreck/ldwas-ci:1.1
-    steps:
-      - checkout
-      - run:
-          name: Deploy Master to Heroku
-          command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+    deploy:
+        docker:
+            - image: gossiemcschreck/ldwas-ci:latest
+        steps:
+            - checkout
+            - run:
+                  name: Deploy Master to Heroku
+                  command: |
+                      git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
 
 workflows:
-  version: 2
-  build-deploy:
-    jobs:
-      - build:
-          filters:
-            branches:
-              ignore:
-                - master
-      - deploy:
-          filters:
-            branches:
-              only: master
+    version: 2
+    build-deploy:
+        jobs:
+            - build:
+                  filters:
+                      branches:
+                          ignore:
+                              - master
+            - deploy:
+                  filters:
+                      branches:
+                          only: master

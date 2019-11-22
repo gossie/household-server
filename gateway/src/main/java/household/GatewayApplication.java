@@ -1,5 +1,6 @@
 package household;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.gateway.route.RouteLocator;
@@ -38,21 +39,26 @@ public class GatewayApplication {
     }
 
     @Bean
-    public RouteLocator routeLocator(RouteLocatorBuilder builder) {
+    public RouteLocator routeLocator(RouteLocatorBuilder builder,
+                                     @Value("shoppingList.url") String shoppingListUrl,
+                                     @Value("cleaningPlan.url") String cleaningPlanUrl,
+                                     @Value("foodPlan.url") String foodPlanUrl,
+                                     @Value("cookbook.url") String cookbookUrl) {
+
         System.out.println("gateway routes are created");
         return builder.routes()
             .route(spec -> spec
                 .path("/api/shoppingLists/**")
-                .uri("http://shopping-list:8081"))
+                .uri(shoppingListUrl))
             .route(spec -> spec
                 .path("/api/cleaningPlans/**")
-                .uri("http://cleaning-plan:8082"))
+                .uri(cleaningPlanUrl))
             .route(spec -> spec
                 .path("/api/foodPlans/**")
-                .uri("http://food-plan:8083"))
+                .uri(foodPlanUrl))
             .route(spec -> spec
                 .path("/api/cookbooks/**")
-                .uri("http://cookbook:8084"))
+                .uri(cookbookUrl))
             .build();
     }
 

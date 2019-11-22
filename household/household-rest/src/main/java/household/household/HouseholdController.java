@@ -1,5 +1,6 @@
 package household.household;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpCookie;
 import org.springframework.http.MediaType;
 import lombok.Data;
@@ -34,9 +35,18 @@ public class HouseholdController {
 	private final HouseholdService householdService;
 	private final HouseholdDTOMapper householdMapper;
 
+	@Value("shoppingList.url")
+    private String shoppingListUrl;
+    @Value("cleaningPlan.url")
+    private String cleaningPlanUrl;
+    @Value("foodPlan.url")
+    private String foodPlanUrl;
+    @Value("cookbook.url")
+    private String cookbookUrl;
+
     @PostMapping(produces={"application/vnd.household.v1+json"})
     public Mono<HouseholdDTO> createHousehold(ServerWebExchange exchange) {
-        return Flux.concat(postRequest("http://shopping-list:8081/api/shoppingLists", null), postRequest("http://cleaning-plan:8082/api/cleaningPlans", exchange), postRequest("http://food-plan:8083/api/foodPlans", exchange), postRequest("http://cookbook:8084/api/cookbooks", exchange))
+        return Flux.concat(postRequest(shoppingListUrl + "/api/shoppingLists", null), postRequest(cleaningPlanUrl + "/api/cleaningPlans", exchange), postRequest(foodPlanUrl + "/api/foodPlans", exchange), postRequest(cookbookUrl + "/api/cookbooks", exchange))
             .map(this::determineDatabaseId)
             .collectList()
             .map(list -> householdService.createHousehold(list.get(0), list.get(1), list.get(2), list.get(3)))
@@ -105,19 +115,19 @@ public class HouseholdController {
     }
 
     private HouseholdDTO addShoppingListLink(HouseholdDTO household) {
-        return (HouseholdDTO) household.add(new Link("http://localhost:8081/api/shoppingLists/" + household.getShoppingListId(), "shoppingList"));
+        return (HouseholdDTO) household.add(new Link("/api/shoppingLists/" + household.getShoppingListId(), "shoppingList"));
     }
 
     private HouseholdDTO addCleaningPlanLink(HouseholdDTO household) {
-        return (HouseholdDTO) household.add(new Link("http://localhost:8082/api/cleaningPlans/" + household.getCleaningPlanId(), "cleaningPlan"));
+        return (HouseholdDTO) household.add(new Link("/api/cleaningPlans/" + household.getCleaningPlanId(), "cleaningPlan"));
     }
 
     private HouseholdDTO addFoodPlanLink(HouseholdDTO household) {
-        return (HouseholdDTO) household.add(new Link("http://localhost:8083/api/foodPlans/" + household.getFoodPlanId(), "foodPlan"));
+        return (HouseholdDTO) household.add(new Link("/api/foodPlans/" + household.getFoodPlanId(), "foodPlan"));
     }
 
     private HouseholdDTO addCookbookLink(HouseholdDTO household) {
-        return (HouseholdDTO) household.add(new Link("http://localhost:8084/api/cookbooks/" + household.getCookbookId(), "cookbook"));
+        return (HouseholdDTO) household.add(new Link("/api/cookbooks/" + household.getCookbookId(), "cookbook"));
     }
 
     private static class CustomMediaType extends MediaType {

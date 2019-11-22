@@ -12,3 +12,15 @@ logging:
 
 server:
     port: ${PORT:8080}
+
+shoppingList:
+    url: http://localhost:8081
+
+cleaningPlan:
+    url: http://localhost:8082
+
+foodPlan:
+    url: http://localhost:8083
+
+cookbook:
+    url: http://localhost:8084

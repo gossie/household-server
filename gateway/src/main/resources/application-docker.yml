@@ -32,3 +32,15 @@ spring:
                                 port: ${RABBIT_MQ_PORT}
                                 username: ${RABBIT_MQ_USERNAME}
                                 password: ${RABBIT_MQ_PASSWORD}
+
+shoppingList:
+    url: http://shopping-list:8081
+
+cleaningPlan:
+    url: http://cleaning-plan:8082
+
+foodPlan:
+    url: http://food-plan:8083
+
+cookbook:
+    url: http://cookbook:8084
