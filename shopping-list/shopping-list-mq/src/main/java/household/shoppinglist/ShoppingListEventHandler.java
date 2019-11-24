@@ -1,24 +1,22 @@
 package household.shoppinglist;
 
-import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
-import household.household.HouseholdDeletedEvent;
-
+import household.HouseholdMessageChannels;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.stream.annotation.StreamListener;
 
 @RequiredArgsConstructor
 class ShoppingListEventHandler {
 
-    private final EventBus eventBus;
     private final ShoppingListService shoppingListService;
 
-    public void init() {
-        eventBus.register(this);
+    @StreamListener(HouseholdMessageChannels.DELETION_INPUT)
+    public void onHouseholdDeleted(HouseholdDeletedEvent event) {
+        shoppingListService.deleteShoppingList(event.getShoppingListId());
     }
 
-    @Subscribe
-    public void onHouseholdDeleted(HouseholdDeletedEvent event) {
-        shoppingListService.deleteShoppingList(event.getHousehold().getShoppingListId());
+    @StreamListener(HouseholdMessageChannels.CREATION_INPUT)
+    public void onHouseholdCreation(HouseholdCreatedEvent event) {
+        System.out.println("shopping-list-service: noticed that household with id [" + event.getHouseholdId() + "] was created. But I don't care!");
     }
 
 }

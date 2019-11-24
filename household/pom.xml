@@ -12,7 +12,6 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>household</groupId>
     <artifactId>household-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
