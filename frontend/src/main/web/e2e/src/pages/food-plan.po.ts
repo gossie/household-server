@@ -3,25 +3,22 @@ import { by, element, browser, ExpectedConditions } from 'protractor';
 export class FoodPlanPage {
 
     public async navigateTo(): Promise<void> {
-        await browser.wait(ExpectedConditions.elementToBeClickable(element(by.css('#food-plan-tab'))));
-        console.debug('button should be clickable now');
-        await browser.sleep(10000);
-        console.debug('but i slept anyway');
+        await browser.wait(ExpectedConditions.elementToBeClickable(element(by.css('#food-plan-tab'))), 10000);
         return element(by.css('#food-plan-tab')).click();
     }
 
     public async setMeal(day: string, meal: string): Promise<void> {
-        await browser.wait(ExpectedConditions.visibilityOf(element(by.css(`#${day}`))));
+        await browser.wait(ExpectedConditions.visibilityOf(element(by.css(`#${day}`))), 10000);
         return element(by.css(`#${day}`)).sendKeys(meal);
     }
 
     public async selectMealFromCookbook(meal: string): Promise<void> {
-        await browser.wait(ExpectedConditions.visibilityOf(element(by.linkText(meal))));
+        await browser.wait(ExpectedConditions.visibilityOf(element(by.linkText(meal))), 10000);
         return element(by.linkText(meal)).click();
     }
 
     public async selectIngredient(index: number): Promise<void> {
-        await browser.wait(ExpectedConditions.visibilityOf(element(by.css(`#ingredient-${index}`))));
+        await browser.wait(ExpectedConditions.visibilityOf(element(by.css(`#ingredient-${index}`))), 10000);
         return element(by.css(`#ingredient-${index}`)).click();
     }
 

@@ -53,7 +53,7 @@ describe('invitation', () => {
         });
 
         it('should reject invitation', async () => {
-            await browser.wait(ExpectedConditions.visibilityOf(element(by.css('#reject-button'))), 7000);
+            await browser.wait(ExpectedConditions.visibilityOf(element(by.css('#reject-button'))), 10000);
             await coverPage.rejectInvitation();
             await browser.sleep(5000);
         });

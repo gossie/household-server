@@ -3,12 +3,12 @@ import { by, element, browser, ExpectedConditions } from 'protractor';
 export class AddRecipeDialog {
 
     public async navigateTo(): Promise<void> {
-        await browser.wait(ExpectedConditions.elementToBeClickable(element(by.css('#add-recipe-button'))));
+        await browser.wait(ExpectedConditions.elementToBeClickable(element(by.css('#add-recipe-button'))), 10000);
         return element(by.css('#add-recipe-button')).click();
     }
 
     public async setRecipeName(name: string): Promise<void> {
-        await browser.wait(ExpectedConditions.visibilityOf(element(by.css('#recipe-name-field'))));
+        await browser.wait(ExpectedConditions.visibilityOf(element(by.css('#recipe-name-field'))), 10000);
         return element(by.css('#recipe-name-field')).sendKeys(name);
     }
 

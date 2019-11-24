@@ -16,7 +16,7 @@ export class CoverPage {
     }
 
     public async changePassword(currentPassword: string, newPassword: string): Promise<void> {
-        await browser.wait(ExpectedConditions.visibilityOf(element(by.css('#current-password'))));
+        await browser.wait(ExpectedConditions.visibilityOf(element(by.css('#current-password'))), 10000);
 
         await element(by.css('#current-password')).sendKeys(currentPassword);
         await element(by.css('#new-password')).sendKeys(newPassword);

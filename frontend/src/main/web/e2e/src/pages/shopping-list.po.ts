@@ -3,21 +3,18 @@ import { by, element, browser, ExpectedConditions } from 'protractor';
 export class ShoppingListPage {
 
     public async navigateTo(): Promise<void> {
-        await browser.wait(ExpectedConditions.elementToBeClickable(element(by.css('#shopping-list-tab'))));
-        console.debug('button should be clickable now');
-        await browser.sleep(10000);
-        console.debug('but i slept anyway');
+        await browser.wait(ExpectedConditions.elementToBeClickable(element(by.css('#shopping-list-tab'))), 10000);
         return element(by.css('#shopping-list-tab')).click();
     }
 
     public async addGroup(group: string): Promise<void> {
-        await browser.wait(ExpectedConditions.visibilityOf(element(by.css('#group-field'))));
+        await browser.wait(ExpectedConditions.visibilityOf(element(by.css('#group-field'))), 10000);
         await element(by.css('#group-field')).sendKeys(group);
         return element(by.css('#add-group-button')).click();
     }
 
     public async deleteGroup(group: string): Promise<void> {
-        await browser.wait(ExpectedConditions.visibilityOf(element(by.css(`#delete-group-button-${group}`))));
+        await browser.wait(ExpectedConditions.visibilityOf(element(by.css(`#delete-group-button-${group}`))), 10000);
         return element(by.css(`#delete-group-button-${group}`)).click();
     }
 
@@ -26,7 +23,7 @@ export class ShoppingListPage {
     }
 
     public async addItemToGroup(group: string, item: string): Promise<void> {
-        await browser.wait(ExpectedConditions.visibilityOf(element(by.css(`#item-field-${group}`))));
+        await browser.wait(ExpectedConditions.visibilityOf(element(by.css(`#item-field-${group}`))), 10000);
         await element(by.css(`#item-field-${group}`)).sendKeys(item);
         return element(by.css(`#add-item-button-${group}`)).click();
     }
@@ -44,7 +41,7 @@ export class ShoppingListPage {
     }
 
     public async toggleGroup(group: string): Promise<void> {
-        await browser.wait(ExpectedConditions.visibilityOf(element(by.css(`#group-${group} h5.toggle`))));
+        await browser.wait(ExpectedConditions.visibilityOf(element(by.css(`#group-${group} h5.toggle`))), 10000);
         return element(by.css(`#group-${group} h5.toggle`)).click();
     }
 

@@ -7,7 +7,7 @@ export class LoginPage {
     }
 
     public async login(email: string, password: string) {
-        await browser.wait(ExpectedConditions.visibilityOf(element(by.css('#email-field'))));
+        await browser.wait(ExpectedConditions.visibilityOf(element(by.css('#email-field'))), 10000);
         await element(by.css('#email-field')).sendKeys(email);
         await element(by.css('#password-field')).sendKeys(password);
         return element(by.css('#login-button')).click();
