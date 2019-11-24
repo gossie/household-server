@@ -13,12 +13,16 @@ jobs:
             - checkout
 
             - restore_cache:
-                  keys:
-                      - v1-dependencies-{{ checksum "pom.xml" }}
-                      # fallback to using the latest cache if no exact match is found
-                      - v1-dependencies-
+                keys:
+                    - v1-dependencies-{{ checksum "pom.xml" }}
+                    # fallback to using the latest cache if no exact match is found
+                    - v1-dependencies-
 
             - run: mvn -B install -Pci:test
+            - run:
+                background: true
+                command: |
+                    rabbitmq-server -detached
             - run:
                 background: true
                 command: |
@@ -43,9 +47,9 @@ jobs:
             - run: mvn dependency:go-offline
 
             - save_cache:
-                  paths:
-                      - ~/.m2
-                  key: v1-dependencies-{{ checksum "pom.xml" }}
+                paths:
+                    - ~/.m2
+                key: v1-dependencies-{{ checksum "pom.xml" }}
 
     deploy:
         docker:
@@ -53,20 +57,20 @@ jobs:
         steps:
             - checkout
             - run:
-                  name: Deploy Master to Heroku
-                  command: |
-                      git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+                name: Deploy Master to Heroku
+                command: |
+                    git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
 
 workflows:
     version: 2
     build-deploy:
         jobs:
             - build:
-                  filters:
-                      branches:
-                          ignore:
-                              - master
+                filters:
+                    branches:
+                        ignore:
+                            - master
             - deploy:
-                  filters:
-                      branches:
-                          only: master
+                filters:
+                    branches:
+                        only: master
