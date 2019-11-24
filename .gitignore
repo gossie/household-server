@@ -46,6 +46,7 @@ speed-measure-plugin.json
 # IDE - VSCode
 .vscode
 *.factorypath
+*.springBeans
 
 # misc
 /.sass-cache
@@ -104,6 +105,7 @@ Thumbs.db
 
 
 # specific
-web/src/main/web/dist
-web/src/main/web/node
-web/src/main/web/coverage
+frontend/src/main/web/dist
+frontend/src/main/web/node
+frontend/src/main/web/coverage
+out.txt
