@@ -108,3 +108,4 @@ Thumbs.db
 frontend/src/main/web/dist
 frontend/src/main/web/node
 frontend/src/main/web/coverage
+out.txt
