@@ -33,6 +33,7 @@ class UserEntity {
 	private final Long id;
 	private final String email;
 	private String password;
+	private boolean registrationConfirmed;
 	private Long householdId;
 
 	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
