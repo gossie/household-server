@@ -2,7 +2,7 @@ version: 2
 jobs:
     build:
         docker:
-            - image: gossiemcschreck/ldwas-ci:latest
+            - image: gossiemcschreck/ldwas-ci:1.2
 
         working_directory: ~/repo
 
@@ -53,7 +53,7 @@ jobs:
 
     deploy:
         docker:
-            - image: gossiemcschreck/ldwas-ci:latest
+            - image: gossiemcschreck/ldwas-ci:1.2
         steps:
             - checkout
             - run:
