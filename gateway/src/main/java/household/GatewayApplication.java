@@ -13,7 +13,6 @@ import household.household.HouseholdRepository;
 import household.household.HouseholdService;
 import household.user.UserRepository;
 import household.user.UserService;
-import org.springframework.http.HttpMethod;
 
 @SpringBootApplication(exclude = HypermediaAutoConfiguration.class)
 @EnableBinding(HouseholdMessageChannels.class)
