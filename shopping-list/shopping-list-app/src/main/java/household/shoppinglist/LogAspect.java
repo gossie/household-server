@@ -1,4 +1,4 @@
-package household;
+package household.shoppinglist;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

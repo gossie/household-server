@@ -3,33 +3,23 @@ package household;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.boot.autoconfigure.hateoas.HypermediaAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-
-import household.household.HouseholdRepository;
-import household.household.HouseholdService;
-import household.user.UserRepository;
-import household.user.UserService;
+import org.springframework.security.authentication.ReactiveAuthenticationManager;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @SpringBootApplication(exclude = HypermediaAutoConfiguration.class)
 @EnableBinding(HouseholdMessageChannels.class)
+@EnableOAuth2Sso
 public class GatewayApplication {
 
     public static void main(String[] args) {
 		SpringApplication.run(GatewayApplication.class, args);
-	}
-
-	@Bean
-	public HouseholdService householdService(HouseholdRepository householdRepository) {
-		return new HouseholdService(householdRepository);
-	}
-
-	@Bean
-	public UserService userService(UserRepository userRepository) {
-		return new UserService(userRepository);
 	}
 
 	@Bean
@@ -42,9 +32,9 @@ public class GatewayApplication {
                                      @Value("${shopping-list.url}") String shoppingListUrl,
                                      @Value("${cleaning-plan.url}") String cleaningPlanUrl,
                                      @Value("${food-plan.url}") String foodPlanUrl,
-                                     @Value("${cookbook.url}") String cookbookUrl) {
+                                     @Value("${cookbook.url}") String cookbookUrl,
+                                     @Value("${household.url}") String householdUrl) {
 
-        System.out.println("gateway routes are created");
         return builder.routes()
             .route(spec -> spec
                 .path("/api/shoppingLists/**")
@@ -58,7 +48,19 @@ public class GatewayApplication {
             .route(spec -> spec
                 .path("/api/cookbooks/**")
                 .uri(cookbookUrl))
+            .route(spec -> spec
+                .path("/api/households/**")
+                .uri(householdUrl))
             .build();
     }
 
+    @Bean
+    public WebClient webClient() {
+        return WebClient.create();
+    }
+
+    @Bean
+    public ReactiveAuthenticationManager authenticationProvider() {
+        return new OAuth2PasswordAuthenticationManager(webClient());
+    }
 }

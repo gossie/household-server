@@ -28,6 +28,28 @@ services:
             - POSTGRES_PASSWORD=h0us3h0ld
             - POSTGRES_DB=household
         restart: unless-stopped
+        
+    user:
+        build: ./user/user-app
+        depends_on:
+            - db
+            - rabbitmq
+            - zipkin
+        links:
+            - db
+        expose:
+            - 8086
+        ports:
+            - 8086:8086
+        environment:
+            - JDBC_DATABASE_URL=jdbc:postgresql://db:5432/household
+            - DB_USER=household
+            - DB_PASSWORD=h0us3h0ld
+            - RABBIT_MQ_HOST=rabbitmq
+            - RABBIT_MQ_PORT=5672
+            - RABBIT_MQ_USERNAME=guest
+            - RABBIT_MQ_PASSWORD=guest
+        restart: unless-stopped
 
     shopping-list:
         build: ./shopping-list/shopping-list-app
@@ -35,6 +57,7 @@ services:
             - db
             - rabbitmq
             - zipkin
+            - user
         links:
             - db
         expose:
@@ -57,6 +80,7 @@ services:
             - db
             - rabbitmq
             - zipkin
+            - user
         links:
             - db
         expose:
@@ -79,6 +103,7 @@ services:
             - db
             - rabbitmq
             - zipkin
+            - user
         links:
             - db
         expose:
@@ -101,6 +126,7 @@ services:
             - db
             - rabbitmq
             - zipkin
+            - user
         links:
             - db
         expose:
@@ -117,16 +143,45 @@ services:
             - RABBIT_MQ_PASSWORD=guest
         restart: unless-stopped
 
+    household:
+        build: ./household/household-app
+        depends_on:
+            - db
+            - rabbitmq
+            - zipkin
+            - user
+            - shopping-list
+            - cleaning-plan
+            - food-plan
+            - cookbook
+        links:
+            - db
+        expose:
+            - 8085
+        ports:
+            - 8085:8085
+        environment:
+            - JDBC_DATABASE_URL=jdbc:postgresql://db:5432/household
+            - DB_USER=household
+            - DB_PASSWORD=h0us3h0ld
+            - RABBIT_MQ_HOST=rabbitmq
+            - RABBIT_MQ_PORT=5672
+            - RABBIT_MQ_USERNAME=guest
+            - RABBIT_MQ_PASSWORD=guest
+        restart: unless-stopped
+
     gateway:
         build: ./gateway
         depends_on:
             - db
             - rabbitmq
             - zipkin
+            - user
             - shopping-list
             - cleaning-plan
             - food-plan
             - cookbook
+            - household
         links:
             - db
             - shopping-list

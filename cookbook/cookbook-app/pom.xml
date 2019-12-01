@@ -14,7 +14,7 @@
     <artifactId>cookbook-app</artifactId>
     <packaging>jar</packaging>
 
-    <name>cookbook-parent</name>
+    <name>cookbook-app</name>
     <description>Demo project for Spring Boot</description>
 
     <dependencies>
@@ -63,6 +63,10 @@
             <!--<groupId>org.springframework.boot</groupId>-->
             <!--<artifactId>spring-boot-starter-actuator</artifactId>-->
         <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.h2database</groupId>
@@ -113,41 +117,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/classes/templates</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${project.parent.basedir}/web/src/main/web/dist/web-frontend/</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy-static</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/classes/static</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${project.parent.basedir}/web/src/main/web/dist/web-frontend/</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

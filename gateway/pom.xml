@@ -25,36 +25,6 @@
         </dependency>
         <dependency>
             <groupId>household</groupId>
-            <artifactId>user-rest</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>user-mq</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>user-persistence</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>household-rest</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>household-mq</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>household-persistence</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
             <artifactId>frontend</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
@@ -95,11 +65,14 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-zipkin</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>org.springframework.boot</groupId>-->
             <!--<artifactId>spring-boot-starter-actuator</artifactId>-->
         <!--</dependency>-->
-
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>

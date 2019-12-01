@@ -30,12 +30,12 @@
         <module>frontend</module>
         <module>messaging</module>
         <module>user</module>
-        <module>household</module>
-        <module>gateway</module>
         <module>cookbook</module>
         <module>food-plan</module>
         <module>cleaning-plan</module>
         <module>shopping-list</module>
+        <module>household</module>
+        <module>gateway</module>
     </modules>
 
     <repositories>
@@ -51,7 +51,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Hoxton.RC2</version>
+                <version>Hoxton.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

@@ -25,5 +25,6 @@
         <module>household-persistence</module>
         <module>household-rest</module>
         <module>household-mq</module>
+        <module>household-app</module>
     </modules>
 </project>

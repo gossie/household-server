@@ -18,13 +18,7 @@ spring:
     cloud:
         stream:
             bindings:
-                creationOutput:
-                    destination: household_creation
-                    binder: local_rabbit
                 deletionInput:
-                    destination: household_deletion
-                    binder: local_rabbit
-                deletionOutput:
                     destination: household_deletion
                     binder: local_rabbit
             binders:
@@ -37,6 +31,18 @@ spring:
                                 port: ${RABBIT_MQ_PORT}
                                 username: ${RABBIT_MQ_USERNAME}
                                 password: ${RABBIT_MQ_PASSWORD}
+
+security:
+    oauth2:
+        client:
+            clientId: bd1c0a783ccdd1c9b9e4
+            clientSecret: 1a9030fbca47a5b2c28e92f19050bb77824b5ad1
+            accessTokenUri: http://user:8086/login/oauth/access_token
+            userAuthorizationUri: http://user:8086/login/oauth/authorize
+            clientAuthenticationScheme: form
+        resource:
+            userInfoUri: http://user:8086/user
+            preferTokenInfo: false
 
 sample:
     zipkin:
@@ -53,3 +59,9 @@ food-plan:
 
 cookbook:
     url: http://cookbook:8084
+
+household:
+    url: http://household:8085
+
+user:
+    url: http://user:8086

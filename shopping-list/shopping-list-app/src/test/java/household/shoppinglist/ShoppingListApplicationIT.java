@@ -1,4 +1,4 @@
-package household;
+package household.shoppinglist;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

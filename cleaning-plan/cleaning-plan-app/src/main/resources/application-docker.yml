@@ -35,6 +35,12 @@ spring:
                                 username: ${RABBIT_MQ_USERNAME}
                                 password: ${RABBIT_MQ_PASSWORD}
 
+security:
+    oauth2:
+        resource:
+            userInfoUri: http://user:8086/user
+            preferTokenInfo: false
+
 sample:
     zipkin:
         enabled: true

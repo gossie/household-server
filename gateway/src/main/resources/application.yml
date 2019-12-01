@@ -26,3 +26,9 @@ food-plan:
 
 cookbook:
     url: http://localhost:8084
+
+household:
+    url: http://localhost:8085
+
+user:
+    url: http://localhost:8086
