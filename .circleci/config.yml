@@ -18,7 +18,7 @@ jobs:
                     # fallback to using the latest cache if no exact match is found
                     - v1-dependencies-
 
-            - run: mvn -B verify -Pci:test
+            - run: mvn -B -T1C verify -Pci:test
             - run:
                 background: true
                 command: |
