@@ -1,0 +1,25 @@
+spring:
+    application:
+        name: household
+    datasource:
+        url: jdbc:h2:mem:testdb
+
+logging:
+    level:
+        org.springframework.web: ERROR
+        org.hibernate: ERROR
+
+server:
+    port: ${PORT:8085}
+
+shopping-list:
+    url: http://localhost:8081
+
+cleaning-plan:
+    url: http://localhost:8082
+
+food-plan:
+    url: http://localhost:8083
+
+cookbook:
+    url: http://localhost:8084
