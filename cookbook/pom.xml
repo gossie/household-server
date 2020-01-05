@@ -25,6 +25,5 @@
         <module>cookbook-persistence</module>
         <module>cookbook-rest</module>
         <module>cookbook-mq</module>
-        <module>cookbook-app</module>
     </modules>
 </project>

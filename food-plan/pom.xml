@@ -25,6 +25,5 @@
         <module>food-plan-persistence</module>
         <module>food-plan-rest</module>
         <module>food-plan-mq</module>
-        <module>food-plan-app</module>
     </modules>
 </project>

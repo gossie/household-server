@@ -25,6 +25,5 @@
         <module>user-persistence</module>
         <module>user-rest</module>
         <module>user-mq</module>
-		<module>user-app</module>
     </modules>
 </project>
