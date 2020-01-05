@@ -44,7 +44,7 @@ export class CleaningPlanPageComponent implements OnInit, OnDestroy {
     private createForm(): void {
         this.cleaningPlanForm = this.formBuilder.group({
             name: ['', Validators.required],
-            repeat: ['', [Validators.required, Validators.min(1), Validators.max(365)]]
+            repeat: ['', [Validators.required, Validators.min(0), Validators.max(365)]]
         });
     }
 
