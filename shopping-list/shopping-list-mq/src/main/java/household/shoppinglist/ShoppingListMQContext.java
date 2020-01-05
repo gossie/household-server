@@ -1,16 +1,14 @@
 package household.shoppinglist;
 
-import com.google.common.eventbus.EventBus;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 class ShoppingListMQContext {
 
-    @Bean(initMethod = "init")
-    public ShoppingListEventHandler shoppingListEventHandler(EventBus eventBus, ShoppingListService shoppingListService) {
-        return new ShoppingListEventHandler(eventBus, shoppingListService);
+    @Bean
+    public ShoppingListEventHandler shoppingListEventHandler(ShoppingListService shoppingListService) {
+        return new ShoppingListEventHandler(shoppingListService);
     }
 
 }

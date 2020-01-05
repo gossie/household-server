@@ -1,0 +1,145 @@
+version: '2'
+services:
+    zipkin:
+        image: openzipkin/zipkin
+        expose:
+            - 9411
+        ports:
+            - 9411:9411
+        restart: unless-stopped
+
+    rabbitmq:
+        image: rabbitmq:management
+        expose:
+            - 5672
+        ports:
+            - 5672:5672
+            - 15672:15672
+        restart: unless-stopped
+
+    db:
+        image: postgres
+        expose:
+            - 5432
+        ports:
+            - 5432:5432
+        environment:
+            - POSTGRES_USER=household
+            - POSTGRES_PASSWORD=h0us3h0ld
+            - POSTGRES_DB=household
+        restart: unless-stopped
+
+    shopping-list:
+        build: ./shopping-list/shopping-list-app
+        depends_on:
+            - db
+            - rabbitmq
+            - zipkin
+        links:
+            - db
+        expose:
+            - 8081
+        ports:
+            - 8081:8081
+        environment:
+            - JDBC_DATABASE_URL=jdbc:postgresql://db:5432/household
+            - DB_USER=household
+            - DB_PASSWORD=h0us3h0ld
+            - RABBIT_MQ_HOST=rabbitmq
+            - RABBIT_MQ_PORT=5672
+            - RABBIT_MQ_USERNAME=guest
+            - RABBIT_MQ_PASSWORD=guest
+        restart: unless-stopped
+
+    cleaning-plan:
+        build: ./cleaning-plan/cleaning-plan-app
+        depends_on:
+            - db
+            - rabbitmq
+            - zipkin
+        links:
+            - db
+        expose:
+            - 8082
+        ports:
+            - 8082:8082
+        environment:
+            - JDBC_DATABASE_URL=jdbc:postgresql://db:5432/household
+            - DB_USER=household
+            - DB_PASSWORD=h0us3h0ld
+            - RABBIT_MQ_HOST=rabbitmq
+            - RABBIT_MQ_PORT=5672
+            - RABBIT_MQ_USERNAME=guest
+            - RABBIT_MQ_PASSWORD=guest
+        restart: unless-stopped
+
+    food-plan:
+        build: ./food-plan/food-plan-app
+        depends_on:
+            - db
+            - rabbitmq
+            - zipkin
+        links:
+            - db
+        expose:
+            - 8083
+        ports:
+            - 8083:8083
+        environment:
+            - JDBC_DATABASE_URL=jdbc:postgresql://db:5432/household
+            - DB_USER=household
+            - DB_PASSWORD=h0us3h0ld
+            - RABBIT_MQ_HOST=rabbitmq
+            - RABBIT_MQ_PORT=5672
+            - RABBIT_MQ_USERNAME=guest
+            - RABBIT_MQ_PASSWORD=guest
+        restart: unless-stopped
+
+    cookbook:
+        build: ./cookbook/cookbook-app
+        depends_on:
+            - db
+            - rabbitmq
+            - zipkin
+        links:
+            - db
+        expose:
+            - 8084
+        ports:
+            - 8084:8084
+        environment:
+            - JDBC_DATABASE_URL=jdbc:postgresql://db:5432/household
+            - DB_USER=household
+            - DB_PASSWORD=h0us3h0ld
+            - RABBIT_MQ_HOST=rabbitmq
+            - RABBIT_MQ_PORT=5672
+            - RABBIT_MQ_USERNAME=guest
+            - RABBIT_MQ_PASSWORD=guest
+        restart: unless-stopped
+
+    gateway:
+        build: ./gateway
+        depends_on:
+            - db
+            - rabbitmq
+            - zipkin
+            - shopping-list
+            - cleaning-plan
+            - food-plan
+            - cookbook
+        links:
+            - db
+            - shopping-list
+        expose:
+            - 8080
+        ports:
+            - 8080:8080
+        environment:
+            - JDBC_DATABASE_URL=jdbc:postgresql://db:5432/household
+            - DB_USER=household
+            - DB_PASSWORD=h0us3h0ld
+            - RABBIT_MQ_HOST=rabbitmq
+            - RABBIT_MQ_PORT=5672
+            - RABBIT_MQ_USERNAME=guest
+            - RABBIT_MQ_PASSWORD=guest
+        restart: unless-stopped

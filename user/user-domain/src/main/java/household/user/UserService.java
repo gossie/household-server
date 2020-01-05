@@ -1,26 +1,30 @@
 package household.user;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.eventbus.EventBus;
 import lombok.RequiredArgsConstructor;
 import org.reactivestreams.Publisher;
 
 @RequiredArgsConstructor
 public class UserService {
 
-    private final EventBus eventBus;
     private final UserRepository userRepository;
+    private final List<UserServiceObserver> userServiceObservers = new ArrayList<>();
 
-    public void init() {
-        eventBus.register(this);
+    void addObserver(UserServiceObserver observer) {
+        userServiceObservers.add(observer);
     }
 
     public User createUser(User user) {
         userRepository.determineUser(user.getEmail()).ifPresent(u -> {
             throw new UserAlreadyExistsException();
         });
-        return userRepository.createUser(user);
+
+        User createdUser = userRepository.createUser(user);
+        userServiceObservers.forEach(UserServiceObserver::onUserCreation);
+
+        return createdUser;
     }
 
     public Publisher<User> determineCurrentUser() {
@@ -58,7 +62,7 @@ public class UserService {
         userRepository.saveUser(user);
 
         List<User> leftUsers = userRepository.determineUsers(oldHouseholdId);
-        eventBus.post(new InvitationAcceptedEvent(oldHouseholdId, leftUsers));
+        // TODO: eventBus.post(new InvitationAcceptedEvent(oldHouseholdId, leftUsers));
     }
 
     public void removeHouseholdFromUsers(Long householdId) {
@@ -73,4 +77,5 @@ public class UserService {
         user.setPassword(newPassword);
         return userRepository.saveUserAndHashPassword(user, currentPassword);
     }
+
 }

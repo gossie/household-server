@@ -1,7 +1,6 @@
 package household.household;
 
-import com.google.common.eventbus.EventBus;
-
+import household.HouseholdMessageChannels;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 class HouseholdMQContext {
 
     @Bean(initMethod = "init")
-    public HouseholdEventHandler householdEventHandler(EventBus eventBus, HouseholdService householdService) {
-        return new HouseholdEventHandler(eventBus, householdService);
+    public HouseholdServiceEventHandler householdEventHandler(HouseholdService householdService, HouseholdMessageChannels householdMessageChannels) {
+        return new HouseholdServiceEventHandler(householdService, householdMessageChannels.creationOutput(), householdMessageChannels.deletionOutput());
     }
 
 }

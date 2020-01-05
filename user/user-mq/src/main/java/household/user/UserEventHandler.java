@@ -1,24 +1,25 @@
 package household.user;
 
-import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
-import household.household.HouseholdDeletedEvent;
-
+import household.HouseholdMessageChannels;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.stream.annotation.StreamListener;
 
 @RequiredArgsConstructor
-class UserEventHandler {
+class UserEventHandler implements UserServiceObserver {
 
-    private final EventBus eventBus;
     private final UserService userService;
 
     public void init() {
-        eventBus.register(this);
+        userService.addObserver(this);
     }
 
-    @Subscribe
+    @StreamListener(HouseholdMessageChannels.DELETION_INPUT)
     public void onHouseholdDeletion(HouseholdDeletedEvent event) {
-        userService.removeHouseholdFromUsers(event.getHousehold().getId());
+        userService.removeHouseholdFromUsers(event.getHouseholdId());
     }
 
+    @Override
+    public void onUserCreation() {
+        // TODO: message werfen
+    }
 }

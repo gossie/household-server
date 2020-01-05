@@ -1,0 +1,40 @@
+spring:
+    zipkin:
+        baseUrl: http://zipkin:9411/
+    sleuth:
+        sampler:
+            probability: 1.0
+    jpa:
+        generate-ddl: true
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+    datasource:
+        url: ${JDBC_DATABASE_URL}
+        username: ${DB_USER}
+        password: ${DB_PASSWORD}
+    cloud:
+        stream:
+            bindings:
+                deletionInput:
+                    destination: household_deletion
+                    binder: local_rabbit
+                creationInput:
+                    destination: household_creation
+                    binder: local_rabbit
+            binders:
+                local_rabbit:
+                    type: rabbit
+                    environment:
+                        spring:
+                            rabbitmq:
+                                host: ${RABBIT_MQ_HOST}
+                                port: ${RABBIT_MQ_PORT}
+                                username: ${RABBIT_MQ_USERNAME}
+                                password: ${RABBIT_MQ_PASSWORD}
+
+sample:
+    zipkin:
+        enabled: true

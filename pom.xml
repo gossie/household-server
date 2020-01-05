@@ -9,7 +9,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.0.RELEASE</version>
+        <version>2.2.1.RELEASE</version>
     </parent>
 
     <groupId>household</groupId>
@@ -23,22 +23,19 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>13</java.version>
+        <java.version>11</java.version>
     </properties>
 
     <modules>
-        <module>household/household-domain-test-utils</module>
-        <module>household/household-domain</module>
+        <module>frontend</module>
+        <module>messaging</module>
+        <module>user</module>
+        <module>household</module>
+        <module>gateway</module>
         <module>cookbook</module>
         <module>food-plan</module>
         <module>cleaning-plan</module>
         <module>shopping-list</module>
-        <module>user</module>
-        <module>household/household-rest</module>
-        <module>household/household-persistence</module>
-        <module>household/household-mq</module>
-	    <module>web</module>
-        <module>app</module>
     </modules>
 
     <repositories>
@@ -52,32 +49,33 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Hoxton.RC2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--dependency>
+                <groupId>org.springframework.boot.experimental</groupId>
+                <artifactId>spring-boot-bom-r2dbc</artifactId>
+                <version>0.1.0.M2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency-->
+            <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter</artifactId>
                 <version>5.5.2</version>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
                 <version>3.6.2</version>
             </dependency>
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>28.1-jre</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot.experimental</groupId>
-                <artifactId>spring-boot-bom-r2dbc</artifactId>
-                <version>0.1.0.M2</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
-    <build>
+    <!--build>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -90,5 +88,5 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-    </build>
+    </build-->
 </project>

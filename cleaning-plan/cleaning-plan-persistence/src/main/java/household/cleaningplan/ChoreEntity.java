@@ -9,10 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor(access=AccessLevel.PACKAGE, force=true)
@@ -23,6 +20,7 @@ import javax.persistence.OneToOne;
 class ChoreEntity {
 
 	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	private final Long id;
 	private String name;
 	private long lastPerformed;
