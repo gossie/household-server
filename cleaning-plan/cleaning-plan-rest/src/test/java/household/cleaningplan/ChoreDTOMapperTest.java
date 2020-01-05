@@ -1,9 +1,9 @@
 package household.cleaningplan;
 
-import org.junit.jupiter.api.Test;
-
 import static household.cleaningplan.ChoreAssert.assertThat;
 import static household.cleaningplan.ChoreTOAssert.assertThat;
+
+import org.junit.jupiter.api.Test;
 
 public class ChoreDTOMapperTest {
 

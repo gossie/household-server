@@ -20,12 +20,12 @@
     <dependencies>
         <dependency>
             <groupId>household</groupId>
-            <artifactId>household-messaging</artifactId>
+            <artifactId>user-domain</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>household</groupId>
-            <artifactId>user-domain</artifactId>
+            <artifactId>household-domain</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
@@ -39,12 +39,8 @@
             <artifactId>spring-context</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-stream</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-stream-binder-rabbit</artifactId>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
 
         <dependency>

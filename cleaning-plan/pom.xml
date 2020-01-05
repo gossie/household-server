@@ -26,6 +26,5 @@
         <module>cleaning-plan-persistence</module>
         <module>cleaning-plan-rest</module>
         <module>cleaning-plan-mq</module>
-        <module>cleaning-plan-app</module>
     </modules>
 </project>

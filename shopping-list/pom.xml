@@ -25,6 +25,5 @@
         <module>shopping-list-persistence</module>
         <module>shopping-list-rest</module>
         <module>shopping-list-mq</module>
-        <module>shopping-list-app</module>
     </modules>
 </project>
