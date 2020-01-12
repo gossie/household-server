@@ -17,7 +17,7 @@ export default class CleaningPlanPage {
     }
 
     public async deleteChore(index: number) {
-        await element.all(by.css(`.card-header:nth-of-type(${index})`)).click();
+        await element(by.css('.card-header')).click();
         return element(by.css('#delete-button')).click();
     }
 

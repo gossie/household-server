@@ -4,7 +4,7 @@ import { LoginPage } from '../pages/login.po';
 import { NoHouseholdPage } from '../pages/no-household.po';
 import CleaningPlanPage from '../pages/cleaning-plan.po';
 
-describe('cleaning plan', () => {
+fdescribe('cleaning plan', () => {
 
     const registrationPage: RegistrationPage = new RegistrationPage();
     const loginPage: LoginPage = new LoginPage();
