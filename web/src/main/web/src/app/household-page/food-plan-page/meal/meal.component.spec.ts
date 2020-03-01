@@ -33,7 +33,9 @@ describe('MealComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(MealComponent);
         component = fixture.componentInstance;
-        component.controlName='monday';
+        component.day = 'Montag';
+        component.date = new Date(2020, 2, 1);
+        component.controlName = 'monday';
         component.parentForm = new FormGroup({});
         component.cookbook = {
             recipes: [
@@ -59,6 +61,10 @@ describe('MealComponent', () => {
         expect(component).toBeTruthy();
     });
 
+    it('should have day and date as label', () => {
+        expect(fixture.debugElement.query(By.css('label')).nativeElement.innerText).toBe('Montag (01.03.2020)');
+    });
+
     it('should search for recipes', () => {
         const inputField: HTMLInputElement = fixture.debugElement.query(By.css('#monday')).nativeElement;
         inputField.value = 'Ch';
@@ -68,7 +74,7 @@ describe('MealComponent', () => {
 
         expect(component.recipes).toEqual([{name: 'Chili con carne'}, {name: 'Käsekuchen'}]);
 
-        const link: HTMLAnchorElement = fixture.debugElement.queryAll(By.css('a'))[0].nativeElement;
+        const link: HTMLAnchorElement = fixture.debugElement.query(By.css('a')).nativeElement;
         link.click();
         link.dispatchEvent(new Event('click'));
         fixture.detectChanges();
