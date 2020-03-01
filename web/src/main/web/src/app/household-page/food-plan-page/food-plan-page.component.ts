@@ -87,7 +87,7 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
 
     private createDates(): void {
         const today = new Date();
-        const monday = new Date(today.getTime() - today.getDay() * 86400000);
+        const monday = new Date(today.getTime() - ((today.getDay() + 6) % 7) * 86400000);
         this.dates[0] = monday;
         for (let i = 1; i < 7; i++) {
             this.dates[i] = new Date(monday.getTime() + i * 86400000);
