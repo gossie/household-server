@@ -35,4 +35,10 @@ describe('ShoppingListItemComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should switch to edit mode', () => {
+        expect(component.editMode).toBeFalsy();
+        component.enableEditMode();
+        expect(component.editMode).toBeTruthy();
+    });
 });

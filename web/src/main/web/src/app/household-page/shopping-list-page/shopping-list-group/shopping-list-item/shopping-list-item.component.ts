@@ -9,11 +9,13 @@ import {ShoppingList} from "../../shopping-list";
     styleUrls: ['./shopping-list-item.component.sass']
 })
 export class ShoppingListItemComponent {
-
+    
     @Input()
     public shoppingListItem: ShoppingListItem;
     @Output()
     public shoppingListEmitter: EventEmitter<ShoppingList> = new EventEmitter();
+
+    public editMode = false;
 
     constructor(private shoppingListService: ShoppingListService) { }
 
@@ -22,6 +24,10 @@ export class ShoppingListItemComponent {
             .subscribe((shoppingList: ShoppingList) => {
                 this.shoppingListEmitter.emit(shoppingList);
             });
+    }
+
+    public enableEditMode(): void {
+        this.editMode = true;
     }
 
 }
