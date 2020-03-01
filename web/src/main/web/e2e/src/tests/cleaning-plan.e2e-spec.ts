@@ -1,4 +1,4 @@
-import { browser } from "protractor";
+import { browser } from 'protractor';
 import { RegistrationPage } from '../pages/registration.po';
 import { LoginPage } from '../pages/login.po';
 import { NoHouseholdPage } from '../pages/no-household.po';

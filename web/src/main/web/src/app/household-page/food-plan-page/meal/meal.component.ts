@@ -25,6 +25,8 @@ export class MealComponent implements OnInit, OnDestroy {
     @Input()
     public day: string;
     @Input()
+    public date: Date;
+    @Input()
     public controlName: string;
     @Input()
     public parentForm: FormGroup;
@@ -34,6 +36,7 @@ export class MealComponent implements OnInit, OnDestroy {
     public recipeEmitter: EventEmitter<RecipeSelectionEvent> = new EventEmitter();
 
     public recipes: Array<Recipe> = [];
+    public label: string;
 
     private subscriptions: Array<Subscription> = [];
 
@@ -43,6 +46,7 @@ export class MealComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.createForm();
+        this.createLabel();
     }
 
     public ngOnDestroy(): void {
@@ -53,6 +57,15 @@ export class MealComponent implements OnInit, OnDestroy {
         const formControl = new FormControl(this.meal.name);
         formControl.valueChanges.subscribe(() => this.searchForRecipes());
         this.parentForm.addControl(this.controlName, formControl);
+    }
+
+    private createLabel(): void {
+        if (ObjectUtils.isObject(this.date)) {
+            const year = this.date.getFullYear();
+            const month = this.date.getMonth() < 9 ? `0${this.date.getMonth() + 1}` : this.date.getMonth() + 1;
+            const day = this.date.getDate() < 10 ? `0${this.date.getDate()}` : this.date.getDate();
+            this.label = `${this.day} (${day}.${month}.${year})`;
+        }
     }
 
     private searchForRecipes(): void {

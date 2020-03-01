@@ -1,4 +1,4 @@
-import { element, by } from 'protractor';
+import { element, by, browser, ExpectedConditions } from 'protractor';
 
 export default class CleaningPlanPage {
 
@@ -9,7 +9,7 @@ export default class CleaningPlanPage {
     public async addChore(name: string, interval: number) {
         await element(by.css('#chore-name')).sendKeys(name);
         await element(by.css('#chore-interval')).sendKeys(interval);
-        return element(by.css('add-chore-button')).click();
+        return element(by.css('#add-chore-button')).click();
     }
 
     public async getNumberOfChores() {
@@ -17,8 +17,13 @@ export default class CleaningPlanPage {
     }
 
     public async deleteChore(index: number) {
-        await element.all(by.css(`.card-header:nth-of-type(${index})`)).click();
-        return element(by.css('#delete-button')).click();
+        const chore = element.all(by.css('.card-header')).first();
+        await browser.wait(ExpectedConditions.elementToBeClickable(chore));
+        await chore.click();
+
+        const deleteButton = element(by.css('#delete-button'));
+        await browser.wait(ExpectedConditions.elementToBeClickable(deleteButton));
+        return deleteButton.click();
     }
 
 }
