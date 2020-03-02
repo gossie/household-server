@@ -62,7 +62,24 @@ describe('MealComponent', () => {
     });
 
     it('should have day and date as label', () => {
+        component.date = new Date(2020, 2, 1);
+        component.ngOnInit();
+        fixture.detectChanges();
         expect(fixture.debugElement.query(By.css('label')).nativeElement.innerText).toBe('Montag (01.03.2020)');
+    });
+
+    it('should not have a leading zero in the day', () => {
+        component.date = new Date(2020, 2, 12);
+        component.ngOnInit();
+        fixture.detectChanges();
+        expect(fixture.debugElement.query(By.css('label')).nativeElement.innerText).toBe('Montag (12.03.2020)');
+    });
+
+    it('should not have a leading zero in the month', () => {
+        component.date = new Date(2020, 9, 1);
+        component.ngOnInit();
+        fixture.detectChanges();
+        expect(fixture.debugElement.query(By.css('label')).nativeElement.innerText).toBe('Montag (01.10.2020)');
     });
 
     it('should search for recipes', () => {
