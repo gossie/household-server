@@ -1,10 +1,16 @@
 <div *ngIf="!shoppingListItem.hidden" class="card item">
-    <header class="card-header" (click)="toggleShoppingListItem($event)">
+    <header *ngIf="!editMode" class="card-header" (click)="toggleShoppingListItem($event)">
         <p class="card-header-title">
             <app-checkbox [label]="shoppingListItem.name"
                           [selected]="shoppingListItem.selected"
                           [ngClass]="{'selected': shoppingListItem.selected}"></app-checkbox>
         </p>
-        
+        <span id="edit-mode-button" (click)="enableEditMode()">edit</span>
+    </header>
+    <header *ngIf="editMode" class="card-header">
+        <p class="card-header-title">
+            <input id="edit-field" type="text" />
+        </p>
+        <span id="save-button" (click)="saveShoppingListItem()">save</span>
     </header>
 </div>

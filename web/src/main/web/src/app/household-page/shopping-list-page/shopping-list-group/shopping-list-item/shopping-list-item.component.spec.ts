@@ -2,7 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShoppingListItemComponent } from './shopping-list-item.component';
 import { ShoppingListService } from '../../shopping-list.service';
 import { ShoppingListServiceMock } from '../../shopping-list.service.mock';
-import { CheckboxComponent } from "../../../../common-elements/checkbox/checkbox.component";
+import { CheckboxComponent } from '../../../../common-elements/checkbox/checkbox.component';
+import { By } from '@angular/platform-browser';
 
 describe('ShoppingListItemComponent', () => {
     let component: ShoppingListItemComponent;
@@ -28,7 +29,7 @@ describe('ShoppingListItemComponent', () => {
             name: 'item',
             selected: false,
             links: []
-        }
+        };
         fixture.detectChanges();
     });
 
@@ -37,8 +38,22 @@ describe('ShoppingListItemComponent', () => {
     });
 
     it('should switch to edit mode', () => {
-        expect(component.editMode).toBeFalsy();
-        component.enableEditMode();
-        expect(component.editMode).toBeTruthy();
+        const shoppingListService: ShoppingListService = TestBed.get(ShoppingListService);
+        spyOn(shoppingListService, 'toggleShoppingListItem');
+
+        expect(fixture.debugElement.query(By.css('#edit-field'))).toBeNull();
+        fixture.debugElement.query(By.css('#edit-mode-button')).nativeElement.click();
+        fixture.detectChanges();
+        expect(fixture.debugElement.query(By.css('#edit-field'))).not.toBeNull();
+        expect(shoppingListService.toggleShoppingListItem).not.toHaveBeenCalled();
+
+        // TODO: change text
+
+        fixture.debugElement.query(By.css('#save-button')).nativeElement.click();
+        fixture.detectChanges();
+        expect(fixture.debugElement.query(By.css('#edit-field'))).toBeNull();
+        expect(shoppingListService.toggleShoppingListItem).not.toHaveBeenCalled();
+
+        // TODO: check rest call
     });
 });

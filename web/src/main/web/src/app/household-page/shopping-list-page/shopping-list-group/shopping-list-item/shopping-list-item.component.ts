@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ShoppingListItem} from "./shopping-list-item";
-import {ShoppingListService} from "../../shopping-list.service";
-import {ShoppingList} from "../../shopping-list";
+import {ShoppingListItem} from './shopping-list-item';
+import {ShoppingListService} from '../../shopping-list.service';
+import {ShoppingList} from '../../shopping-list';
+import { filter } from 'rxjs/operators';
 
 @Component({
     selector: 'app-shopping-list-item',
@@ -9,7 +10,7 @@ import {ShoppingList} from "../../shopping-list";
     styleUrls: ['./shopping-list-item.component.sass']
 })
 export class ShoppingListItemComponent {
-    
+
     @Input()
     public shoppingListItem: ShoppingListItem;
     @Output()
@@ -20,14 +21,20 @@ export class ShoppingListItemComponent {
     constructor(private shoppingListService: ShoppingListService) { }
 
     public toggleShoppingListItem(event: any): void {
-        this.shoppingListService.toggleShoppingListItem(this.shoppingListItem)
-            .subscribe((shoppingList: ShoppingList) => {
-                this.shoppingListEmitter.emit(shoppingList);
-            });
+        if (!this.editMode) {
+            this.shoppingListService.toggleShoppingListItem(this.shoppingListItem)
+                .subscribe((shoppingList: ShoppingList) => {
+                    this.shoppingListEmitter.emit(shoppingList);
+                });
+        }
     }
 
     public enableEditMode(): void {
         this.editMode = true;
+    }
+
+    public saveShoppingListItem(): void {
+        this.editMode = false;
     }
 
 }
