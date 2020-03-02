@@ -1,12 +1,12 @@
 <app-select-recipe *ngIf="selectedRecipe" [recipe]="selectedRecipe" (ingredientsEmitter)="onIngredientSelection($event)"></app-select-recipe>
 <form *ngIf="foodPlan" [formGroup]="foodPlanForm">
-    <app-meal [parentForm]="foodPlanForm" controlName="monday" day="Montag" [cookbook]="cookbook" [meal]="foodPlan.meals.monday" (foodPlanEmitter)="onMealNameChange($event)" (recipeEmitter)="onRecipeSelection($event)"></app-meal>
-    <app-meal [parentForm]="foodPlanForm" controlName="tuesday" day="Dienstag" [cookbook]="cookbook" [meal]="foodPlan.meals.tuesday" (foodPlanEmitter)="onMealNameChange($event)" (recipeEmitter)="onRecipeSelection($event)"></app-meal>
-    <app-meal [parentForm]="foodPlanForm" controlName="wednesday" day="Mittwoch" [cookbook]="cookbook" [meal]="foodPlan.meals.wednesday" (foodPlanEmitter)="onMealNameChange($event)" (recipeEmitter)="onRecipeSelection($event)"></app-meal>
-    <app-meal [parentForm]="foodPlanForm" controlName="thursday" day="Donnerstag" [cookbook]="cookbook" [meal]="foodPlan.meals.thursday" (foodPlanEmitter)="onMealNameChange($event)" (recipeEmitter)="onRecipeSelection($event)"></app-meal>
-    <app-meal [parentForm]="foodPlanForm" controlName="friday" day="Freitag" [cookbook]="cookbook" [meal]="foodPlan.meals.friday" (foodPlanEmitter)="onMealNameChange($event)" (recipeEmitter)="onRecipeSelection($event)"></app-meal>
-    <app-meal [parentForm]="foodPlanForm" controlName="saturday" day="Samstag" [cookbook]="cookbook" [meal]="foodPlan.meals.saturday" (foodPlanEmitter)="onMealNameChange($event)" (recipeEmitter)="onRecipeSelection($event)"></app-meal>
-    <app-meal [parentForm]="foodPlanForm" controlName="sunday" day="Sonntag" [cookbook]="cookbook" [meal]="foodPlan.meals.sunday" (foodPlanEmitter)="onMealNameChange($event)" (recipeEmitter)="onRecipeSelection($event)"></app-meal>
+    <app-meal [parentForm]="foodPlanForm" controlName="monday" day="Montag" [date]="dates[0]" [cookbook]="cookbook" [meal]="foodPlan.meals.monday" (foodPlanEmitter)="onMealNameChange($event)" (recipeEmitter)="onRecipeSelection($event)"></app-meal>
+    <app-meal [parentForm]="foodPlanForm" controlName="tuesday" day="Dienstag" [date]="dates[1]" [cookbook]="cookbook" [meal]="foodPlan.meals.tuesday" (foodPlanEmitter)="onMealNameChange($event)" (recipeEmitter)="onRecipeSelection($event)"></app-meal>
+    <app-meal [parentForm]="foodPlanForm" controlName="wednesday" day="Mittwoch" [date]="dates[2]" [cookbook]="cookbook" [meal]="foodPlan.meals.wednesday" (foodPlanEmitter)="onMealNameChange($event)" (recipeEmitter)="onRecipeSelection($event)"></app-meal>
+    <app-meal [parentForm]="foodPlanForm" controlName="thursday" day="Donnerstag" [date]="dates[3]" [cookbook]="cookbook" [meal]="foodPlan.meals.thursday" (foodPlanEmitter)="onMealNameChange($event)" (recipeEmitter)="onRecipeSelection($event)"></app-meal>
+    <app-meal [parentForm]="foodPlanForm" controlName="friday" day="Freitag" [date]="dates[4]" [cookbook]="cookbook" [meal]="foodPlan.meals.friday" (foodPlanEmitter)="onMealNameChange($event)" (recipeEmitter)="onRecipeSelection($event)"></app-meal>
+    <app-meal [parentForm]="foodPlanForm" controlName="saturday" day="Samstag" [date]="dates[5]" [cookbook]="cookbook" [meal]="foodPlan.meals.saturday" (foodPlanEmitter)="onMealNameChange($event)" (recipeEmitter)="onRecipeSelection($event)"></app-meal>
+    <app-meal [parentForm]="foodPlanForm" controlName="sunday" day="Sonntag" [date]="dates[6]" [cookbook]="cookbook" [meal]="foodPlan.meals.sunday" (foodPlanEmitter)="onMealNameChange($event)" (recipeEmitter)="onRecipeSelection($event)"></app-meal>
 
     <div class="columns is-mobile">
         <!-- <div class="column">
