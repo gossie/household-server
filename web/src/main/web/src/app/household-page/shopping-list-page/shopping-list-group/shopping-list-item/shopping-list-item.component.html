@@ -5,12 +5,18 @@
                           [selected]="shoppingListItem.selected"
                           [ngClass]="{'selected': shoppingListItem.selected}"></app-checkbox>
         </p>
-        <span id="edit-mode-button" (click)="enableEditMode()">edit</span>
+        <span id="edit-mode-button" class="icon" (click)="enableEditMode()">
+            <i class="fas fa-pen"></i>
+        </span>
     </header>
     <header *ngIf="editMode" class="card-header">
-        <p class="card-header-title">
-            <input id="edit-field" type="text" />
-        </p>
-        <span id="save-button" (click)="saveShoppingListItem()">save</span>
+        <form [formGroup]="editForm">
+            <p class="card-header-title">
+                <input id="edit-field" class="input" type="text" formControlName="name" />
+            </p>
+        </form>
+        <span id="save-button" (click)="saveShoppingListItem()">
+            <i class="fas fa-save"></i>
+        </span>
     </header>
 </div>

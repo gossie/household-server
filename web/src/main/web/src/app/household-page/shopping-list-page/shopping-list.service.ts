@@ -121,6 +121,18 @@ export class ShoppingListService extends AbstractNetworkService {
         );
     }
 
+    public editShoppingListItem(shoppingListItem: ShoppingListItem): Observable<ShoppingList> {
+        const url: string = this.determineUrl(shoppingListItem, 'edit');
+        return this.httpClient.put<ShoppingList>(url, shoppingListItem, {
+            headers: {
+                Accept: 'application/vnd.household.v2+json'
+            }
+        })
+        .pipe(
+            tap((shoppingList: ShoppingList) => this.subject.next(shoppingList))
+        );
+    }
+
     public observeShoppingList(): Observable<ShoppingList> {
         return this.subject.asObservable();
     }

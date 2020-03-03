@@ -34,4 +34,11 @@ export class ShoppingListServiceMock {
         });
     }
 
+    public editShoppingListItem(shoppingListItem: ShoppingListItem): Observable<ShoppingList> {
+        return of({
+            shoppingListGroups: [],
+            links: []
+        });
+    }
+
 }

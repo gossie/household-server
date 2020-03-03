@@ -18,7 +18,7 @@ export class CleaningPlanPageComponent implements OnInit, OnDestroy {
     public cleaningPlanForm: FormGroup;
 
     private subscriptions: Array<Subscription> = [];
-    private loading: boolean = false;
+    private loading = false;
 
     constructor(private householdService: HouseholdService,
                 private cleaningPlanService: CleaningPlanService,

@@ -6,6 +6,7 @@ import { ShoppingListGroup } from './shopping-list-group/shopping-list-group';
 import { UserService } from '../../user.service';
 import { UserServiceMock } from '../../user.service.mock';
 import { Household } from '../household';
+import { ShoppingListItem } from './shopping-list-group/shopping-list-item/shopping-list-item';
 
 describe('ShoppingListService', () => {
 
@@ -64,7 +65,7 @@ describe('ShoppingListService', () => {
                 rel: 'add',
                 href: '/addUrl'
             }]
-        }
+        };
 
         service.addShoppingListGroup(currentShoppingList, 'new group').subscribe((shoppingList: ShoppingList) => {
             expect(shoppingList).toEqual(expectedShoppingList);
@@ -96,6 +97,30 @@ describe('ShoppingListService', () => {
         });
 
         const request = httpTestingController.expectOne('/addUrl');
+        request.flush(expectedShoppingList);
+
+        httpTestingController.verify();
+    });
+
+    it('should edit shoppingListItem', (done) => {
+        const service: ShoppingListService = TestBed.get(ShoppingListService);
+        const httpTestingController: HttpTestingController = TestBed.get(HttpTestingController);
+
+        const shoppingListItem: ShoppingListItem = {
+            name: 'Nudeln',
+            selected: false,
+            links: [
+                { rel: 'edit', href: '/editUrl' }
+            ]
+        };
+
+        service.editShoppingListItem(shoppingListItem)
+            .subscribe((shoppingList: ShoppingList) => {
+                expect(shoppingList).toEqual(expectedShoppingList);
+                done();
+            });
+
+        const request = httpTestingController.expectOne('/editUrl');
         request.flush(expectedShoppingList);
 
         httpTestingController.verify();
