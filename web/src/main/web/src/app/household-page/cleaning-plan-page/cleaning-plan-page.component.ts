@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CleaningPlan } from "./cleaning-plan";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { CleaningPlanService } from "./cleaning-plan.service";
-import { Chore } from "./chore/chore";
-import { Subscription } from "rxjs/index";
-import { Household } from "../household";
-import { HouseholdService } from "../household.service";
+import { CleaningPlan } from './cleaning-plan';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CleaningPlanService } from './cleaning-plan.service';
+import { Chore } from './chore/chore';
+import { Subscription } from 'rxjs/index';
+import { Household } from '../household';
+import { HouseholdService } from '../household.service';
 
 @Component({
     selector: 'app-cleaning-plan-page',
