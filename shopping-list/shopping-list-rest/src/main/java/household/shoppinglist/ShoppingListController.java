@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.springframework.hateoas.server.reactive.WebFluxLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,11 +45,17 @@ public class ShoppingListController {
             .flatMap(this::addLinks);
 	}
 
-	@PatchMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", produces={"application/vnd.household.v2+json"})
-	public Mono<ShoppingListDTO> toggleItem(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId) {
-	    return Mono.just(createResource(shoppingListService.toggleItem(id, groupId, itemId)))
+    @PatchMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", produces={"application/vnd.household.v2+json"})
+    public Mono<ShoppingListDTO> toggleItem(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId) {
+        return Mono.just(createResource(shoppingListService.toggleItem(id, groupId, itemId)))
             .flatMap(this::addLinks);
-	}
+    }
+
+    @PutMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", produces={"application/vnd.household.v2+json"})
+    public Mono<ShoppingListDTO> editItem(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId, @RequestBody ShoppingListItem item) {
+        return Mono.just(createResource(shoppingListService.editItem(id, groupId, itemId, item)))
+            .flatMap(this::addLinks);
+    }
 
 	@DeleteMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems", produces={"application/vnd.household.v2+json"})
 	public Mono<ShoppingListDTO> removedSelectedItemsFromShoppingListGroup(@PathVariable Long id, @PathVariable Long groupId) {
@@ -167,6 +174,12 @@ public class ShoppingListController {
             .withRel("toggle")
             .toMono()
             .map(item::add)
+            .map(ShoppingListItemDTO.class::cast)
+            .map(d -> linkTo(methodOn(ShoppingListController.class).editItem(shoppingListId, shoppingListGroupId, item.getDatabaseId(), null)))
+            .map(b -> b.withRel("edit"))
+            .flatMap(WebFluxLinkBuilder.WebFluxLink::toMono)
+            .map(item::add)
             .map(ShoppingListItemDTO.class::cast);
     }
+
 }

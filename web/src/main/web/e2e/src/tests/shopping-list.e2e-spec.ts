@@ -67,9 +67,13 @@ describe('shopping list', () => {
 
         it('should add some items', async () => {
             await shoppingListPage.addItemToGroup('Weihnachten', 'Zimt');
-            await shoppingListPage.addItemToGroup('Weihnachten', 'Kekse');
+            await shoppingListPage.addItemToGroup('Weihnachten', 'Keks');
             await shoppingListPage.addItemToGroup('Weihnachten', 'Dominosteine');
             expect(await shoppingListPage.getNumberOfItems('Weihnachten')).toBe(3);
+        });
+
+        it('should change the name of an item', async () => {
+            await shoppingListPage.changeItem('Weihnachten', 'Keks', 'Kekse');
         });
 
         it('should go shopping', async () => {

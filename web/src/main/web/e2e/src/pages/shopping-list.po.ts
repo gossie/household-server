@@ -1,4 +1,4 @@
-import { by, element } from 'protractor';
+import { by, element, browser, ExpectedConditions } from 'protractor';
 
 export class ShoppingListPage {
 
@@ -24,8 +24,29 @@ export class ShoppingListPage {
         return element(by.css(`#add-item-button-${group}`)).click();
     }
 
+    public async changeItem(group: string, currentItemName: string, newItemName: string): Promise<void> {
+        const editButton = element(by.css(`#group-${group}`))
+            .element(by.cssContainingText('.item', currentItemName))
+            .element(by.css('#edit-mode-button'));
+        await browser.wait(ExpectedConditions.elementToBeClickable(editButton));
+        await editButton.click();
+
+        await element(by.css(`#group-${group}`))
+            .element(by.css('#edit-field'))
+            .clear();
+        await element(by.css(`#group-${group}`))
+            .element(by.css('#edit-field'))
+            .sendKeys(newItemName);
+
+        return element(by.css(`#group-${group}`))
+            .element(by.css('#save-button'))
+            .click();
+    }
+
     public async selectItem(group: string, item: string): Promise<void> {
-        return element(by.css(`#group-${group}`)).element(by.cssContainingText('.item', item)).click();
+        const el = element(by.css(`#group-${group}`)).element(by.cssContainingText('.item', item));
+        await browser.wait(ExpectedConditions.elementToBeClickable(el));
+        return el.click();
     }
 
     public async clear(group: string): Promise<void> {

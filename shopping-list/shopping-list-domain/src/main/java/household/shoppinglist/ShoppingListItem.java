@@ -1,12 +1,15 @@
 package household.shoppinglist;
 
-import household.AbstractModel;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+@EqualsAndHashCode(callSuper = true)
+@ToString
 public class ShoppingListItem extends AbstractModel {
 
 	private String name;
 	private boolean selected;
-	
+
 	ShoppingListItem(Long id, String name, boolean selected) {
 		super(id);
 		this.name = name;
@@ -16,6 +19,10 @@ public class ShoppingListItem extends AbstractModel {
 	public String getName() {
 		return name;
 	}
+
+	public void setName(String name) {
+	    this.name = name;
+    }
 
 	public boolean isSelected() {
 		return selected;

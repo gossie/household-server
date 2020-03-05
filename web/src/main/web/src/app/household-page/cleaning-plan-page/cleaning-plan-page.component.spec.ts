@@ -2,11 +2,11 @@ import { Component, Input } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CleaningPlanPageComponent } from './cleaning-plan-page.component';
 import { Chore } from './chore/chore';
-import { ReactiveFormsModule } from "@angular/forms";
-import { CleaningPlanService } from "./cleaning-plan.service";
-import { CleaningPlanServiceMock } from "./cleaning-plan.service.mock";
-import { HouseholdService } from "../household.service";
-import { HouseholdServiceMock } from "../household.service.mock";
+import { ReactiveFormsModule } from '@angular/forms';
+import { CleaningPlanService } from './cleaning-plan.service';
+import { CleaningPlanServiceMock } from './cleaning-plan.service.mock';
+import { HouseholdService } from '../household.service';
+import { HouseholdServiceMock } from '../household.service.mock';
 
 @Component({
     selector: [
@@ -69,8 +69,6 @@ describe('CleaningPlanPageComponent', () => {
         component.cleaningPlanForm.controls.repeat.setValue(0);
         expect(component.cleaningPlanForm.valid).toBeTruthy();
     });
-
-    
 
     it('should be valid, if repeat is below zero', () => {
         expect(component.cleaningPlanForm.valid).toBeFalsy();

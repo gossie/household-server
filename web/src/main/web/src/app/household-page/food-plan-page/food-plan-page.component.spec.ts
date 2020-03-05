@@ -49,4 +49,15 @@ describe('FoodPlanPageComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should have a list of dates', () => {
+        expect(component.dates.length).toBe(7);
+        expect(component.dates[0].getDay()).toBe(1);
+        expect(component.dates[1].getDay()).toBe(2);
+        expect(component.dates[2].getDay()).toBe(3);
+        expect(component.dates[3].getDay()).toBe(4);
+        expect(component.dates[4].getDay()).toBe(5);
+        expect(component.dates[5].getDay()).toBe(6);
+        expect(component.dates[6].getDay()).toBe(0);
+    });
 });

@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CleaningPlan } from "./cleaning-plan";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { CleaningPlanService } from "./cleaning-plan.service";
-import { Chore } from "./chore/chore";
-import { Subscription } from "rxjs/index";
-import { Household } from "../household";
-import { HouseholdService } from "../household.service";
+import { CleaningPlan } from './cleaning-plan';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CleaningPlanService } from './cleaning-plan.service';
+import { Chore } from './chore/chore';
+import { Subscription } from 'rxjs/index';
+import { Household } from '../household';
+import { HouseholdService } from '../household.service';
 
 @Component({
     selector: 'app-cleaning-plan-page',
@@ -18,7 +18,7 @@ export class CleaningPlanPageComponent implements OnInit, OnDestroy {
     public cleaningPlanForm: FormGroup;
 
     private subscriptions: Array<Subscription> = [];
-    private loading: boolean = false;
+    private loading = false;
 
     constructor(private householdService: HouseholdService,
                 private cleaningPlanService: CleaningPlanService,

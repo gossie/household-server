@@ -12,6 +12,9 @@
 
     <profiles>
         <profile>
+            <id>only:backend</id>
+        </profile>
+        <profile>
             <id>test:ci</id>
             <build>
                 <plugins>

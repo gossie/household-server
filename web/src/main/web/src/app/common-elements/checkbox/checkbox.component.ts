@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CheckboxValue} from "./checkbox-value";
+import {CheckboxValue} from './checkbox-value';
 
 @Component({
     selector: 'app-checkbox',
@@ -11,7 +11,7 @@ export class CheckboxComponent {
     @Input()
     public label: string;
     @Input()
-    public selected: boolean = false;
+    public selected = false;
     @Output()
     public onSelect: EventEmitter<CheckboxValue> = new EventEmitter();
 
