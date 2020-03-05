@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ShoppingListItem} from './shopping-list-item';
 import {ShoppingListService} from '../../shopping-list.service';
 import {ShoppingList} from '../../shopping-list';
-import { filter } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({

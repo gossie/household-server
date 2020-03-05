@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.springframework.hateoas.server.reactive.WebFluxLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -51,7 +52,7 @@ public class ShoppingListController {
     }
 
     @PutMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", produces={"application/vnd.household.v2+json"})
-    public Mono<ShoppingListDTO> toggleItem(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId, @RequestBody ShoppingListItem item) {
+    public Mono<ShoppingListDTO> editItem(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId, @RequestBody ShoppingListItem item) {
         return Mono.just(createResource(shoppingListService.editItem(id, groupId, itemId, item)))
             .flatMap(this::addLinks);
     }
@@ -173,6 +174,12 @@ public class ShoppingListController {
             .withRel("toggle")
             .toMono()
             .map(item::add)
+            .map(ShoppingListItemDTO.class::cast)
+            .map(d -> linkTo(methodOn(ShoppingListController.class).editItem(shoppingListId, shoppingListGroupId, item.getDatabaseId(), null)))
+            .map(b -> b.withRel("edit"))
+            .flatMap(WebFluxLinkBuilder.WebFluxLink::toMono)
+            .map(item::add)
             .map(ShoppingListItemDTO.class::cast);
     }
+
 }
