@@ -6,8 +6,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import household.AbstractModel;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+@EqualsAndHashCode(callSuper = true)
+@ToString
 public class ShoppingList extends AbstractModel {
 
 	private final List<ShoppingListGroup> shoppingListGroups;
@@ -34,8 +37,12 @@ public class ShoppingList extends AbstractModel {
     }
 
 	public void toggleItem(Long shoppingListGroupId, Long shoppingListItemId) {
-	    determineShoppingListGroup(shoppingListGroupId).ifPresent(group -> group.toogleItem(shoppingListItemId));
+        determineShoppingListGroup(shoppingListGroupId).ifPresent(group -> group.toogleItem(shoppingListItemId));
 	}
+
+    public void editItem(Long shoppingListGroupId, Long shoppingListItemId, ShoppingListItem item) {
+        determineShoppingListGroup(shoppingListGroupId).ifPresent(group -> group.editItem(shoppingListItemId, item));
+    }
 
     public void addShoppingListGroup(ShoppingListGroup group) {
         shoppingListGroups.add(group);

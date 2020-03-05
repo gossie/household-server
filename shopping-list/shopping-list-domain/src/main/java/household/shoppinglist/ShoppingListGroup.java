@@ -1,12 +1,15 @@
 package household.shoppinglist;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import household.AbstractModel;
-
+@EqualsAndHashCode(callSuper = true)
+@ToString
 public class ShoppingListGroup extends AbstractModel {
 
     private final String name;
@@ -35,9 +38,19 @@ public class ShoppingListGroup extends AbstractModel {
 
     public void toogleItem(Long shoppingListItemId) {
         shoppingListItems.stream()
-            .filter(item -> Objects.equals(item.getId(), shoppingListItemId))
-            .findFirst()
-            .ifPresent(item -> item.setSelected(!item.isSelected()));
+                .filter(item -> Objects.equals(item.getId(), shoppingListItemId))
+                .findFirst()
+                .ifPresent(item -> item.setSelected(!item.isSelected()));
+    }
+
+    public void editItem(Long shoppingListItemId, ShoppingListItem changedItem) {
+        shoppingListItems.stream()
+                .filter(item -> Objects.equals(item.getId(), shoppingListItemId))
+                .findFirst()
+                .ifPresent(item -> {
+                    item.setName(changedItem.getName());
+                    item.setSelected(changedItem.isSelected());
+                });
     }
 
     public void clearSelectedItems() {

@@ -2,13 +2,18 @@ package household.household;
 
 import com.google.common.eventbus.EventBus;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
+@Component
 @RequiredArgsConstructor
 public class HouseholdService {
 
     private final EventBus eventBus;
 	private final HouseholdRepository householdRepository;
 
+    @PostConstruct
     public void init() {
         eventBus.register(this);
     }

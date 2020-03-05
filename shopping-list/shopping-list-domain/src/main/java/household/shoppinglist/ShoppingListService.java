@@ -3,7 +3,9 @@ package household.shoppinglist;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
 @RequiredArgsConstructor
 public class ShoppingListService {
 
@@ -61,5 +63,11 @@ public class ShoppingListService {
 
     public void deleteShoppingList(Long shoppingListId) {
         shoppingListRepository.deleteShoppingList(shoppingListId);
+    }
+
+    public ShoppingList editItem(Long shoppingListId, Long shoppingListGroupId, Long shoppingListItemId, ShoppingListItem item) {
+        var shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
+        shoppingList.editItem(shoppingListGroupId, shoppingListItemId, item);
+        return shoppingListRepository.saveShoppingList(shoppingList);
     }
 }

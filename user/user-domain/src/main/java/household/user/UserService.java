@@ -5,13 +5,18 @@ import java.util.List;
 import com.google.common.eventbus.EventBus;
 import lombok.RequiredArgsConstructor;
 import org.reactivestreams.Publisher;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
+@Component
 @RequiredArgsConstructor
 public class UserService {
 
     private final EventBus eventBus;
     private final UserRepository userRepository;
 
+    @PostConstruct
     public void init() {
         eventBus.register(this);
     }

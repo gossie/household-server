@@ -11,15 +11,20 @@ public class ShoppingListGroupAssert extends AbstractAssert<ShoppingListGroupAss
         super(actual, ShoppingListGroupAssert.class);
     }
 
-    public static final ShoppingListGroupAssert assertThat(ShoppingListGroup actual) {
+    public static ShoppingListGroupAssert assertThat(ShoppingListGroup actual) {
         return new ShoppingListGroupAssert(actual);
+    }
+
+    public ShoppingListGroupAssert hasId(Long id) {
+        Assertions.assertThat(actual.getId()).isEqualTo(id);
+        return this;
     }
 
     public ShoppingListGroupAssert hasName(String name) {
         Assertions.assertThat(actual.getName()).isEqualTo(name);
         return this;
     }
-    
+
     public ShoppingListGroupAssert shoppingListItem(int index, Consumer<ShoppingListItemAssert> consumer) {
         consumer.accept(ShoppingListItemAssert.assertThat(actual.getShoppingListItems().get(index)));
         return this;

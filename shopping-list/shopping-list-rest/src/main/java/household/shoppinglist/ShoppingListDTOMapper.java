@@ -10,15 +10,15 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor(access=AccessLevel.PACKAGE)
-public class ShoppingListDTOMapper {
-	
+class ShoppingListDTOMapper {
+
 	private final ShoppingListGroupDTOMapper shoppingListGroupMapper;
 
 	ShoppingListDTO map(ShoppingList shoppingList) {
 		List<ShoppingListGroupDTO> items = shoppingList.getShoppingListGroups().stream()
 				.map(shoppingListGroupMapper::map)
 				.collect(Collectors.toList());
-		
+
 		return new ShoppingListDTO(shoppingList.getId(), items);
 	}
 }
