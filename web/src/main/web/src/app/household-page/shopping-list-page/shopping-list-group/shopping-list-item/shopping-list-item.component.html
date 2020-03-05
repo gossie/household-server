@@ -4,19 +4,19 @@
             <app-checkbox [label]="shoppingListItem.name"
                           [selected]="shoppingListItem.selected"
                           [ngClass]="{'selected': shoppingListItem.selected}"></app-checkbox>
+            <span id="edit-mode-button" class="icon" (click)="enableEditMode()">
+                <i class="fas fa-pen"></i>
+            </span>
         </p>
-        <span id="edit-mode-button" class="icon" (click)="enableEditMode()">
-            <i class="fas fa-pen"></i>
-        </span>
     </header>
     <header *ngIf="editMode" class="card-header">
         <form [formGroup]="editForm">
             <p class="card-header-title">
                 <input id="edit-field" class="input" type="text" formControlName="name" />
+                <span id="save-button" class="icon" (click)="saveShoppingListItem()">
+                    <i class="fas fa-save"></i>
+                </span>
             </p>
         </form>
-        <span id="save-button" class="icon" (click)="saveShoppingListItem()">
-            <i class="fas fa-save"></i>
-        </span>
     </header>
 </div>
