@@ -7,6 +7,19 @@
             <span id="edit-mode-button" class="icon" (click)="enableEditMode()">
                 <i class="fas fa-pen"></i>
             </span>
+            <span *ngIf="shoppingListItem.image" id="image-dialog-button" class="icon">
+                <i class="fas fa-image"></i>
+            </span>
+            <span *ngIf="!shoppingListItem.image" id="image-upload-button" class="file">
+                <label class="file-label">
+                    <input class="file-input" type="file" name="resume">
+                    <span class="file-cta">
+                        <span class="file-icon">
+                            <i class="fas fa-upload"></i>
+                        </span>
+                    </span>
+                </label>
+            </span>
         </p>
     </header>
     <header *ngIf="editMode" class="card-header">

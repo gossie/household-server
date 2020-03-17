@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ShoppingListItem} from './shopping-list-item';
-import {ShoppingListService} from '../../shopping-list.service';
-import {ShoppingList} from '../../shopping-list';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ShoppingListItem } from './shopping-list-item';
+import { ShoppingListService } from '../../shopping-list.service';
+import { ShoppingList } from '../../shopping-list';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -34,6 +34,20 @@ export class ShoppingListItemComponent {
             name: [this.shoppingListItem.name, Validators.required]
         });
         this.editMode = true;
+    }
+
+    public handleFileInput(files: FileList): void {
+        const file: File = files.item(0);
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            this.shoppingListItem.image = <string> reader.result;
+            this.shoppingListService.editShoppingListItem(this.shoppingListItem)
+                .subscribe((shoppingList: ShoppingList) => {
+                    this.editMode = false;
+                    this.shoppingListEmitter.emit(shoppingList);
+                });
+        };
+        reader.readAsDataURL(file);
     }
 
     public saveShoppingListItem(): void {
