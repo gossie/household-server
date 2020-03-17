@@ -3,6 +3,7 @@ package household.shoppinglist;
 import static household.shoppinglist.ShoppingListTOAssert.assertThat;
 import static org.mockito.Mockito.when;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
@@ -12,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
+import java.util.Base64;
 import java.util.List;
 
 @WebFluxTest(controllers = ShoppingListController.class)
@@ -26,14 +28,16 @@ class ShoppingListControllerTest {
 
     @Test
     void testEditShoppingListItem() throws Exception {
-        when(shoppingListService.editItem(17L, 23L, 27L, new ShoppingListItem(null, "Paprika", false)))
-            .thenReturn(new ShoppingList(17L, List.of(new ShoppingListGroup(23L, "Global", List.of(new ShoppingListItem(27L, "Paprika", false))))));
+        var image = "IMAGE".getBytes();
+
+        when(shoppingListService.editItem(17L, 23L, 27L, new ShoppingListItem(null, "Paprika", false, image)))
+            .thenReturn(new ShoppingList(17L, List.of(new ShoppingListGroup(23L, "Global", List.of(new ShoppingListItem(27L, "Paprika", false, image))))));
 
         webTestClient.put()
             .uri("/api/shoppingLists/17/shoppingListGroups/23/shoppingListItems/27")
             .contentType(MediaType.valueOf("application/vnd.household.v2+json"))
             .accept(MediaType.valueOf("application/vnd.household.v2+json"))
-            .body(BodyInserters.fromValue(new ShoppingListItemDTO(null, "Paprika", false)))
+            .body(BodyInserters.fromValue(new ShoppingListItemDTO(null, "Paprika", false, "SU1BR0U=")))
             .exchange()
             .expectStatus()
             .is2xxSuccessful()
@@ -44,6 +48,7 @@ class ShoppingListControllerTest {
                         .hasSize(1)
                         .shoppingListItem(0, item -> item.hasName("Paprika")
                             .isDeselected()
+                            .hasImage("SU1BR0U=")
                             .hasLink("edit", "/api/shoppingLists/17/shoppingListGroups/23/shoppingListItems/27")
                         )
                     )

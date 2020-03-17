@@ -15,7 +15,7 @@ public class ShoppingListEntityMapperTest {
 	public void testMap_toShoppingListTO() throws Exception {
 		shoppingListMapper = new ShoppingListEntityMapper(new ShoppingListGroupEntityMapper(new ShoppingListItemEntityMapper()));
 
-		List<ShoppingListItemEntity> shoppingListItems = asList(new ShoppingListItemEntity(1L, "item1", true), new ShoppingListItemEntity(2L, "item2", false));
+		List<ShoppingListItemEntity> shoppingListItems = asList(new ShoppingListItemEntity(1L, "item1", true, null), new ShoppingListItemEntity(2L, "item2", false, "image".getBytes()));
 		List<ShoppingListGroupEntity> shoppingListGroups = asList(new ShoppingListGroupEntity(null, "group", shoppingListItems));
 		ShoppingListEntity shoppingList = new ShoppingListEntity(3L, shoppingListGroups);
 
@@ -26,8 +26,8 @@ public class ShoppingListEntityMapperTest {
 		        .shoppingListGroup(0, group -> group
 		                .hasName("group")
 		                .hasSize(2)
-		                .shoppingListItem(0, itemAssert -> itemAssert.hasName("item1").isSelected())
-		                .shoppingListItem(1, itemAssert -> itemAssert.hasName("item2").isDeselected()));
+		                .shoppingListItem(0, itemAssert -> itemAssert.hasName("item1").hasNoImage().isSelected())
+		                .shoppingListItem(1, itemAssert -> itemAssert.hasName("item2").hasImage("image".getBytes()).isDeselected()));
 	}
 
 }

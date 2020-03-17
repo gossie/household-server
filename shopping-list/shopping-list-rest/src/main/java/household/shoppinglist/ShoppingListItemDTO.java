@@ -10,5 +10,6 @@ public class ShoppingListItemDTO extends AbstractDTO {
     private final Long databaseId;
 	private final String name;
 	private final boolean selected;
+	private final String image;
 
 }

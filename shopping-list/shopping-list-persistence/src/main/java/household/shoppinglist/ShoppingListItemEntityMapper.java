@@ -7,10 +7,10 @@ import lombok.RequiredArgsConstructor;
 class ShoppingListItemEntityMapper {
 
 	ShoppingListItemEntity map(ShoppingListItem shoppingListItem) {
-		return new ShoppingListItemEntity(shoppingListItem.getId(), shoppingListItem.getName(), shoppingListItem.isSelected());
+		return new ShoppingListItemEntity(shoppingListItem.getId(), shoppingListItem.getName(), shoppingListItem.isSelected(), shoppingListItem.getImage());
 	}
-	
+
 	ShoppingListItem map(ShoppingListItemEntity shoppingListItem) {
-		return new ShoppingListItem(shoppingListItem.getId(), shoppingListItem.getName(), shoppingListItem.isSelected());
+		return new ShoppingListItem(shoppingListItem.getId(), shoppingListItem.getName(), shoppingListItem.isSelected(), shoppingListItem.getImage());
 	}
 }

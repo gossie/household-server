@@ -12,7 +12,7 @@ public class ShoppingListItemEntityAssert extends AbstractAssert<ShoppingListIte
 	public static ShoppingListItemEntityAssert assertThat(ShoppingListItemEntity actual) {
 		return new ShoppingListItemEntityAssert(actual);
 	}
-	
+
 	public ShoppingListItemEntityAssert hasName(String name) {
 		Assertions.assertThat(actual.getName()).isEqualTo(name);
 		return this;
@@ -27,4 +27,9 @@ public class ShoppingListItemEntityAssert extends AbstractAssert<ShoppingListIte
 		Assertions.assertThat(actual.isSelected()).isFalse();
 		return this;
 	}
+
+    public ShoppingListItemEntityAssert hasImage(byte[] image) {
+	    Assertions.assertThat(actual.getImage()).isEqualTo(image);
+	    return this;
+    }
 }

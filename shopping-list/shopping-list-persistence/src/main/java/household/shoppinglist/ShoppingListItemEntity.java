@@ -25,4 +25,5 @@ class ShoppingListItemEntity {
 	private final Long id;
 	private String name;
 	private boolean selected;
+	private byte[] image;
 }

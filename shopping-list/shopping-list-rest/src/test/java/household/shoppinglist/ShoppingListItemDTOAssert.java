@@ -33,4 +33,9 @@ public class ShoppingListItemDTOAssert extends AbstractAssert<ShoppingListItemDT
 	    Assertions.assertThat(actual.getLink(rel)).map(Link::getHref).contains(href);
 	    return this;
     }
+
+    public ShoppingListItemDTOAssert hasImage(String image) {
+	    Assertions.assertThat(actual.getImage()).isEqualTo(image);
+	    return this;
+    }
 }

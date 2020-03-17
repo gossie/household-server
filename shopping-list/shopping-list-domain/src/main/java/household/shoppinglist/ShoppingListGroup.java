@@ -50,6 +50,7 @@ public class ShoppingListGroup extends AbstractModel {
                 .ifPresent(item -> {
                     item.setName(changedItem.getName());
                     item.setSelected(changedItem.isSelected());
+                    item.setImage(changedItem.getImage());
                 });
     }
 
