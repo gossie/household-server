@@ -12,4 +12,8 @@ public class ShoppingListItemDTO extends AbstractDTO {
 	private final boolean selected;
 	private final String image;
 
+    public String getImage() {
+        return image == null ? "" : image;
+    }
+
 }
