@@ -38,7 +38,7 @@
         <div class="modal-background"></div>
         <div class="modal-content">
             <div class="box">
-                <img *ngIf="hasImageLink()" [src]="getImageUrl()" />
+                <img *ngIf="showImage" [src]="getImageUrl()" />
             </div>
         </div>
         <button id="close-button" class="modal-close is-large" aria-label="close" (click)="closeImageDialog()"></button>
