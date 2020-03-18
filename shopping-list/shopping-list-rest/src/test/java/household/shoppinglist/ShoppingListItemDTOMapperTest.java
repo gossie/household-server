@@ -3,6 +3,7 @@ package household.shoppinglist;
 import static household.shoppinglist.ShoppingListItemAssert.assertThat;
 import static household.shoppinglist.ShoppingListItemDTOAssert.assertThat;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class ShoppingListItemDTOMapperTest {
@@ -39,14 +40,40 @@ public class ShoppingListItemDTOMapperTest {
 		assertThat(result).hasName("item").isSelected();
 	}
 
-	@Test
-	public void testMap_toDeselectedShoppingListItem() throws Exception {
-		shoppingListItemMapper = new ShoppingListItemDTOMapper();
+    @Test
+    public void testMap_toDeselectedShoppingListItem() throws Exception {
+        shoppingListItemMapper = new ShoppingListItemDTOMapper();
 
-		ShoppingListItemDTO shoppingListItem = new ShoppingListItemDTO(null, "item", false, "SU1BR0U=");
-		ShoppingListItem result = shoppingListItemMapper.map(shoppingListItem);
+        ShoppingListItemDTO shoppingListItem = new ShoppingListItemDTO(null, "item", false, "SU1BR0U=");
+        ShoppingListItem result = shoppingListItemMapper.map(shoppingListItem);
 
-		assertThat(result).hasName("item").isDeselected();
-	}
+        assertThat(result).hasName("item").isDeselected();
+    }
+
+    @Test
+    public void testMap_toDeselectedShoppingListItem_withoutImage() throws Exception {
+        shoppingListItemMapper = new ShoppingListItemDTOMapper();
+
+        ShoppingListItemDTO shoppingListItem = new ShoppingListItemDTO(null, "item", false, null);
+        ShoppingListItem result = shoppingListItemMapper.map(shoppingListItem);
+
+        assertThat(result)
+            .hasName("item")
+            .hasNoImage()
+            .isDeselected();
+    }
+
+    @Test
+    public void testMap_toDeselectedShoppingListItemDTO_withoutImage() throws Exception {
+        shoppingListItemMapper = new ShoppingListItemDTOMapper();
+
+        ShoppingListItem shoppingListItem = new ShoppingListItem(null, "item", false, null);
+        ShoppingListItemDTO result = shoppingListItemMapper.map(shoppingListItem);
+
+        assertThat(result)
+            .hasName("item")
+            .imageFieldIsEmpty()
+            .isDeselected();
+    }
 
 }
