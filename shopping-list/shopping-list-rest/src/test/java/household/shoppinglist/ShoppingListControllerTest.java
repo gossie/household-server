@@ -100,4 +100,5 @@ class ShoppingListControllerTest {
             .expectBody(byte[].class)
             .isEqualTo("IMAGE".getBytes());
     }
+
 }
