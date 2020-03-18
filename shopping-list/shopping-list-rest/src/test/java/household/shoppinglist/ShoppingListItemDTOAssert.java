@@ -34,8 +34,13 @@ public class ShoppingListItemDTOAssert extends AbstractAssert<ShoppingListItemDT
 	    return this;
     }
 
-    public ShoppingListItemDTOAssert hasImage(String image) {
-	    Assertions.assertThat(actual.getImage()).isEqualTo(image);
+    public ShoppingListItemDTOAssert imageFieldIsEmpty() {
+	    Assertions.assertThat(actual.getImage()).isNullOrEmpty();
 	    return this;
+    }
+
+    public ShoppingListItemDTOAssert hasNoLinkForRel(String rel) {
+        Assertions.assertThat(actual.getLink(rel)).isEmpty();
+        return this;
     }
 }

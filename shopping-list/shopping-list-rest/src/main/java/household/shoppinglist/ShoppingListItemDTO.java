@@ -1,19 +1,30 @@
 package household.shoppinglist;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.util.StringUtils;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class ShoppingListItemDTO extends AbstractDTO {
 
-    private final Long databaseId;
-	private final String name;
-	private final boolean selected;
-	private final String image;
+    private Long databaseId;
+	private String name;
+	private boolean selected;
+	private String image;
 
     public String getImage() {
         return image == null ? "" : image;
     }
 
+    public boolean hasImage() {
+        return StringUtils.hasText(image);
+    }
+
+    public void removeImage() {
+        image = null;
+    }
 }

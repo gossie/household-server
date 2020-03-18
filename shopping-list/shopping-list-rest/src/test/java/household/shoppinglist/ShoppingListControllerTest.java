@@ -3,7 +3,6 @@ package household.shoppinglist;
 import static household.shoppinglist.ShoppingListTOAssert.assertThat;
 import static org.mockito.Mockito.when;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
@@ -13,7 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
-import java.util.Base64;
 import java.util.List;
 
 @WebFluxTest(controllers = ShoppingListController.class)
@@ -44,12 +42,15 @@ class ShoppingListControllerTest {
             .expectBody(ShoppingListDTO.class)
             .consumeWith(exchangeResult ->  assertThat(exchangeResult.getResponseBody())
                 .hasSize(1)
-                .shoppingListGroup(0, group -> group.hasName("Global")
+                .shoppingListGroup(0, group -> group
+                    .hasName("Global")
                     .hasSize(1)
-                    .shoppingListItem(0, item -> item.hasName("Paprika")
+                    .shoppingListItem(0, item -> item
+                        .hasName("Paprika")
                         .isDeselected()
-                        .hasImage("SU1BR0U=")
+                        .imageFieldIsEmpty()
                         .hasLink("edit", "/api/shoppingLists/17/shoppingListGroups/23/shoppingListItems/27")
+                        .hasLink("image", "/api/shoppingLists/17/shoppingListGroups/23/shoppingListItems/27")
                     )
                 )
             );
@@ -71,14 +72,32 @@ class ShoppingListControllerTest {
             .expectBody(ShoppingListDTO.class)
             .consumeWith(exchangeResult ->  assertThat(exchangeResult.getResponseBody())
                 .hasSize(1)
-                .shoppingListGroup(0, group -> group.hasName("Global")
+                .shoppingListGroup(0, group -> group
+                    .hasName("Global")
                     .hasSize(1)
-                    .shoppingListItem(0, item -> item.hasName("Paprika")
+                    .shoppingListItem(0, item -> item
+                        .hasName("Paprika")
                         .isDeselected()
-                        .hasImage("")
+                        .imageFieldIsEmpty()
                         .hasLink("edit", "/api/shoppingLists/17/shoppingListGroups/23/shoppingListItems/27")
+                        .hasNoLinkForRel("image")
                     )
                 )
             );
+    }
+
+    @Test
+    void testRetrieveImage() {
+        when(shoppingListService.getShoppingList(17L))
+            .thenReturn(new ShoppingList(17L, List.of(new ShoppingListGroup(23L, "Global", List.of(new ShoppingListItem(27L, "Paprika", false, "IMAGE".getBytes()))))));
+
+        webTestClient.get()
+            .uri("/api/shoppingLists/17/shoppingListGroups/23/shoppingListItems/27")
+            .accept(MediaType.IMAGE_PNG)
+            .exchange()
+            .expectStatus()
+            .is2xxSuccessful()
+            .expectBody(byte[].class)
+            .isEqualTo("IMAGE".getBytes());
     }
 }

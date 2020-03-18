@@ -41,4 +41,5 @@ public class ShoppingListItem extends AbstractModel {
     public void setImage(byte[] image) {
         this.image = image;
     }
+
 }
