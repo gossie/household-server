@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.hateoas.server.reactive.WebFluxLinkBuilder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.util.MimeType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -52,9 +54,19 @@ public class ShoppingListController {
     }
 
     @PutMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", produces={"application/vnd.household.v2+json"})
-    public Mono<ShoppingListDTO> editItem(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId, @RequestBody ShoppingListItem item) {
-        return Mono.just(createResource(shoppingListService.editItem(id, groupId, itemId, item)))
+    public Mono<ShoppingListDTO> editItem(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId, @RequestBody ShoppingListItemDTO item) {
+        return Mono.just(createResource(shoppingListService.editItem(id, groupId, itemId, shoppingListItemMapper.map(item))))
             .flatMap(this::addLinks);
+    }
+
+    @GetMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", produces={"image/png", "image/jpeg"})
+    public Mono<byte[]> retrieveImage(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId) {
+	    return Mono.just(shoppingListService.getShoppingList(id))
+            .map(shoppingList -> shoppingList.getShoppingListGroup(groupId))
+            .flatMap(optional -> optional.map(Mono::just).orElseGet(Mono::empty))
+            .map(shoppingListGroup -> shoppingListGroup.getShoppingListItem(itemId))
+            .flatMap(optional -> optional.map(Mono::just).orElseGet(Mono::empty))
+            .map(ShoppingListItem::getImage);
     }
 
 	@DeleteMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems", produces={"application/vnd.household.v2+json"})
@@ -169,17 +181,33 @@ public class ShoppingListController {
         }
     }
 
-    private Mono<ShoppingListItemDTO> addItemToggleLink(Long shoppingListId, Long shoppingListGroupId, ShoppingListItemDTO item) {
-        return linkTo(methodOn(ShoppingListController.class).toggleItem(shoppingListId, shoppingListGroupId, item.getDatabaseId()))
+    private Mono<ShoppingListItemDTO> addItemToggleLink(Long shoppingListId, Long shoppingListGroupId, ShoppingListItemDTO shoppingListItem) {
+        return linkTo(methodOn(ShoppingListController.class).toggleItem(shoppingListId, shoppingListGroupId, shoppingListItem.getDatabaseId()))
             .withRel("toggle")
             .toMono()
-            .map(item::add)
+            .map(shoppingListItem::add)
             .map(ShoppingListItemDTO.class::cast)
-            .map(d -> linkTo(methodOn(ShoppingListController.class).editItem(shoppingListId, shoppingListGroupId, item.getDatabaseId(), null)))
+            .map(d -> linkTo(methodOn(ShoppingListController.class).editItem(shoppingListId, shoppingListGroupId, shoppingListItem.getDatabaseId(), null)))
             .map(b -> b.withRel("edit"))
             .flatMap(WebFluxLinkBuilder.WebFluxLink::toMono)
-            .map(item::add)
-            .map(ShoppingListItemDTO.class::cast);
+            .map(shoppingListItem::add)
+            .map(ShoppingListItemDTO.class::cast)
+            .flatMap(item -> imageLink(shoppingListId, shoppingListGroupId, item));
+    }
+
+    private Mono<ShoppingListItemDTO> imageLink(Long shoppingListId, Long shoppingListGroupId, ShoppingListItemDTO shoppingListItem) {
+	    if (shoppingListItem.hasImage()) {
+            return linkTo(methodOn(ShoppingListController.class).retrieveImage(shoppingListId, shoppingListGroupId, shoppingListItem.getDatabaseId()))
+                .withRel("image")
+                .toMono()
+                .map(shoppingListItem::add)
+                .cast(ShoppingListItemDTO.class)
+                .map(item -> {
+                    item.removeImage();
+                    return item;
+                });
+        }
+	    return Mono.just(shoppingListItem);
     }
 
 }

@@ -57,7 +57,7 @@ public class ShoppingListServiceTest {
 		when(shoppingListRepository.saveShoppingList(shoppingList)).thenReturn(shoppingList);
 
 		shoppingListService = new ShoppingListService(shoppingListRepository);
-		ShoppingList result = shoppingListService.addShoppingListItems(1L, 3L, List.of(new ShoppingListItem(2L, "new", false)));
+		ShoppingList result = shoppingListService.addShoppingListItems(1L, 3L, List.of(new ShoppingListItem(2L, "new", false, new byte[]{})));
 
 		assertThat(result)
 		    .hasSize(1)
@@ -67,12 +67,12 @@ public class ShoppingListServiceTest {
     @Test
         public void testRemoveSelectedItemsFromShoppingListGroup() {
             List<ShoppingListItem> items1 = new ArrayList<>();
-            items1.add(new ShoppingListItem(1L, "one", false));
-            items1.add(new ShoppingListItem(2L, "two", true));
+            items1.add(new ShoppingListItem(1L, "one", false, new byte[]{}));
+            items1.add(new ShoppingListItem(2L, "two", true, new byte[]{}));
 
             List<ShoppingListItem> items2 = new ArrayList<>();
-            items2.add(new ShoppingListItem(3L, "three", false));
-            items2.add(new ShoppingListItem(4L, "four", true));
+            items2.add(new ShoppingListItem(3L, "three", false, new byte[]{}));
+            items2.add(new ShoppingListItem(4L, "four", true, new byte[]{}));
 
             ShoppingListGroup group1 = new ShoppingListGroup(8L, "group1", items1);
             ShoppingListGroup group2 = new ShoppingListGroup(9L, "group2", items2);
@@ -102,12 +102,12 @@ public class ShoppingListServiceTest {
     @Test
     public void testRemoveAllSelectedItems() {
         List<ShoppingListItem> items1 = new ArrayList<>();
-        items1.add(new ShoppingListItem(1L, "one", false));
-        items1.add(new ShoppingListItem(2L, "two", true));
+        items1.add(new ShoppingListItem(1L, "one", false, new byte[]{}));
+        items1.add(new ShoppingListItem(2L, "two", true, new byte[]{}));
 
         List<ShoppingListItem> items2 = new ArrayList<>();
-        items2.add(new ShoppingListItem(3L, "three", false));
-        items2.add(new ShoppingListItem(4L, "four", true));
+        items2.add(new ShoppingListItem(3L, "three", false, new byte[]{}));
+        items2.add(new ShoppingListItem(4L, "four", true, new byte[]{}));
 
         ShoppingListGroup group1 = new ShoppingListGroup(8L, "group1", items1);
         ShoppingListGroup group2 = new ShoppingListGroup(9L, "group2", items2);
@@ -136,12 +136,12 @@ public class ShoppingListServiceTest {
 	@Test
 	public void testToggleItem() {
 	    List<ShoppingListItem> items1 = new ArrayList<>();
-        items1.add(new ShoppingListItem(1L, "one", false));
-        items1.add(new ShoppingListItem(2L, "two", true));
+        items1.add(new ShoppingListItem(1L, "one", false, new byte[]{}));
+        items1.add(new ShoppingListItem(2L, "two", true, new byte[]{}));
 
         List<ShoppingListItem> items2 = new ArrayList<>();
-        items2.add(new ShoppingListItem(3L, "three", false));
-        items2.add(new ShoppingListItem(4L, "four", true));
+        items2.add(new ShoppingListItem(3L, "three", false, new byte[]{}));
+        items2.add(new ShoppingListItem(4L, "four", true, new byte[]{}));
 
         ShoppingListGroup group1 = new ShoppingListGroup(8L, "group1", items1);
         ShoppingListGroup group2 = new ShoppingListGroup(9L, "group2", items2);
@@ -234,8 +234,8 @@ public class ShoppingListServiceTest {
     @Test
     public void testToggleShoppingListGroup_selectItems() {
         List<ShoppingListItem> items = List.of(
-            new ShoppingListItem(4L, "item1", false),
-            new ShoppingListItem(5L, "item2", false)
+            new ShoppingListItem(4L, "item1", false, new byte[]{}),
+            new ShoppingListItem(5L, "item2", false, new byte[]{})
         );
         List<ShoppingListGroup> groups = List.of(new ShoppingListGroup(3L, "group1", items));
         ShoppingList shoppingList = new ShoppingList(1L, groups);
@@ -257,8 +257,8 @@ public class ShoppingListServiceTest {
     @Test
     public void testToggleShoppingListGroup_selectItems_oneItemAlreadySelected() {
         List<ShoppingListItem> items = List.of(
-            new ShoppingListItem(4L, "item1", false),
-            new ShoppingListItem(5L, "item2", true)
+            new ShoppingListItem(4L, "item1", false, new byte[]{}),
+            new ShoppingListItem(5L, "item2", true, new byte[]{})
         );
         List<ShoppingListGroup> groups = List.of(new ShoppingListGroup(3L, "group1", items));
         ShoppingList shoppingList = new ShoppingList(1L, groups);
@@ -280,8 +280,8 @@ public class ShoppingListServiceTest {
     @Test
     public void testToggleShoppingListGroup_deselectItems() {
         List<ShoppingListItem> items = List.of(
-            new ShoppingListItem(4L, "item1", true),
-            new ShoppingListItem(5L, "item2", true)
+            new ShoppingListItem(4L, "item1", true, new byte[]{}),
+            new ShoppingListItem(5L, "item2", true, new byte[]{})
         );
         List<ShoppingListGroup> groups = List.of(new ShoppingListGroup(3L, "group1", items));
         ShoppingList shoppingList = new ShoppingList(1L, groups);
@@ -304,12 +304,12 @@ public class ShoppingListServiceTest {
     public void testEditShoppingListItem_onlyName() {
 	    var shoppingListRepository = mock(ShoppingListRepository.class);
 	    when(shoppingListRepository.determineShoppingList(17L))
-            .thenReturn(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffel", false))))));
-	    when(shoppingListRepository.saveShoppingList(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffeln", false)))))))
-            .thenReturn(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffeln", false))))));
+            .thenReturn(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffel", false, new byte[]{}))))));
+	    when(shoppingListRepository.saveShoppingList(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffeln", false, new byte[]{})))))))
+            .thenReturn(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffeln", false, new byte[]{}))))));
 
 	    shoppingListService = new ShoppingListService(shoppingListRepository);
-	    var shoppingListItem = new ShoppingListItem(27L, "Kartoffeln", false);
+	    var shoppingListItem = new ShoppingListItem(27L, "Kartoffeln", false, new byte[]{});
 	    var shoppingList = shoppingListService.editItem(17L, 25L, 27L, shoppingListItem);
 
 	    assertThat(shoppingList)
@@ -330,12 +330,12 @@ public class ShoppingListServiceTest {
     public void testEditShoppingListItem_onlyState() {
         var shoppingListRepository = mock(ShoppingListRepository.class);
         when(shoppingListRepository.determineShoppingList(17L))
-            .thenReturn(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffeln", false))))));
-        when(shoppingListRepository.saveShoppingList(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffeln", true)))))))
-            .thenReturn(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffeln", true))))));
+            .thenReturn(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffeln", false, new byte[]{}))))));
+        when(shoppingListRepository.saveShoppingList(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffeln", true, new byte[]{})))))))
+            .thenReturn(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffeln", true, new byte[]{}))))));
 
         shoppingListService = new ShoppingListService(shoppingListRepository);
-        var shoppingListItem = new ShoppingListItem(27L, "Kartoffeln", true);
+        var shoppingListItem = new ShoppingListItem(27L, "Kartoffeln", true, new byte[]{});
         var shoppingList = shoppingListService.editItem(17L, 25L, 27L, shoppingListItem);
 
         assertThat(shoppingList)
@@ -356,12 +356,12 @@ public class ShoppingListServiceTest {
     public void testEditShoppingListItem_nameAndState() {
         var shoppingListRepository = mock(ShoppingListRepository.class);
         when(shoppingListRepository.determineShoppingList(17L))
-            .thenReturn(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffel", false))))));
-        when(shoppingListRepository.saveShoppingList(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffeln", true)))))))
-            .thenReturn(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffeln", true))))));
+            .thenReturn(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffel", false, new byte[]{}))))));
+        when(shoppingListRepository.saveShoppingList(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffeln", true, new byte[]{})))))))
+            .thenReturn(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffeln", true, new byte[]{}))))));
 
         shoppingListService = new ShoppingListService(shoppingListRepository);
-        var shoppingListItem = new ShoppingListItem(27L, "Kartoffeln", true);
+        var shoppingListItem = new ShoppingListItem(27L, "Kartoffeln", true, new byte[]{});
         var shoppingList = shoppingListService.editItem(17L, 25L, 27L, shoppingListItem);
 
         assertThat(shoppingList)
@@ -374,6 +374,33 @@ public class ShoppingListServiceTest {
                     .hasId(27L)
                     .hasName("Kartoffeln")
                     .isSelected()
+                )
+            );
+    }
+
+    @Test
+    public void testEditShoppingListItem_onlyImage() {
+        var shoppingListRepository = mock(ShoppingListRepository.class);
+        when(shoppingListRepository.determineShoppingList(17L))
+            .thenReturn(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffeln", false, null))))));
+        when(shoppingListRepository.saveShoppingList(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffeln", false, "IMAGE".getBytes())))))))
+            .thenReturn(new ShoppingList(17L, List.of(new ShoppingListGroup(25L, "Global", List.of(new ShoppingListItem(27L, "Kartoffeln", false, "IMAGE".getBytes()))))));
+
+        shoppingListService = new ShoppingListService(shoppingListRepository);
+        var shoppingListItem = new ShoppingListItem(27L, "Kartoffeln", false, "IMAGE".getBytes());
+        var shoppingList = shoppingListService.editItem(17L, 25L, 27L, shoppingListItem);
+
+        assertThat(shoppingList)
+            .hasId(17L)
+            .hasSize(1)
+            .shoppingListGroup(0, group -> group
+                .hasId(25L)
+                .hasSize(1)
+                .shoppingListItem(0, item -> item
+                    .hasId(27L)
+                    .hasName("Kartoffeln")
+                    .hasImage("IMAGE".getBytes())
+                    .isDeselected()
                 )
             );
     }

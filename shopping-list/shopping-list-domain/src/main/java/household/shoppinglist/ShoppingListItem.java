@@ -9,11 +9,13 @@ public class ShoppingListItem extends AbstractModel {
 
 	private String name;
 	private boolean selected;
+	private byte[] image;
 
-	ShoppingListItem(Long id, String name, boolean selected) {
+	ShoppingListItem(Long id, String name, boolean selected, byte[] image) {
 		super(id);
 		this.name = name;
 		this.selected = selected;
+		this.image = image;
 	}
 
 	public String getName() {
@@ -31,4 +33,13 @@ public class ShoppingListItem extends AbstractModel {
 	public void setSelected(boolean selected) {
 		this.selected = selected;
 	}
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
 }

@@ -33,4 +33,14 @@ public class ShoppingListItemDTOAssert extends AbstractAssert<ShoppingListItemDT
 	    Assertions.assertThat(actual.getLink(rel)).map(Link::getHref).contains(href);
 	    return this;
     }
+
+    public ShoppingListItemDTOAssert imageFieldIsEmpty() {
+	    Assertions.assertThat(actual.getImage()).isNullOrEmpty();
+	    return this;
+    }
+
+    public ShoppingListItemDTOAssert hasNoLinkForRel(String rel) {
+        Assertions.assertThat(actual.getLink(rel)).isEmpty();
+        return this;
+    }
 }

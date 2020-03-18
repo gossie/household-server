@@ -32,4 +32,14 @@ public class ShoppingListItemAssert extends AbstractAssert<ShoppingListItemAsser
 		Assertions.assertThat(actual.isSelected()).isFalse();
 		return this;
 	}
+
+	public ShoppingListItemAssert hasImage(byte[] image) {
+        Assertions.assertThat(actual.getImage()).isEqualTo(image);
+        return this;
+    }
+
+    public ShoppingListItemAssert hasNoImage() {
+        Assertions.assertThat(actual.getImage()).isNull();
+        return this;
+    }
 }

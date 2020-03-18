@@ -84,4 +84,27 @@ describe('ShoppingListItemComponent', () => {
         fixture.debugElement.query(By.css('#save-button')).nativeElement.click();
         fixture.detectChanges();
     });
+
+    describe('image', () => {
+
+        it('should not have an image', () => {
+            expect(fixture.debugElement.query(By.css('#image-dialog-button'))).toBeNull();
+            expect(fixture.debugElement.query(By.css('#image-upload-button'))).not.toBeNull();
+        });
+
+        it('should have an image', () => {
+            component.shoppingListItem = {
+                name: 'item',
+                selected: false,
+                links: [
+                    { rel: 'image', href: '/api/imageUrl' }
+                ]
+            };
+            fixture.detectChanges();
+
+            expect(fixture.debugElement.query(By.css('#image-dialog-button'))).not.toBeNull();
+            expect(fixture.debugElement.query(By.css('#image-upload-button'))).toBeNull();
+        });
+
+    });
 });

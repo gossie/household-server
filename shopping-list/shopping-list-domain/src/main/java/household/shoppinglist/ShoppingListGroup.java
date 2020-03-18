@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @EqualsAndHashCode(callSuper = true)
 @ToString
@@ -50,6 +51,7 @@ public class ShoppingListGroup extends AbstractModel {
                 .ifPresent(item -> {
                     item.setName(changedItem.getName());
                     item.setSelected(changedItem.isSelected());
+                    item.setImage(changedItem.getImage());
                 });
     }
 
@@ -59,5 +61,11 @@ public class ShoppingListGroup extends AbstractModel {
 
     public List<ShoppingListItem> getShoppingListItems() {
         return Collections.unmodifiableList(shoppingListItems);
+    }
+
+    public Optional<ShoppingListItem> getShoppingListItem(Long itemId) {
+        return shoppingListItems.stream()
+            .filter(item -> Objects.equals(item.getId(), itemId))
+            .findFirst();
     }
 }

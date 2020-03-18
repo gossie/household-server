@@ -60,6 +60,12 @@ public class ShoppingList extends AbstractModel {
 		return Collections.unmodifiableList(shoppingListGroups);
 	}
 
+    public Optional<ShoppingListGroup> getShoppingListGroup(Long groupId) {
+        return shoppingListGroups.stream()
+            .filter(group -> Objects.equals(group.getId(), groupId))
+            .findFirst();
+    }
+
     public void deleteShoppingListGroup(Long shoppingListGroupId) {
         Optional<ShoppingListGroup> shoppingListGroup = determineShoppingListGroup(shoppingListGroupId);
         if(shoppingListGroup.isPresent()) {

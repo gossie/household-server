@@ -13,7 +13,7 @@ public class ShoppingListItemDTOMapperTest {
 	public void testMap_toSelectedShoppingListItemTO() throws Exception {
 		shoppingListItemMapper = new ShoppingListItemDTOMapper();
 
-		ShoppingListItem shoppingListItem = new ShoppingListItem(1L, "item", true);
+		ShoppingListItem shoppingListItem = new ShoppingListItem(1L, "item", true, new byte[]{});
 		ShoppingListItemDTO result = shoppingListItemMapper.map(shoppingListItem);
 
 		assertThat(result).hasName("item").isSelected();
@@ -23,7 +23,7 @@ public class ShoppingListItemDTOMapperTest {
 	public void testMap_toDeselectedShoppingListItemTO() throws Exception {
 		shoppingListItemMapper = new ShoppingListItemDTOMapper();
 
-		ShoppingListItem shoppingListItem = new ShoppingListItem(1L, "item", false);
+		ShoppingListItem shoppingListItem = new ShoppingListItem(1L, "item", false, new byte[]{});
 		ShoppingListItemDTO result = shoppingListItemMapper.map(shoppingListItem);
 
 		assertThat(result).hasName("item").isDeselected();
@@ -33,7 +33,7 @@ public class ShoppingListItemDTOMapperTest {
 	public void testMap_toSelectedShoppingListItem() throws Exception {
 		shoppingListItemMapper = new ShoppingListItemDTOMapper();
 
-		ShoppingListItemDTO shoppingListItem = new ShoppingListItemDTO(null, "item", true);
+		ShoppingListItemDTO shoppingListItem = new ShoppingListItemDTO(null, "item", true, "SU1BR0U=");
 		ShoppingListItem result = shoppingListItemMapper.map(shoppingListItem);
 
 		assertThat(result).hasName("item").isSelected();
@@ -43,7 +43,7 @@ public class ShoppingListItemDTOMapperTest {
 	public void testMap_toDeselectedShoppingListItem() throws Exception {
 		shoppingListItemMapper = new ShoppingListItemDTOMapper();
 
-		ShoppingListItemDTO shoppingListItem = new ShoppingListItemDTO(null, "item", false);
+		ShoppingListItemDTO shoppingListItem = new ShoppingListItemDTO(null, "item", false, "SU1BR0U=");
 		ShoppingListItem result = shoppingListItemMapper.map(shoppingListItem);
 
 		assertThat(result).hasName("item").isDeselected();
