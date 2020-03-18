@@ -44,7 +44,9 @@ export class ShoppingListPage {
     }
 
     public async selectItem(group: string, item: string): Promise<void> {
-        const el = element(by.css(`#group-${group}`)).element(by.cssContainingText('.item', item));
+        const el = element(by.css(`#group-${group}`))
+            .element(by.cssContainingText('.item', item))
+            .element(by.css('app-checkbox'));
         await browser.wait(ExpectedConditions.elementToBeClickable(el));
         return el.click();
     }
