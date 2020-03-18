@@ -96,8 +96,9 @@ describe('ShoppingListItemComponent', () => {
             component.shoppingListItem = {
                 name: 'item',
                 selected: false,
-                image: 'base64Image',
-                links: []
+                links: [
+                    { rel: 'image', href: '/api/imageUrl' }
+                ]
             };
             fixture.detectChanges();
 
