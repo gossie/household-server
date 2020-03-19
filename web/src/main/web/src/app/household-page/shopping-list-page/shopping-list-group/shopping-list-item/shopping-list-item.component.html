@@ -11,7 +11,7 @@
             <span *ngIf="hasImageLink()" id="image-dialog-button" class="icon" (click)="openImageDialog()">
                 <i class="fas fa-image"></i>
             </span>
-            <span *ngIf="!hasImageLink()" id="image-upload-button" class="icon file">
+            <span id="image-upload-button" class="icon file">
                 <label class="file-label">
                     <input class="file-input" type="file" name="resume" (change)="handleFileInput($event.target.files)">
                     <span>
