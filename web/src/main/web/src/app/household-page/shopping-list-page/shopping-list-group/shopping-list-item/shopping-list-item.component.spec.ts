@@ -103,7 +103,7 @@ describe('ShoppingListItemComponent', () => {
             fixture.detectChanges();
 
             expect(fixture.debugElement.query(By.css('#image-dialog-button'))).not.toBeNull();
-            expect(fixture.debugElement.query(By.css('#image-upload-button'))).toBeNull();
+            expect(fixture.debugElement.query(By.css('#image-upload-button'))).not.toBeNull();
         });
 
     });
