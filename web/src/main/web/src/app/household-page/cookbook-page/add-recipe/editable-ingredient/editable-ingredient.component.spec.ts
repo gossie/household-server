@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { EditableIngredientComponent } from './editable-ingredient.component';
 import { EventEmitter } from '@angular/core';
 import { Ingredient } from '../../recipe/ingredient/ingredient';
@@ -10,7 +10,7 @@ describe('EditableIngredientComponent', () => {
     let component: EditableIngredientComponent;
     let fixture: ComponentFixture<EditableIngredientComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 ReactiveFormsModule

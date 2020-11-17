@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ShoppingListGroupComponent } from './shopping-list-group.component';
 import { Component, Input } from "@angular/core";
 import { ShoppingListItem } from "./shopping-list-item/shopping-list-item";
@@ -27,7 +27,7 @@ describe('ShoppingListGroupComponent', () => {
     let component: ShoppingListGroupComponent;
     let fixture: ComponentFixture<ShoppingListGroupComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 ReactiveFormsModule

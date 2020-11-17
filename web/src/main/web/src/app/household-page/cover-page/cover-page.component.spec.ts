@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CoverPageComponent } from './cover-page.component';
 import { ReactiveFormsModule } from "@angular/forms";
 import { InvitationService } from "../../common-elements/invitation/invitation.service";
@@ -14,7 +14,7 @@ describe('CoverPageComponent', () => {
     let component: CoverPageComponent;
     let fixture: ComponentFixture<CoverPageComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 ReactiveFormsModule

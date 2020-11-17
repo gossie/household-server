@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FoodPlanPageComponent } from './food-plan-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MealComponent } from './meal/meal.component';
@@ -18,7 +18,7 @@ describe('FoodPlanPageComponent', () => {
     let component: FoodPlanPageComponent;
     let fixture: ComponentFixture<FoodPlanPageComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 ReactiveFormsModule,

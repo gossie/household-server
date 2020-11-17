@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input} from "@angular/core";
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { RecipeComponent } from './recipe.component';
 import { CookbookService } from "../cookbook.service";
 import { CookbookServiceMock } from "../cookbook.service.mock";
@@ -24,7 +24,7 @@ describe('RecipeComponent', () => {
     let component: RecipeComponent;
     let fixture: ComponentFixture<RecipeComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [
                 RecipeComponent,
