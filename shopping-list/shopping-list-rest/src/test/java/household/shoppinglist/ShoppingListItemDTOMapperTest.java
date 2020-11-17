@@ -3,10 +3,11 @@ package household.shoppinglist;
 import static household.shoppinglist.ShoppingListItemAssert.assertThat;
 import static household.shoppinglist.ShoppingListItemDTOAssert.assertThat;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class ShoppingListItemDTOMapperTest {
+
+    private static final String IMAGE = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==";
 
 	private ShoppingListItemDTOMapper shoppingListItemMapper;
 
@@ -34,7 +35,7 @@ public class ShoppingListItemDTOMapperTest {
 	public void testMap_toSelectedShoppingListItem() throws Exception {
 		shoppingListItemMapper = new ShoppingListItemDTOMapper();
 
-		ShoppingListItemDTO shoppingListItem = new ShoppingListItemDTO(null, "item", true, "SU1BR0U=");
+		ShoppingListItemDTO shoppingListItem = new ShoppingListItemDTO(null, "item", true, IMAGE);
 		ShoppingListItem result = shoppingListItemMapper.map(shoppingListItem);
 
 		assertThat(result).hasName("item").isSelected();
@@ -44,7 +45,7 @@ public class ShoppingListItemDTOMapperTest {
     public void testMap_toDeselectedShoppingListItem() throws Exception {
         shoppingListItemMapper = new ShoppingListItemDTOMapper();
 
-        ShoppingListItemDTO shoppingListItem = new ShoppingListItemDTO(null, "item", false, "SU1BR0U=");
+        ShoppingListItemDTO shoppingListItem = new ShoppingListItemDTO(null, "item", false, IMAGE);
         ShoppingListItem result = shoppingListItemMapper.map(shoppingListItem);
 
         assertThat(result).hasName("item").isDeselected();

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { UndoHintComponent } from './undo-hint.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
@@ -6,7 +6,7 @@ describe('UndoHintComponent', () => {
     let component: UndoHintComponent;
     let fixture: ComponentFixture<UndoHintComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 BrowserAnimationsModule

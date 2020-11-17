@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { AddRecipeComponent } from './add-recipe.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CookbookService } from '../cookbook.service';
@@ -14,7 +14,7 @@ describe('AddRecipeComponent', () => {
     let component: AddRecipeComponent;
     let fixture: ComponentFixture<AddRecipeComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 ReactiveFormsModule

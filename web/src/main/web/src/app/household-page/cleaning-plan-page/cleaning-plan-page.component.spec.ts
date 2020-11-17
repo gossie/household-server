@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CleaningPlanPageComponent } from './cleaning-plan-page.component';
 import { Chore } from './chore/chore';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -23,7 +23,7 @@ describe('CleaningPlanPageComponent', () => {
     let component: CleaningPlanPageComponent;
     let fixture: ComponentFixture<CleaningPlanPageComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 ReactiveFormsModule

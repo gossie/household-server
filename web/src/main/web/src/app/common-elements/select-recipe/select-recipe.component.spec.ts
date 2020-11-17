@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SelectRecipeComponent } from './select-recipe.component';
 import { EventEmitter } from "@angular/core";
 import { By } from "@angular/platform-browser";
@@ -8,7 +8,7 @@ describe('SelectRecipeComponent', () => {
     let component: SelectRecipeComponent;
     let fixture: ComponentFixture<SelectRecipeComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [
                 CheckboxComponent,

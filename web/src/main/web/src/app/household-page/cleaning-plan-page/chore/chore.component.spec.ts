@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChoreComponent } from './chore.component';
 import { CleaningPlanService } from "../cleaning-plan.service";
 import { CleaningPlanServiceMock } from "../cleaning-plan.service.mock";
@@ -12,7 +12,7 @@ describe('ChoreComponent', () => {
     let component: ChoreComponent;
     let fixture: ComponentFixture<ChoreComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 ReactiveFormsModule

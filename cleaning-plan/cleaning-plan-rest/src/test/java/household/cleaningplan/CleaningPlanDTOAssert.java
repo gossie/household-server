@@ -4,7 +4,6 @@ import java.util.function.Consumer;
 
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.api.Assertions;
-import org.junit.Assert;
 
 public class CleaningPlanDTOAssert extends AbstractAssert<CleaningPlanDTOAssert, CleaningPlanDTO> {
 
@@ -22,10 +21,10 @@ public class CleaningPlanDTOAssert extends AbstractAssert<CleaningPlanDTOAssert,
 	}
 
 	public CleaningPlanDTOAssert hasSize(int size) {
-		Assert.assertEquals(size, actual.getChores().size());
+		Assertions.assertThat(actual.getChores()).hasSize(size);
 		return this;
 	}
-	
+
 	public CleaningPlanDTOAssert chore(int index, Consumer<ChoreTOAssert> consumer) {
 		consumer.accept(ChoreTOAssert.assertThat(actual.getChores().get(index)));
 		return this;

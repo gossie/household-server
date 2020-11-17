@@ -1,7 +1,7 @@
 package household.cleaningplan;
 
 import org.assertj.core.api.AbstractAssert;
-import org.junit.Assert;
+import org.assertj.core.api.Assertions;
 
 public class ChoreEntityAssert extends AbstractAssert<ChoreEntityAssert, ChoreEntity> {
 
@@ -12,14 +12,14 @@ public class ChoreEntityAssert extends AbstractAssert<ChoreEntityAssert, ChoreEn
 	public static ChoreEntityAssert assertThat(ChoreEntity actual) {
 		return new ChoreEntityAssert(actual);
 	}
-	
+
 	public ChoreEntityAssert hasName(String name) {
-		Assert.assertEquals(name, actual.getName());
+		Assertions.assertThat(actual.getName()).isEqualTo(name);
 		return this;
 	}
-	
+
 	public ChoreEntityAssert wasLastChangedAt(long lastPerformed) {
-		Assert.assertEquals(lastPerformed, actual.getLastPerformed());
+		Assertions.assertThat(actual.getLastPerformed()).isEqualTo(lastPerformed);
 		return this;
 	}
 }

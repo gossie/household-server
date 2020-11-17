@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { InvitationComponent } from './invitation.component';
 import { InvitationService } from "./invitation.service";
 import { InvitationServiceMock } from "./invitation.service.mock";
@@ -9,7 +9,7 @@ describe('InvitationComponent', () => {
     let component: InvitationComponent;
     let fixture: ComponentFixture<InvitationComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [],
             declarations: [ InvitationComponent ],
