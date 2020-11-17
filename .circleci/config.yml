@@ -34,12 +34,33 @@ jobs:
   deploy:
     docker:
       - image: gossiemcschreck/ldwas-ci:1.1
+
+    working_directory: ~/repo
+
+    environment:
+      MAVEN_OPTS: -Xmx4096m
+
     steps:
       - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: mvn -B install -Ptest:ci
       - run:
-          name: Deploy Master to Heroku
+          background: true
           command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+            java -jar app/target/plan-app-0.0.1-SNAPSHOT.jar
+      - run: mvn -B -fweb install -Pe2e:ci
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
 
 workflows:
   version: 2
