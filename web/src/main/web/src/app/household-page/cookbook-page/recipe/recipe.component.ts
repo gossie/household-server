@@ -22,7 +22,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
     @Output()
     public recipeEmitter: EventEmitter<CookbookEvent> = new EventEmitter();
 
-    @ViewChild('recipeCard', {static: false})
+    @ViewChild('recipeCard')
     private element: ElementRef;
 
     private subscriptions: Array<Subscription> = [];
