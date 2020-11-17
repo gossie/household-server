@@ -7,7 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verify;
 
 class HouseholdEventHandlerTest {
@@ -19,7 +20,7 @@ class HouseholdEventHandlerTest {
         HouseholdEventHandler HouseholdEventHandler = new HouseholdEventHandler(mock(EventBus.class), HouseholdService);
         HouseholdEventHandler.onInvitationAccepted(new InvitationAcceptedEvent(null, null));
 
-        verifyZeroInteractions(HouseholdService);
+        verifyNoInteractions(HouseholdService);
     }
 
     @Test
@@ -29,7 +30,7 @@ class HouseholdEventHandlerTest {
         HouseholdEventHandler HouseholdEventHandler = new HouseholdEventHandler(mock(EventBus.class), HouseholdService);
         HouseholdEventHandler.onInvitationAccepted(new InvitationAcceptedEvent(5L, Collections.singletonList(mock(User.class))));
 
-        verifyZeroInteractions(HouseholdService);
+        verifyNoInteractions(HouseholdService);
     }
 
     @Test

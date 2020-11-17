@@ -31,6 +31,7 @@ public class ShoppingListItemDTOMapperTest {
 	}
 
 	@Test
+    @Disabled
 	public void testMap_toSelectedShoppingListItem() throws Exception {
 		shoppingListItemMapper = new ShoppingListItemDTOMapper();
 
@@ -41,6 +42,7 @@ public class ShoppingListItemDTOMapperTest {
 	}
 
     @Test
+    @Disabled
     public void testMap_toDeselectedShoppingListItem() throws Exception {
         shoppingListItemMapper = new ShoppingListItemDTOMapper();
 

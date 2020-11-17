@@ -2,7 +2,6 @@ package household.cleaningplan;
 
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.api.Assertions;
-import org.junit.Assert;
 
 public class ChoreTOAssert extends AbstractAssert<ChoreTOAssert, ChoreDTO> {
 
@@ -13,19 +12,19 @@ public class ChoreTOAssert extends AbstractAssert<ChoreTOAssert, ChoreDTO> {
 	public static ChoreTOAssert assertThat(ChoreDTO actual) {
 		return new ChoreTOAssert(actual);
 	}
-	
+
 	public ChoreTOAssert hasDatabaseId(long id) {
 		Assertions.assertThat(actual.getDatabaseId()).isEqualTo(id);
 		return this;
 	}
-	
+
 	public ChoreTOAssert hasName(String name) {
-		Assert.assertEquals(name, actual.getName());
+		Assertions.assertThat(actual.getName()).isEqualTo(name);
 		return this;
 	}
-	
+
 	public ChoreTOAssert wasLastChangedAt(long lastPerformed) {
-		Assert.assertEquals(lastPerformed, actual.getLastPerformed());
+		Assertions.assertThat(actual.getLastPerformed()).isEqualTo(lastPerformed);
 		return this;
 	}
 
