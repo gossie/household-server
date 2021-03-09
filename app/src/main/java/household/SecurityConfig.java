@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .addFilterAfter(this::csrfFilter, SecurityWebFiltersOrder.CSRF)
                 .authorizeExchange()
                 .pathMatchers("/simple.js").permitAll()
-                .pathMatchers("/favicon.ico").permitAll()
+                .pathMatchers("/logo.png").permitAll()
                 .pathMatchers("/", "/index.html", "/registration.html", "/login.html").permitAll()
                 .pathMatchers(HttpMethod.OPTIONS).permitAll()
                 .pathMatchers(HttpMethod.POST, "/registrations").permitAll()
