@@ -12,11 +12,11 @@ jobs:
     steps:
       - checkout
 
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
+      #- restore_cache:
+      #    keys:
+      #      - v1-dependencies-{{ checksum "pom.xml" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+      #      - v1-dependencies-
 
       - run: mvn -B install -Ptest:ci
       - run:
@@ -26,10 +26,10 @@ jobs:
       - run: mvn -B -fweb install -Pe2e:ci
  #     - run: mvn dependency:go-offline
 
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
+      #- save_cache:
+      #    paths:
+      #      - ~/.m2
+      #    key: v1-dependencies-{{ checksum "pom.xml" }}
 
 workflows:
   version: 2
