@@ -1,4 +1,4 @@
-package household;
+package household.household;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

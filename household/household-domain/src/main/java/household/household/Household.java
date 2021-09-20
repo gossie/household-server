@@ -1,7 +1,5 @@
 package household.household;
 
-import household.AbstractModel;
-
 public class Household extends AbstractModel {
 	
 	private Long shoppingListId;
