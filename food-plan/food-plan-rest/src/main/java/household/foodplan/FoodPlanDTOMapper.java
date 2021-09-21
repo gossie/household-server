@@ -12,16 +12,16 @@ import lombok.RequiredArgsConstructor;
 class FoodPlanDTOMapper {
 
 	private final MealDTOMapper mealMapper;
-	
+
 	FoodPlan map(FoodPlanDTO foodPlan) {
 		Map<String, Meal> meals = foodPlan.getMeals().entrySet().stream()
-				.collect(Collectors.toMap(entry -> entry.getKey(), entry -> mealMapper.map(entry.getValue())));
+				.collect(Collectors.toMap(Map.Entry::getKey, entry -> mealMapper.map(entry.getValue())));
 		return new FoodPlan(foodPlan.getDatabaseId(), meals);
 	}
-	
+
 	FoodPlanDTO map(FoodPlan foodPlan) {
 		Map<String, MealDTO> meals = foodPlan.getMeals().entrySet().stream()
-				.collect(Collectors.toMap(entry -> entry.getKey(), entry -> mealMapper.map(entry.getValue())));
+				.collect(Collectors.toMap(Map.Entry::getKey, entry -> mealMapper.map(entry.getValue())));
 		return new FoodPlanDTO(foodPlan.getId(), meals);
 	}
 }

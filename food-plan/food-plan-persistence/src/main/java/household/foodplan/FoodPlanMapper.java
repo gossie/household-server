@@ -10,16 +10,16 @@ import lombok.RequiredArgsConstructor;
 public class FoodPlanMapper {
 
 	private final MealMapper mealMapper;
-	
+
 	public FoodPlanEntity map(FoodPlan foodPlan) {
 		Map<String, MealEntity> meals = foodPlan.getMeals().entrySet().stream()
-				.collect(Collectors.toMap(entry -> entry.getKey(), entry -> mealMapper.map(entry.getValue())));
+				.collect(Collectors.toMap(Map.Entry::getKey, entry -> mealMapper.map(entry.getValue())));
 		return new FoodPlanEntity(foodPlan.getId(), meals);
 	}
-	
+
 	public FoodPlan map(FoodPlanEntity foodPlan) {
 		Map<String, Meal> meals = foodPlan.getMeals().entrySet().stream()
-				.collect(Collectors.toMap(entry -> entry.getKey(), entry -> mealMapper.map(entry.getValue())));
+				.collect(Collectors.toMap(Map.Entry::getKey, entry -> mealMapper.map(entry.getValue())));
 		return new FoodPlan(foodPlan.getId(), meals);
 	}
 }

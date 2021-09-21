@@ -95,7 +95,10 @@ public class ShoppingListController {
 
 	@PostMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
 	public Mono<ShoppingListDTO> addItem(@PathVariable Long id, @PathVariable Long groupId, @RequestBody List<ShoppingListItemDTO> shoppingListItems) {
-		List<ShoppingListItem> entities = shoppingListItems.stream().map(shoppingListItemMapper::map).collect(Collectors.toList());
+		List<ShoppingListItem> entities = shoppingListItems.stream()
+            .map(shoppingListItemMapper::map)
+            .collect(Collectors.toList());
+
 		return Mono.just(createResource(shoppingListService.addShoppingListItems(id, groupId, entities)))
             .flatMap(this::addLinks);
 	}

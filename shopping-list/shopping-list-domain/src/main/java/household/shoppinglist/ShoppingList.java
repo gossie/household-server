@@ -25,7 +25,9 @@ public class ShoppingList extends AbstractModel {
 	}
 
 	public void clearAllSelectedItems() {
-	    shoppingListGroups.stream().map(ShoppingListGroup::getId).forEach(this::clearSelectedItemsFromShoppingListGroup);
+	    shoppingListGroups.stream()
+            .map(ShoppingListGroup::getId)
+            .forEach(this::clearSelectedItemsFromShoppingListGroup);
 	}
 
 	public void clearSelectedItemsFromShoppingListGroup(Long shoppingListGroupId) {
@@ -53,7 +55,9 @@ public class ShoppingList extends AbstractModel {
 	}
 
 	private Optional<ShoppingListGroup> determineShoppingListGroup(Long shoppingListGroupId) {
-	    return shoppingListGroups.stream().filter(group -> Objects.equals(group.getId(), shoppingListGroupId)).findFirst();
+	    return shoppingListGroups.stream()
+            .filter(group -> Objects.equals(group.getId(), shoppingListGroupId))
+            .findFirst();
 	}
 
 	public List<ShoppingListGroup> getShoppingListGroups() {

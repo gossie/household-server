@@ -15,7 +15,10 @@ class UserDTOMapper {
 	private final InvitationDTOMapper invitationMapper;
 
     UserDTO map(User user) {
-        List<InvitationDTO> invitations = user.getInvitations().stream().map(invitationMapper::map).collect(Collectors.toList());
+        List<InvitationDTO> invitations = user.getInvitations().stream()
+            .map(invitationMapper::map)
+            .collect(Collectors.toList());
+
         return new UserDTO(user.getId(), user.getEmail(), user.getHouseholdId(), invitations);
     }
 

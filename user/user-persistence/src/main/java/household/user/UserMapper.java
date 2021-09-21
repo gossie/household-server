@@ -10,7 +10,7 @@ class UserMapper {
 	User map(UserEntity userEntity) {
 		User user = new User(userEntity.getId(), userEntity.getEmail(), userEntity.getPassword());
 		user.setHouseholdId(userEntity.getHouseholdId());
-		userEntity.getInvitations().stream().forEach(invitation -> user.addInvitation(invitationMapper.map(invitation)));
+		userEntity.getInvitations().forEach(invitation -> user.addInvitation(invitationMapper.map(invitation)));
 		return user;
 	}
 

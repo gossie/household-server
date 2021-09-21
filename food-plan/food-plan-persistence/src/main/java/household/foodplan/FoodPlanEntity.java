@@ -43,6 +43,6 @@ class FoodPlanEntity {
 	}
 
 	void update(FoodPlanEntity foodPlan) {
-		foodPlan.getMeals().entrySet().stream().forEach(e -> meals.put(e.getKey(), e.getValue()));
+		foodPlan.getMeals().forEach((k, v) -> meals.put(k, v));
 	}
 }

@@ -12,14 +12,20 @@ import lombok.RequiredArgsConstructor;
 class RecipeDTOMapper {
 
 	private final IngredientDTOMapper ingredientMapper;
-	
+
 	RecipeDTO map(Recipe recipe) {
-		List<IngredientDTO> ingredients = recipe.getIngredients().stream().map(ingredientMapper::map).collect(Collectors.toList());
+		List<IngredientDTO> ingredients = recipe.getIngredients().stream()
+            .map(ingredientMapper::map)
+            .collect(Collectors.toList());
+
 		return new RecipeDTO(recipe.getId(), recipe.getName(), ingredients, recipe.getUrl());
 	}
 
 	Recipe map(RecipeDTO recipe) {
-		List<Ingredient> ingredients = recipe.getIngredients().stream().map(ingredientMapper::map).collect(Collectors.toList());
+		List<Ingredient> ingredients = recipe.getIngredients().stream()
+            .map(ingredientMapper::map)
+            .collect(Collectors.toList());
+
 		return new Recipe(recipe.getDatabaseId(), recipe.getName(), "", ingredients, recipe.getUrl());
 	}
 }

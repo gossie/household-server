@@ -25,7 +25,9 @@ public class Cookbook extends AbstractModel {
 	}
 
 	public Optional<Recipe> findRecipe(Long recipeId) {
-		return recipes.stream().filter(r -> Objects.equals(recipeId, r.getId())).findFirst();
+		return recipes.stream()
+            .filter(r -> Objects.equals(recipeId, r.getId()))
+            .findFirst();
 	}
 
 	public void addRecipe(Recipe recipe) {
