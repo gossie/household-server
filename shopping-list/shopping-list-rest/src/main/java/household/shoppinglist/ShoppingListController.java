@@ -53,7 +53,7 @@ public class ShoppingListController {
             .flatMap(this::addLinks);
     }
 
-    @PutMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", produces={"application/vnd.household.v2+json"})
+    @PutMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", produces={"application/vnd.household.v2+json"}, consumes={"application/vnd.household.v2+json"})
     public Mono<ShoppingListDTO> editItem(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId, @RequestBody ShoppingListItemDTO item) {
         return Mono.just(createResource(shoppingListService.editItem(id, groupId, itemId, shoppingListItemMapper.map(item))))
             .flatMap(this::addLinks);
