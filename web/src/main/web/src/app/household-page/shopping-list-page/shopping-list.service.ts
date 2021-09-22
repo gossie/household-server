@@ -125,7 +125,8 @@ export class ShoppingListService extends AbstractNetworkService {
         const url: string = this.determineUrl(shoppingListItem, 'edit');
         return this.httpClient.put<ShoppingList>(url, shoppingListItem, {
             headers: {
-                Accept: 'application/vnd.household.v2+json'
+                Accept: 'application/vnd.household.v2+json',
+                'Content-Type': 'application/vnd.household.v2+json'
             }
         })
         .pipe(
