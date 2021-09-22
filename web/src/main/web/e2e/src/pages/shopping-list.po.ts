@@ -48,7 +48,9 @@ export class ShoppingListPage {
         const el = element(by.css(`#group-${group}`))
             .element(by.cssContainingText('.item', item))
             .element(by.css('app-checkbox'));
+        console.debug(`waiting for ${item} in group ${group} to be clickable`);
         await browser.wait(ExpectedConditions.elementToBeClickable(el));
+        console.debug(`clicking ${item} in group ${group} to be clickable`);
         return el.click();
     }
 
