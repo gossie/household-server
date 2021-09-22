@@ -1,8 +1,9 @@
-import { by, element } from 'protractor';
+import { browser, by, element, ExpectedConditions } from 'protractor';
 
 export class AddRecipeDialog {
 
     public async navigateTo() {
+        await browser.wait(ExpectedConditions.elementToBeClickable(element(by.css('#add-recipe-button'))));
         return element(by.css('#add-recipe-button')).click();
     }
 
