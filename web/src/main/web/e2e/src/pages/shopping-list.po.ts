@@ -44,6 +44,7 @@ export class ShoppingListPage {
     }
 
     public async selectItem(group: string, item: string): Promise<void> {
+        console.debug(`selecting ${item} in group ${group}`);
         const el = element(by.css(`#group-${group}`))
             .element(by.cssContainingText('.item', item))
             .element(by.css('app-checkbox'));
@@ -52,6 +53,8 @@ export class ShoppingListPage {
     }
 
     public async clear(group: string): Promise<void> {
+        console.debug(`clearing group ${group}`);
+        await browser.wait(ExpectedConditions.elementToBeClickable(element(by.css(`#clear-group-button-${group}`))));
         return element(by.css(`#clear-group-button-${group}`)).click();
     }
 
