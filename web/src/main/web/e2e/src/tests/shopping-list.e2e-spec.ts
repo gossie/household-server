@@ -84,7 +84,7 @@ describe('shopping list', () => {
             expect(await shoppingListPage.getNumberOfItems('Weihnachten')).toBe(1);
         });
 
-        it('should by the rest', async () => {
+        it('should buy the rest', async () => {
             await shoppingListPage.selectItem('Weihnachten', 'Kekse');
             await shoppingListPage.clear('Weihnachten');
             await browser.sleep(3000);
