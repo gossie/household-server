@@ -1,7 +1,7 @@
 package household.cleaningplan;
 
 import static household.cleaningplan.ChoreAssert.assertThat;
-import static household.cleaningplan.ChoreTOAssert.assertThat;
+import static household.cleaningplan.ChoreDTOAssert.assertThat;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +10,7 @@ public class ChoreDTOMapperTest {
     private ChoreDTOMapper choreMapper;
 
     @Test
-    public void testMap_toChoreTO() throws Exception {
+    public void testMap_toChoreTO() {
         choreMapper = new ChoreDTOMapper();
 
         Chore from = new Chore(2L, "chore1", 12345);
@@ -21,7 +21,7 @@ public class ChoreDTOMapperTest {
     }
 
     @Test
-    public void testMap_toChoreTO_repeatingChore_days() throws Exception {
+    public void testMap_toChoreTO_repeatingChore_days() {
         choreMapper = new ChoreDTOMapper();
 
         Chore from = new Chore(2L, "chore1", 12345, new Repeat(3L, 7));
@@ -36,7 +36,7 @@ public class ChoreDTOMapperTest {
     }
 
     @Test
-    public void testMap_toChoreTO_repeatingChore_hours() throws Exception {
+    public void testMap_toChoreTO_repeatingChore_hours() {
         choreMapper = new ChoreDTOMapper();
 
         Chore from = new Chore(2L, "chore1", 12345, new Repeat(3L, 84, TimeUnit.HOURS));
@@ -51,7 +51,7 @@ public class ChoreDTOMapperTest {
     }
 
     @Test
-    public void testMap_toChoreTO_repeatingChore_weeks() throws Exception {
+    public void testMap_toChoreTO_repeatingChore_weeks() {
         choreMapper = new ChoreDTOMapper();
 
         Chore from = new Chore(2L, "chore1", 12345, new Repeat(3L, 2, TimeUnit.WEEKS));
@@ -66,7 +66,7 @@ public class ChoreDTOMapperTest {
     }
 
     @Test
-    public void testMap_toChore() throws Exception {
+    public void testMap_toChore() {
         choreMapper = new ChoreDTOMapper();
 
         ChoreDTO from = new ChoreDTO(2L, "chore1", 12345, -1, 0);

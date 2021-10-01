@@ -7,7 +7,7 @@ import lombok.ToString;
 @ToString
 public abstract class AbstractModel {
 
-	private Long id;
+	private final Long id;
 
 	protected AbstractModel(Long id) {
 		this.id = id;

@@ -1,10 +1,10 @@
-import {Component, OnInit, Input, Output, EventEmitter, OnDestroy} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Chore } from './chore';
 import { CleaningPlanService } from "../cleaning-plan.service";
 import { CleaningPlan } from "../cleaning-plan";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import {Subscription} from "rxjs/index";
-import {DeleteHintService} from "../../delete-hint.service";
+import { Subscription } from "rxjs/index";
+import { DeleteHintService } from "../../delete-hint.service";
 
 @Component({
     selector: 'app-chore',
@@ -17,6 +17,7 @@ export class ChoreComponent implements OnInit, OnDestroy {
 
     @Input()
     public chore: Chore;
+    
     @Output()
     public cleaningPlanEmitter: EventEmitter<CleaningPlan> = new EventEmitter();
 

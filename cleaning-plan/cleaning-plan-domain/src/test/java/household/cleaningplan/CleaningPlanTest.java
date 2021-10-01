@@ -14,7 +14,7 @@ public class CleaningPlanTest {
 		List<Chore> chores = new ArrayList<>();
 		chores.add(new Chore(1L, "one", 1234L));
 		chores.add(new Chore(2L, "two", 1235L));
-		CleaningPlan cleaningPlan = new CleaningPlan(3L, chores);
+		CleaningPlan cleaningPlan = new CleaningPlan(3L, chores, new ArrayList<>());
 
 		cleaningPlan.update(new Chore(2L, "two", 9876L));
 		assertThat(cleaningPlan)
@@ -29,7 +29,7 @@ public class CleaningPlanTest {
 		chores.add(createChore(1L, "one", 1234L));
 		chores.add(createChore(2L, "two", 1235L));
 		chores.add(createChore(3L, "three", 1236L));
-		CleaningPlan cleaningPlan = new CleaningPlan(4L, chores);
+		CleaningPlan cleaningPlan = new CleaningPlan(4L, chores, new ArrayList<>());
 
 		cleaningPlan.removeChore(2L);
 		assertThat(cleaningPlan)

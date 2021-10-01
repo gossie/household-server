@@ -5,21 +5,20 @@ import org.junit.jupiter.api.Test;
 import static household.cleaningplan.CleaningPlanDTOAssert.assertThat;
 import static java.util.Arrays.asList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CleaningPlanDTOMapperTest {
 
-	private CleaningPlanDTOMapper cleaningPlanMapper;
-
-	@Test
-	public void testMap() throws Exception {
-		cleaningPlanMapper = new CleaningPlanDTOMapper(new ChoreDTOMapper());
+    @Test
+	public void testMap() {
+        CleaningPlanDTOMapper cleaningPlanMapper = new CleaningPlanDTOMapper(new ChoreDTOMapper(), new TaskDTOMapper());
 
 		Chore chore1 = new Chore(2L, "chore1", 12345);
 		Chore chore2 = new Chore(3L, "chore2", 12346);
 
 		List<Chore> chores = asList(chore1, chore2);
-		CleaningPlan from = new CleaningPlan(1L, chores);
+		CleaningPlan from = new CleaningPlan(1L, chores, new ArrayList<>());
 
 		CleaningPlanDTO result = cleaningPlanMapper.map(from);
 

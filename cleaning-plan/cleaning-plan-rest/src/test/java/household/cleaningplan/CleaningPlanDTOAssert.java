@@ -25,8 +25,8 @@ public class CleaningPlanDTOAssert extends AbstractAssert<CleaningPlanDTOAssert,
 		return this;
 	}
 
-	public CleaningPlanDTOAssert chore(int index, Consumer<ChoreTOAssert> consumer) {
-		consumer.accept(ChoreTOAssert.assertThat(actual.getChores().get(index)));
+	public CleaningPlanDTOAssert chore(int index, Consumer<ChoreDTOAssert> consumer) {
+		consumer.accept(ChoreDTOAssert.assertThat(actual.getChores().get(index)));
 		return this;
 	}
 }

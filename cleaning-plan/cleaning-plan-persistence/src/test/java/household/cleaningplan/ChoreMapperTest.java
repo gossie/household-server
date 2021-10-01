@@ -10,7 +10,7 @@ public class ChoreMapperTest {
 	private ChoreMapper choreMapper;
 
 	@Test
-	public void testMap_toChoreTO() throws Exception {
+	public void testMap_toChoreTO() {
 		choreMapper = new ChoreMapper();
 
 		ChoreEntity from = new ChoreEntity(2L, "chore1", 12345, null);
@@ -21,7 +21,7 @@ public class ChoreMapperTest {
 	}
 
 	@Test
-	public void testMap_toChoreTO_repeatingChore_days() throws Exception {
+	public void testMap_toChoreTO_repeatingChore_days() {
 		choreMapper = new ChoreMapper();
 
 		ChoreEntity from = new ChoreEntity(2L, "chore1", 12345, new RepeatEntity(11L, 7));
@@ -36,7 +36,7 @@ public class ChoreMapperTest {
 	}
 
 	@Test
-	public void testMap_toChoreTO_repeatingChore_hours() throws Exception {
+	public void testMap_toChoreTO_repeatingChore_hours() {
 		choreMapper = new ChoreMapper();
 
 		ChoreEntity from = new ChoreEntity(2L, "chore1", 12345, new RepeatEntity(11L, 84, TimeUnit.HOURS));
@@ -51,7 +51,7 @@ public class ChoreMapperTest {
 	}
 
 	@Test
-	public void testMap_toChoreTO_repeatingChore_weeks() throws Exception {
+	public void testMap_toChoreTO_repeatingChore_weeks() {
 		choreMapper = new ChoreMapper();
 
 		ChoreEntity from = new ChoreEntity(2L, "chore1", 12345, new RepeatEntity(10L, 2, TimeUnit.WEEKS));
@@ -66,7 +66,7 @@ public class ChoreMapperTest {
 	}
 
 	@Test
-	public void testMap_toChore() throws Exception {
+	public void testMap_toChore() {
         choreMapper = new ChoreMapper();
 
 		Chore from = new Chore(2L, "chore1", 12345);
