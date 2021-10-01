@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs/index';
 import { CleaningPlan } from './cleaning-plan';
 import { Chore } from './chore/chore';
 import { Household } from '../household';
-import { Task } from './task/Task';
+import { Task } from './task/task';
 
 @Injectable()
 export class CleaningPlanServiceMock {
