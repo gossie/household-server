@@ -12,7 +12,7 @@ public class CleaningPlanServiceTest {
 	private CleaningPlanService cleaningPlanService;
 
 	@Test
-	public void testGetCleaningPlan() throws Exception {
+	public void testGetCleaningPlan() {
 		CleaningPlan expected = mock(CleaningPlan.class);
 		CleaningPlanRepository cleaningPlanRepository = mock(CleaningPlanRepository.class);
 		when(cleaningPlanRepository.determineCleaningPlan(1L)).thenReturn(expected);
@@ -24,7 +24,7 @@ public class CleaningPlanServiceTest {
 	}
 
 	@Test
-	public void testUpdate() throws Exception {
+	public void testUpdate() {
 		Chore input = mock(Chore.class);
 		CleaningPlan expected = mock(CleaningPlan.class);
 
@@ -41,7 +41,7 @@ public class CleaningPlanServiceTest {
 	}
 
 	@Test
-	public void testAddChore() throws Exception {
+	public void testAddChore() {
 		CleaningPlan cleaningPlan = mock(CleaningPlan.class);
 		CleaningPlan expected = mock(CleaningPlan.class);
 
@@ -59,7 +59,7 @@ public class CleaningPlanServiceTest {
 	}
 
 	@Test
-	public void testRemoveChore() throws Exception {
+	public void testRemoveChore() {
 		CleaningPlan cleaningPlan = mock(CleaningPlan.class);
 		CleaningPlan expected = mock(CleaningPlan.class);
 
@@ -75,7 +75,7 @@ public class CleaningPlanServiceTest {
 	}
 
 	@Test
-    public void testDeleteCleaningPlan() throws Exception {
+    public void testDeleteCleaningPlan() {
         CleaningPlanRepository cleaningPlanRepository = mock(CleaningPlanRepository.class);
 
 	    cleaningPlanService = new CleaningPlanService(cleaningPlanRepository);
@@ -83,5 +83,23 @@ public class CleaningPlanServiceTest {
 
 	    verify(cleaningPlanRepository).deleteCleaningPlan(3L);
 	}
+
+    @Test
+    public void testAddTask() {
+        CleaningPlan cleaningPlan = mock(CleaningPlan.class);
+        CleaningPlan expected = mock(CleaningPlan.class);
+
+        CleaningPlanRepository cleaningPlanRepository = mock(CleaningPlanRepository.class);
+        when(cleaningPlanRepository.determineCleaningPlan(1L)).thenReturn(cleaningPlan);
+        when(cleaningPlanRepository.saveCleaningPlan(cleaningPlan)).thenReturn(expected);
+
+        Task task = mock(Task.class);
+
+        cleaningPlanService = new CleaningPlanService(cleaningPlanRepository);
+        CleaningPlan actual = cleaningPlanService.addTask(1L, task);
+
+        assertThat(actual).isSameAs(expected);
+        verify(cleaningPlan).addTask(task);
+    }
 
 }

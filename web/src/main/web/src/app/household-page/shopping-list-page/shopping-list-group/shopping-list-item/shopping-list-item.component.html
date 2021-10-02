@@ -4,7 +4,7 @@
             <app-checkbox [label]="shoppingListItem.name"
                           [selected]="shoppingListItem.selected"
                           [ngClass]="{'selected': shoppingListItem.selected}"
-                          (click)="toggleShoppingListItem($event)"></app-checkbox>
+                          (click)="toggleShoppingListItem()"></app-checkbox>
             <span id="edit-mode-button" class="icon" (click)="enableEditMode()">
                 <i class="fas fa-pen"></i>
             </span>

@@ -10,13 +10,18 @@ import lombok.RequiredArgsConstructor;
 class CleaningPlanMapper {
 
 	private final ChoreMapper choreMapper;
+    private final TaskMapper taskMapper;
 
 	CleaningPlan map(CleaningPlanEntity from) {
 		List<Chore> chores = from.getChores().stream()
             .map(choreMapper::map)
             .collect(Collectors.toList());
 
-		return new CleaningPlan(from.getId(), chores);
+        List<Task> tasks = from.getTasks().stream()
+            .map(taskMapper::map)
+            .collect(Collectors.toList());
+
+		return new CleaningPlan(from.getId(), chores, tasks);
 	}
 
 	CleaningPlanEntity map(CleaningPlan from) {
@@ -24,6 +29,10 @@ class CleaningPlanMapper {
             .map(choreMapper::map)
             .collect(Collectors.toList());
 
-		return new CleaningPlanEntity(from.getId(), chores);
+        List<TaskEntity> tasks = from.getTasks().stream()
+            .map(taskMapper::map)
+            .collect(Collectors.toList());
+
+		return new CleaningPlanEntity(from.getId(), chores, tasks);
 	}
 }

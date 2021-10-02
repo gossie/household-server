@@ -13,4 +13,5 @@ public class CleaningPlanDTO extends AbstractDTO {
 
 	private final Long databaseId;
 	private final List<ChoreDTO> chores;
+    private final List<TaskDTO> tasks;
 }

@@ -6,6 +6,7 @@ import { CleaningPlan } from './cleaning-plan';
 import { AbstractNetworkService } from '../../abstract-network.service';
 import { Chore } from './chore/chore';
 import { Household } from '../household';
+import { Task } from './task/task';
 
 @Injectable({
     providedIn: 'root'
@@ -27,7 +28,7 @@ export class CleaningPlanService extends AbstractNetworkService {
     }
 
     public addChore(cleaningPlan: CleaningPlan, chore: Chore): Observable<CleaningPlan> {
-        const url: string = this.determineUrl(cleaningPlan, 'add');
+        const url: string = this.determineUrl(cleaningPlan, 'addChore');
 
         return this.httpClient.post<CleaningPlan>(url, chore, {
             headers: {
@@ -64,6 +65,28 @@ export class CleaningPlanService extends AbstractNetworkService {
         const url: string = this.determineUrl(chore, 'delete');
         return this.httpClient.delete<CleaningPlan>(url, {
             headers: {
+                Accept: 'application/vnd.household.v1+json'
+            }
+        });
+    }
+
+    public addTask(cleaningPlan: CleaningPlan, task: Task): Observable<CleaningPlan> {
+        const url: string = this.determineUrl(cleaningPlan, 'addTask');
+
+        return this.httpClient.post<CleaningPlan>(url, task, {
+            headers: {
+                'Content-Type': 'application/vnd.household.v1+json',
+                Accept: 'application/vnd.household.v1+json'
+            }
+        });
+    }
+
+    public selectTask(task: Task): Observable<CleaningPlan> {
+        const url: string = this.determineUrl(task, 'select');
+
+        return this.httpClient.patch<CleaningPlan>(url, task, {
+            headers: {
+                'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.v1+json'
             }
         });

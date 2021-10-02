@@ -19,17 +19,29 @@ public class CleaningPlanService {
 		return cleaningPlanRepository.saveCleaningPlan(cleaningPlan);
 	}
 
-	public CleaningPlan update(Long cleaningPlanId, Chore chore) {
-		CleaningPlan cleaningPlan = cleaningPlanRepository.determineCleaningPlan(cleaningPlanId);
-		cleaningPlan.update(chore);
-		return cleaningPlanRepository.saveCleaningPlan(cleaningPlan);
-	}
+    public CleaningPlan update(Long cleaningPlanId, Chore chore) {
+        CleaningPlan cleaningPlan = cleaningPlanRepository.determineCleaningPlan(cleaningPlanId);
+        cleaningPlan.update(chore);
+        return cleaningPlanRepository.saveCleaningPlan(cleaningPlan);
+    }
+
+    public CleaningPlan update(Long cleaningPlanId, Task task) {
+        CleaningPlan cleaningPlan = cleaningPlanRepository.determineCleaningPlan(cleaningPlanId);
+        cleaningPlan.update(task);
+        return cleaningPlanRepository.saveCleaningPlan(cleaningPlan);
+    }
 
 	public CleaningPlan removeChore(Long cleaningPlanId, Long choreId) {
 		CleaningPlan cleaningPlan = cleaningPlanRepository.determineCleaningPlan(cleaningPlanId);
 		cleaningPlan.removeChore(choreId);
 		return cleaningPlanRepository.saveCleaningPlan(cleaningPlan);
 	}
+
+    public CleaningPlan addTask(long cleaningPlanId, Task task) {
+        CleaningPlan cleaningPlan = cleaningPlanRepository.determineCleaningPlan(cleaningPlanId);
+        cleaningPlan.addTask(task);
+        return cleaningPlanRepository.saveCleaningPlan(cleaningPlan);
+    }
 
 	public CleaningPlan createCleaningPlan() {
 		return cleaningPlanRepository.createCleaningPlan();
@@ -38,4 +50,5 @@ public class CleaningPlanService {
 	public void deleteCleaningPlan(Long cleaningPlanId) {
         cleaningPlanRepository.deleteCleaningPlan(cleaningPlanId);
     }
+
 }

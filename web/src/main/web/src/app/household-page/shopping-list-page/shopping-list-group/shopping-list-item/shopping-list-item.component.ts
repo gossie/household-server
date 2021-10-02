@@ -26,7 +26,7 @@ export class ShoppingListItemComponent {
     constructor(private shoppingListService: ShoppingListService,
                 private formBuilder: FormBuilder) { }
 
-    public toggleShoppingListItem(event: any): void {
+    public toggleShoppingListItem(): void {
         if (!this.editMode) {
             this.shoppingListService.toggleShoppingListItem(this.shoppingListItem)
                 .subscribe((shoppingList: ShoppingList) => this.shoppingListEmitter.emit(shoppingList));

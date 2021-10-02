@@ -24,8 +24,12 @@ class CleaningPlanEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private final Long id;
 
-	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
-	private List<ChoreEntity> chores = new ArrayList<>();
+    private List<ChoreEntity> chores = new ArrayList<>();
+
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
+    private List<TaskEntity> tasks = new ArrayList<>();
 
 }

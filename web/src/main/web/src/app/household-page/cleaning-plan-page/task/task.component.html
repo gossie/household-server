@@ -1,0 +1,9 @@
+<div class="card">
+    <header class="card-header">
+        <p class="card-header-title">
+            <app-checkbox [label]="task.name"
+                          [selected]="task.done"
+                          [ngClass]="{'selected': task.done}"
+                          (click)="select()"></app-checkbox>
+        </p>
+    </header>
