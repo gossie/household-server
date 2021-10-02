@@ -7,6 +7,7 @@ export default class CleaningPlanPage {
     }
 
     public async addChore(name: string, interval: number) {
+        await browser.wait(ExpectedConditions.visibilityOf(element(by.css('#chore-name'))));
         await element(by.css('#chore-name')).sendKeys(name);
         await element(by.css('#chore-interval')).sendKeys(interval);
         return element(by.css('#add-chore-button')).click();
