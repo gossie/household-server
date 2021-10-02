@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { CleaningPlan } from './cleaning-plan';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CleaningPlanService } from './cleaning-plan.service';
@@ -26,7 +26,7 @@ export class CleaningPlanPageComponent implements OnInit, OnDestroy {
                 private cleaningPlanService: CleaningPlanService,
                 private formBuilder: FormBuilder) { }
 
-    public ngOnInit() {
+    public ngOnInit(): void {
         this.observeHousehold();
         this.createForms();
     }
@@ -88,6 +88,15 @@ export class CleaningPlanPageComponent implements OnInit, OnDestroy {
 
     public handleCleaningPlan(cleaningPlan: CleaningPlan): void {
         cleaningPlan.chores.sort((chore1: Chore, chore2: Chore) => chore1.nextTime - chore2.nextTime);
+        cleaningPlan.tasks.sort((task1, task2) => {
+            if (task1.done) {
+                return 1;
+            } else if (task2.done) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
         this.cleaningPlan = cleaningPlan;
         this.loading = false;
     }

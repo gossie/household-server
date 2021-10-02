@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.linkTo;
@@ -64,15 +65,18 @@ public class CleaningPlanController {
 	}
 
     private Mono<CleaningPlanDTO> addLinks(CleaningPlanDTO cleaningPlan) {
-	    return addSelfLink(cleaningPlan)
+        var choreFlux = addSelfLink(cleaningPlan)
             .flatMap(this::addAddChoreLink)
             .flatMap(this::addAddTaskLink)
             .flatMapIterable(CleaningPlanDTO::getChores)
             .flatMap(chore -> this.addSelectChoreLink(cleaningPlan.getDatabaseId(), chore))
             .flatMap(chore -> this.addDeleteChoreLink(cleaningPlan.getDatabaseId(), chore))
-            .flatMap(chore -> this.addSaveChoreLink(cleaningPlan.getDatabaseId(), chore))
-            .flatMapIterable(c -> cleaningPlan.getTasks())
-            .flatMap(task -> this.addSelectTaskLink(cleaningPlan.getDatabaseId(), task))
+            .flatMap(chore -> this.addSaveChoreLink(cleaningPlan.getDatabaseId(), chore));
+
+        var taskFlux = Flux.fromIterable(cleaningPlan.getTasks())
+            .flatMap(task -> this.addSelectTaskLink(cleaningPlan.getDatabaseId(), task));
+
+        return Flux.concat(choreFlux, taskFlux)
             .collect(() -> cleaningPlan, (a, b) -> {});
     }
 

@@ -7,16 +7,20 @@ import { CleaningPlanService } from './cleaning-plan.service';
 import { CleaningPlanServiceMock } from './cleaning-plan.service.mock';
 import { HouseholdService } from '../household.service';
 import { HouseholdServiceMock } from '../household.service.mock';
+import { Task } from './task/task';
 
 @Component({
     selector: [
-        'app-chore'
+        'app-chore',
+        'app-task'
     ].join(','),
     template: '',
 })
 class MockComponent{
     @Input()
     public chore: Chore;
+    @Input()
+    public task: Task;
 }
 
 describe('CleaningPlanPageComponent', () => {
@@ -79,4 +83,8 @@ describe('CleaningPlanPageComponent', () => {
         component.cleaningPlanForm.controls.repeat.setValue(-1);
         expect(component.cleaningPlanForm.valid).toBeFalsy();
     });
+
+    it('should sort tasks', () => {
+        expect(component.cleaningPlan.tasks).toEqual([{name: 'Task 2', done: false}, {name: 'Task 1', done: true}]);
+    })
 });

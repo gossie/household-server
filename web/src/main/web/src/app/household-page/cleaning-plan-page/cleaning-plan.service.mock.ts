@@ -13,7 +13,7 @@ export class CleaningPlanServiceMock {
     public determineCleaningPlan(household: Household): Observable<CleaningPlan> {
         return of({
             chores: [],
-            tasks: [],
+            tasks: [{name: 'Task 1', done: true}, {name: 'Task 2', done: false}],
             links: []
         });
     }

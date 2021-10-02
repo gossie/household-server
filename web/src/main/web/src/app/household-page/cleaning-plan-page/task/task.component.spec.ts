@@ -39,4 +39,5 @@ describe('TaskComponent', () => {
         const name = fixture.debugElement.query(By.css('.card-header-title')).nativeElement.innerText;
         expect(name).toBe('task');
     });
+    
 });

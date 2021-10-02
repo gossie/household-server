@@ -8,7 +8,7 @@ import { Task } from './task';
     templateUrl: './task.component.html',
     styleUrls: ['./task.component.sass']
 })
-export class TaskComponent implements OnInit {
+export class TaskComponent {
 
     @Input()
     public task: Task;
@@ -17,9 +17,6 @@ export class TaskComponent implements OnInit {
     public cleaningPlanEmitter: EventEmitter<CleaningPlan> = new EventEmitter();
 
     constructor(private cleaningPlanService: CleaningPlanService) { }
-
-    ngOnInit(): void {
-    }
 
     public select() {
         this.task.done = !this.task.done;
