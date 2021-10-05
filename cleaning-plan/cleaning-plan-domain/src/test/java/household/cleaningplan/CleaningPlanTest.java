@@ -18,7 +18,7 @@ public class CleaningPlanTest {
 
 		cleaningPlan.update(new Chore(2L, "two", 9876L));
 		assertThat(cleaningPlan)
-				.hasSize(2)
+				.numberOfChores(2)
 				.chore(0, choreAssert -> choreAssert.hasName("one").wasLastChangedAt(1234L))
 				.chore(1, choreAssert -> choreAssert.hasName("two").wasLastChangedAt(9876L));
 	}
@@ -33,7 +33,7 @@ public class CleaningPlanTest {
 
 		cleaningPlan.removeChore(2L);
 		assertThat(cleaningPlan)
-				.hasSize(2)
+				.numberOfChores(2)
 				.chore(0, choreAssert -> choreAssert.hasName("one").wasLastChangedAt(1234L))
 				.chore(1, choreAssert -> choreAssert.hasName("three").wasLastChangedAt(1236L));
 	}

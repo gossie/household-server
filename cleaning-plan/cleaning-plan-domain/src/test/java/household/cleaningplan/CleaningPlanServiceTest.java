@@ -24,7 +24,7 @@ public class CleaningPlanServiceTest {
 	}
 
 	@Test
-	public void testUpdate() {
+	public void testUpdateChore() {
 		Chore input = mock(Chore.class);
 		CleaningPlan expected = mock(CleaningPlan.class);
 
@@ -101,5 +101,21 @@ public class CleaningPlanServiceTest {
         assertThat(actual).isSameAs(expected);
         verify(cleaningPlan).addTask(task);
     }
+    
+    public void testUpdateTask() {
+		Task input = mock(Task.class);
+		CleaningPlan expected = mock(CleaningPlan.class);
+
+		CleaningPlan saved = mock(CleaningPlan.class);
+		CleaningPlanRepository cleaningPlanRepository = mock(CleaningPlanRepository.class);
+		when(cleaningPlanRepository.determineCleaningPlan(1L)).thenReturn(saved);
+		when(cleaningPlanRepository.saveCleaningPlan(saved)).thenReturn(expected);
+
+		cleaningPlanService = new CleaningPlanService(cleaningPlanRepository);
+		CleaningPlan actual = cleaningPlanService.update(1L, input);
+
+		assertThat(actual).isSameAs(expected);
+		verify(saved).update(input);
+	}
 
 }

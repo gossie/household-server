@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { CommonElementsModule } from 'src/app/common-elements/common-elements.module';
 import { CleaningPlanService } from '../cleaning-plan.service';
@@ -12,7 +13,7 @@ describe('TaskComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ CommonElementsModule ],
+            imports: [ CommonElementsModule, ReactiveFormsModule ],
             declarations: [ TaskComponent ],
             providers: [
                 { provide: CleaningPlanService, useClass: CleaningPlanServiceMock }

@@ -13,8 +13,7 @@ import { Task } from './task/task';
 })
 export class CleaningPlanService extends AbstractNetworkService {
 
-    constructor(private userService: UserService,
-                private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient) {
         super();
     }
 
@@ -42,7 +41,7 @@ export class CleaningPlanService extends AbstractNetworkService {
         const url: string = this.determineUrl(chore, 'select');
         chore.lastPerformed = Date.now();
 
-        return this.httpClient.patch<CleaningPlan>(url, chore, {
+        return this.httpClient.put<CleaningPlan>(url, chore, {
             headers: {
                 'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.v1+json'
@@ -53,7 +52,7 @@ export class CleaningPlanService extends AbstractNetworkService {
     public saveChore(chore: Chore): Observable<CleaningPlan> {
         const url: string = this.determineUrl(chore, 'save');
 
-        return this.httpClient.patch<CleaningPlan>(url, chore, {
+        return this.httpClient.put<CleaningPlan>(url, chore, {
             headers: {
                 'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.v1+json'
@@ -81,10 +80,10 @@ export class CleaningPlanService extends AbstractNetworkService {
         });
     }
 
-    public selectTask(task: Task): Observable<CleaningPlan> {
+    public saveTask(task: Task): Observable<CleaningPlan> {
         const url: string = this.determineUrl(task, 'select');
 
-        return this.httpClient.patch<CleaningPlan>(url, task, {
+        return this.httpClient.put<CleaningPlan>(url, task, {
             headers: {
                 'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.v1+json'

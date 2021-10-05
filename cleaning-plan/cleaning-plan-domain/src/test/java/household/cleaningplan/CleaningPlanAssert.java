@@ -21,13 +21,23 @@ public class CleaningPlanAssert extends AbstractAssert<CleaningPlanAssert, Clean
 		return this;
 	}
 
-	public CleaningPlanAssert hasSize(int amount) {
-		assertEquals(amount, actual.getChores().size());
-		return this;
-	}
+	public CleaningPlanAssert numberOfChores(int amount) {
+        assertEquals(amount, actual.getChores().size());
+        return this;
+    }
 
-	public CleaningPlanAssert chore(int index, Consumer<ChoreAssert> consumer) {
-		consumer.accept(ChoreAssert.assertThat(actual.getChores().get(index)));
-		return this;
-	}
+    public CleaningPlanAssert chore(int index, Consumer<ChoreAssert> consumer) {
+        consumer.accept(ChoreAssert.assertThat(actual.getChores().get(index)));
+        return this;
+    }
+
+    public CleaningPlanAssert numberOfTasks(int amount) {
+        assertEquals(amount, actual.getTasks().size());
+        return this;
+    }
+
+    public CleaningPlanAssert task(int index, Consumer<TaskAssert> consumer) {
+        consumer.accept(TaskAssert.assertThat(actual.getTasks().get(index)));
+        return this;
+    }
 }

@@ -1,9 +1,23 @@
 <div class="card">
-    <header class="card-header">
+    <header *ngIf="!editMode" class="card-header">
         <p class="card-header-title">
             <app-checkbox [label]="task.name"
                           [selected]="task.done"
                           [ngClass]="{'selected': task.done}"
                           (click)="select()"></app-checkbox>
+            <span id="edit-mode-button" class="icon" (click)="enableEditMode()">
+                <i class="fas fa-pen"></i>
+            </span>
         </p>
     </header>
+    <header *ngIf="editMode" class="card-header">
+        <form [formGroup]="editForm">
+            <p class="card-header-title">
+                <input id="edit-field" class="input" type="text" formControlName="name" />
+                <span id="save-button" class="icon" (click)="saveTask()">
+                    <i class="fas fa-save"></i>
+                </span>
+            </p>
+        </form>
+    </header>
+</div>

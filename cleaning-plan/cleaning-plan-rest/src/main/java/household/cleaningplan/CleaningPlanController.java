@@ -3,9 +3,9 @@ package household.cleaningplan;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,13 +34,13 @@ public class CleaningPlanController {
             .flatMap(this::addLinks);
 	}
 
-    @PatchMapping(path="/{cleaningPlanId}/chores/{choreId}", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
+    @PutMapping(path="/{cleaningPlanId}/chores/{choreId}", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
     public Mono<CleaningPlanDTO> updateChore(@PathVariable Long cleaningPlanId, @PathVariable Long choreId, @RequestBody ChoreDTO chore) {
         return Mono.just(cleaningPlanMapper.map(cleaningPlanService.update(cleaningPlanId, choreMapper.map(choreId, chore))))
             .flatMap(this::addLinks);
     }
 
-    @PatchMapping(path="/{cleaningPlanId}/tasks/{taskId}", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
+    @PutMapping(path="/{cleaningPlanId}/tasks/{taskId}", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
     public Mono<CleaningPlanDTO> updateTask(@PathVariable Long cleaningPlanId, @PathVariable Long taskId, @RequestBody TaskDTO task) {
         return Mono.just(cleaningPlanMapper.map(cleaningPlanService.update(cleaningPlanId, taskMapper.map(taskId, task))))
             .flatMap(this::addLinks);
