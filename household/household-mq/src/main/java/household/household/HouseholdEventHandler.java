@@ -7,7 +7,7 @@ import household.user.InvitationAcceptedEvent;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-class HouseholdEventHandler implements HouseholdObserver {
+class HouseholdEventHandler {
 
     private final EventBus eventBus;
     private final HouseholdService householdService;
@@ -24,9 +24,4 @@ class HouseholdEventHandler implements HouseholdObserver {
             }
         });
     }
-
-	@Override
-	public void onHouseholdDeletion(HouseholdDeletedEvent event) {
-		eventBus.post(event);
-	}
 }
