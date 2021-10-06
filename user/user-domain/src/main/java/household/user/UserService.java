@@ -2,7 +2,6 @@ package household.user;
 
 import java.util.List;
 
-import com.google.common.eventbus.EventBus;
 import lombok.RequiredArgsConstructor;
 import org.reactivestreams.Publisher;
 import org.springframework.stereotype.Component;
@@ -13,13 +12,8 @@ import javax.annotation.PostConstruct;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final EventBus eventBus;
     private final UserRepository userRepository;
-
-    @PostConstruct
-    public void init() {
-        eventBus.register(this);
-    }
+    private final List<UserObserver> userObservers;
 
     public User createUser(User user) {
         userRepository.determineUser(user.getEmail()).ifPresent(u -> {
@@ -63,7 +57,7 @@ public class UserService {
         userRepository.saveUser(user);
 
         List<User> leftUsers = userRepository.determineUsers(oldHouseholdId);
-        eventBus.post(new InvitationAcceptedEvent(oldHouseholdId, leftUsers));
+        userObservers.forEach(observer -> observer.onInvitationAccepted(new InvitationAcceptedEvent(oldHouseholdId, leftUsers)));
     }
 
     public void removeHouseholdFromUsers(Long householdId) {

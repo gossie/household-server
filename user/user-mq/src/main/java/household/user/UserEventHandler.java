@@ -7,7 +7,7 @@ import household.household.HouseholdDeletedEvent;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-class UserEventHandler {
+class UserEventHandler implements UserObserver {
 
     private final EventBus eventBus;
     private final UserService userService;
@@ -20,5 +20,10 @@ class UserEventHandler {
     public void onHouseholdDeletion(HouseholdDeletedEvent event) {
         userService.removeHouseholdFromUsers(event.getHousehold().getId());
     }
+
+	@Override
+	public void onInvitationAccepted(InvitationAcceptedEvent event) {
+		eventBus.post(event);
+	}
 
 }
