@@ -14,8 +14,8 @@ class UserMQContext {
     }
     
     @Bean
-    public UserEventEmiter userEventEmiter(EventBus eventBus) {
-    	return new UserEventEmiter(eventBus);
+    public UserEventEmitter userEventEmiter(EventBus eventBus) {
+    	return new UserEventEmitter(eventBus);
     }
 
 }

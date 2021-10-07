@@ -17,13 +17,17 @@ public class CookbookEventHandlerTest {
 
 	@Test
 	public void testOnHouseholdDeleted() throws Exception {
-		var shoppingListService = mock(CookbookService.class);
+		var cookbookService = mock(CookbookService.class);
 		var household = mock(Household.class);
+		when(household.getId()).thenReturn(1L);
 		when(household.getShoppingListId()).thenReturn(2L);
+		when(household.getCleaningPlanId()).thenReturn(3L);
+		when(household.getFoodPlanId()).thenReturn(4L);
+		when(household.getCookbookId()).thenReturn(5L);
 
-		shoppingListEventHandler = new CookbookEventHandler(mock(EventBus.class), shoppingListService);
-		shoppingListEventHandler.onHouseholdDeleted(new HouseholdDeletedEvent(household));
+		shoppingListEventHandler = new CookbookEventHandler(mock(EventBus.class), cookbookService);
+		shoppingListEventHandler.onHouseholdDeleted(new HouseholdDeletedEvent(1L, 2L, 3L, 4L, 5L));
 
-		verify(shoppingListService).deleteCookbook(2L);
+		verify(cookbookService).deleteCookbook(5L);
 	}
 }

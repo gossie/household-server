@@ -23,6 +23,14 @@ public class HouseholdService {
 	public void deleteHousehold(Long householdId) {
         Household household = householdRepository.determineHousehold(householdId);
         householdRepository.deleteHousehold(householdId);
-        householdObservers.forEach(observer -> observer.onHouseholdDeletion(new HouseholdDeletedEvent(household)));
+        householdObservers.forEach(observer -> observer.onHouseholdDeletion(
+        		new HouseholdDeletedEvent(
+        				household.getId(),
+        				household.getShoppingListId(),
+        				household.getCleaningPlanId(),
+        				household.getFoodPlanId(),
+        				household.getCookbookId()
+        		)
+        ));
     }
 }

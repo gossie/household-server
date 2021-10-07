@@ -14,8 +14,8 @@ class HouseholdMQContext {
     }
     
     @Bean
-    public HouseholdEventEmiter householdEventEmiter(EventBus eventBus) {
-    	return new HouseholdEventEmiter(eventBus);
+    public HouseholdEventEmitter householdEventEmiter(EventBus eventBus) {
+    	return new HouseholdEventEmitter(eventBus);
     }
 
 }

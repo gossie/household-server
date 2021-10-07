@@ -18,7 +18,7 @@ class UserEventHandler {
 
     @Subscribe
     public void onHouseholdDeletion(HouseholdDeletedEvent event) {
-        userService.removeHouseholdFromUsers(event.getHousehold().getId());
+        userService.removeHouseholdFromUsers(event.getHouseholdId());
     }
 
 

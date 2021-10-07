@@ -5,7 +5,7 @@ import com.google.common.eventbus.EventBus;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class UserEventEmiter implements UserObserver {
+public class UserEventEmitter implements UserObserver {
 
 	private final EventBus eventBus;
 	

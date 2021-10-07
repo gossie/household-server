@@ -13,13 +13,17 @@ class FoodPlanEventHandlerTest {
 
     @Test
     public void testOnHouseholdDeleted() throws Exception {
-        var shoppingListService = mock(FoodPlanService.class);
+        var foodPlanService = mock(FoodPlanService.class);
         var household = mock(Household.class);
-        when(household.getShoppingListId()).thenReturn(2L);
+		when(household.getId()).thenReturn(1L);
+		when(household.getShoppingListId()).thenReturn(2L);
+		when(household.getCleaningPlanId()).thenReturn(3L);
+		when(household.getFoodPlanId()).thenReturn(4L);
+		when(household.getCookbookId()).thenReturn(5L);
 
-        shoppingListEventHandler = new FoodPlanEventHandler(mock(EventBus.class), shoppingListService);
-        shoppingListEventHandler.onHouseholdDeleted(new HouseholdDeletedEvent(household));
+        shoppingListEventHandler = new FoodPlanEventHandler(mock(EventBus.class), foodPlanService);
+        shoppingListEventHandler.onHouseholdDeleted(new HouseholdDeletedEvent(1L, 2L, 3L, 4L, 5L));
 
-        verify(shoppingListService).deleteFoodPlan(2L);
+        verify(foodPlanService).deleteFoodPlan(4L);
     }
 }
