@@ -1,6 +1,7 @@
 package household.user;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import org.reactivestreams.Publisher;
@@ -56,8 +57,11 @@ public class UserService {
         user.acceptInvitation(invitationId);
         userRepository.saveUser(user);
 
-        List<User> leftUsers = userRepository.determineUsers(oldHouseholdId);
-        userObservers.forEach(observer -> observer.onInvitationAccepted(new InvitationAcceptedEvent(oldHouseholdId, leftUsers)));
+        List<Long> leftUserIds = userRepository.determineUsers(oldHouseholdId).stream()
+        		.map(User::getId)
+        		.collect(Collectors.toList());
+        
+        userObservers.forEach(observer -> observer.onInvitationAccepted(new InvitationAcceptedEvent(oldHouseholdId, leftUserIds)));
     }
 
     public void removeHouseholdFromUsers(Long householdId) {
