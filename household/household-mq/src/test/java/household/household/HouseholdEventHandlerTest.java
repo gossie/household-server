@@ -2,7 +2,6 @@ package household.household;
 
 import com.google.common.eventbus.EventBus;
 import household.user.InvitationAcceptedEvent;
-import household.user.User;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;

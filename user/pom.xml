@@ -20,6 +20,7 @@
     <description>ldwas household planner</description>
 
     <modules>
+		<module>user-events</module>
         <module>user-domain</module>
         <module>user-domain-test-utils</module>
         <module>user-persistence</module>

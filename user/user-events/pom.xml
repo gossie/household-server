@@ -11,36 +11,17 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>user-domain</artifactId>
+    <artifactId>user-events</artifactId>
     <packaging>jar</packaging>
 
-    <name>user-domain</name>
-    <description>Demo project for Spring Boot</description>
+    <name>user-events</name>
+    <description>Evens that notify about user changes</description>
 
     <dependencies>
-		<dependency>
-            <groupId>household</groupId>
-            <artifactId>user-events</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-        </dependency>
-	
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>javax.annotation-api</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.reactivestreams</groupId>
-            <artifactId>reactive-streams</artifactId>
         </dependency>
 
         <dependency>
