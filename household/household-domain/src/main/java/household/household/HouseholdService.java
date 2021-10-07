@@ -1,22 +1,16 @@
 package household.household;
 
-import com.google.common.eventbus.EventBus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class HouseholdService {
 
-    private final EventBus eventBus;
 	private final HouseholdRepository householdRepository;
-
-    @PostConstruct
-    public void init() {
-        eventBus.register(this);
-    }
+	private final List<HouseholdObserver> householdObservers;
 
 	public Household getHousehold(Long householdId) {
 		return householdRepository.determineHousehold(householdId);
@@ -29,6 +23,14 @@ public class HouseholdService {
 	public void deleteHousehold(Long householdId) {
         Household household = householdRepository.determineHousehold(householdId);
         householdRepository.deleteHousehold(householdId);
-        eventBus.post(new HouseholdDeletedEvent(household));
+        householdObservers.forEach(observer -> observer.onHouseholdDeletion(
+        		new HouseholdDeletedEvent(
+        				household.getId(),
+        				household.getShoppingListId(),
+        				household.getCleaningPlanId(),
+        				household.getFoodPlanId(),
+        				household.getCookbookId()
+        		)
+        ));
     }
 }

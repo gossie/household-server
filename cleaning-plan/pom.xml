@@ -12,9 +12,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>household</groupId>
     <artifactId>cleaning-plan-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>cleaning-plan-parent</name>

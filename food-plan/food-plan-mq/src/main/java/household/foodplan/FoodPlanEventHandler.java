@@ -17,7 +17,7 @@ class FoodPlanEventHandler {
 
     @Subscribe
     public void onHouseholdDeleted(HouseholdDeletedEvent event) {
-        foodPlanService.deleteFoodPlan(event.getHousehold().getShoppingListId());
+        foodPlanService.deleteFoodPlan(event.getFoodPlanId());
     }
 
 }

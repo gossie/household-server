@@ -21,6 +21,7 @@
     <description>ldwas household planner</description>
 
     <modules>
+    	<module>household-events</module>
         <module>household-domain</module>
         <module>household-domain-test-utils</module>
         <module>household-persistence</module>

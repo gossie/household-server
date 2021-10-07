@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 public class InvitationAcceptedEvent {
 
     private final Long oldHouseholdId;
-    private final List<User> leftUsers;
+    private final List<Long> leftUserIds;
 
     public Optional<Long> getOldHouseholdId() {
         return Optional.ofNullable(oldHouseholdId);

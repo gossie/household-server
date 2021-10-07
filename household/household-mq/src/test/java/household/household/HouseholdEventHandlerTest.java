@@ -2,7 +2,6 @@ package household.household;
 
 import com.google.common.eventbus.EventBus;
 import household.user.InvitationAcceptedEvent;
-import household.user.User;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
@@ -28,7 +27,7 @@ class HouseholdEventHandlerTest {
         HouseholdService HouseholdService = mock(HouseholdService.class);
 
         HouseholdEventHandler HouseholdEventHandler = new HouseholdEventHandler(mock(EventBus.class), HouseholdService);
-        HouseholdEventHandler.onInvitationAccepted(new InvitationAcceptedEvent(5L, Collections.singletonList(mock(User.class))));
+        HouseholdEventHandler.onInvitationAccepted(new InvitationAcceptedEvent(5L, Collections.singletonList(6L)));
 
         verifyNoInteractions(HouseholdService);
     }

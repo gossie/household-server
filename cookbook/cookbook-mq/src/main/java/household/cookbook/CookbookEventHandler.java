@@ -18,7 +18,7 @@ class CookbookEventHandler {
 
     @Subscribe
     public void onHouseholdDeleted(HouseholdDeletedEvent event) {
-        shoppingListService.deleteCookbook(event.getHousehold().getShoppingListId());
+        shoppingListService.deleteCookbook(event.getCookbookId());
     }
 
 }

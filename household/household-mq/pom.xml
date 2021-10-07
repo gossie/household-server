@@ -18,6 +18,11 @@
     <description>Demo project for Spring Boot</description>
 
     <dependencies>
+    	<dependency>
+            <groupId>household</groupId>
+            <artifactId>household-events</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>household</groupId>
             <artifactId>household-domain</artifactId>
@@ -25,8 +30,8 @@
         </dependency>
         <dependency>
             <groupId>household</groupId>
-            <artifactId>user-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>user-events</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>

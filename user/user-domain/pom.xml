@@ -18,6 +18,12 @@
     <description>Demo project for Spring Boot</description>
 
     <dependencies>
+		<dependency>
+            <groupId>household</groupId>
+            <artifactId>user-events</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+        </dependency>
+	
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -31,10 +37,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-        	<groupId>com.google.guava</groupId>
-        	<artifactId>guava</artifactId>
         </dependency>
         <dependency>
             <groupId>org.reactivestreams</groupId>

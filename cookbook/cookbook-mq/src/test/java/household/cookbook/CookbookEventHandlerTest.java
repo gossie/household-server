@@ -2,12 +2,10 @@ package household.cookbook;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import com.google.common.eventbus.EventBus;
 
 import household.household.HouseholdDeletedEvent;
-import household.household.Household;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,13 +15,11 @@ public class CookbookEventHandlerTest {
 
 	@Test
 	public void testOnHouseholdDeleted() throws Exception {
-		var shoppingListService = mock(CookbookService.class);
-		var household = mock(Household.class);
-		when(household.getShoppingListId()).thenReturn(2L);
+		var cookbookService = mock(CookbookService.class);
 
-		shoppingListEventHandler = new CookbookEventHandler(mock(EventBus.class), shoppingListService);
-		shoppingListEventHandler.onHouseholdDeleted(new HouseholdDeletedEvent(household));
+		shoppingListEventHandler = new CookbookEventHandler(mock(EventBus.class), cookbookService);
+		shoppingListEventHandler.onHouseholdDeleted(new HouseholdDeletedEvent(1L, 2L, 3L, 4L, 5L));
 
-		verify(shoppingListService).deleteCookbook(2L);
+		verify(cookbookService).deleteCookbook(5L);
 	}
 }
