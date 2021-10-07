@@ -7,40 +7,21 @@
 
     <parent>
         <groupId>household</groupId>
-        <artifactId>cookbook-parent</artifactId>
+        <artifactId>household-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>cookbook-mq</artifactId>
+    <artifactId>household-events</artifactId>
     <packaging>jar</packaging>
 
-    <name>cookbook-mq</name>
-    <description>Demo project for Spring Boot</description>
+    <name>household-events</name>
+    <description>Events that notify other modules</description>
 
     <dependencies>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>cookbook-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>household-events</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
         </dependency>
 
         <dependency>
