@@ -19,7 +19,7 @@ class HouseholdEventHandler {
     @Subscribe
     public void onInvitationAccepted(InvitationAcceptedEvent event) {
         event.getOldHouseholdId().ifPresent(oldHouseholdId -> {
-            if(event.getLeftUserIds().isEmpty()) {
+            if(event.leftUserIds().isEmpty()) {
                 householdService.deleteHousehold(oldHouseholdId);
             }
         });

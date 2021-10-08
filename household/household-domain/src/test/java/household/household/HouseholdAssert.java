@@ -14,7 +14,7 @@ public class HouseholdAssert extends AbstractAssert<HouseholdAssert, Household> 
 	}
 
 	public HouseholdAssert hasId(Long id) {
-		Assertions.assertThat(actual.getId()).isEqualTo(id);
+		Assertions.assertThat(actual.id()).isEqualTo(id);
 		return this;
 	}
 }

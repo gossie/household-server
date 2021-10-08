@@ -9,6 +9,6 @@ import lombok.RequiredArgsConstructor;
 class HouseholdDTOMapper {
 
 	HouseholdDTO map(Household household) {
-		return new HouseholdDTO(household.getId(), household.getShoppingListId(), household.getCleaningPlanId(), household.getFoodPlanId(), household.getCookbookId());
+		return new HouseholdDTO(household.id(), household.shoppingListId(), household.cleaningPlanId(), household.foodPlanId(), household.cookbookId());
 	}
 }

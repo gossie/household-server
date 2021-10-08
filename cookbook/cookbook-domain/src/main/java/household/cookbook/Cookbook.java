@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class Cookbook extends AbstractModel {
 
-	private List<Recipe> recipes;
+	private final List<Recipe> recipes;
 
     Cookbook(Long id, List<Recipe> recipes) {
 		super(id);

@@ -49,7 +49,7 @@ public class HouseholdController {
 		Household household = householdService.createHousehold(shoppingList.getId(), cleaningPlan.getId(), foodPlan.getId(), cookbook.getId());
 		return Mono.from(userService.determineCurrentUser())
             .map(currentUser -> {
-                currentUser.setHouseholdId(household.getId());
+                currentUser.setHouseholdId(household.id());
                 userService.updateUser(currentUser);
                 return household;
             })
@@ -65,7 +65,7 @@ public class HouseholdController {
 
 	private HouseholdDTO createResource(Household household) {
 		HouseholdDTO householdDTO = householdMapper.map(household);
-		userService.determineUsers(household.getId())
+		userService.determineUsers(household.id())
                 .stream()
                 .map(user -> new ParticipantDTO(user.getId(), user.getEmail()))
                 .forEach(householdDTO::addParticipant);

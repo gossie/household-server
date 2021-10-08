@@ -18,7 +18,7 @@ class CleaningPlanEventHandler {
 
     @Subscribe
     public void onHouseholdDeleted(HouseholdDeletedEvent event) {
-        cleaningPlanService.deleteCleaningPlan(event.getCleaningPlanId());
+        cleaningPlanService.deleteCleaningPlan(event.cleaningPlanId());
     }
 
 }

@@ -7,6 +7,6 @@ class HouseholdMapper {
 	}
 	
 	HouseholdEntity map(Household household) {
-		return new HouseholdEntity(household.getId(), household.getShoppingListId(), household.getCleaningPlanId(), household.getFoodPlanId(), household.getCookbookId());
+		return new HouseholdEntity(household.id(), household.shoppingListId(), household.cleaningPlanId(), household.foodPlanId(), household.cookbookId());
 	}
 }

@@ -18,7 +18,7 @@ class ShoppingListEventHandler {
 
     @Subscribe
     public void onHouseholdDeleted(HouseholdDeletedEvent event) {
-        shoppingListService.deleteShoppingList(event.getShoppingListId());
+        shoppingListService.deleteShoppingList(event.shoppingListId());
     }
 
 }

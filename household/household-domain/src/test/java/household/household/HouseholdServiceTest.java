@@ -15,7 +15,7 @@ public class HouseholdServiceTest {
 
 	@Test
 	public void testGetHousehold() throws Exception {
-		Household expected = mock(Household.class);
+		Household expected = new Household(1L, 2L, 3L, 4L, 5L);
 
 		HouseholdRepository householdRepository = mock(HouseholdRepository.class);
 		when(householdRepository.determineHousehold(7L)).thenReturn(expected);

@@ -25,11 +25,11 @@ public class HouseholdService {
         householdRepository.deleteHousehold(householdId);
         householdObservers.forEach(observer -> observer.onHouseholdDeletion(
         		new HouseholdDeletedEvent(
-        				household.getId(),
-        				household.getShoppingListId(),
-        				household.getCleaningPlanId(),
-        				household.getFoodPlanId(),
-        				household.getCookbookId()
+        				household.id(),
+        				household.shoppingListId(),
+        				household.cleaningPlanId(),
+        				household.foodPlanId(),
+        				household.cookbookId()
         		)
         ));
     }
