@@ -23,3 +23,5 @@ Each module is implemented using a [hexagonal architecture](https://alistair.coc
   Implements the observer interface of the domain. This implementation publishes an event that can be consumed by other modules. It also provides an event handler that consumes events from other modules and delegates that action to the domain service.
 
 ![Module](/architecture02.png)
+
+This design makes sure, that rest, messaging and persistence depend on the domain sub project. That way there are no unwanted transitive dependencies, for example a REST controller has no access to the underlying database connector.
