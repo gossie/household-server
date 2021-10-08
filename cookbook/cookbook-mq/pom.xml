@@ -11,10 +11,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>cookbook-mq</artifactId>
+    <artifactId>cookbook-messaging</artifactId>
     <packaging>jar</packaging>
 
-    <name>cookbook-mq</name>
+    <name>cookbook-messaging</name>
     <description>Demo project for Spring Boot</description>
 
     <dependencies>

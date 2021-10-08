@@ -25,7 +25,7 @@
         </dependency>
         <dependency>
             <groupId>household</groupId>
-            <artifactId>shopping-list-mq</artifactId>
+            <artifactId>shopping-list-messaging</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -40,7 +40,7 @@
         </dependency>
         <dependency>
             <groupId>household</groupId>
-            <artifactId>cleaning-plan-mq</artifactId>
+            <artifactId>cleaning-plan-messaging</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -55,7 +55,7 @@
         </dependency>
         <dependency>
             <groupId>household</groupId>
-            <artifactId>food-plan-mq</artifactId>
+            <artifactId>food-plan-messaging</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -70,7 +70,7 @@
         </dependency>
         <dependency>
             <groupId>household</groupId>
-            <artifactId>cookbook-mq</artifactId>
+            <artifactId>cookbook-messaging</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -85,7 +85,7 @@
         </dependency>
         <dependency>
             <groupId>household</groupId>
-            <artifactId>user-mq</artifactId>
+            <artifactId>user-messaging</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -100,7 +100,7 @@
         </dependency>
         <dependency>
             <groupId>household</groupId>
-            <artifactId>household-mq</artifactId>
+            <artifactId>household-messaging</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

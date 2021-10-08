@@ -24,6 +24,6 @@
         <module>cookbook-domain-test-utils</module>
         <module>cookbook-persistence</module>
         <module>cookbook-rest</module>
-        <module>cookbook-mq</module>
+        <module>cookbook-messaging</module>
     </modules>
 </project>

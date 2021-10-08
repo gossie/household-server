@@ -11,10 +11,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>food-plan-mq</artifactId>
+    <artifactId>food-plan-messaging</artifactId>
     <packaging>jar</packaging>
 
-    <name>food-plan-mq</name>
+    <name>food-plan-messaging</name>
     <description>Demo project for Spring Boot</description>
 
     <dependencies>

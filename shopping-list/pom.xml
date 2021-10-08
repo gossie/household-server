@@ -24,6 +24,6 @@
         <module>shopping-list-domain-test-utils</module>
         <module>shopping-list-persistence</module>
         <module>shopping-list-rest</module>
-        <module>shopping-list-mq</module>
+        <module>shopping-list-messaging</module>
     </modules>
 </project>

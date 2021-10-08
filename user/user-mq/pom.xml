@@ -11,10 +11,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>user-mq</artifactId>
+    <artifactId>user-messaging</artifactId>
     <packaging>jar</packaging>
 
-    <name>user-mq</name>
+    <name>user-messaging</name>
     <description>Demo project for Spring Boot</description>
 
     <dependencies>

@@ -11,10 +11,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>household-mq</artifactId>
+    <artifactId>household-messaging</artifactId>
     <packaging>jar</packaging>
 
-    <name>household-mq</name>
+    <name>household-messaging</name>
     <description>Demo project for Spring Boot</description>
 
     <dependencies>

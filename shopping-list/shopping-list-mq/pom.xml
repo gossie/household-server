@@ -11,10 +11,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>shopping-list-mq</artifactId>
+    <artifactId>shopping-list-messaging</artifactId>
     <packaging>jar</packaging>
 
-    <name>shopping-list-mq</name>
+    <name>shopping-list-messaging</name>
     <description>Demo project for Spring Boot</description>
 
     <dependencies>

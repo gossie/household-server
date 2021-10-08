@@ -23,6 +23,6 @@
         <module>cleaning-plan-domain-test-utils</module>
         <module>cleaning-plan-persistence</module>
         <module>cleaning-plan-rest</module>
-        <module>cleaning-plan-mq</module>
+        <module>cleaning-plan-messaging</module>
     </modules>
 </project>

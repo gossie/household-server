@@ -26,6 +26,6 @@
         <module>household-domain-test-utils</module>
         <module>household-persistence</module>
         <module>household-rest</module>
-        <module>household-mq</module>
+        <module>household-messaging</module>
     </modules>
 </project>
