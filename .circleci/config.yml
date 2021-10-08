@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: gossiemcschreck/ldwas-ci:1.4
+      - image: gossiemcschreck/ldwas-ci:1.5
 
     working_directory: ~/repo
 
