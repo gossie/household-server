@@ -104,3 +104,4 @@ Thumbs.db
 web/src/main/web/dist
 web/src/main/web/node
 web/src/main/web/coverage
+web/src/main/web/.angular
