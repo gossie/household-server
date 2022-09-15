@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs/index";
 import { InvitationService } from "../../common-elements/invitation/invitation.service";
 import { Household } from "../household";
@@ -16,7 +16,7 @@ export class CoverPageComponent implements OnInit, OnDestroy {
 
     public user: User;
     public household: Household;
-    public invitationForm: FormGroup;
+    public invitationForm: UntypedFormGroup;
 
     private subscriptions: Array<Subscription> = [];
     private loading: boolean = false;
@@ -25,7 +25,7 @@ export class CoverPageComponent implements OnInit, OnDestroy {
     constructor(private userService: UserService,
                 private householdService: HouseholdService,
                 private invitationService: InvitationService,
-                private formBuilder: FormBuilder) { }
+                private formBuilder: UntypedFormBuilder) { }
 
     public ngOnInit(): void {
         this.observeUser();

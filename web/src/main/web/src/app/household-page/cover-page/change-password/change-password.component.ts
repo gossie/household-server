@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { User } from "../../../user";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { UserService } from "../../../user.service";
 import { PasswordValidation } from "./password-validation";
 
@@ -14,12 +14,12 @@ export class ChangePasswordComponent implements OnInit {
     @Input()
     public user: User;
 
-    public form: FormGroup;
+    public form: UntypedFormGroup;
     public loading: boolean = false;
     public successVisible = false;
     public errorVisible: boolean = false;
 
-    constructor(private formBuilder: FormBuilder,
+    constructor(private formBuilder: UntypedFormBuilder,
                 private userService: UserService) { }
 
     public ngOnInit() {

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ShoppingList } from "./shopping-list";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { ShoppingListService } from "./shopping-list.service";
 import { HouseholdService } from "../household.service";
 import { Household } from "../household";
@@ -14,14 +14,14 @@ import { Subscription } from "rxjs/index";
 export class ShoppingListPageComponent implements OnInit, OnDestroy {
 
     public shoppingList: ShoppingList;
-    public shoppingListGroupForm: FormGroup;
+    public shoppingListGroupForm: UntypedFormGroup;
 
     private subscriptions: Array<Subscription> = [];
     private loading: boolean = false;
 
     constructor(private householdService: HouseholdService,
                 private shoppingListService: ShoppingListService,
-                private formBuilder: FormBuilder) { }
+                private formBuilder: UntypedFormBuilder) { }
 
     public ngOnInit(): void {
         this.observeHousehold();

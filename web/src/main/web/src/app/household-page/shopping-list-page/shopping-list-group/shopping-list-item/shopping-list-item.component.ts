@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ShoppingListItem } from './shopping-list-item';
 import { ShoppingListService } from '../../shopping-list.service';
 import { ShoppingList } from '../../shopping-list';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Link } from 'src/app/model';
 import '@gossie/array-pipe';
 import { filter, map } from '@gossie/array-pipe/operators';
@@ -20,11 +20,11 @@ export class ShoppingListItemComponent {
     public shoppingListEmitter: EventEmitter<ShoppingList> = new EventEmitter();
 
     public editMode = false;
-    public editForm: FormGroup;
+    public editForm: UntypedFormGroup;
     public showImage = false;
 
     constructor(private shoppingListService: ShoppingListService,
-                private formBuilder: FormBuilder) { }
+                private formBuilder: UntypedFormBuilder) { }
 
     public toggleShoppingListItem(): void {
         if (!this.editMode) {

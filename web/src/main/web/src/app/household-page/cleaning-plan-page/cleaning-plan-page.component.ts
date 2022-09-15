@@ -1,6 +1,6 @@
 import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { CleaningPlan } from './cleaning-plan';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CleaningPlanService } from './cleaning-plan.service';
 import { Chore } from './chore/chore';
 import { Task } from './task/task';
@@ -16,15 +16,15 @@ import { HouseholdService } from '../household.service';
 export class CleaningPlanPageComponent implements OnInit, OnDestroy {
 
     public cleaningPlan: CleaningPlan;
-    public cleaningPlanForm: FormGroup;
-    public taskForm: FormGroup;
+    public cleaningPlanForm: UntypedFormGroup;
+    public taskForm: UntypedFormGroup;
 
     private subscriptions: Array<Subscription> = [];
     private loading = false;
 
     constructor(private householdService: HouseholdService,
                 private cleaningPlanService: CleaningPlanService,
-                private formBuilder: FormBuilder) { }
+                private formBuilder: UntypedFormBuilder) { }
 
     public ngOnInit(): void {
         this.observeHousehold();

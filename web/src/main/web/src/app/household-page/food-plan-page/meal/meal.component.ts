@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Meal } from './meal';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { CookbookService } from '../../cookbook-page/cookbook.service';
 import { Cookbook } from '../../cookbook-page/cookbook';
 import { Subscription } from 'rxjs/index';
@@ -29,7 +29,7 @@ export class MealComponent implements OnInit, OnDestroy {
     @Input()
     public controlName: string;
     @Input()
-    public parentForm: FormGroup;
+    public parentForm: UntypedFormGroup;
     @Output()
     public foodPlanEmitter: EventEmitter<FoodPlan> = new EventEmitter();
     @Output()
@@ -54,7 +54,7 @@ export class MealComponent implements OnInit, OnDestroy {
     }
 
     private createForm(): void {
-        const formControl = new FormControl(this.meal.name);
+        const formControl = new UntypedFormControl(this.meal.name);
         formControl.valueChanges.subscribe(() => this.searchForRecipes());
         this.parentForm.addControl(this.controlName, formControl);
     }

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Ingredient } from '../../recipe/ingredient/ingredient';
 
 @Component({
@@ -21,9 +21,9 @@ export class IngredientFormComponent implements OnInit {
     @Output()
     public ingredientEmitter: EventEmitter<Ingredient> = new EventEmitter();
 
-    public ingredientForm: FormGroup;
+    public ingredientForm: UntypedFormGroup;
 
-    constructor(private formBuilder: FormBuilder) { }
+    constructor(private formBuilder: UntypedFormBuilder) { }
 
     public ngOnInit(): void {
         this.ingredientForm = this.formBuilder.group({

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MealComponent } from './meal.component';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CookbookService } from '../../cookbook-page/cookbook.service';
 import { CookbookServiceMock } from '../../cookbook-page/cookbook.service.mock';
 import { By } from '@angular/platform-browser';
@@ -36,7 +36,7 @@ describe('MealComponent', () => {
         component.day = 'Montag';
         component.date = new Date(2020, 2, 1);
         component.controlName = 'monday';
-        component.parentForm = new FormGroup({});
+        component.parentForm = new UntypedFormGroup({});
         component.cookbook = {
             recipes: [
                 {

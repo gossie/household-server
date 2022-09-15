@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { ShoppingListGroup } from './shopping-list-group';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ShoppingList } from '../shopping-list';
 import { ShoppingListService } from '../shopping-list.service';
 import { ShoppingListItem } from './shopping-list-item/shopping-list-item';
@@ -20,7 +20,7 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges, OnDestroy 
     @Output()
     public shoppingListEmitter: EventEmitter<ShoppingList> = new EventEmitter();
 
-    public shoppingListItemForm: FormGroup;
+    public shoppingListItemForm: UntypedFormGroup;
     public clearButtonActive: boolean;
     public checked: boolean;
     public loading = false;
@@ -31,7 +31,7 @@ export class ShoppingListGroupComponent implements OnInit, OnChanges, OnDestroy 
 
     constructor(private shoppingListService: ShoppingListService,
                 private deleteHintService: DeleteHintService,
-                private formBuilder: FormBuilder) { }
+                private formBuilder: UntypedFormBuilder) { }
 
     public ngOnInit(): void {
         this.expanded = this.isInitiallyExpanded();

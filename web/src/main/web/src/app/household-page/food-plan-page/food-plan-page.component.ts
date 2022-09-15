@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FoodPlan } from './food-plan';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { FoodPlanService } from './food-plan.service';
 import { Subscription } from 'rxjs/index';
 import { HouseholdService } from '../household.service';
@@ -23,7 +23,7 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
 
     public cookbook: Cookbook;
     public foodPlan: FoodPlan;
-    public foodPlanForm: FormGroup;
+    public foodPlanForm: UntypedFormGroup;
     public selectedRecipe: Recipe;
     public dates: Array<Date> = new Array(7);
 
@@ -37,7 +37,7 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
                 private shoppingListService: ShoppingListService,
                 private foodPlanService: FoodPlanService,
                 private deleteHintService: DeleteHintService,
-                private formBuilder: FormBuilder) { }
+                private formBuilder: UntypedFormBuilder) { }
 
     public ngOnInit(): void {
         this.observeUndo();

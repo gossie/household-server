@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Ingredient } from '../recipe/ingredient/ingredient';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CookbookService } from '../cookbook.service';
 import { Cookbook } from '../cookbook';
 import { Recipe } from '../recipe/recipe';
@@ -23,9 +23,9 @@ export class AddRecipeComponent implements OnInit, OnChanges {
     public open = false;
     public loading = false;
     public ingredients: Array<Ingredient> = [];
-    public recipeForm: FormGroup;
+    public recipeForm: UntypedFormGroup;
 
-    constructor(private formBuilder: FormBuilder,
+    constructor(private formBuilder: UntypedFormBuilder,
                 private cookbookService: CookbookService) { }
 
     public ngOnInit() {

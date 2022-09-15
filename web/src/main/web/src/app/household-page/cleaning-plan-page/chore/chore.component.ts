@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angu
 import { Chore } from './chore';
 import { CleaningPlanService } from "../cleaning-plan.service";
 import { CleaningPlan } from "../cleaning-plan";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs/index";
 import { DeleteHintService } from "../../delete-hint.service";
 
@@ -21,7 +21,7 @@ export class ChoreComponent implements OnInit, OnDestroy {
     @Output()
     public cleaningPlanEmitter: EventEmitter<CleaningPlan> = new EventEmitter();
 
-    public choreForm: FormGroup;
+    public choreForm: UntypedFormGroup;
     public expanded: boolean = false;
     public readonly: boolean = true;
     public loading: boolean = false;
@@ -30,7 +30,7 @@ export class ChoreComponent implements OnInit, OnDestroy {
 
     constructor(private cleaningPlanService: CleaningPlanService,
                 private deleteHintService: DeleteHintService,
-                private formBuilder: FormBuilder) { }
+                private formBuilder: UntypedFormBuilder) { }
 
     public ngOnInit(): void {
         this.observeUndo();
