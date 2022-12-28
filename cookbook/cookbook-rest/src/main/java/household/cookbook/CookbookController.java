@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import reactor.core.publisher.Mono;
 
-import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.methodOn;
+import org.springframework.hateoas.Link;
 
 @RestController
 @RequestMapping("/api/cookbooks")
@@ -27,33 +25,28 @@ public class CookbookController {
 	private final CookbookService cookbookService;
 
 	@GetMapping(path="/{cookbookId}", produces={"application/vnd.household.min.v1+json"})
-	public Mono<CookbookDTO> getMinifiedRecipes(@PathVariable Long cookbookId) {
-		return Mono.just(createResource(cookbookService.getMinifiedCookbook(cookbookId)))
-            .flatMap(this::addLinks);
+	public CookbookDTO getMinifiedRecipes(@PathVariable Long cookbookId) {
+		return addLinks(createResource(cookbookService.getMinifiedCookbook(cookbookId)));
 	}
 
 	@GetMapping(path="/{cookbookId}/recipes/{recipeId}", produces={"application/vnd.household.v1+json"})
-	public Mono<RecipeDTO> getRecipe(@PathVariable Long cookbookId, @PathVariable Long recipeId) {
-		return Mono.just(createResource(cookbookService.getRecipe(cookbookId, recipeId)))
-            .flatMap(recipe -> addRecipeSelfLink(cookbookId, recipe));
+	public RecipeDTO getRecipe(@PathVariable Long cookbookId, @PathVariable Long recipeId) {
+		return addRecipeSelfLink(cookbookId, createResource(cookbookService.getRecipe(cookbookId, recipeId)));
 	}
 
 	@PutMapping(path="/{cookbookId}/recipes/{recipeId}", produces={"application/vnd.household.min.v1+json"}, consumes={"application/vnd.household.v1+json"})
-	public Mono<CookbookDTO> editRecipe(@PathVariable Long cookbookId, @PathVariable Long recipeId, @RequestBody RecipeDTO recipe) {
-		return Mono.just(createResource(cookbookService.editRecipe(cookbookId, recipeId, recipeMapper.map(recipe))))
-            .flatMap(this::addLinks);
+	public CookbookDTO editRecipe(@PathVariable Long cookbookId, @PathVariable Long recipeId, @RequestBody RecipeDTO recipe) {
+		return addLinks(createResource(cookbookService.editRecipe(cookbookId, recipeId, recipeMapper.map(recipe))));
 	}
 
     @DeleteMapping(path="/{cookbookId}/recipes/{recipeId}", produces={"application/vnd.household.min.v1+json"})
-	public Mono<CookbookDTO> deleteRecipe(@PathVariable Long cookbookId, @PathVariable Long recipeId) {
-		return Mono.just(createResource(cookbookService.deleteRecipe(cookbookId, recipeId)))
-            .flatMap(this::addLinks);
+	public CookbookDTO deleteRecipe(@PathVariable Long cookbookId, @PathVariable Long recipeId) {
+		return addLinks(createResource(cookbookService.deleteRecipe(cookbookId, recipeId)));
 	}
 
 	@PostMapping(path="/{cookbookId}/recipes", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.min.v1+json"})
-	public Mono<CookbookDTO> addRecipe(@PathVariable Long cookbookId, @RequestBody RecipeDTO recipe) {
-		return Mono.just(createResource(cookbookService.addRecipe(cookbookId, recipeMapper.map(recipe))))
-            .flatMap(this::addLinks);
+	public CookbookDTO addRecipe(@PathVariable Long cookbookId, @RequestBody RecipeDTO recipe) {
+		return addLinks(createResource(cookbookService.addRecipe(cookbookId, recipeMapper.map(recipe))));
 	}
 
 	private CookbookDTO createResource(Cookbook cookbook) {
@@ -64,35 +57,21 @@ public class CookbookController {
 		return recipeMapper.map(recipe);
 	}
 
-    private Mono<CookbookDTO> addLinks(CookbookDTO cookbook) {
-         return addCookbookSelfLink(cookbook)
-             .flatMap(this::createRecipeLink)
-             .flatMapIterable(CookbookDTO::getRecipes)
-             .flatMap(recipe -> addRecipeSelfLink(cookbook.getDatabaseId(), recipe))
-             .collect(() -> cookbook, (a, b) -> {});
+    private CookbookDTO addLinks(CookbookDTO cookbook) {
+        return addCookbookSelfLink(createRecipeLink(cookbook)).getRecipes().stream()
+            .map(recipe -> addRecipeSelfLink(cookbook.getDatabaseId(), recipe))
+            .reduce(cookbook, (c, r) -> c, (r, c) -> c);
     }
 
-    private Mono<RecipeDTO> addRecipeSelfLink(Long cookbookId, RecipeDTO recipe) {
-        return linkTo(methodOn(CookbookController.class).getRecipe(cookbookId, recipe.getDatabaseId()))
-            .withSelfRel()
-            .toMono()
-            .map(recipe::add)
-            .map(RecipeDTO.class::cast);
+    private RecipeDTO addRecipeSelfLink(Long cookbookId, RecipeDTO recipe) {
+        return (RecipeDTO) recipe.add(Link.of("/api/cookbooks/" + cookbookId + "/recipes/" + recipe.getDatabaseId()));
     }
 
-    private Mono<CookbookDTO> addCookbookSelfLink(CookbookDTO cookbook) {
-        return linkTo(methodOn(CookbookController.class).getMinifiedRecipes(cookbook.getDatabaseId()))
-            .withSelfRel()
-            .toMono()
-            .map(cookbook::add)
-            .map(CookbookDTO.class::cast);
+    private CookbookDTO addCookbookSelfLink(CookbookDTO cookbook) {
+        return (CookbookDTO) cookbook.add(Link.of("/api/cookbooks/" + cookbook.getDatabaseId()));
     }
 
-    private Mono<CookbookDTO> createRecipeLink(CookbookDTO cookbook) {
-        return linkTo(methodOn(CookbookController.class).addRecipe(cookbook.getDatabaseId(), null))
-            .withRel("create")
-            .toMono()
-            .map(cookbook::add)
-            .map(CookbookDTO.class::cast);
+    private CookbookDTO createRecipeLink(CookbookDTO cookbook) {
+        return (CookbookDTO) cookbook.add(Link.of("/api/cookbooks/" + cookbook.getDatabaseId() + "/recipes", "create"));
     }
 }

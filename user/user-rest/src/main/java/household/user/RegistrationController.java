@@ -1,50 +1,27 @@
 package household.user;
 
-import java.util.Objects;
-
-import org.springframework.security.web.server.csrf.CsrfToken;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.server.ServerWebExchange;
-import reactor.core.publisher.Mono;
 
-@Controller
-@RequestMapping("registrations")
+@RestController
+@RequestMapping("/api/registrations")
+@CrossOrigin
 @RequiredArgsConstructor
 public class RegistrationController {
 
 	private final UserService userService;
+    private final UserDTOMapper userMapper;
 
-	@PostMapping
-	public Mono<String> createUser(ServerWebExchange exchange, Model model) {
-	    return exchange.getAttributeOrDefault(CsrfToken.class.getName(), Mono.empty())
-            .flatMap(csrf -> determinePage(csrf, exchange, model));
+	@PostMapping(consumes = {"application/vnd.household.v1+json"}, produces = {"application/vnd.household.v1+json"})
+	public UserDTO createUser(@RequestBody UserRegistrationData registrationData) {
+	    return userMapper.map(
+            userService.createUser(new User(null, registrationData.email(), registrationData.password()))
+        );
     }
 
-    private Mono<String> determinePage(Object csrf, ServerWebExchange exchange, Model model) {
-	    return exchange.getFormData()
-            .map(data -> {
-                model.addAttribute("_csrf", csrf);
-                if (!Objects.equals(data.getFirst("password"), data.getFirst("passwordRepeat"))) {
-                    model.addAttribute("errorMessage", "Die Passwörter stimmen nicht überein.");
-                    return "registration";
-                } else  if (data.getFirst("dataProtection") == null) {
-                    model.addAttribute("errorMessage", "Bitte stimmen Sie den Datenschutz-Bestimmungen zu.");
-                    return "registration";
-                } else {
-                    try {
-                        userService.createUser(new User(null, ((String) data.getFirst("email")), ((String) data.getFirst("password"))));
-                        model.addAttribute("successMessage", "Benutzer wurde angelegt");
-                        return "login";
-                    } catch(UserAlreadyExistsException e) {
-                        model.addAttribute("errorMessage", "Die E-Mail Adresse ist schon vergeben.");
-                        return "registration";
-                    }
-                }
-            });
-    }
 }

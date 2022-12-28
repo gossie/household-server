@@ -1,11 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LoginPageComponent } from './login-page/login-page.component';
 import { Page } from './page.enum';
+import { RegistrationPageComponent } from './registration-page/registration-page.component';
 
 const routes: Routes = [{
         path: '',
-        redirectTo: `${Page.Cover}`,
+        redirectTo: `${Page.Login}`,
         pathMatch: 'full'
+    },
+    {
+        path: Page.Login,
+        component: LoginPageComponent
+    },
+    {
+        path: Page.Register,
+        component: RegistrationPageComponent
     },
     {
         path: Page.Cover,

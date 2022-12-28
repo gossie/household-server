@@ -1,9 +1,11 @@
 package household.user;
 
+import java.security.Principal;
 import java.util.Map;
 
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +18,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import reactor.core.publisher.Mono;
-
-import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api/users")
@@ -31,19 +29,19 @@ public class UserController {
     private final UserDTOMapper userMapper;
 
     @PutMapping(path="/{userId}",  consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
-    public Mono<UserDTO> changePassword(@PathVariable Long userId, @RequestBody Map<String, String> data) {
+    public UserDTO changePassword(@PathVariable Long userId, @RequestBody Map<String, String> data) {
+        // TODO make safe
         User user = userService.changePassword(userId, data.get("currentPassword"), data.get("newPassword"));
-        return Mono.just(createResource(user))
-            .flatMap(this::addLinks);
+        return addLinks(createResource(user));
     }
 
     @GetMapping(path="/current", produces={"application/vnd.household.v1+json"})
-    public Mono<UserDTO> getCurrentUser() {
+    public ResponseEntity<UserDTO> getCurrentUser(Principal principal) {
         // TODO
         try {
-            return Mono.from(userService.determineCurrentUser())
+            return ResponseEntity.of(userService.determineUser(principal.getName())
                 .map(this::createResource)
-                .flatMap(this::addLinks);
+                .map(this::addLinks));
         } catch(IllegalStateException e) {
             throw new NotAuthenticatedException(e);
         }
@@ -51,12 +49,11 @@ public class UserController {
 
     @PostMapping(path="/{userId}/invitations", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
     @ResponseStatus(value = HttpStatus.OK)
-    public Mono<UserDTO> invite(@PathVariable Long userId, @RequestBody InvitationRequestDTO invitation) {
+    public UserDTO invite(@PathVariable Long userId, @RequestBody InvitationRequestDTO invitation) {
         User invitingUser = userService.determineUser(userId);
         try {
             userService.invite(invitation.getEmail(), invitingUser);
-            return Mono.just(createResource(invitingUser))
-                .flatMap(this::addLinks);
+            return addLinks(createResource(invitingUser));
         } catch(IllegalStateException e) {
             throw new NotFoundException(e);
         }
@@ -64,72 +61,50 @@ public class UserController {
 
     @PostMapping(path="/{userId}/invitations/{invitationId}", produces={"application/vnd.household.v1+json"})
     @ResponseStatus(value = HttpStatus.OK)
-    public Mono<UserDTO> acceptInvitation(@PathVariable Long userId, @PathVariable Long invitationId) {
+    public UserDTO acceptInvitation(@PathVariable Long userId, @PathVariable Long invitationId) {
         userService.acceptInvitation(userId, invitationId);
-        return Mono.just(createResource(userService.determineUser(userId)))
-            .flatMap(this::addLinks);
+        return addLinks(createResource(userService.determineUser(userId)));
     }
 
     @DeleteMapping(path="/{userId}/invitations/{invitationId}", produces={"application/vnd.household.v1+json"})
     @ResponseStatus(value = HttpStatus.OK)
-    public Mono<UserDTO> rejectInvitation(@PathVariable Long userId, @PathVariable Long invitationId) {
+    public UserDTO rejectInvitation(@PathVariable Long userId, @PathVariable Long invitationId) {
         userService.rejectInvitation(userId, invitationId);
-        return Mono.just(createResource(userService.determineUser(userId)))
-            .flatMap(this::addLinks);
+        return addLinks(createResource(userService.determineUser(userId)));
     }
 
     private UserDTO createResource(User user) {
         return userMapper.map(user);
     }
 
-    private Mono<UserDTO> addLinks(UserDTO user) {
-        return addChangePasswordLink(user)
-            .map(this::addHouseholdLinkLink)
-            .flatMap(this::addInviteLink)
-            .flatMapIterable(UserDTO::getInvitations)
-            .flatMap(invitation -> addAcceptLink(invitation, user))
-            .flatMap(invitation -> addRejectLink(invitation, user))
-            .collect(() -> user, (a, b) -> {});
+    private UserDTO addLinks(UserDTO user) {
+        return addChangePasswordLink(addHouseholdLinkLink(addInviteLink(user))).getInvitations().stream()
+            .map(invitation -> addAcceptLink(addRejectLink(invitation, user), user))
+            .reduce(user, (u, i) -> u, (i, u) -> u);
     }
 
-    private Mono<UserDTO> addChangePasswordLink(UserDTO user) {
-        return linkTo(methodOn(UserController.class).changePassword(user.getDatabaseId(), null))
-            .withRel("changePassword")
-            .toMono()
-            .map(user::add)
-            .map(UserDTO.class::cast);
+    private UserDTO addChangePasswordLink(UserDTO user) {
+        return (UserDTO) user.add(Link.of("/api/users/" + user.getDatabaseId(), "changePassword"));
     }
 
     private UserDTO addHouseholdLinkLink(UserDTO user) {
         if (user.getHouseholdId() != null) {
-            return (UserDTO) user.add(new Link("api/households/" + user.getHouseholdId(), "household"));
+            return (UserDTO) user.add(Link.of("api/households/" + user.getHouseholdId(), "household"));
         } else {
-            return (UserDTO) user.add(new Link("api/households", "create"));
+            return (UserDTO) user.add(Link.of("api/households", "create"));
         }
     }
 
-    private Mono<UserDTO> addInviteLink(UserDTO user) {
-        return linkTo(methodOn(UserController.class).invite(user.getDatabaseId(), null))
-            .withRel("invite")
-            .toMono()
-            .map(user::add)
-            .map(UserDTO.class::cast);
+    private UserDTO addInviteLink(UserDTO user) {
+        return (UserDTO) user.add(Link.of("/api/users/" + user.getDatabaseId() + "/invitations", "invite"));
     }
 
-    private Mono<InvitationDTO> addAcceptLink(InvitationDTO invitation, UserDTO user) {
-        return linkTo(methodOn(UserController.class).acceptInvitation(user.getDatabaseId(), invitation.getDatabaseId()))
-            .withRel("accept")
-            .toMono()
-            .map(invitation::add)
-            .map(InvitationDTO.class::cast);
+    private InvitationDTO addAcceptLink(InvitationDTO invitation, UserDTO user) {
+        return (InvitationDTO) invitation.add(Link.of("/api/users/" + user.getDatabaseId() + "/invitations/" + invitation.getDatabaseId(), "accept"));
     }
 
-    private Mono<InvitationDTO> addRejectLink(InvitationDTO invitation, UserDTO user) {
-        return linkTo(methodOn(UserController.class).rejectInvitation(user.getDatabaseId(), invitation.getDatabaseId()))
-            .withRel("reject")
-            .toMono()
-            .map(invitation::add)
-            .map(InvitationDTO.class::cast);
+    private InvitationDTO addRejectLink(InvitationDTO invitation, UserDTO user) {
+        return (InvitationDTO) invitation.add(Link.of("/api/users/" + user.getDatabaseId() + "/invitations/" + invitation.getDatabaseId(), "reject"));
     }
 
 }

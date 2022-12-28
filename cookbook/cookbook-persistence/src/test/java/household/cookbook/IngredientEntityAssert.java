@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.assertj.core.api.AbstractAssert;
 
-import household.cookbook.IngredientEntity;
-
 public class IngredientEntityAssert extends AbstractAssert<IngredientEntityAssert, IngredientEntity> {
 
 	private IngredientEntityAssert(IngredientEntity actual) {

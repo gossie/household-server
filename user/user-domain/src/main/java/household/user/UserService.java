@@ -1,13 +1,11 @@
 package household.user;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
-import org.reactivestreams.Publisher;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
 
 @Component
 @RequiredArgsConstructor
@@ -23,8 +21,8 @@ public class UserService {
         return userRepository.createUser(user);
     }
 
-    public Publisher<User> determineCurrentUser() {
-        return userRepository.determineCurrentUser();
+    public Optional<User> determineUser(String email) {
+        return userRepository.determineUser(email);
     }
 
     public User determineUser(Long userId) {

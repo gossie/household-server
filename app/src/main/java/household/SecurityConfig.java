@@ -1,100 +1,106 @@
 package household;
 
-import java.net.URI;
+import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpCookie;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseCookie;
-import org.springframework.security.authentication.ReactiveAuthenticationManager;
-import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
-import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
-import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.web.server.SecurityWebFilterChain;
-import org.springframework.security.web.server.authentication.RedirectServerAuthenticationSuccessHandler;
-import org.springframework.security.web.server.authentication.ServerAuthenticationSuccessHandler;
-import org.springframework.security.web.server.csrf.CsrfToken;
-import org.springframework.security.web.server.csrf.ServerCsrfTokenRepository;
-import org.springframework.security.web.server.csrf.WebSessionServerCsrfTokenRepository;
-import org.springframework.web.server.ServerWebExchange;
-import org.springframework.web.server.WebFilterChain;
-import reactor.core.publisher.Mono;
+
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
-@EnableWebFluxSecurity
+@EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String CSRF_COOKIE_NAME = "XSRF-TOKEN";
+    // private static final String CSRF_COOKIE_NAME = "XSRF-TOKEN";
 
-    private final ReactiveAuthenticationManager authenticationManager;
+    private final JwtAuthFilter jwtAuthFilter;
+    private final UserDetailsService userDetailsService;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .cors()
+                .configurationSource(corsConfigurationSource())
+            .and()
+                .csrf().disable()
+                //.csrfTokenRepository(csrfTokenRepository())
+            //.and()
+                //.addFilterAfter(this::csrfFilter, SecurityWebFiltersOrder.CSRF)
+                //.requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
+                .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/", "/index.html", "/app.html", "/*.js", "/*.css", "/*.png").permitAll()
+                .antMatchers(HttpMethod.OPTIONS).permitAll()
+                .antMatchers(HttpMethod.POST, "/api/registrations", "/api/auth/login").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/status").permitAll()
+                .anyRequest().authenticated()
+            .and()
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
+
+    private CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOriginPattern("http://localhost:4200");
+        configuration.setAllowedMethods(List.of(CorsConfiguration.ALL));
+        configuration.setAllowedHeaders(List.of(CorsConfiguration.ALL));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService);
+    }
 
     @Bean
-    public SecurityWebFilterChain securitygWebFilterChain(ServerHttpSecurity http) {
-        return http
-            .authenticationManager(authenticationManager)
-                .cors()
-            .and()
-                .csrf()
-                .csrfTokenRepository(csrfTokenRepository())
-            .and()
-                .addFilterAfter(this::csrfFilter, SecurityWebFiltersOrder.CSRF)
-                .authorizeExchange()
-                .pathMatchers("/simple.js").permitAll()
-                .pathMatchers("/logo.png").permitAll()
-                .pathMatchers("/", "/index.html", "/registration.html", "/login.html").permitAll()
-                .pathMatchers(HttpMethod.OPTIONS).permitAll()
-                .pathMatchers(HttpMethod.POST, "/registrations").permitAll()
-                .pathMatchers(HttpMethod.GET, "/api/status").permitAll()
-                .anyExchange().authenticated()
-            .and()
-                .formLogin()
-                .loginPage("/login.html")
-                .authenticationSuccessHandler(successHandler())
-            .and()
-                .logout()
-            .and()
-                .build();
-            // TODO: .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
-    private ServerCsrfTokenRepository csrfTokenRepository() {
-        WebSessionServerCsrfTokenRepository repository = new WebSessionServerCsrfTokenRepository();
-        repository.setHeaderName(CSRF_COOKIE_NAME);
-        return repository;
-    }
+    // private ServerCsrfTokenRepository csrfTokenRepository() {
+    //     WebSessionServerCsrfTokenRepository repository = new WebSessionServerCsrfTokenRepository();
+    //     repository.setHeaderName(CSRF_COOKIE_NAME);
+    //     return repository;
+    // }
 
-    private Mono<Void> csrfFilter(ServerWebExchange exchange, WebFilterChain filterChain) {
-        Mono<CsrfToken> csrfToken = exchange.getAttribute(CsrfToken.class.getName());
-        if (csrfToken != null) {
-            return csrfToken
-                .map(csrf -> {
-                    if (csrf != null) {
+    // private Mono<Void> csrfFilter(ServerWebExchange exchange, WebFilterChain filterChain) {
+    //     Mono<CsrfToken> csrfToken = exchange.getAttribute(CsrfToken.class.getName());
+    //     if (csrfToken != null) {
+    //         return csrfToken
+    //             .map(csrf -> {
+    //                 if (csrf != null) {
 
-                        HttpCookie cookie = exchange.getRequest().getCookies().getFirst(CSRF_COOKIE_NAME);
-                        String token = csrf.getToken();
+    //                     HttpCookie cookie = exchange.getRequest().getCookies().getFirst(CSRF_COOKIE_NAME);
+    //                     String token = csrf.getToken();
 
-                        if (cookie == null || token != null && !token.equals(cookie.getValue())) {
-                            exchange.getResponse().addCookie(ResponseCookie.from(CSRF_COOKIE_NAME, token)
-                                .path("/")
-                                .httpOnly(false)
-                                .build());
-                        }
-                    }
-                    return csrf;
-                })
-                .flatMap(csrf -> filterChain.filter(exchange));
-        } else {
-            return filterChain.filter(exchange);
-        }
-    }
-
-    private ServerAuthenticationSuccessHandler successHandler() {
-        RedirectServerAuthenticationSuccessHandler successHandler = new RedirectServerAuthenticationSuccessHandler();
-        successHandler.setLocation(URI.create("/household.html"));
-        return successHandler;
-    }
+    //                     if (cookie == null || token != null && !token.equals(cookie.getValue())) {
+    //                         exchange.getResponse().addCookie(ResponseCookie.from(CSRF_COOKIE_NAME, token)
+    //                             .path("/")
+    //                             .httpOnly(false)
+    //                             .build());
+    //                     }
+    //                 }
+    //                 return csrf;
+    //             })
+    //             .flatMap(csrf -> filterChain.filter(exchange));
+    //     } else {
+    //         return filterChain.filter(exchange);
+    //     }
+    // }
 }

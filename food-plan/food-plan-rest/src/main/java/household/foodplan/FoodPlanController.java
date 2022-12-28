@@ -11,10 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import reactor.core.publisher.Mono;
-
-import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api/foodPlans")
@@ -27,21 +23,18 @@ public class FoodPlanController {
     private final FoodPlanService foodPlanService;
 
     @GetMapping(path="/{id}", produces={"application/vnd.household.v1+json"})
-    public Mono<FoodPlanDTO> getFoodPlan(@PathVariable Long id) {
-        return Mono.just(createResource(foodPlanService.getFoodPlan(id)))
-            .flatMap(this::addLinks);
+    public FoodPlanDTO getFoodPlan(@PathVariable Long id) {
+        return addLinks(createResource(foodPlanService.getFoodPlan(id)));
     }
 
     @DeleteMapping(path="/{id}/meals", produces={"application/vnd.household.v1+json"})
-    public Mono<FoodPlanDTO> clear(@PathVariable Long id) {
-        return Mono.just(createResource(foodPlanService.clear(id)))
-            .flatMap(this::addLinks);
+    public FoodPlanDTO clear(@PathVariable Long id) {
+        return addLinks(createResource(foodPlanService.clear(id)));
     }
 
     @PutMapping(path="/{id}/meals/{mealId}", produces={"application/vnd.household.v1+json"}, consumes={"application/vnd.household.v1+json"})
-    public Mono<FoodPlanDTO> updateMeal(@PathVariable Long id, @PathVariable Long mealId, @RequestBody ChangeMealRequest request) {
-        return Mono.just(createResource(foodPlanService.updateMeal(id, mealId, createRecipe(request) , mealMapper.map(request.getMeal()))))
-            .flatMap(this::addLinks);
+    public FoodPlanDTO updateMeal(@PathVariable Long id, @PathVariable Long mealId, @RequestBody ChangeMealRequest request) {
+        return addLinks(createResource(foodPlanService.updateMeal(id, mealId, createRecipe(request) , mealMapper.map(request.getMeal()))));
     }
 
     private Recipe createRecipe(ChangeMealRequest request) {
@@ -55,44 +48,30 @@ public class FoodPlanController {
         return foodPlanMapper.map(foodPlan);
     }
 
-    private Mono<FoodPlanDTO> addLinks(FoodPlanDTO foodPlan) {
-        return addFoodPlanSelfLink(foodPlan)
-            .flatMap(this::clearFoodPlanLink)
-            .flatMapIterable(fp -> fp.getMeals().values())
-            .flatMap(meal -> addMealSelfLink(foodPlan.getDatabaseId(), meal))
+    private FoodPlanDTO addLinks(FoodPlanDTO foodPlan) {
+        return addFoodPlanSelfLink(clearFoodPlanLink(foodPlan)).getMeals().values().stream()
+            .map(meal -> addMealSelfLink(foodPlan.getDatabaseId(), meal))
             .map(this::addRecipeLink)
-            .collect(() -> foodPlan, (a, b) -> {});
+            .reduce(foodPlan, (fp, m) -> fp, (m, fp) -> fp);
     }
 
-    private Mono<FoodPlanDTO> addFoodPlanSelfLink(FoodPlanDTO foodPlan) {
-        return linkTo(methodOn(FoodPlanController.class).getFoodPlan(foodPlan.getDatabaseId()))
-            .withSelfRel()
-            .toMono()
-            .map(foodPlan::add)
-            .map(FoodPlanDTO.class::cast);
+    private FoodPlanDTO addFoodPlanSelfLink(FoodPlanDTO foodPlan) {
+        return (FoodPlanDTO) foodPlan.add(Link.of("/api/foodPlans/" + foodPlan.getDatabaseId()));
     }
 
-    private Mono<MealDTO> addMealSelfLink(Long foodPlanId, MealDTO meal) {
-        return linkTo(methodOn(FoodPlanController.class).updateMeal(foodPlanId, meal.getDatabaseId(), null))
-            .withSelfRel()
-            .toMono()
-            .map(meal::add)
-            .map(MealDTO.class::cast);
+    private MealDTO addMealSelfLink(Long foodPlanId, MealDTO meal) {
+        return (MealDTO) meal.add(Link.of("/api/foodPlans/" + foodPlanId + "/meals/" + meal.getDatabaseId()));
     }
 
     private MealDTO addRecipeLink(MealDTO meal) {
         return meal.getCookbookId()
             .flatMap(cookbookId -> meal.getRecipeId())
-            .map(recipeId ->  meal.add(new Link("/api/cookbooks/" + meal.getCookbookId().get() + "/recipes/" + recipeId, "recipe")))
+            .map(recipeId ->  meal.add(Link.of("/api/cookbooks/" + meal.getCookbookId().get() + "/recipes/" + recipeId, "recipe")))
             .map(MealDTO.class::cast)
             .orElse(meal);
     }
 
-    private Mono<FoodPlanDTO> clearFoodPlanLink(FoodPlanDTO foodPlan) {
-        return linkTo(methodOn(FoodPlanController.class).clear(foodPlan.getDatabaseId()))
-            .withRel("clear")
-            .toMono()
-            .map(foodPlan::add)
-            .map(FoodPlanDTO.class::cast);
+    private FoodPlanDTO clearFoodPlanLink(FoodPlanDTO foodPlan) {
+        return (FoodPlanDTO) foodPlan.add(Link.of("/api/foodPlans/" + foodPlan.getDatabaseId() + "/meals", "clear"));
     }
 }

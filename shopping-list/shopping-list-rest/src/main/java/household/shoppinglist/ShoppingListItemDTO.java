@@ -3,7 +3,6 @@ package household.shoppinglist;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.util.StringUtils;
 
 @AllArgsConstructor
@@ -24,7 +23,8 @@ public class ShoppingListItemDTO extends AbstractDTO {
         return StringUtils.hasText(image);
     }
 
-    public void removeImage() {
+    public ShoppingListItemDTO removeImage() {
         image = null;
+        return this;
     }
 }

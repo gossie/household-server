@@ -1,51 +1,42 @@
 package household.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.ReactiveAuthenticationManager;
-import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;
-import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import lombok.RequiredArgsConstructor;
+
 @Configuration
+@RequiredArgsConstructor
 public class UserContext {
 
-	@Autowired
-	private UserEntityRepository userEntityRepository;
+	private final UserEntityRepository userEntityRepository;
 
 	@Bean
-	public InvitationEntityMapper invitationMapper() {
+	InvitationEntityMapper invitationMapper() {
 		return new InvitationEntityMapper();
 	}
 
 	@Bean
-	public UserMapper userMapper() {
+	UserMapper userMapper() {
 		return new UserMapper(invitationMapper());
 	}
 
 	@Bean
-	public UserRepository userRepository() {
+	UserRepository userRepository() {
 		return new DefaultUserRepository(userEntityRepository, userMapper(), passwordEncoder());
 	}
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public ReactiveUserDetailsService userDetailsService() {
+    UserDetailsService userDetailsService() {
 		return new CustomUserDetailsService(userRepository());
 	}
 
-    @Bean
-    public ReactiveAuthenticationManager authenticationProvider() {
-        UserDetailsRepositoryReactiveAuthenticationManager authenticationManager = new UserDetailsRepositoryReactiveAuthenticationManager(userDetailsService());
-        authenticationManager.setPasswordEncoder(passwordEncoder());
-        return authenticationManager;
-    }
 }

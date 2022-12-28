@@ -4,10 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.reactivestreams.Publisher;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.ReactiveSecurityContextHolder;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lombok.AccessLevel;
@@ -42,16 +38,6 @@ class DefaultUserRepository implements UserRepository {
         } else {
             throw new IllegalStateException("found " + users.size() + " users with email " + email);
         }
-    }
-
-    @Override
-    public Publisher<User> determineCurrentUser() {
-        return ReactiveSecurityContextHolder.getContext()
-            .map(SecurityContext::getAuthentication)
-            .map(Authentication::getName)
-            .map(this::determineUser)
-            .map(Optional::get);
-        // TODO: return determineUser(ReactiveSecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow(IllegalStateException::new);
     }
 
     @Override

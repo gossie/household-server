@@ -2,12 +2,9 @@ package household.shoppinglist;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
-import org.springframework.hateoas.server.reactive.WebFluxLinkBuilder;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.util.MimeType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,11 +19,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-
-import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api/shoppingLists")
@@ -42,65 +34,55 @@ public class ShoppingListController {
 	private final ShoppingListService shoppingListService;
 
 	@GetMapping(path="/{id}", produces={"application/vnd.household.v2+json"})
-	public Mono<ShoppingListDTO> getShoppingList(@PathVariable Long id) {
-		return Mono.just(createResource(shoppingListService.getShoppingList(id)))
-            .flatMap(this::addLinks);
+	public ShoppingListDTO getShoppingList(@PathVariable Long id) {
+		return addLinks(createResource(shoppingListService.getShoppingList(id)));
 	}
 
     @PatchMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", produces={"application/vnd.household.v2+json"})
-    public Mono<ShoppingListDTO> toggleItem(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId) {
-        return Mono.just(createResource(shoppingListService.toggleItem(id, groupId, itemId)))
-            .flatMap(this::addLinks);
+    public ShoppingListDTO toggleItem(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId) {
+        return addLinks(createResource(shoppingListService.toggleItem(id, groupId, itemId)));
     }
 
     @PutMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", produces={"application/vnd.household.v2+json"}, consumes={"application/vnd.household.v2+json"})
-    public Mono<ShoppingListDTO> editItem(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId, @RequestBody ShoppingListItemDTO item) {
-        return Mono.just(createResource(shoppingListService.editItem(id, groupId, itemId, shoppingListItemMapper.map(item))))
-            .flatMap(this::addLinks);
+    public ShoppingListDTO editItem(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId, @RequestBody ShoppingListItemDTO item) {
+        return addLinks(createResource(shoppingListService.editItem(id, groupId, itemId, shoppingListItemMapper.map(item))));
     }
 
     @GetMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", produces={"image/png", "image/jpeg"})
-    public Mono<byte[]> retrieveImage(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId) {
-	    return Mono.just(shoppingListService.getShoppingList(id))
-            .map(shoppingList -> shoppingList.getShoppingListGroup(groupId))
-            .flatMap(optional -> optional.map(Mono::just).orElseGet(Mono::empty))
-            .map(shoppingListGroup -> shoppingListGroup.getShoppingListItem(itemId))
-            .flatMap(optional -> optional.map(Mono::just).orElseGet(Mono::empty))
-            .map(ShoppingListItem::getImage);
+    public byte[] retrieveImage(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId) {
+	    return shoppingListService.getShoppingList(id).getShoppingListGroup(groupId)
+                .flatMap(group -> group.getShoppingListItem(itemId))
+                .map(item -> item.getImage())
+                .orElseThrow();
     }
 
 	@DeleteMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems", produces={"application/vnd.household.v2+json"})
-	public Mono<ShoppingListDTO> removedSelectedItemsFromShoppingListGroup(@PathVariable Long id, @PathVariable Long groupId) {
-		return Mono.just(createResource(shoppingListService.removeSelectedItemsFromShoppingListGroup(id, groupId)))
-            .flatMap(this::addLinks);
+	public ShoppingListDTO removedSelectedItemsFromShoppingListGroup(@PathVariable Long id, @PathVariable Long groupId) {
+		return addLinks(createResource(shoppingListService.removeSelectedItemsFromShoppingListGroup(id, groupId)));
 	}
 
     @PostMapping(path="/{id}/shoppingListGroups", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
-    public Mono<ShoppingListDTO> addGroup(@PathVariable Long id, @RequestBody ShoppingListGroupDTO shoppingListGroup) {
-        return Mono.just(createResource(shoppingListService.addShoppingListGroup(id, shoppingListGroupMapper.map(shoppingListGroup))))
-            .flatMap(this::addLinks);
+    public ShoppingListDTO addGroup(@PathVariable Long id, @RequestBody ShoppingListGroupDTO shoppingListGroup) {
+        return addLinks(createResource(shoppingListService.addShoppingListGroup(id, shoppingListGroupMapper.map(shoppingListGroup))));
     }
 
     @PutMapping(path="/{id}/shoppingListGroups/{groupId}", produces={"application/vnd.household.v2+json"})
-    public Mono<ShoppingListDTO> toggleGroup(@PathVariable Long id, @PathVariable Long groupId) {
-        return Mono.just(createResource(shoppingListService.toggleShoppingListGroup(id, groupId)))
-            .flatMap(this::addLinks);
+    public ShoppingListDTO toggleGroup(@PathVariable Long id, @PathVariable Long groupId) {
+        return addLinks(createResource(shoppingListService.toggleShoppingListGroup(id, groupId)));
     }
 
 	@DeleteMapping(path="/{id}/shoppingListGroups/{groupId}", produces={"application/vnd.household.v2+json"})
-    public Mono<ShoppingListDTO> deleteGroup(@PathVariable Long id, @PathVariable Long groupId) {
-        return Mono.just(createResource(shoppingListService.deleteShoppingListGroup(id, groupId)))
-            .flatMap(this::addLinks);
+    public ShoppingListDTO deleteGroup(@PathVariable Long id, @PathVariable Long groupId) {
+        return addLinks(createResource(shoppingListService.deleteShoppingListGroup(id, groupId)));
     }
 
 	@PostMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
-	public Mono<ShoppingListDTO> addItem(@PathVariable Long id, @PathVariable Long groupId, @RequestBody List<ShoppingListItemDTO> shoppingListItems) {
+	public ShoppingListDTO addItem(@PathVariable Long id, @PathVariable Long groupId, @RequestBody List<ShoppingListItemDTO> shoppingListItems) {
 		List<ShoppingListItem> entities = shoppingListItems.stream()
             .map(shoppingListItemMapper::map)
-            .collect(Collectors.toList());
+            .toList();
 
-		return Mono.just(createResource(shoppingListService.addShoppingListItems(id, groupId, entities)))
-            .flatMap(this::addLinks);
+		return addLinks(createResource(shoppingListService.addShoppingListItems(id, groupId, entities)));
 	}
 
 	private ShoppingListDTO createResource(ShoppingList shoppingList) {
@@ -113,104 +95,60 @@ public class ShoppingListController {
 
     }
 
-    private Mono<ShoppingListDTO> addLinks(ShoppingListDTO shoppingList) {
-        return addShoppingListSelfLink(shoppingList)
-            .flatMap(this::addCreateShoppingListGroupLink)
-            .flatMapIterable(ShoppingListDTO::getShoppingListGroups)
-            .flatMap(group -> addGroupToggleLink(shoppingList.getDatabaseId(), group))
-            .flatMap(group -> addCreateItemLink(shoppingList.getDatabaseId(), group))
-            .flatMap(group -> addClearItemsLink(shoppingList.getDatabaseId(), group))
-            .flatMap(group -> addDeleteGroupLink(shoppingList.getDatabaseId(), group))
-            .flatMap(group -> addItemLinks(shoppingList, group))
-            .collect(() -> shoppingList, (a, b) -> {});
+    private ShoppingListDTO addLinks(ShoppingListDTO shoppingList) {
+        return addShoppingListSelfLink(addCreateShoppingListGroupLink(shoppingList)).getShoppingListGroups().stream()
+            .map(group -> addItemLinks(shoppingList, addDeleteGroupLink(shoppingList.getDatabaseId(), addClearItemsLink(shoppingList.getDatabaseId(), addCreateItemLink(shoppingList.getDatabaseId(), addGroupToggleLink(shoppingList.getDatabaseId(), group))))))
+            .reduce(shoppingList, (s, g) -> s, (r, c) -> c);
     }
 
-    private Flux<ShoppingListItemDTO> addItemLinks(ShoppingListDTO shoppingList, ShoppingListGroupDTO group) {
-	    return Flux.concat(group.getShoppingListItems()
+    private ShoppingListGroupDTO addItemLinks(ShoppingListDTO shoppingList, ShoppingListGroupDTO group) {
+	    group.getShoppingListItems()
             .stream()
-            .map(item -> addItemToggleLink(shoppingList.getDatabaseId(), group.getDatabaseId(), item))
-            .collect(Collectors.toList()));
+            .map(item -> imageLink(shoppingList.getDatabaseId(), group.getDatabaseId(), addItemToggleLink(shoppingList.getDatabaseId(), group.getDatabaseId(), item)))
+            .toList();
+        return group;
     }
 
-    private Mono<ShoppingListDTO> addShoppingListSelfLink(ShoppingListDTO shoppingList) {
-        return linkTo(methodOn(ShoppingListController.class).getShoppingList(shoppingList.getDatabaseId()))
-            .withSelfRel()
-            .toMono()
-            .map(shoppingList::add)
-            .map(ShoppingListDTO.class::cast);
+    private ShoppingListDTO addShoppingListSelfLink(ShoppingListDTO shoppingList) {
+        return (ShoppingListDTO) shoppingList.add(Link.of("/api/shoppingLists/" + shoppingList.getDatabaseId()));
     }
 
-    private Mono<ShoppingListDTO> addCreateShoppingListGroupLink(ShoppingListDTO shoppingList) {
-        return linkTo(methodOn(ShoppingListController.class).addGroup(shoppingList.getDatabaseId(), null))
-            .withRel("add")
-            .toMono()
-            .map(shoppingList::add)
-            .map(ShoppingListDTO.class::cast);
+    private ShoppingListDTO addCreateShoppingListGroupLink(ShoppingListDTO shoppingList) {
+        return (ShoppingListDTO) shoppingList.add(Link.of("/api/shoppingLists/" + shoppingList.getDatabaseId(), "add"));
     }
 
-    private Mono<ShoppingListGroupDTO> addGroupToggleLink(Long shoppingListId, ShoppingListGroupDTO group) {
-        return linkTo(methodOn(ShoppingListController.class).toggleGroup(shoppingListId, group.getDatabaseId()))
-            .withRel("toggle")
-            .toMono()
-            .map(group::add)
-            .map(ShoppingListGroupDTO.class::cast);
+    private ShoppingListGroupDTO addGroupToggleLink(Long shoppingListId, ShoppingListGroupDTO group) {
+        return (ShoppingListGroupDTO) group.add(Link.of("/api/shoppingLists/" + shoppingListId + "/shoppingListGroups/" + group.getDatabaseId(), "toggle"));
     }
 
-    private Mono<ShoppingListGroupDTO> addCreateItemLink(Long shoppingListId, ShoppingListGroupDTO group) {
-        return linkTo(methodOn(ShoppingListController.class).addItem(shoppingListId, group.getDatabaseId(), null))
-            .withRel("add")
-            .toMono()
-            .map(group::add)
-            .map(ShoppingListGroupDTO.class::cast);
+    private ShoppingListGroupDTO addCreateItemLink(Long shoppingListId, ShoppingListGroupDTO group) {
+        return (ShoppingListGroupDTO) group.add(Link.of("/api/shoppingLists/" + shoppingListId + "/shoppingListGroups/" + group.getDatabaseId(), "add"));
     }
 
-    private Mono<ShoppingListGroupDTO> addClearItemsLink(Long shoppingListId, ShoppingListGroupDTO group) {
-        return linkTo(methodOn(ShoppingListController.class).removedSelectedItemsFromShoppingListGroup(shoppingListId, group.getDatabaseId()))
-            .withRel("clear")
-            .toMono()
-            .map(group::add)
-            .map(ShoppingListGroupDTO.class::cast);
+    private ShoppingListGroupDTO addClearItemsLink(Long shoppingListId, ShoppingListGroupDTO group) {
+        return (ShoppingListGroupDTO) group.add(Link.of("/api/shoppingLists/" + shoppingListId + "/shoppingListGroups/" + group.getDatabaseId(), "clear"));
     }
 
-    private Mono<ShoppingListGroupDTO> addDeleteGroupLink(Long shoppingListId, ShoppingListGroupDTO group) {
+    private ShoppingListGroupDTO addDeleteGroupLink(Long shoppingListId, ShoppingListGroupDTO group) {
 	    if (!Objects.equals(group.getName(), "Global")) {
-            return linkTo(methodOn(ShoppingListController.class).deleteGroup(shoppingListId, group.getDatabaseId()))
-                .withRel("delete")
-                .toMono()
-                .map(group::add)
-                .map(ShoppingListGroupDTO.class::cast);
+            return (ShoppingListGroupDTO) group.add(Link.of("/api/shoppingLists/" + shoppingListId + "/shoppingListGroups/" + group.getDatabaseId(), "delete"));
         } else {
-	        return Mono.just(group);
+	        return group;
         }
     }
 
-    private Mono<ShoppingListItemDTO> addItemToggleLink(Long shoppingListId, Long shoppingListGroupId, ShoppingListItemDTO shoppingListItem) {
-        return linkTo(methodOn(ShoppingListController.class).toggleItem(shoppingListId, shoppingListGroupId, shoppingListItem.getDatabaseId()))
-            .withRel("toggle")
-            .toMono()
-            .map(shoppingListItem::add)
-            .map(ShoppingListItemDTO.class::cast)
-            .map(d -> linkTo(methodOn(ShoppingListController.class).editItem(shoppingListId, shoppingListGroupId, shoppingListItem.getDatabaseId(), null)))
-            .map(b -> b.withRel("edit"))
-            .flatMap(WebFluxLinkBuilder.WebFluxLink::toMono)
-            .map(shoppingListItem::add)
-            .map(ShoppingListItemDTO.class::cast)
-            .flatMap(item -> imageLink(shoppingListId, shoppingListGroupId, item));
+    private ShoppingListItemDTO addItemToggleLink(Long shoppingListId, Long shoppingListGroupId, ShoppingListItemDTO shoppingListItem) {
+        return (ShoppingListItemDTO) shoppingListItem
+                .add(Link.of("/api/shoppingLists/" + shoppingListId + "/shoppingListGroups/" + shoppingListGroupId + "/shoppingListItems/" + shoppingListItem.getDatabaseId(), "toggle"))
+                .add(Link.of("/api/shoppingLists/" + shoppingListId + "/shoppingListGroups/" + shoppingListGroupId + "/shoppingListItems/" + shoppingListItem.getDatabaseId(), "edit"));
     }
 
-    private Mono<ShoppingListItemDTO> imageLink(Long shoppingListId, Long shoppingListGroupId, ShoppingListItemDTO shoppingListItem) {
+    private ShoppingListItemDTO imageLink(Long shoppingListId, Long shoppingListGroupId, ShoppingListItemDTO shoppingListItem) {
 	    if (shoppingListItem.hasImage()) {
-            return linkTo(methodOn(ShoppingListController.class).retrieveImage(shoppingListId, shoppingListGroupId, shoppingListItem.getDatabaseId()))
-                .withRel("image")
-                .toMono()
-                .map(shoppingListItem::add)
-                .cast(ShoppingListItemDTO.class)
-                .map(item -> {
-                    item.removeImage();
-                    return item;
-                });
+            return ((ShoppingListItemDTO) shoppingListItem.add(Link.of("/api/shoppingLists/" + shoppingListId + "/shoppingListGroups/" + shoppingListGroupId + "/shoppingListItems/" + shoppingListItem.getDatabaseId(), "image")))
+                    .removeImage();
         }
-	    return Mono.just(shoppingListItem);
+	    return shoppingListItem;
     }
 
 }

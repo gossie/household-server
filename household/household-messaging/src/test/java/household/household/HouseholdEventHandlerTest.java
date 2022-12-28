@@ -34,7 +34,7 @@ class HouseholdEventHandlerTest {
 
     @Test
     public void testOnInvitationAccepted_noUsersLeft() throws Exception {
-        Household household = new Household(5L, 6L, 7L, 8L, 9L);
+        //Household household = new Household(5L, 6L, 7L, 8L, 9L);
 
         HouseholdService HouseholdService = mock(HouseholdService.class);
 

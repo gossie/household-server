@@ -1,5 +1,6 @@
 package household.cleaningplan;
 
+import org.springframework.hateoas.Link;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,11 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-
-import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api/cleaningPlans")
@@ -29,110 +25,71 @@ public class CleaningPlanController {
 	private final CleaningPlanService cleaningPlanService;
 
 	@GetMapping(path="/{cleaningPlanId}", produces={"application/vnd.household.v1+json"})
-	public Mono<CleaningPlanDTO> getCleaningPlan(@PathVariable Long cleaningPlanId) {
-		return Mono.just(cleaningPlanMapper.map(cleaningPlanService.getCleaningPlan(cleaningPlanId)))
-            .flatMap(this::addLinks);
+	public CleaningPlanDTO getCleaningPlan(@PathVariable Long cleaningPlanId) {
+		return addLinks(cleaningPlanMapper.map(cleaningPlanService.getCleaningPlan(cleaningPlanId)));
 	}
 
     @PutMapping(path="/{cleaningPlanId}/chores/{choreId}", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
-    public Mono<CleaningPlanDTO> updateChore(@PathVariable Long cleaningPlanId, @PathVariable Long choreId, @RequestBody ChoreDTO chore) {
-        return Mono.just(cleaningPlanMapper.map(cleaningPlanService.update(cleaningPlanId, choreMapper.map(choreId, chore))))
-            .flatMap(this::addLinks);
+    public CleaningPlanDTO updateChore(@PathVariable Long cleaningPlanId, @PathVariable Long choreId, @RequestBody ChoreDTO chore) {
+        return addLinks(cleaningPlanMapper.map(cleaningPlanService.update(cleaningPlanId, choreMapper.map(choreId, chore))));
     }
 
     @PutMapping(path="/{cleaningPlanId}/tasks/{taskId}", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
-    public Mono<CleaningPlanDTO> updateTask(@PathVariable Long cleaningPlanId, @PathVariable Long taskId, @RequestBody TaskDTO task) {
-        return Mono.just(cleaningPlanMapper.map(cleaningPlanService.update(cleaningPlanId, taskMapper.map(taskId, task))))
-            .flatMap(this::addLinks);
+    public CleaningPlanDTO updateTask(@PathVariable Long cleaningPlanId, @PathVariable Long taskId, @RequestBody TaskDTO task) {
+        return addLinks(cleaningPlanMapper.map(cleaningPlanService.update(cleaningPlanId, taskMapper.map(taskId, task))));
     }
 
     @PostMapping(path="/{cleaningPlanId}/chores", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
-    public Mono<CleaningPlanDTO> addChore(@PathVariable Long cleaningPlanId, @RequestBody ChoreDTO chore) {
-        return Mono.just(cleaningPlanMapper.map(cleaningPlanService.addChore(cleaningPlanId, choreMapper.map(chore))))
-            .flatMap(this::addLinks);
+    public CleaningPlanDTO addChore(@PathVariable Long cleaningPlanId, @RequestBody ChoreDTO chore) {
+        return addLinks(cleaningPlanMapper.map(cleaningPlanService.addChore(cleaningPlanId, choreMapper.map(chore))));
     }
 
     @PostMapping(path="/{cleaningPlanId}/tasks", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
-    public Mono<CleaningPlanDTO> addTask(@PathVariable Long cleaningPlanId, @RequestBody TaskDTO task) {
-        return Mono.just(cleaningPlanMapper.map(cleaningPlanService.addTask(cleaningPlanId, taskMapper.map(task))))
-            .flatMap(this::addLinks);
+    public CleaningPlanDTO addTask(@PathVariable Long cleaningPlanId, @RequestBody TaskDTO task) {
+        return addLinks(cleaningPlanMapper.map(cleaningPlanService.addTask(cleaningPlanId, taskMapper.map(task))));
     }
 
 	@DeleteMapping(path="/{cleaningPlanId}/chores/{choreId}", produces={"application/vnd.household.v1+json"})
-	public Mono<CleaningPlanDTO> removeChore(@PathVariable Long cleaningPlanId, @PathVariable Long choreId) {
-		return Mono.just(cleaningPlanMapper.map(cleaningPlanService.removeChore(cleaningPlanId, choreId)))
-            .flatMap(this::addLinks);
+	public CleaningPlanDTO removeChore(@PathVariable Long cleaningPlanId, @PathVariable Long choreId) {
+		return addLinks(cleaningPlanMapper.map(cleaningPlanService.removeChore(cleaningPlanId, choreId)));
 	}
 
-    private Mono<CleaningPlanDTO> addLinks(CleaningPlanDTO cleaningPlan) {
-        var choreFlux = addSelfLink(cleaningPlan)
-            .flatMap(this::addAddChoreLink)
-            .flatMap(this::addAddTaskLink)
-            .flatMapIterable(CleaningPlanDTO::getChores)
-            .flatMap(chore -> this.addSelectChoreLink(cleaningPlan.getDatabaseId(), chore))
-            .flatMap(chore -> this.addDeleteChoreLink(cleaningPlan.getDatabaseId(), chore))
-            .flatMap(chore -> this.addSaveChoreLink(cleaningPlan.getDatabaseId(), chore));
-
-        var taskFlux = Flux.fromIterable(cleaningPlan.getTasks())
-            .flatMap(task -> this.addSelectTaskLink(cleaningPlan.getDatabaseId(), task));
-
-        return Flux.concat(choreFlux, taskFlux)
-            .collect(() -> cleaningPlan, (a, b) -> {});
+    private CleaningPlanDTO addLinks(CleaningPlanDTO cleaningPlan) {
+        return addSelfLink(addAddChoreLink(addAddTaskLink(cleaningPlan))).getChores().stream()
+            .map(chore -> addSelectChoreLink(cleaningPlan.getDatabaseId(), chore))
+            .map(chore -> addDeleteChoreLink(cleaningPlan.getDatabaseId(), chore))
+            .map(chore -> addSaveChoreLink(cleaningPlan.getDatabaseId(), chore))
+            .reduce(cleaningPlan, (cp, c1) -> cp, (c1, cp) -> cp)
+            .getTasks().stream()
+            .map(task -> addSelectTaskLink(cleaningPlan.getDatabaseId(), task))
+            .reduce(cleaningPlan, (cp, c1) -> cp, (c1, cp) -> cp);
     }
 
-    private Mono<CleaningPlanDTO> addSelfLink(CleaningPlanDTO cleaningPlan) {
-        return linkTo(methodOn(CleaningPlanController.class).getCleaningPlan(cleaningPlan.getDatabaseId()))
-            .withSelfRel()
-            .toMono()
-            .map(cleaningPlan::add)
-            .map(CleaningPlanDTO.class::cast);
+    private CleaningPlanDTO addSelfLink(CleaningPlanDTO cleaningPlan) {
+        return (CleaningPlanDTO) cleaningPlan.add(Link.of("/api/cleaningPlans/" + cleaningPlan.getDatabaseId()));
     }
 
-    private Mono<CleaningPlanDTO> addAddChoreLink(CleaningPlanDTO cleaningPlan) {
-        return linkTo(methodOn(CleaningPlanController.class).addChore(cleaningPlan.getDatabaseId(), null))
-            .withRel("addChore")
-            .toMono()
-            .map(cleaningPlan::add)
-            .map(CleaningPlanDTO.class::cast);
+    private CleaningPlanDTO addAddChoreLink(CleaningPlanDTO cleaningPlan) {
+        return (CleaningPlanDTO) cleaningPlan.add(Link.of("/api/cleaningPlans/" + cleaningPlan.getDatabaseId(), "addChore"));
     }
 
-    private Mono<CleaningPlanDTO> addAddTaskLink(CleaningPlanDTO cleaningPlan) {
-        return linkTo(methodOn(CleaningPlanController.class).addTask(cleaningPlan.getDatabaseId(), null))
-            .withRel("addTask")
-            .toMono()
-            .map(cleaningPlan::add)
-            .map(CleaningPlanDTO.class::cast);
+    private CleaningPlanDTO addAddTaskLink(CleaningPlanDTO cleaningPlan) {
+        return (CleaningPlanDTO) cleaningPlan.add(Link.of("/api/cleaningPlans/" + cleaningPlan.getDatabaseId(), "addTask"));
     }
 
-    private Mono<ChoreDTO> addSelectChoreLink(Long cleaningPlanId, ChoreDTO chore) {
-        return linkTo(methodOn(CleaningPlanController.class).updateChore(cleaningPlanId, chore.getDatabaseId(), null))
-            .withRel("select")
-            .toMono()
-            .map(chore::add)
-            .map(ChoreDTO.class::cast);
+    private ChoreDTO addSelectChoreLink(Long cleaningPlanId, ChoreDTO chore) {
+        return (ChoreDTO) chore.add(Link.of("/api/cleaningPlans/" + cleaningPlanId + "/chores/" + chore.getDatabaseId(), "select"));
     }
 
-    private Mono<ChoreDTO> addDeleteChoreLink(Long cleaningPlanId, ChoreDTO chore) {
-        return linkTo(methodOn(CleaningPlanController.class).removeChore(cleaningPlanId, chore.getDatabaseId()))
-            .withRel("delete")
-            .toMono()
-            .map(chore::add)
-            .map(ChoreDTO.class::cast);
+    private ChoreDTO addDeleteChoreLink(Long cleaningPlanId, ChoreDTO chore) {
+        return (ChoreDTO) chore.add(Link.of("/api/cleaningPlans/" + cleaningPlanId + "/chores/" + chore.getDatabaseId(), "delete"));
     }
 
-    private Mono<ChoreDTO> addSaveChoreLink(Long cleaningPlanId, ChoreDTO chore) {
-        return linkTo(methodOn(CleaningPlanController.class).updateChore(cleaningPlanId, chore.getDatabaseId(), null))
-            .withRel("save")
-            .toMono()
-            .map(chore::add)
-            .map(ChoreDTO.class::cast);
+    private ChoreDTO addSaveChoreLink(Long cleaningPlanId, ChoreDTO chore) {
+        return (ChoreDTO) chore.add(Link.of("/api/cleaningPlans/" + cleaningPlanId + "/chores/" + chore.getDatabaseId(), "save"));
     }
 
-    private Mono<TaskDTO> addSelectTaskLink(Long cleaningPlanId, TaskDTO task) {
-        return linkTo(methodOn(CleaningPlanController.class).updateTask(cleaningPlanId, task.getDatabaseId(), null))
-            .withRel("select")
-            .toMono()
-            .map(task::add)
-            .map(TaskDTO.class::cast);
+    private TaskDTO addSelectTaskLink(Long cleaningPlanId, TaskDTO task) {
+        return (TaskDTO) task.add(Link.of("/api/cleaningPlans/" + cleaningPlanId + "/tasks/" + task.getDatabaseId(), "select"));
     }
 }

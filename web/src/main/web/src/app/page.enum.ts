@@ -1,4 +1,6 @@
 export enum Page {
+    Login = 'login',
+    Register = 'register',
     Cover = 'cover',
     Household = 'household',
     ShoppingList = 'shopping-list',
