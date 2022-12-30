@@ -30,8 +30,7 @@ describe('NoHouseholdComponent', () => {
                 RouterTestingModule
             ],
             declarations: [
-                MockComponent,
-                NoHouseholdComponent
+                MockComponent
             ],
             providers: [
                 { provide: UserService, useClass: UserServiceMock },

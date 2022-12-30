@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Page } from '../page.enum';
+import { TokenService } from '../token.service';
+import { LoginResponse } from './login-data';
 import { LoginService } from './login.service';
 
 @Component({
@@ -15,7 +19,9 @@ export class LoginPageComponent implements OnInit {
         password: new FormControl('')
     });
 
-    constructor(private loginService: LoginService) { }
+    constructor(private loginService: LoginService,
+                private tokenService: TokenService,
+                private router: Router) { }
 
     ngOnInit(): void {
     }
@@ -25,13 +31,25 @@ export class LoginPageComponent implements OnInit {
             email: this.loginForm.get('email').value,
             password: this.loginForm.get('password').value
         }).subscribe(
-            () => console.log('success'),
-            e => console.error('error', e)
+            (loginResponse: LoginResponse) => {
+                this.tokenService.publishToken(loginResponse.token);
+                this.router.navigateByUrl(`/${Page.Household}`)
+                    .then(b => console.log(b))
+                    .catch(e => console.error(e));
+            },
+            e => {
+                console.error('error', e);
+                this.errorMessage = 'Der Login ist fehlgeschlagen.'
+            }
         );
     }
 
     hasError() {
-        return false
+        return this.errorMessage
+    }
+
+    resetErrorState() {
+        this.errorMessage = ''
     }
 
 }

@@ -37,7 +37,7 @@ export class TaskComponent {
     }
 
     public saveTask(): void {
-        this.task.name = this.editForm.controls.name.value;
+        this.task.name = this.editForm.controls['name'].value;
         this.cleaningPlanService.saveTask(this.task)
             .subscribe((cleaningPlan: CleaningPlan) => {
                 this.editMode = false;

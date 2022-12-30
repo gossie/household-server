@@ -35,12 +35,12 @@ export class IngredientFormComponent implements OnInit {
 
     public handleIngredient(): void {
         this.ingredientEmitter.emit({
-            amount: parseFloat(this.ingredientForm.controls.amount.value),
-            unit: this.ingredientForm.controls.unit.value,
-            name: this.ingredientForm.controls.name.value,
+            amount: parseFloat(this.ingredientForm.controls['amount'].value),
+            unit: this.ingredientForm.controls['unit'].value,
+            name: this.ingredientForm.controls['name'].value,
         });
-        this.ingredientForm.controls.amount.reset();
-        this.ingredientForm.controls.unit.reset();
-        this.ingredientForm.controls.name.reset();
+        this.ingredientForm.controls['amount'].reset();
+        this.ingredientForm.controls['unit'].reset();
+        this.ingredientForm.controls['name'].reset();
     }
 }

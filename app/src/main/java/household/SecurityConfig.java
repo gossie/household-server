@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.addFilterAfter(this::csrfFilter, SecurityWebFiltersOrder.CSRF)
                 //.requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/", "/index.html", "/app.html", "/*.js", "/*.css", "/*.png").permitAll()
+                .antMatchers(HttpMethod.GET, "/", "/index.html", "/*.js", "/*.css", "/*.png").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .antMatchers(HttpMethod.POST, "/api/registrations", "/api/auth/login").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/status").permitAll()

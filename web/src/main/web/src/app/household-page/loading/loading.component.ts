@@ -1,9 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoadingService } from "../loading.service";
 import { Subscription } from "rxjs/index";
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-loading',
+    standalone: true,
+    imports: [CommonModule],
     templateUrl: './loading.component.html',
     styleUrls: ['./loading.component.sass']
 })

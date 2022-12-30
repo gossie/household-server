@@ -96,7 +96,7 @@ describe('MealComponent', () => {
         link.dispatchEvent(new Event('click'));
         fixture.detectChanges();
 
-        expect(component.parentForm.controls.monday.value).toEqual('Chili con carne');
+        expect(component.parentForm.controls['monday'].value).toEqual('Chili con carne');
         expect(component.recipes).toEqual([]);
     });
 });

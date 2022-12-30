@@ -48,7 +48,7 @@
                 </div>
                 
                 <div *ngIf="hasError()" class="notification is-warning">
-                    <button class="delete"></button>
+                    <button class="delete" (click)="resetErrorState()"></button>
                     <span>{{errorMessage}}</span>
                 </div>
             </form>

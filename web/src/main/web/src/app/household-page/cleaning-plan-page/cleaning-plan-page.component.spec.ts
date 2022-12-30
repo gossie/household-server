@@ -57,30 +57,30 @@ describe('CleaningPlanPageComponent', () => {
     it('should be valid', () => {
         expect(component.cleaningPlanForm.valid).toBeFalsy();
 
-        component.cleaningPlanForm.controls.name.setValue('anyChore');
+        component.cleaningPlanForm.controls['name'].setValue('anyChore');
         expect(component.cleaningPlanForm.valid).toBeFalsy();
 
-        component.cleaningPlanForm.controls.repeat.setValue(7);
+        component.cleaningPlanForm.controls['repeat'].setValue(7);
         expect(component.cleaningPlanForm.valid).toBeTruthy();
     });
 
     it('should be valid, if repeat is zero', () => {
         expect(component.cleaningPlanForm.valid).toBeFalsy();
 
-        component.cleaningPlanForm.controls.name.setValue('anyChore');
+        component.cleaningPlanForm.controls['name'].setValue('anyChore');
         expect(component.cleaningPlanForm.valid).toBeFalsy();
 
-        component.cleaningPlanForm.controls.repeat.setValue(0);
+        component.cleaningPlanForm.controls['repeat'].setValue(0);
         expect(component.cleaningPlanForm.valid).toBeTruthy();
     });
 
     it('should be valid, if repeat is below zero', () => {
         expect(component.cleaningPlanForm.valid).toBeFalsy();
 
-        component.cleaningPlanForm.controls.name.setValue('anyChore');
+        component.cleaningPlanForm.controls['name'].setValue('anyChore');
         expect(component.cleaningPlanForm.valid).toBeFalsy();
 
-        component.cleaningPlanForm.controls.repeat.setValue(-1);
+        component.cleaningPlanForm.controls['repeat'].setValue(-1);
         expect(component.cleaningPlanForm.valid).toBeFalsy();
     });
 

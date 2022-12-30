@@ -58,16 +58,16 @@ export class CleaningPlanPageComponent implements OnInit, OnDestroy {
         this.loading = true;
 
         const chore: Chore = {
-            name: this.cleaningPlanForm.controls.name.value,
-            repeat: this.cleaningPlanForm.controls.repeat.value,
+            name: this.cleaningPlanForm.controls['name'].value,
+            repeat: this.cleaningPlanForm.controls['repeat'].value,
             lastPerformed: Date.now()
         };
 
         this.cleaningPlanService.addChore(this.cleaningPlan, chore)
             .subscribe((cleaningPlan: CleaningPlan) => {
                 this.handleCleaningPlan(cleaningPlan);
-                this.cleaningPlanForm.controls.name.setValue('');
-                this.cleaningPlanForm.controls.repeat.setValue('');
+                this.cleaningPlanForm.controls['name'].setValue('');
+                this.cleaningPlanForm.controls['repeat'].setValue('');
             });
     }
 
@@ -75,14 +75,14 @@ export class CleaningPlanPageComponent implements OnInit, OnDestroy {
         this.loading = true;
 
         const task: Task = {
-            name: this.taskForm.controls.name.value,
+            name: this.taskForm.controls['name'].value,
             done: false
         };
 
         this.cleaningPlanService.addTask(this.cleaningPlan, task)
             .subscribe((cleaningPlan: CleaningPlan) => {
                 this.handleCleaningPlan(cleaningPlan);
-                this.taskForm.controls.name.setValue('');
+                this.taskForm.controls['name'].setValue('');
             });
     }
 

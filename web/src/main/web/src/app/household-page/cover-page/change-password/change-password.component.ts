@@ -39,7 +39,7 @@ export class ChangePasswordComponent implements OnInit {
         this.loading = true;
         this.errorVisible = false;
         this.successVisible = false;
-        this.userService.changePassword(this.user, this.form.controls.currentPassword.value, this.form.controls.password.value)
+        this.userService.changePassword(this.user, this.form.controls['currentPassword'].value, this.form.controls['password'].value)
             .subscribe(() => this.handlePasswordChange(), () => this.handleError());
     }
 

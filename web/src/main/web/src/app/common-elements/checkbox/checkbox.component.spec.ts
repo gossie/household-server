@@ -1,9 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CheckboxComponent } from './checkbox.component';
-import {EventEmitter} from "@angular/core";
-import {By} from "@angular/platform-browser";
-import {CheckboxValue} from "./checkbox-value";
+import { EventEmitter } from "@angular/core";
+import { CheckboxValue } from "./checkbox-value";
 
 describe('CheckboxComponent', () => {
     let component: CheckboxComponent;

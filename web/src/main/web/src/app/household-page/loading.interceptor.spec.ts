@@ -9,4 +9,8 @@ describe('LoadingInterceptor', () => {
             { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
         ]
     }));
+
+    it('should test something in the future', () => {
+
+    });
 });

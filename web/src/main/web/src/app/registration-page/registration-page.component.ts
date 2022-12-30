@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { RegistrationService } from './registration.service';
 
 @Component({
@@ -15,9 +16,15 @@ export class RegistrationPageComponent implements OnInit {
         passwordAgain: new FormControl('')
     });
 
-    constructor(private registrationService: RegistrationService) { }
+    errorMessage = ''
+
+    constructor(private registrationService: RegistrationService, private router: Router) { }
 
     ngOnInit(): void {
+    }
+
+    resetErrorState() {
+        this.errorMessage = ''
     }
 
     performRegistration() {
@@ -26,13 +33,16 @@ export class RegistrationPageComponent implements OnInit {
             password: this.registerForm.get('password').value,
             passwordAgain: this.registerForm.get('passwordAgain').value,
         }).subscribe(
-            () => console.log('success'),
-            e => console.error('error', e)
+            () => this.router.navigateByUrl('login'),
+            e => {
+                this.errorMessage = 'Bei der Registrierung ist ein Fehler aufgetreten.'
+                console.error('error', e);
+            }
         );
     }
 
     hasError() {
-        return false;
+        return this.errorMessage;
     }
 
 }

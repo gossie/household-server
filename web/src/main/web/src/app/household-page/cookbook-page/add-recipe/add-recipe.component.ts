@@ -34,8 +34,8 @@ export class AddRecipeComponent implements OnInit, OnChanges {
 
     public ngOnChanges() {
         if (ObjectUtils.isObject(this.recipe)) {
-            this.recipeForm.controls.recipeName.setValue(this.recipe.name);
-            this.recipeForm.controls.recipeUrl.setValue(this.recipe.url)
+            this.recipeForm.controls['recipeName'].setValue(this.recipe.name);
+            this.recipeForm.controls['recipeUrl'].setValue(this.recipe.url)
             this.ingredients = this.recipe.ingredients;
             this.open = true;
         }
@@ -76,8 +76,8 @@ export class AddRecipeComponent implements OnInit, OnChanges {
     }
 
     private editRecipe(): void {
-        this.recipe.name = this.recipeForm.controls.recipeName.value;
-        this.recipe.url = this.recipeForm.controls.recipeUrl.value;
+        this.recipe.name = this.recipeForm.controls['recipeName'].value;
+        this.recipe.url = this.recipeForm.controls['recipeUrl'].value;
         this.recipe.ingredients = this.ingredients;
         this.cookbookService.editRecipe(this.recipe)
             .subscribe((cookbook: Cookbook) => {
@@ -91,8 +91,8 @@ export class AddRecipeComponent implements OnInit, OnChanges {
 
     private createRecipe(): void {
         const recipe: Recipe = {
-            name: this.recipeForm.controls.recipeName.value,
-            url: this.recipeForm.controls.recipeUrl.value,
+            name: this.recipeForm.controls['recipeName'].value,
+            url: this.recipeForm.controls['recipeUrl'].value,
             ingredients: this.ingredients
         };
         this.cookbookService.createRecipe(this.cookbook, recipe)
@@ -108,8 +108,8 @@ export class AddRecipeComponent implements OnInit, OnChanges {
     private resetFields(): void {
         this.ingredients = [];
 
-        this.recipeForm.controls.recipeName.reset();
-        this.recipeForm.controls.recipeUrl.reset();
+        this.recipeForm.controls['recipeName'].reset();
+        this.recipeForm.controls['recipeUrl'].reset();
         // TODO: AS
         // this.ingredientForm.controls.amount.reset();
         // this.ingredientForm.controls.unit.reset();

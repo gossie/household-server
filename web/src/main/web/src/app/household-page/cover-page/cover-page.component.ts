@@ -57,15 +57,15 @@ export class CoverPageComponent implements OnInit, OnDestroy {
     }
 
     public trimEmail(): void {
-        const email: string = this.invitationForm.controls.email.value;
+        const email: string = this.invitationForm.controls['email'].value;
         if (email) {
-            this.invitationForm.controls.email.setValue(email.trim());
+            this.invitationForm.controls['email'].setValue(email.trim());
         }
     }
 
     public sendInvitation(): void {
         this.loading = true;
-        this.invitationService.sendInvitation(this.invitationForm.controls.email.value)
+        this.invitationService.sendInvitation(this.invitationForm.controls['email'].value)
             .subscribe(
                 this.handleSuccessfulInvitation.bind(this),
                 this.handleUnsuccessfulInvitation.bind(this)
@@ -74,7 +74,7 @@ export class CoverPageComponent implements OnInit, OnDestroy {
 
     private handleSuccessfulInvitation() {
         this.loading = false;
-        this.invitationForm.controls.email.setValue('');
+        this.invitationForm.controls['email'].setValue('');
     }
 
     private handleUnsuccessfulInvitation(error: any) {

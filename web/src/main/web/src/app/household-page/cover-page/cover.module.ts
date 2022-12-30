@@ -6,6 +6,7 @@ import { CommonElementsModule } from '../../common-elements/common-elements.modu
 import { CoverRoutingModule } from './cover-routing.module';
 import { CoverPageComponent } from './cover-page.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { InvitationComponent } from 'src/app/common-elements/invitation/invitation.component';
 
 @NgModule({
     imports: [
@@ -13,7 +14,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
         ReactiveFormsModule,
         HttpClientModule,
         CommonElementsModule,
-        CoverRoutingModule
+        CoverRoutingModule,
+        InvitationComponent
     ],
     declarations: [
         CoverPageComponent,

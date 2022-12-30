@@ -6,6 +6,7 @@ import { UserService } from "../../user.service";
 
 @Component({
     selector: 'app-invitation',
+    standalone: true,
     templateUrl: './invitation.component.html',
     styleUrls: ['./invitation.component.sass']
 })

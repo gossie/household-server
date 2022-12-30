@@ -9,6 +9,7 @@ import { ShoppingListGroup } from "./shopping-list-group/shopping-list-group";
 import { By } from "@angular/platform-browser";
 import { HouseholdService } from "../household.service";
 import { HouseholdServiceMock } from "../household.service.mock";
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 @Component({
     selector: [
@@ -28,7 +29,8 @@ describe('ShoppingListPageComponent', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
-                ReactiveFormsModule
+                ReactiveFormsModule,
+                HttpClientTestingModule
             ],
             declarations: [
                 ShoppingListPageComponent,
@@ -53,7 +55,7 @@ describe('ShoppingListPageComponent', () => {
     });
 
     it('should add a new shopping list group', () => {
-        const shoppingListService: ShoppingListService = TestBed.get(ShoppingListService);
+        const shoppingListService: ShoppingListService = TestBed.inject(ShoppingListService);
         spyOn(shoppingListService, 'addShoppingListGroup').and.returnValue(of({
             shoppingListGroups: [{
                 name: 'Neue Gruppe',
@@ -65,7 +67,7 @@ describe('ShoppingListPageComponent', () => {
 
         expect(component.shoppingListGroupForm.invalid).toBeTruthy();
         expect(component.shoppingList.shoppingListGroups.length).toBe(0);
-        component.shoppingListGroupForm.controls.name.setValue('Neue Gruppe');
+        component.shoppingListGroupForm.controls['name'].setValue('Neue Gruppe');
 
         fixture.detectChanges();
 

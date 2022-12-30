@@ -4,7 +4,6 @@ import { RecipeComponent } from './recipe.component';
 import { CookbookService } from "../cookbook.service";
 import { CookbookServiceMock } from "../cookbook.service.mock";
 import { Ingredient } from "./ingredient/ingredient";
-import { Recipe } from "./recipe";
 import { By } from "@angular/platform-browser";
 import { Cookbook } from "../cookbook";
 import { CookbookEvent } from "../cookbook-event";

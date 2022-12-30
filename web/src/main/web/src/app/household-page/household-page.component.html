@@ -3,7 +3,7 @@
         <app-loading></app-loading>
         <nav class="navbar" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
-                <div [routerLink]="['/cover']" class="navbar-item">
+                <div [routerLink]="['cover']" class="navbar-item">
                     <span class="icon">
                         <i class="fas fa-home"></i>
                     </span>
@@ -18,28 +18,28 @@
 
             <div id="householdNavbar" class="navbar-menu" [ngClass]="{'is-active': expanded}">
                 <div class="navbar-start">
-                    <a [routerLink]="['/shopping-list']" id="shopping-list-tab" class="navbar-item">
+                    <a [routerLink]="['shopping-list']" id="shopping-list-tab" class="navbar-item">
                         <span class="icon">
                             <i class="fas fa-shopping-cart"></i>
                         </span>
                         Einkaufsliste
                     </a>
 
-                    <a [routerLink]="['/cleaning-plan']" id="cleaning-plan-tab" class="navbar-item">
+                    <a [routerLink]="['cleaning-plan']" id="cleaning-plan-tab" class="navbar-item">
                         <span class="icon">
                             <i class="fas fa-broom"></i>
                         </span>
                         TODO-Liste
                     </a>
 
-                    <a [routerLink]="['/food-plan']" id="food-plan-tab" class="navbar-item">
+                    <a [routerLink]="['food-plan']" id="food-plan-tab" class="navbar-item">
                         <span class="icon">
                             <i class="fas fa-utensils"></i>
                         </span>
                         Essensplan
                     </a>
 
-                    <a [routerLink]="['/cookbook']" id="cookbook-tab" class="navbar-item">
+                    <a [routerLink]="['cookbook']" id="cookbook-tab" class="navbar-item">
                         <span class="icon">
                             <i class="fas fa-book"></i>
                         </span>

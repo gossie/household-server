@@ -72,8 +72,8 @@ export class ChoreComponent implements OnInit, OnDestroy {
     public saveChore(): void {
         this.loading = true;
 
-        this.chore.name = this.choreForm.controls.name.value;
-        this.chore.repeat = this.choreForm.controls.repeat.value;
+        this.chore.name = this.choreForm.controls['name'].value;
+        this.chore.repeat = this.choreForm.controls['repeat'].value;
 
         this.cleaningPlanService.saveChore(this.chore)
             .subscribe((cleaningPlan: CleaningPlan) => {

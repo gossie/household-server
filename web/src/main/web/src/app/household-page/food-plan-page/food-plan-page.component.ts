@@ -110,13 +110,13 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
     }
 
     private copyDataToForm(): void {
-        this.foodPlanForm.controls.monday.setValue(this.foodPlan.meals.monday.name);
-        this.foodPlanForm.controls.tuesday.setValue(this.foodPlan.meals.tuesday.name);
-        this.foodPlanForm.controls.wednesday.setValue(this.foodPlan.meals.wednesday.name);
-        this.foodPlanForm.controls.thursday.setValue(this.foodPlan.meals.thursday.name);
-        this.foodPlanForm.controls.friday.setValue(this.foodPlan.meals.friday.name);
-        this.foodPlanForm.controls.saturday.setValue(this.foodPlan.meals.saturday.name);
-        this.foodPlanForm.controls.sunday.setValue(this.foodPlan.meals.sunday.name);
+        this.foodPlanForm.controls['monday'].setValue(this.foodPlan.meals.monday.name);
+        this.foodPlanForm.controls['tuesday'].setValue(this.foodPlan.meals.tuesday.name);
+        this.foodPlanForm.controls['wednesday'].setValue(this.foodPlan.meals.wednesday.name);
+        this.foodPlanForm.controls['thursday'].setValue(this.foodPlan.meals.thursday.name);
+        this.foodPlanForm.controls['friday'].setValue(this.foodPlan.meals.friday.name);
+        this.foodPlanForm.controls['saturday'].setValue(this.foodPlan.meals.saturday.name);
+        this.foodPlanForm.controls['sunday'].setValue(this.foodPlan.meals.sunday.name);
     }
 
     public onRecipeSelection(event: RecipeSelectionEvent): void {

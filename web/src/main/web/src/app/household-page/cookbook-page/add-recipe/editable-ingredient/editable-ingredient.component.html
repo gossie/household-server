@@ -15,7 +15,7 @@
 </div>
 <app-ingredient-form *ngIf="editMode"
                      [editMode]="editMode"
-                     [initialAmount]="ingredient.amount"
+                     [initialAmount]="''+ingredient.amount"
                      [initialUnit]="ingredient.unit"
                      [initialName]="ingredient.name"
                      (ingredientEmitter)="saveIngredient($event)"></app-ingredient-form>

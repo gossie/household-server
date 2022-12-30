@@ -1,14 +1,27 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Household } from './household';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { filter, tap } from 'rxjs/operators';
 import { HouseholdService } from './household.service';
 import { Subscription } from 'rxjs/index';
 import { UserService } from '../user.service';
 import { User } from '../user';
+import { CommonElementsModule } from '../common-elements/common-elements.module';
+import { NoHouseholdComponent } from './no-household/no-household.component';
+import { CommonModule } from '@angular/common';
+import { LoadingComponent } from './loading/loading.component';
+import { TokenService } from '../token.service';
 
 @Component({
     selector: 'app-household-page',
+    standalone: true,
+    imports: [
+        CommonModule,
+        RouterModule,
+        CommonElementsModule,
+        NoHouseholdComponent,
+        LoadingComponent
+    ],
     templateUrl: './household-page.component.html',
     styleUrls: ['./household-page.component.sass']
 })
@@ -23,6 +36,7 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
 
     constructor(private householdService: HouseholdService,
                 private userService: UserService,
+                private tokenService: TokenService,
                 private router: Router) { }
 
     public ngOnInit(): void {
@@ -70,8 +84,8 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
     public logout(): void {
         this.userService.logout()
             .subscribe(
-                () => location.href = 'login.html',
-                () => location.href = 'login.html'
+                () => this.tokenService.publishToken(''),
+                () => this.tokenService.publishToken('')
             );
     }
 }

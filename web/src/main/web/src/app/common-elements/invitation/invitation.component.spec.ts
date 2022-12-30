@@ -12,7 +12,6 @@ describe('InvitationComponent', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [],
-            declarations: [ InvitationComponent ],
             providers: [
                 { provide: InvitationService, useClass: InvitationServiceMock },
                 { provide: UserService, useClass: UserServiceMock }

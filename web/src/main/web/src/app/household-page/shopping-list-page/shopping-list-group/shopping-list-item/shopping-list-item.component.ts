@@ -44,8 +44,8 @@ export class ShoppingListItemComponent {
         return this.shoppingListItem.links.some((link: Link) => link.rel === 'image');
     }
 
-    public handleFileInput(files: FileList): void {
-        const file: File = files.item(0);
+    public handleFileInput(ev: EventTarget): void {
+        const file: File = (ev as HTMLInputElement).files.item(0);
         const reader = new FileReader();
         reader.onloadend = () => {
             this.shoppingListItem.image = (<string> reader.result).split(',')[1];
@@ -59,7 +59,7 @@ export class ShoppingListItemComponent {
     }
 
     public saveShoppingListItem(): void {
-        this.shoppingListItem.name = this.editForm.controls.name.value;
+        this.shoppingListItem.name = this.editForm.controls['name'].value;
         this.shoppingListService.editShoppingListItem(this.shoppingListItem)
             .subscribe((shoppingList: ShoppingList) => {
                 this.editMode = false;

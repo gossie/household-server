@@ -21,7 +21,6 @@ describe('CoverPageComponent', () => {
             ],
             declarations: [
                 CoverPageComponent,
-                InvitationComponent,
                 ChangePasswordComponent
             ],
             providers: [

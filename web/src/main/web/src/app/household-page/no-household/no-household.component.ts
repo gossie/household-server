@@ -3,9 +3,13 @@ import { HouseholdService } from '../household.service';
 import { interval, Subscription } from 'rxjs/index';
 import { UserService } from '../../user.service';
 import { User } from '../../user';
+import { CommonModule } from '@angular/common';
+import { InvitationComponent } from 'src/app/common-elements/invitation/invitation.component';
 
 @Component({
   selector: 'app-no-household',
+  standalone: true,
+  imports: [CommonModule, InvitationComponent],
   templateUrl: './no-household.component.html',
   styleUrls: ['./no-household.component.sass']
 })
