@@ -5,11 +5,14 @@ import { UserService } from '../../user.service';
 import { User } from '../../user';
 import { CommonModule } from '@angular/common';
 import { InvitationComponent } from 'src/app/common-elements/invitation/invitation.component';
+import { Router, RouterModule } from '@angular/router';
+import { TokenService } from 'src/app/token.service';
+import { Page } from 'src/app/page.enum';
 
 @Component({
   selector: 'app-no-household',
   standalone: true,
-  imports: [CommonModule, InvitationComponent],
+  imports: [CommonModule, RouterModule, InvitationComponent],
   templateUrl: './no-household.component.html',
   styleUrls: ['./no-household.component.sass']
 })
@@ -23,7 +26,9 @@ export class NoHouseholdComponent implements OnInit, OnDestroy {
     private subscriptions: Array<Subscription> = [];
 
     constructor(private userService: UserService,
-                private householdService: HouseholdService) { }
+                private householdService: HouseholdService,
+                private tokenService: TokenService,
+                private router: Router) { }
 
     public ngOnInit(): void {
         this.subscriptions.push(interval(10000)
@@ -36,7 +41,7 @@ export class NoHouseholdComponent implements OnInit, OnDestroy {
 
     public createHousehold(): void {
         this.householdService.createHousehold()
-            .subscribe(() => {});
+            .subscribe(() => this.router.navigateByUrl(`/${Page.Household}/%{Page.Cover}`));
     }
 
     public toggleNavbar(): void {
@@ -44,10 +49,6 @@ export class NoHouseholdComponent implements OnInit, OnDestroy {
     }
 
     public logout(): void {
-        this.userService.logout()
-            .subscribe(
-                () => location.href = 'login.html',
-                () => location.href = 'login.html'
-            );
+        this.tokenService.publishToken('')
     }
 }

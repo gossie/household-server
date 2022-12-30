@@ -82,10 +82,6 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
     }
 
     public logout(): void {
-        this.userService.logout()
-            .subscribe(
-                () => this.tokenService.publishToken(''),
-                () => this.tokenService.publishToken('')
-            );
+        this.tokenService.publishToken('')
     }
 }
