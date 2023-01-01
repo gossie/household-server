@@ -70,11 +70,11 @@ public class CleaningPlanController {
     }
 
     private CleaningPlanDTO addAddChoreLink(CleaningPlanDTO cleaningPlan) {
-        return (CleaningPlanDTO) cleaningPlan.add(Link.of("/api/cleaningPlans/" + cleaningPlan.getDatabaseId(), "addChore"));
+        return (CleaningPlanDTO) cleaningPlan.add(Link.of("/api/cleaningPlans/" + cleaningPlan.getDatabaseId() + "/chores", "addChore"));
     }
 
     private CleaningPlanDTO addAddTaskLink(CleaningPlanDTO cleaningPlan) {
-        return (CleaningPlanDTO) cleaningPlan.add(Link.of("/api/cleaningPlans/" + cleaningPlan.getDatabaseId(), "addTask"));
+        return (CleaningPlanDTO) cleaningPlan.add(Link.of("/api/cleaningPlans/" + cleaningPlan.getDatabaseId() + "/tasks", "addTask"));
     }
 
     private ChoreDTO addSelectChoreLink(Long cleaningPlanId, ChoreDTO chore) {

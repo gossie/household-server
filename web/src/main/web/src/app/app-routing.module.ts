@@ -19,7 +19,6 @@ const routes: Routes = [{
     },
     {
         path: Page.Household,
-        canActivate: [() => localStorage.getItem('jwt') && localStorage.getItem('jwt').length > 0],
         loadComponent: () => import('./household-page/household-page.component').then(m => m.HouseholdPageComponent),
         children: [
             {

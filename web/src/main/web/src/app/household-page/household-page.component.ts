@@ -11,6 +11,7 @@ import { NoHouseholdComponent } from './no-household/no-household.component';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from './loading/loading.component';
 import { TokenService } from '../token.service';
+import { Page } from '../page.enum';
 
 @Component({
     selector: 'app-household-page',
@@ -64,8 +65,11 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
             .pipe(
                 tap((household: Household) => this.userHasNoHousehold = household === null)
             )
-            .subscribe((household: Household) => this.household = household)
-        );
+            .subscribe((household: Household) =>{
+                this.household = household;
+                this.router.navigateByUrl(`/${Page.Household}/${Page.Cover}`)
+            })
+            );
     }
 
     private observeRouter(): void {

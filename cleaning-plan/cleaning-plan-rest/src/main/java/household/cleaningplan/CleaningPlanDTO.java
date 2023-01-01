@@ -2,16 +2,16 @@ package household.cleaningplan;
 
 import java.util.List;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@RequiredArgsConstructor
-@Getter
-@ToString
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CleaningPlanDTO extends AbstractDTO {
 
-	private final Long databaseId;
-	private final List<ChoreDTO> chores;
-    private final List<TaskDTO> tasks;
+	private Long databaseId;
+	private List<ChoreDTO> chores;
+    private List<TaskDTO> tasks;
 }

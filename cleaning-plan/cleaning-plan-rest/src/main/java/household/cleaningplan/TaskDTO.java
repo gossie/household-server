@@ -1,18 +1,16 @@
 package household.cleaningplan;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@RequiredArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class TaskDTO extends AbstractDTO {
 
-    private final Long databaseId;
-    private final String name;
-    private final boolean done;
+    private Long databaseId;
+    private String name;
+    private boolean done;
 
 }

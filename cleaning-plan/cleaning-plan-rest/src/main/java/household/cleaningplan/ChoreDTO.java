@@ -1,20 +1,18 @@
 package household.cleaningplan;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@RequiredArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ChoreDTO extends AbstractDTO {
 
-	private final Long databaseId;
-	private final String name;
-	private final long lastPerformed;
-	private final long nextTime;
-	private final int repeat;
+	private Long databaseId;
+	private String name;
+	private long lastPerformed;
+	private long nextTime;
+	private int repeat;
 
 }

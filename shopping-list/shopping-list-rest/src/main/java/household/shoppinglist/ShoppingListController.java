@@ -114,7 +114,7 @@ public class ShoppingListController {
     }
 
     private ShoppingListDTO addCreateShoppingListGroupLink(ShoppingListDTO shoppingList) {
-        return (ShoppingListDTO) shoppingList.add(Link.of("/api/shoppingLists/" + shoppingList.getDatabaseId(), "add"));
+        return (ShoppingListDTO) shoppingList.add(Link.of("/api/shoppingLists/" + shoppingList.getDatabaseId() + "/shoppingListGroups", "add"));
     }
 
     private ShoppingListGroupDTO addGroupToggleLink(Long shoppingListId, ShoppingListGroupDTO group) {
@@ -122,11 +122,11 @@ public class ShoppingListController {
     }
 
     private ShoppingListGroupDTO addCreateItemLink(Long shoppingListId, ShoppingListGroupDTO group) {
-        return (ShoppingListGroupDTO) group.add(Link.of("/api/shoppingLists/" + shoppingListId + "/shoppingListGroups/" + group.getDatabaseId(), "add"));
+        return (ShoppingListGroupDTO) group.add(Link.of("/api/shoppingLists/" + shoppingListId + "/shoppingListGroups/" + group.getDatabaseId() + "/shoppingListItems", "add"));
     }
 
     private ShoppingListGroupDTO addClearItemsLink(Long shoppingListId, ShoppingListGroupDTO group) {
-        return (ShoppingListGroupDTO) group.add(Link.of("/api/shoppingLists/" + shoppingListId + "/shoppingListGroups/" + group.getDatabaseId(), "clear"));
+        return (ShoppingListGroupDTO) group.add(Link.of("/api/shoppingLists/" + shoppingListId + "/shoppingListGroups/" + group.getDatabaseId() + "/shoppingListItems", "clear"));
     }
 
     private ShoppingListGroupDTO addDeleteGroupLink(Long shoppingListId, ShoppingListGroupDTO group) {

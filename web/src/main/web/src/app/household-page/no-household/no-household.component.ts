@@ -41,7 +41,7 @@ export class NoHouseholdComponent implements OnInit, OnDestroy {
 
     public createHousehold(): void {
         this.householdService.createHousehold()
-            .subscribe(() => this.router.navigateByUrl(`/${Page.Household}/%{Page.Cover}`));
+            .subscribe(() => this.router.navigateByUrl(`/${Page.Household}/${Page.Cover}`));
     }
 
     public toggleNavbar(): void {
