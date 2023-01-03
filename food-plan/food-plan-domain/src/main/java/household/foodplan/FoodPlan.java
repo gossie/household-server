@@ -15,7 +15,7 @@ public class FoodPlan extends AbstractModel {
 
     private final Map<String, Meal> meals;
 
-    FoodPlan(Long id, Map<String, Meal> meals) {
+    FoodPlan(String id, Map<String, Meal> meals) {
         super(id);
         this.meals = new HashMap<>(meals);
     }
@@ -24,7 +24,7 @@ public class FoodPlan extends AbstractModel {
         meals.keySet().forEach(key -> meals.compute(key, (k, saved) -> new Meal(saved.getId(), "")));
     }
 
-    public void updateMeal(Long mealId, Recipe recipe, Meal meal) {
+    public void updateMeal(String mealId, Recipe recipe, Meal meal) {
         meals.entrySet().stream()
                 .filter(entry -> Objects.equals(mealId, entry.getValue().getId()))
                 .map(Entry::getKey)

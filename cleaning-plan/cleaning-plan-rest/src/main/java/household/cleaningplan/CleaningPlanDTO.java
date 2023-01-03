@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CleaningPlanDTO extends AbstractDTO {
 
-	private Long databaseId;
+	private String databaseId;
 	private List<ChoreDTO> chores;
     private List<TaskDTO> tasks;
 }

@@ -15,7 +15,7 @@ public class RecipeAssert extends AbstractAssert<RecipeAssert, Recipe> {
 		return new RecipeAssert(actual);
 	}
 	
-	public RecipeAssert hasId(Long id) {
+	public RecipeAssert hasId(String id) {
 		Assertions.assertThat(actual.getId()).isEqualTo(id);
 		return this;
 	}

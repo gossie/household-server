@@ -5,13 +5,13 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public abstract class AbstractModel {
 
-	private Long id;
+	private String id;
 
-	protected AbstractModel(Long id) {
+	protected AbstractModel(String id) {
 		this.id = id;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 }

@@ -13,7 +13,7 @@ public class CookbookDTOAssert extends AbstractAssert<CookbookDTOAssert, Cookboo
 		return new CookbookDTOAssert(actual);
 	}
 
-	public CookbookDTOAssert hasDatabaseId(long databaseId) {
+	public CookbookDTOAssert hasDatabaseId(String databaseId) {
 		Assertions.assertThat(actual.getDatabaseId()).isEqualTo(databaseId);
 		return this;
 	}

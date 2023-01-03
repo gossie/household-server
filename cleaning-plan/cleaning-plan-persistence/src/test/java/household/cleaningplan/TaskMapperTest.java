@@ -13,12 +13,12 @@ public class TaskMapperTest {
     public void testMap_toTask() {
         taskMapper = new TaskMapper();
 
-        TaskEntity from = new TaskEntity(2L, "task", true);
+        TaskEntity from = new TaskEntity("2L", "task", true);
 
         Task result = taskMapper.map(from);
 
         assertThat(result)
-            .hasId(2L)
+            .hasId("2L")
             .hasName("task")
             .isDone();
     }
@@ -27,7 +27,7 @@ public class TaskMapperTest {
     public void testMap_toTaskEntity() {
         taskMapper = new TaskMapper();
 
-        Task from = new Task(2L, "task", false);
+        Task from = new Task("2L", "task", false);
         TaskEntity result = taskMapper.map(from);
 
         assertThat(result).hasName("task");

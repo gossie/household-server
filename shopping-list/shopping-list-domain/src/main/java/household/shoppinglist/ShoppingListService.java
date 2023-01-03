@@ -11,47 +11,47 @@ public class ShoppingListService {
 
 	private final ShoppingListRepository shoppingListRepository;
 
-	public ShoppingList getShoppingList(Long shoppingListId) {
+	public ShoppingList getShoppingList(String shoppingListId) {
 		return shoppingListRepository.determineShoppingList(shoppingListId);
 	}
 
-    public ShoppingList removeAllSelectedItems(Long shoppingListId) {
+    public ShoppingList removeAllSelectedItems(String shoppingListId) {
         ShoppingList shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
         shoppingList.clearAllSelectedItems();
         return shoppingListRepository.saveShoppingList(shoppingList);
     }
 
-	public ShoppingList removeSelectedItemsFromShoppingListGroup(Long shoppingListId, Long shoppingListGroupId) {
+	public ShoppingList removeSelectedItemsFromShoppingListGroup(String shoppingListId, String shoppingListGroupId) {
 		ShoppingList shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
 		shoppingList.clearSelectedItemsFromShoppingListGroup(shoppingListGroupId);
 		return shoppingListRepository.saveShoppingList(shoppingList);
 	}
 
-    public ShoppingList addShoppingListGroup(Long shoppingListId, ShoppingListGroup group) {
+    public ShoppingList addShoppingListGroup(String shoppingListId, ShoppingListGroup group) {
         ShoppingList shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
         shoppingList.addShoppingListGroup(group);
         return shoppingListRepository.saveShoppingList(shoppingList);
     }
 
-    public ShoppingList deleteShoppingListGroup(Long shoppingListId, Long groupId) {
+    public ShoppingList deleteShoppingListGroup(String shoppingListId, String groupId) {
         ShoppingList shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
         shoppingList.deleteShoppingListGroup(groupId);
         return shoppingListRepository.saveShoppingList(shoppingList);
     }
 
-	public ShoppingList addShoppingListItems(Long shoppingListId, Long shoppingListGroupId, List<ShoppingListItem> entities) {
+	public ShoppingList addShoppingListItems(String shoppingListId, String shoppingListGroupId, List<ShoppingListItem> entities) {
 		ShoppingList shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
 		entities.forEach(item -> shoppingList.addShoppingListItem(shoppingListGroupId, item));
 		return shoppingListRepository.saveShoppingList(shoppingList);
 	}
 
-	public ShoppingList toggleItem(Long shoppingListId, Long shoppingListGroupId, Long shoppingListItemId) {
+	public ShoppingList toggleItem(String shoppingListId, String shoppingListGroupId, String shoppingListItemId) {
 		ShoppingList shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
 		shoppingList.toggleItem(shoppingListGroupId, shoppingListItemId);
 		return shoppingListRepository.saveShoppingList(shoppingList);
 	}
 
-    public ShoppingList toggleShoppingListGroup(Long shoppingListId, Long shoppingListGroupId) {
+    public ShoppingList toggleShoppingListGroup(String shoppingListId, String shoppingListGroupId) {
         ShoppingList shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
         shoppingList.toggleGroup(shoppingListGroupId);
         return shoppingListRepository.saveShoppingList(shoppingList);
@@ -61,11 +61,11 @@ public class ShoppingListService {
 		return shoppingListRepository.saveShoppingList(new ShoppingList(null));
 	}
 
-    public void deleteShoppingList(Long shoppingListId) {
+    public void deleteShoppingList(String shoppingListId) {
         shoppingListRepository.deleteShoppingList(shoppingListId);
     }
 
-    public ShoppingList editItem(Long shoppingListId, Long shoppingListGroupId, Long shoppingListItemId, ShoppingListItem item) {
+    public ShoppingList editItem(String shoppingListId, String shoppingListGroupId, String shoppingListItemId, ShoppingListItem item) {
         var shoppingList = shoppingListRepository.determineShoppingList(shoppingListId);
         shoppingList.editItem(shoppingListGroupId, shoppingListItemId, item);
         return shoppingListRepository.saveShoppingList(shoppingList);

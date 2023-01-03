@@ -13,18 +13,18 @@ public class MealMapperTest {
     public void testMap_toMealTO() throws Exception {
         mealMapper = new MealMapper();
 
-        MealEntity meal = new MealEntity(2L, "meal1");
+        MealEntity meal = new MealEntity("2L", "meal1");
 
         Meal result = mealMapper.map(meal);
 
-        assertThat(result).hasId(2L).hasName("meal1");
+        assertThat(result).hasId("2L").hasName("meal1");
     }
 
     @Test
     public void testMap_toMeal() throws Exception {
         mealMapper = new MealMapper();
 
-        Meal meal = new Meal(1L, "meal1");
+        Meal meal = new Meal("1L", "meal1");
         MealEntity result = mealMapper.map(meal);
 
         assertThat(result).hasName("meal1");
@@ -34,26 +34,26 @@ public class MealMapperTest {
     public void testMap_toMealTO_withRecipe() throws Exception {
         mealMapper = new MealMapper();
 
-        MealEntity meal = new MealEntity(2L, "meal1", "7_17");
+        MealEntity meal = new MealEntity("2L", "meal1", "7L_17L");
 
         Meal result = mealMapper.map(meal);
 
         assertThat(result)
-                .hasId(2L)
+                .hasId("2L")
                 .hasName("meal1")
-                .hasRecipe(new Recipe(17L, 7L));
+                .hasRecipe(new Recipe("17L", "7L"));
     }
 
     @Test
     public void testMap_toMeal_withRecipe() throws Exception {
         mealMapper = new MealMapper();
 
-        Meal meal = new Meal(1L, "meal1", new Recipe(17L, 7L));
+        Meal meal = new Meal("1L", "meal1", new Recipe("17L", "7L"));
         MealEntity result = mealMapper.map(meal);
 
         assertThat(result)
                 .hasName("meal1")
-                .hasRecipeReference("7_17");
+                .hasRecipeReference("7L_17L");
     }
 
 }

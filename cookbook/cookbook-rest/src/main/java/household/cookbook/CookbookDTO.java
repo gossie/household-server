@@ -9,11 +9,11 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public class CookbookDTO extends AbstractDTO {
 
-	private final Long databaseId;
+	private final String databaseId;
 	private final List<RecipeDTO> recipes;
 
 	@Override
-	public Long getDatabaseId() {
+	public String getDatabaseId() {
 		return databaseId;
 	}
 

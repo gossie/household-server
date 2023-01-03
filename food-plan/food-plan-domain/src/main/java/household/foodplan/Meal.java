@@ -12,13 +12,13 @@ public class Meal extends AbstractModel {
     private final String name;
     private final Recipe recipe;
 
-    Meal(Long id, String name, Recipe recipe) {
+    Meal(String id, String name, Recipe recipe) {
         super(id);
         this.name = name;
         this.recipe = recipe;
     }
 
-    Meal(Long id, String name) {
+    Meal(String id, String name) {
         this(id, name, null);
     }
 

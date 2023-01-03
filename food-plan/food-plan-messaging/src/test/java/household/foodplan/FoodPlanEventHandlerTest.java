@@ -16,8 +16,8 @@ class FoodPlanEventHandlerTest {
         var foodPlanService = mock(FoodPlanService.class);
 
         shoppingListEventHandler = new FoodPlanEventHandler(mock(EventBus.class), foodPlanService);
-        shoppingListEventHandler.onHouseholdDeleted(new HouseholdDeletedEvent(1L, 2L, 3L, 4L, 5L));
+        shoppingListEventHandler.onHouseholdDeleted(new HouseholdDeletedEvent("1L", "2L", "3L", "4L", "5L"));
 
-        verify(foodPlanService).deleteFoodPlan(4L);
+        verify(foodPlanService).deleteFoodPlan("4L");
     }
 }

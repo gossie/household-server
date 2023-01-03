@@ -9,7 +9,7 @@
     <parent>
         <groupId>household</groupId>
         <artifactId>plan-parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${app.version}</version>
     </parent>
 
     <artifactId>cleaning-plan-parent</artifactId>

@@ -7,11 +7,11 @@ public interface UserRepository {
 
     User createUser(User user);
 
-    User determineUser(Long userId);
+    User determineUserById(String userId);
 
-    Optional<User> determineUser(String email);
+    Optional<User> determineUserByEmail(String email);
 
-    List<User> determineUsers(Long householdId);
+    List<User> determineUsers(String householdId);
 
     User saveUser(User user);
 

@@ -9,6 +9,6 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public class ShoppingListDTO extends AbstractDTO {
 
-	private final Long databaseId;
+	private final String databaseId;
 	private final List<ShoppingListGroupDTO> shoppingListGroups;
 }

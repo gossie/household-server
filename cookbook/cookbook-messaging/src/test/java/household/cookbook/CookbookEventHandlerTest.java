@@ -18,8 +18,8 @@ public class CookbookEventHandlerTest {
 		var cookbookService = mock(CookbookService.class);
 
 		shoppingListEventHandler = new CookbookEventHandler(mock(EventBus.class), cookbookService);
-		shoppingListEventHandler.onHouseholdDeleted(new HouseholdDeletedEvent(1L, 2L, 3L, 4L, 5L));
+		shoppingListEventHandler.onHouseholdDeleted(new HouseholdDeletedEvent("1L", "2L", "3L", "4L", "5L"));
 
-		verify(cookbookService).deleteCookbook(5L);
+		verify(cookbookService).deleteCookbook("5L");
 	}
 }

@@ -1,7 +1,7 @@
 package household.shoppinglist;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-interface ShoppingListEntityRepository extends JpaRepository<ShoppingListEntity, Long> {
+interface ShoppingListEntityRepository extends MongoRepository<ShoppingListEntity, String> {
 
 }

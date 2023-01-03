@@ -15,12 +15,12 @@ public class ShoppingList extends AbstractModel {
 
 	private final List<ShoppingListGroup> shoppingListGroups;
 
-    ShoppingList(Long id, List<ShoppingListGroup> shoppingListGroups) {
+    ShoppingList(String id, List<ShoppingListGroup> shoppingListGroups) {
     	super(id);
 		this.shoppingListGroups = new ArrayList<>(shoppingListGroups);
 	}
 
-	ShoppingList(Long id) {
+	ShoppingList(String id) {
 		this(id, new ArrayList<>(Collections.singletonList(new ShoppingListGroup(null, "Global", Collections.emptyList()))));
 	}
 
@@ -30,19 +30,19 @@ public class ShoppingList extends AbstractModel {
             .forEach(this::clearSelectedItemsFromShoppingListGroup);
 	}
 
-	public void clearSelectedItemsFromShoppingListGroup(Long shoppingListGroupId) {
+	public void clearSelectedItemsFromShoppingListGroup(String shoppingListGroupId) {
 		determineShoppingListGroup(shoppingListGroupId).ifPresent(ShoppingListGroup::clearSelectedItems);
 	}
 
-    public void toggleGroup(Long shoppingListGroupId) {
+    public void toggleGroup(String shoppingListGroupId) {
         determineShoppingListGroup(shoppingListGroupId).ifPresent(ShoppingListGroup::toggle);
     }
 
-	public void toggleItem(Long shoppingListGroupId, Long shoppingListItemId) {
+	public void toggleItem(String shoppingListGroupId, String shoppingListItemId) {
         determineShoppingListGroup(shoppingListGroupId).ifPresent(group -> group.toogleItem(shoppingListItemId));
 	}
 
-    public void editItem(Long shoppingListGroupId, Long shoppingListItemId, ShoppingListItem item) {
+    public void editItem(String shoppingListGroupId, String shoppingListItemId, ShoppingListItem item) {
         determineShoppingListGroup(shoppingListGroupId).ifPresent(group -> group.editItem(shoppingListItemId, item));
     }
 
@@ -50,11 +50,11 @@ public class ShoppingList extends AbstractModel {
         shoppingListGroups.add(group);
     }
 
-	public void addShoppingListItem(Long shoppingListGroupId, ShoppingListItem shoppingListItem) {
+	public void addShoppingListItem(String shoppingListGroupId, ShoppingListItem shoppingListItem) {
 		determineShoppingListGroup(shoppingListGroupId).ifPresent(group -> group.addShoppingListItem(shoppingListItem));
 	}
 
-	private Optional<ShoppingListGroup> determineShoppingListGroup(Long shoppingListGroupId) {
+	private Optional<ShoppingListGroup> determineShoppingListGroup(String shoppingListGroupId) {
 	    return shoppingListGroups.stream()
             .filter(group -> Objects.equals(group.getId(), shoppingListGroupId))
             .findFirst();
@@ -64,13 +64,13 @@ public class ShoppingList extends AbstractModel {
 		return Collections.unmodifiableList(shoppingListGroups);
 	}
 
-    public Optional<ShoppingListGroup> getShoppingListGroup(Long groupId) {
+    public Optional<ShoppingListGroup> getShoppingListGroup(String groupId) {
         return shoppingListGroups.stream()
             .filter(group -> Objects.equals(group.getId(), groupId))
             .findFirst();
     }
 
-    public void deleteShoppingListGroup(Long shoppingListGroupId) {
+    public void deleteShoppingListGroup(String shoppingListGroupId) {
         Optional<ShoppingListGroup> shoppingListGroup = determineShoppingListGroup(shoppingListGroupId);
         if(shoppingListGroup.isPresent()) {
             if(Objects.equals(shoppingListGroup.get().getName(), "Global")) {

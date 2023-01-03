@@ -13,18 +13,18 @@ public class MealDTOMapperTest {
     public void testMap_toMealTO() throws Exception {
         mealMapper = new MealDTOMapper();
 
-        Meal meal = new Meal(2L, "meal1");
+        Meal meal = new Meal("2L", "meal1");
 
         MealDTO result = mealMapper.map(meal);
 
-        assertThat(result).hasDatabaseId(2L).hasName("meal1");
+        assertThat(result).hasDatabaseId("2L").hasName("meal1");
     }
 
     @Test
     public void testMap_toMeal() throws Exception {
         mealMapper = new MealDTOMapper();
 
-        MealDTO meal = new MealDTO(1L, "meal1", null, null);
+        MealDTO meal = new MealDTO("1L", "meal1", null, null);
         Meal result = mealMapper.map(meal);
 
         assertThat(result).hasName("meal1");

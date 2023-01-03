@@ -13,7 +13,7 @@ public class IngredientDTOMapperTest {
 	public void testMap_toIngredientTO() throws Exception {
 		ingredientMapper = new IngredientDTOMapper();
 
-		Ingredient ingredient = new Ingredient(1L, 500.0, "g", "Hack");
+		Ingredient ingredient = new Ingredient("1L", 500.0, "g", "Hack");
 		IngredientDTO result = ingredientMapper.map(ingredient);
 
 		assertThat(result).hasAmount(500.0).hasUnit("g").hasName("Hack");

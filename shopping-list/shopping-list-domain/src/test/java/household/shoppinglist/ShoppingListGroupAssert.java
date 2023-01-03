@@ -15,7 +15,7 @@ public class ShoppingListGroupAssert extends AbstractAssert<ShoppingListGroupAss
         return new ShoppingListGroupAssert(actual);
     }
 
-    public ShoppingListGroupAssert hasId(Long id) {
+    public ShoppingListGroupAssert hasId(String id) {
         Assertions.assertThat(actual.getId()).isEqualTo(id);
         return this;
     }

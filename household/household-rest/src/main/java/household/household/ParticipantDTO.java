@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public class ParticipantDTO extends AbstractDTO {
 
-    private final Long databaseId;
+    private final String databaseId;
 	private final String email;
 
 }

@@ -8,7 +8,7 @@
     <parent>
         <groupId>household</groupId>
         <artifactId>cookbook-parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${app.version}</version>
     </parent>
 
     <artifactId>cookbook-messaging</artifactId>
@@ -21,12 +21,12 @@
         <dependency>
             <groupId>household</groupId>
             <artifactId>cookbook-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${app.version}</version>
         </dependency>
         <dependency>
             <groupId>household</groupId>
             <artifactId>household-events</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${app.version}</version>
         </dependency>
 
         <dependency>

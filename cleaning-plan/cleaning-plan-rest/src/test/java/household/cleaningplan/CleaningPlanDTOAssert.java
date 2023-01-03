@@ -15,7 +15,7 @@ public class CleaningPlanDTOAssert extends AbstractAssert<CleaningPlanDTOAssert,
 		return new CleaningPlanDTOAssert(actual);
 	}
 
-	public CleaningPlanDTOAssert hasDatabaseId(long id) {
+	public CleaningPlanDTOAssert hasDatabaseId(String id) {
 		Assertions.assertThat(actual.getDatabaseId()).isEqualTo(id);
 		return this;
 	}

@@ -1,7 +1,7 @@
 package household.foodplan;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-interface FoodPlanEntityRepository extends JpaRepository<FoodPlanEntity, Long> {
+interface FoodPlanEntityRepository extends MongoRepository<FoodPlanEntity, String> {
 
 }

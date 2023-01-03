@@ -7,5 +7,5 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public abstract class AbstractDTO extends RepresentationModel<AbstractDTO> {
 
 	@JsonIgnore
-	public abstract Long getDatabaseId();
+	public abstract String getDatabaseId();
 }

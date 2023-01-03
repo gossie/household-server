@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ChoreDTO extends AbstractDTO {
 
-	private Long databaseId;
+	private String databaseId;
 	private String name;
 	private long lastPerformed;
 	private long nextTime;

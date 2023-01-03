@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @Getter
 public class FoodPlanDTO extends AbstractDTO {
 
-	private Long databaseId;
+	private String databaseId;
 	private Map<String, MealDTO> meals;
 }

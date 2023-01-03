@@ -18,7 +18,7 @@ public class MealTOAssert extends AbstractAssert<MealTOAssert, MealDTO> {
 		return this;
 	}
 
-	public MealTOAssert hasDatabaseId(long id) {
+	public MealTOAssert hasDatabaseId(String id) {
 		Assertions.assertThat(actual.getDatabaseId()).isSameAs(id);
 		return this;
 	}

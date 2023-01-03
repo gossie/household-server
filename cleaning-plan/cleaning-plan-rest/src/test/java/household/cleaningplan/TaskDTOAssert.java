@@ -13,7 +13,7 @@ public class TaskDTOAssert extends AbstractAssert<TaskDTOAssert, TaskDTO> {
 		return new TaskDTOAssert(actual);
 	}
 
-	public TaskDTOAssert hasDatabaseId(long id) {
+	public TaskDTOAssert hasDatabaseId(String id) {
 		Assertions.assertThat(actual.getDatabaseId()).isEqualTo(id);
 		return this;
 	}

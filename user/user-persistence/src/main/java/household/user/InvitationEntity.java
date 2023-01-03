@@ -1,29 +1,17 @@
 package household.user;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@Entity
+@Data
 @NoArgsConstructor(access=AccessLevel.PACKAGE, force=true)
-@RequiredArgsConstructor(access=AccessLevel.PACKAGE)
-@Getter
-@Setter
-@ToString
+@AllArgsConstructor(access=AccessLevel.PACKAGE)
 class InvitationEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private final Long id;
-	private final Long householdId;
-	private final String sender;
+	private String id;
+	private String householdId;
+	private String sender;
 	
 }

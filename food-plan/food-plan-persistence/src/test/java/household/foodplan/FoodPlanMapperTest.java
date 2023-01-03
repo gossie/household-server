@@ -18,23 +18,23 @@ public class FoodPlanMapperTest {
 	public void testMap_toFoodPlanDTO() throws Exception {
 		foodPlanMapper = new FoodPlanMapper(new MealMapper());
 
-		MealEntity meal1 = new MealEntity(3L, "meal1");
-		MealEntity meal2 = new MealEntity(4L, "meal2");
+		MealEntity meal1 = new MealEntity("3L", "meal1");
+		MealEntity meal2 = new MealEntity("4L", "meal2");
 
 		Map<String, MealEntity> meals = new HashMap<>();
 		meals.put("one", meal1);
 		meals.put("two", meal2);
 
-		FoodPlanEntity foodPlan = new FoodPlanEntity(2L, meals);
+		FoodPlanEntity foodPlan = new FoodPlanEntity("2L", meals);
 
 		FoodPlan result = foodPlanMapper.map(foodPlan);
 
 		assertThat(result)
-		    .hasId(2L)
+		    .hasId("2L")
 			.hasSize(2);
 			
-		assertThat(result.getMeals().get("one")).hasId(3L).hasName("meal1");
-		assertThat(result.getMeals().get("two")).hasId(4L).hasName("meal2");
+		assertThat(result.getMeals().get("one")).hasId("3L").hasName("meal1");
+		assertThat(result.getMeals().get("two")).hasId("4L").hasName("meal2");
 	}
 
 	@Test
@@ -42,9 +42,9 @@ public class FoodPlanMapperTest {
 		foodPlanMapper = new FoodPlanMapper(new MealMapper());
 
 		Map<String, Meal> meals = new HashMap<>();
-		meals.put("one", new Meal(1L, "meal1"));
-		meals.put("two", new Meal(2L, "meal2"));
-		FoodPlan foodPlan = new FoodPlan(1L, meals);
+		meals.put("one", new Meal("1L", "meal1"));
+		meals.put("two", new Meal("2L", "meal2"));
+		FoodPlan foodPlan = new FoodPlan("1L", meals);
 
 		FoodPlanEntity result = foodPlanMapper.map(foodPlan);
 

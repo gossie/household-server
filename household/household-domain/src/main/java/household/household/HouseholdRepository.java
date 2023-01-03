@@ -2,9 +2,9 @@ package household.household;
 
 public interface HouseholdRepository {
 
-	Household determineHousehold(Long householdId);
+	Household determineHousehold(String householdId);
 
 	Household saveHousehold(Household household);
 
-    void deleteHousehold(Long householdId);
+    void deleteHousehold(String householdId);
 }

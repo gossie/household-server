@@ -27,7 +27,7 @@ class HouseholdEventHandlerTest {
         HouseholdService HouseholdService = mock(HouseholdService.class);
 
         HouseholdEventHandler HouseholdEventHandler = new HouseholdEventHandler(mock(EventBus.class), HouseholdService);
-        HouseholdEventHandler.onInvitationAccepted(new InvitationAcceptedEvent(5L, Collections.singletonList(6L)));
+        HouseholdEventHandler.onInvitationAccepted(new InvitationAcceptedEvent("5L", Collections.singletonList("6L")));
 
         verifyNoInteractions(HouseholdService);
     }
@@ -39,9 +39,9 @@ class HouseholdEventHandlerTest {
         HouseholdService HouseholdService = mock(HouseholdService.class);
 
         HouseholdEventHandler HouseholdEventHandler = new HouseholdEventHandler(mock(EventBus.class), HouseholdService);
-        HouseholdEventHandler.onInvitationAccepted(new InvitationAcceptedEvent(5L, Collections.emptyList()));
+        HouseholdEventHandler.onInvitationAccepted(new InvitationAcceptedEvent("5L", Collections.emptyList()));
 
-        verify(HouseholdService).deleteHousehold(5L);
+        verify(HouseholdService).deleteHousehold("5L");
     }
 
 }

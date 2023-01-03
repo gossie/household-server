@@ -17,7 +17,7 @@ public class UserAssert  extends AbstractAssert<UserAssert, User> {
         return new UserAssert(actual);
     }
 
-    public UserAssert hasId(Long id) {
+    public UserAssert hasId(String id) {
         assertEquals(id, actual.getId());
         return this;
     }

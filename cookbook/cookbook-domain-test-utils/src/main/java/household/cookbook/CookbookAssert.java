@@ -15,7 +15,7 @@ public class CookbookAssert extends AbstractAssert<CookbookAssert, Cookbook> {
 		return new CookbookAssert(actual);
 	}
 	
-	public CookbookAssert hasId(Long id) {
+	public CookbookAssert hasId(String id) {
 		Assertions.assertThat(actual.getId()).isEqualTo(id);
 		return this;
 	}

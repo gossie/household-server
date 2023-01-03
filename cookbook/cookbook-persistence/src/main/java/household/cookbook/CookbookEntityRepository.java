@@ -1,7 +1,7 @@
 package household.cookbook;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-interface CookbookEntityRepository extends JpaRepository<CookbookEntity, Long> {
+interface CookbookEntityRepository extends MongoRepository<CookbookEntity, String> {
 
 }

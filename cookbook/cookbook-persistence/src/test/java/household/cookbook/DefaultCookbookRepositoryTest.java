@@ -12,8 +12,8 @@ public class DefaultCookbookRepositoryTest {
         CookbookEntityRepository cookbookEntityRepository = mock(CookbookEntityRepository.class);
 
         CookbookRepository cookbookRepository = new DefaultCookbookRepository(cookbookEntityRepository, null);
-        cookbookRepository.deleteCookbook(6L);
+        cookbookRepository.deleteCookbook("6L");
 
-        verify(cookbookEntityRepository).deleteById(6L);
+        verify(cookbookEntityRepository).deleteById("6L");
     }
 }

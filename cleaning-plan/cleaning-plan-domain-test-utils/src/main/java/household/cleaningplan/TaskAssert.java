@@ -16,7 +16,7 @@ public class TaskAssert extends AbstractAssert<TaskAssert, Task> {
         return new TaskAssert(actual);
     }
 
-    public TaskAssert hasId(Long id) {
+    public TaskAssert hasId(String id) {
         assertEquals(id, actual.getId());
         return this;
     }

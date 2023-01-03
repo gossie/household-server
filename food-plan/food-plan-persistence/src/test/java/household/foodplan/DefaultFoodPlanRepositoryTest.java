@@ -12,9 +12,9 @@ public class DefaultFoodPlanRepositoryTest {
         FoodPlanEntityRepository foodPlanEntityRepository = mock(FoodPlanEntityRepository.class);
 
         FoodPlanRepository foodPlanRepository = new DefaultFoodPlanRepository(foodPlanEntityRepository, null);
-        foodPlanRepository.deleteFoodPlan(6L);
+        foodPlanRepository.deleteFoodPlan("6L");
 
-        verify(foodPlanEntityRepository).deleteById(6L);
+        verify(foodPlanEntityRepository).deleteById("6L");
     }
 
 }

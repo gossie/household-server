@@ -9,9 +9,9 @@ import lombok.ToString;
 @Getter
 public class Recipe extends AbstractModel {
 
-    private Long cookbookId;
+    private String cookbookId;
 
-    Recipe(Long id, Long cookbookId) {
+    Recipe(String id, String cookbookId) {
         super(id);
         this.cookbookId = cookbookId;
     }

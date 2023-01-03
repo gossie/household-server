@@ -12,10 +12,10 @@ public class User extends AbstractModel {
 
 	private final String email;
 	private String password;
-	private Long householdId;
+	private String householdId;
 	private final List<Invitation> invitations;
 
-	User(Long id, String email, String password) {
+	User(String id, String email, String password) {
 		super(id);
 		this.email = email;
 		this.password = password;
@@ -34,11 +34,11 @@ public class User extends AbstractModel {
 		this.password = password;
 	}
 
-	public Long getHouseholdId() {
+	public String getHouseholdId() {
 		return householdId;
 	}
 
-	public void setHouseholdId(Long householdId) {
+	public void setHouseholdId(String householdId) {
 		this.householdId = householdId;
 	}
 
@@ -50,7 +50,7 @@ public class User extends AbstractModel {
 		invitations.add(invitation);
 	}
 
-    public void acceptInvitation(Long invitationId) {
+    public void acceptInvitation(String invitationId) {
         invitations.stream()
             .filter(invitation -> invitationId.equals(invitation.getId()))
             .findFirst()
@@ -60,7 +60,7 @@ public class User extends AbstractModel {
             });
     }
 
-	public void rejectInvitation(Long invitationId) {
+	public void rejectInvitation(String invitationId) {
 		invitations.removeIf(invitation -> invitationId.equals(invitation.getId()));
 	}
 }

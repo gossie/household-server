@@ -6,7 +6,7 @@ public class Ingredient extends AbstractModel {
 	private String unit;
 	private String name;
 
-	Ingredient(Long id, double amount, String unit, String name) {
+	Ingredient(String id, double amount, String unit, String name) {
 		super(id);
 		this.amount = amount;
 		this.unit = unit;

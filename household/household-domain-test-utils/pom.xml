@@ -8,7 +8,7 @@
     <parent>
         <groupId>household</groupId>
         <artifactId>household-parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${app.version}</version>
     </parent>
 
     <artifactId>household-domain-test-utils</artifactId>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>household</groupId>
             <artifactId>household-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${app.version}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>

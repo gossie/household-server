@@ -33,8 +33,8 @@ class ShoppingListControllerTest {
         var scaledBase64Image = "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";
         byte[] scaledRawImage = Base64.getDecoder().decode(scaledBase64Image);
 
-        when(shoppingListService.editItem(17L, 23L, 27L, new ShoppingListItem(null, "Paprika", false, scaledRawImage)))
-            .thenReturn(new ShoppingList(17L, List.of(new ShoppingListGroup(23L, "Global", List.of(new ShoppingListItem(27L, "Paprika", false, scaledRawImage))))));
+        when(shoppingListService.editItem("17L", "23L", "27L", new ShoppingListItem(null, "Paprika", false, scaledRawImage)))
+            .thenReturn(new ShoppingList("17L", List.of(new ShoppingListGroup("23L", "Global", List.of(new ShoppingListItem("27L", "Paprika", false, scaledRawImage))))));
 
         webTestClient.put()
             .uri("/api/shoppingLists/17/shoppingListGroups/23/shoppingListItems/27")
@@ -63,8 +63,8 @@ class ShoppingListControllerTest {
 
     @Test
     void testEditShoppingListItem_withoutImage() throws Exception {
-        when(shoppingListService.editItem(17L, 23L, 27L, new ShoppingListItem(null, "Paprika", false, null)))
-            .thenReturn(new ShoppingList(17L, List.of(new ShoppingListGroup(23L, "Global", List.of(new ShoppingListItem(27L, "Paprika", false, null))))));
+        when(shoppingListService.editItem("17L", "23L", "27L", new ShoppingListItem(null, "Paprika", false, null)))
+            .thenReturn(new ShoppingList("17L", List.of(new ShoppingListGroup("23L", "Global", List.of(new ShoppingListItem("27L", "Paprika", false, null))))));
 
         webTestClient.put()
             .uri("/api/shoppingLists/17/shoppingListGroups/23/shoppingListItems/27")
@@ -93,8 +93,8 @@ class ShoppingListControllerTest {
 
     @Test
     void testRetrieveImage() {
-        when(shoppingListService.getShoppingList(17L))
-            .thenReturn(new ShoppingList(17L, List.of(new ShoppingListGroup(23L, "Global", List.of(new ShoppingListItem(27L, "Paprika", false, "IMAGE".getBytes()))))));
+        when(shoppingListService.getShoppingList("17L"))
+            .thenReturn(new ShoppingList("17L", List.of(new ShoppingListGroup("23L", "Global", List.of(new ShoppingListItem("27L", "Paprika", false, "IMAGE".getBytes()))))));
 
         webTestClient.get()
             .uri("/api/shoppingLists/17/shoppingListGroups/23/shoppingListItems/27")

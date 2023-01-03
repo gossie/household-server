@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TaskDTO extends AbstractDTO {
 
-    private Long databaseId;
+    private String databaseId;
     private String name;
     private boolean done;
 

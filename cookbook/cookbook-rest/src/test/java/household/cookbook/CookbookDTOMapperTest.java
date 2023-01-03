@@ -19,16 +19,16 @@ public class CookbookDTOMapperTest {
 
 		CookbookDTO result = cookbookMapper.map(cookbook);
 
-	    assertThat(result).hasDatabaseId(6L).hasSize(2);
+	    assertThat(result).hasDatabaseId("6L").hasSize(2);
 	    assertThat(result.getRecipes().get(0)).hasName("Recipe1").hasSize(2);
 	    assertThat(result.getRecipes().get(1)).hasName("Recipe2").hasSize(2);
 	}
 
 	private Cookbook createCookbook() {
-		Recipe recipe1 = new Recipe(1L, "Recipe1", "", asList(mock(Ingredient.class), mock(Ingredient.class)), "");
-		Recipe recipe2 = new Recipe(2L, "Recipe2", "", asList(mock(Ingredient.class), mock(Ingredient.class)), "");
+		Recipe recipe1 = new Recipe("1L", "Recipe1", "", asList(mock(Ingredient.class), mock(Ingredient.class)), "");
+		Recipe recipe2 = new Recipe("2L", "Recipe2", "", asList(mock(Ingredient.class), mock(Ingredient.class)), "");
 
-		Cookbook cookbook = new Cookbook(6L, asList(recipe1, recipe2));
+		Cookbook cookbook = new Cookbook("6L", asList(recipe1, recipe2));
 		return cookbook;
 	}
 

@@ -12,10 +12,10 @@ import lombok.RequiredArgsConstructor;
 @EqualsAndHashCode
 public class InvitationAcceptedEvent {
 
-    private final Long oldHouseholdId;
-    private final List<Long> leftUserIds;
+    private final String oldHouseholdId;
+    private final List<String> leftUserIds;
 
-    public Optional<Long> getOldHouseholdId() {
+    public Optional<String> getOldHouseholdId() {
         return Optional.ofNullable(oldHouseholdId);
     }
 }

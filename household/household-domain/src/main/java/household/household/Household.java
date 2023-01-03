@@ -2,12 +2,12 @@ package household.household;
 
 public class Household extends AbstractModel {
 	
-	private Long shoppingListId;
-	private Long cleaningPlanId;
-	private Long foodPlanId;
-	private Long cookbookId;
+	private String shoppingListId;
+	private String cleaningPlanId;
+	private String foodPlanId;
+	private String cookbookId;
 	
-	Household(Long id, Long shoppingList, Long cleaningPlan, Long foodPlan, Long cookbook) {
+	Household(String id, String shoppingList, String cleaningPlan, String foodPlan, String cookbook) {
 		super(id);
 		this.shoppingListId = shoppingList;
 		this.cleaningPlanId = cleaningPlan;
@@ -15,19 +15,19 @@ public class Household extends AbstractModel {
 		this.cookbookId = cookbook;
 	}
 
-	public Long getShoppingListId() {
+	public String getShoppingListId() {
 		return shoppingListId;
 	}
 
-	public Long getCleaningPlanId() {
+	public String getCleaningPlanId() {
 		return cleaningPlanId;
 	}
 
-	public Long getFoodPlanId() {
+	public String getFoodPlanId() {
 		return foodPlanId;
 	}
 
-	public Long getCookbookId() {
+	public String getCookbookId() {
 		return cookbookId;
 	}
 }

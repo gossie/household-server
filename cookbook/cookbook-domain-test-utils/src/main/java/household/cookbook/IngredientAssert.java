@@ -14,7 +14,7 @@ public class IngredientAssert extends AbstractAssert<IngredientAssert, Ingredien
 		return new IngredientAssert(actual);
 	}
 
-	public IngredientAssert hasId(Long id) {
+	public IngredientAssert hasId(String id) {
 		assertEquals(id, actual.getId());
 		return this;
 	}

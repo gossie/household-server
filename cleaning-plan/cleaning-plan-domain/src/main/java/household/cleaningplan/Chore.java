@@ -8,11 +8,11 @@ public class Chore extends AbstractModel {
     private long lastPerformed;
     private Repeat repeat;
 
-    Chore(Long id, String name, long lastPerformed) {
+    Chore(String id, String name, long lastPerformed) {
         this(id, name, lastPerformed, null);
     }
 
-    Chore(Long id, String name, long lastPerformed, Repeat repeat) {
+    Chore(String id, String name, long lastPerformed, Repeat repeat) {
         super(id);
         this.name = name;
         this.lastPerformed = lastPerformed;

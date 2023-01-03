@@ -19,7 +19,7 @@ public class MealMapper {
     Meal map(MealEntity meal) {
         Recipe recipe = Optional.ofNullable(meal.getRecipeReference())
                 .map(reference -> reference.split("_"))
-                .map(array -> new Recipe(Long.valueOf(array[1]), Long.valueOf(array[0])))
+                .map(array -> new Recipe(array[1], array[0]))
                 .orElse(null);
                 
         return new Meal(meal.getId(), meal.getName(), recipe);

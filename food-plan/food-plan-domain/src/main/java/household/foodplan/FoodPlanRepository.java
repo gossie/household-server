@@ -2,11 +2,11 @@ package household.foodplan;
 
 public interface FoodPlanRepository {
 
-	FoodPlan determineFoodPlan(long foodPlanId);
+	FoodPlan determineFoodPlan(String foodPlanId);
 
 	FoodPlan saveFoodPlan(FoodPlan foodPlan);
 
 	FoodPlan createFoodPlan();
 
-    void deleteFoodPlan(Long foodPlanId);
+    void deleteFoodPlan(String foodPlanId);
 }

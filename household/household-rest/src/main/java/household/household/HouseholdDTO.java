@@ -11,11 +11,11 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public class HouseholdDTO extends AbstractDTO {
 
-	private final Long databaseId;
-	private final Long shoppingListId;
-	private final Long cleaningPlanId;
-	private final Long foodPlanId;
-	private final Long cookbookId;
+	private final String databaseId;
+	private final String shoppingListId;
+	private final String cleaningPlanId;
+	private final String foodPlanId;
+	private final String cookbookId;
     private List<ParticipantDTO> participants = new ArrayList<>();
 
     public void addParticipant(ParticipantDTO participant) {
@@ -23,22 +23,22 @@ public class HouseholdDTO extends AbstractDTO {
     }
 
 	@JsonIgnore
-	public Long getShoppingListId() {
+	public String getShoppingListId() {
 		return shoppingListId;
 	}
 
 	@JsonIgnore
-	public Long getCleaningPlanId() {
+	public String getCleaningPlanId() {
 		return cleaningPlanId;
 	}
 
 	@JsonIgnore
-	public Long getFoodPlanId() {
+	public String getFoodPlanId() {
 		return foodPlanId;
 	}
 
 	@JsonIgnore
-	public Long getCookbookId() {
+	public String getCookbookId() {
 		return cookbookId;
 	}
 

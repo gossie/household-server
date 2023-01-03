@@ -34,22 +34,22 @@ public class ShoppingListController {
 	private final ShoppingListService shoppingListService;
 
 	@GetMapping(path="/{id}", produces={"application/vnd.household.v2+json"})
-	public ShoppingListDTO getShoppingList(@PathVariable Long id) {
+	public ShoppingListDTO getShoppingList(@PathVariable String id) {
 		return addLinks(createResource(shoppingListService.getShoppingList(id)));
 	}
 
     @PatchMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", produces={"application/vnd.household.v2+json"})
-    public ShoppingListDTO toggleItem(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId) {
+    public ShoppingListDTO toggleItem(@PathVariable String id, @PathVariable String groupId, @PathVariable String itemId) {
         return addLinks(createResource(shoppingListService.toggleItem(id, groupId, itemId)));
     }
 
     @PutMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", produces={"application/vnd.household.v2+json"}, consumes={"application/vnd.household.v2+json"})
-    public ShoppingListDTO editItem(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId, @RequestBody ShoppingListItemDTO item) {
+    public ShoppingListDTO editItem(@PathVariable String id, @PathVariable String groupId, @PathVariable String itemId, @RequestBody ShoppingListItemDTO item) {
         return addLinks(createResource(shoppingListService.editItem(id, groupId, itemId, shoppingListItemMapper.map(item))));
     }
 
     @GetMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems/{itemId}", produces={"image/png", "image/jpeg"})
-    public byte[] retrieveImage(@PathVariable Long id, @PathVariable Long groupId, @PathVariable Long itemId) {
+    public byte[] retrieveImage(@PathVariable String id, @PathVariable String groupId, @PathVariable String itemId) {
 	    return shoppingListService.getShoppingList(id).getShoppingListGroup(groupId)
                 .flatMap(group -> group.getShoppingListItem(itemId))
                 .map(item -> item.getImage())
@@ -57,27 +57,27 @@ public class ShoppingListController {
     }
 
 	@DeleteMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems", produces={"application/vnd.household.v2+json"})
-	public ShoppingListDTO removedSelectedItemsFromShoppingListGroup(@PathVariable Long id, @PathVariable Long groupId) {
+	public ShoppingListDTO removedSelectedItemsFromShoppingListGroup(@PathVariable String id, @PathVariable String groupId) {
 		return addLinks(createResource(shoppingListService.removeSelectedItemsFromShoppingListGroup(id, groupId)));
 	}
 
     @PostMapping(path="/{id}/shoppingListGroups", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
-    public ShoppingListDTO addGroup(@PathVariable Long id, @RequestBody ShoppingListGroupDTO shoppingListGroup) {
+    public ShoppingListDTO addGroup(@PathVariable String id, @RequestBody ShoppingListGroupDTO shoppingListGroup) {
         return addLinks(createResource(shoppingListService.addShoppingListGroup(id, shoppingListGroupMapper.map(shoppingListGroup))));
     }
 
     @PutMapping(path="/{id}/shoppingListGroups/{groupId}", produces={"application/vnd.household.v2+json"})
-    public ShoppingListDTO toggleGroup(@PathVariable Long id, @PathVariable Long groupId) {
+    public ShoppingListDTO toggleGroup(@PathVariable String id, @PathVariable String groupId) {
         return addLinks(createResource(shoppingListService.toggleShoppingListGroup(id, groupId)));
     }
 
 	@DeleteMapping(path="/{id}/shoppingListGroups/{groupId}", produces={"application/vnd.household.v2+json"})
-    public ShoppingListDTO deleteGroup(@PathVariable Long id, @PathVariable Long groupId) {
+    public ShoppingListDTO deleteGroup(@PathVariable String id, @PathVariable String groupId) {
         return addLinks(createResource(shoppingListService.deleteShoppingListGroup(id, groupId)));
     }
 
 	@PostMapping(path="/{id}/shoppingListGroups/{groupId}/shoppingListItems", consumes={"application/vnd.household.v2+json"}, produces={"application/vnd.household.v2+json"})
-	public ShoppingListDTO addItem(@PathVariable Long id, @PathVariable Long groupId, @RequestBody List<ShoppingListItemDTO> shoppingListItems) {
+	public ShoppingListDTO addItem(@PathVariable String id, @PathVariable String groupId, @RequestBody List<ShoppingListItemDTO> shoppingListItems) {
 		List<ShoppingListItem> entities = shoppingListItems.stream()
             .map(shoppingListItemMapper::map)
             .toList();
@@ -117,19 +117,19 @@ public class ShoppingListController {
         return (ShoppingListDTO) shoppingList.add(Link.of("/api/shoppingLists/" + shoppingList.getDatabaseId() + "/shoppingListGroups", "add"));
     }
 
-    private ShoppingListGroupDTO addGroupToggleLink(Long shoppingListId, ShoppingListGroupDTO group) {
+    private ShoppingListGroupDTO addGroupToggleLink(String shoppingListId, ShoppingListGroupDTO group) {
         return (ShoppingListGroupDTO) group.add(Link.of("/api/shoppingLists/" + shoppingListId + "/shoppingListGroups/" + group.getDatabaseId(), "toggle"));
     }
 
-    private ShoppingListGroupDTO addCreateItemLink(Long shoppingListId, ShoppingListGroupDTO group) {
+    private ShoppingListGroupDTO addCreateItemLink(String shoppingListId, ShoppingListGroupDTO group) {
         return (ShoppingListGroupDTO) group.add(Link.of("/api/shoppingLists/" + shoppingListId + "/shoppingListGroups/" + group.getDatabaseId() + "/shoppingListItems", "add"));
     }
 
-    private ShoppingListGroupDTO addClearItemsLink(Long shoppingListId, ShoppingListGroupDTO group) {
+    private ShoppingListGroupDTO addClearItemsLink(String shoppingListId, ShoppingListGroupDTO group) {
         return (ShoppingListGroupDTO) group.add(Link.of("/api/shoppingLists/" + shoppingListId + "/shoppingListGroups/" + group.getDatabaseId() + "/shoppingListItems", "clear"));
     }
 
-    private ShoppingListGroupDTO addDeleteGroupLink(Long shoppingListId, ShoppingListGroupDTO group) {
+    private ShoppingListGroupDTO addDeleteGroupLink(String shoppingListId, ShoppingListGroupDTO group) {
 	    if (!Objects.equals(group.getName(), "Global")) {
             return (ShoppingListGroupDTO) group.add(Link.of("/api/shoppingLists/" + shoppingListId + "/shoppingListGroups/" + group.getDatabaseId(), "delete"));
         } else {
@@ -137,13 +137,13 @@ public class ShoppingListController {
         }
     }
 
-    private ShoppingListItemDTO addItemToggleLink(Long shoppingListId, Long shoppingListGroupId, ShoppingListItemDTO shoppingListItem) {
+    private ShoppingListItemDTO addItemToggleLink(String shoppingListId, String shoppingListGroupId, ShoppingListItemDTO shoppingListItem) {
         return (ShoppingListItemDTO) shoppingListItem
                 .add(Link.of("/api/shoppingLists/" + shoppingListId + "/shoppingListGroups/" + shoppingListGroupId + "/shoppingListItems/" + shoppingListItem.getDatabaseId(), "toggle"))
                 .add(Link.of("/api/shoppingLists/" + shoppingListId + "/shoppingListGroups/" + shoppingListGroupId + "/shoppingListItems/" + shoppingListItem.getDatabaseId(), "edit"));
     }
 
-    private ShoppingListItemDTO imageLink(Long shoppingListId, Long shoppingListGroupId, ShoppingListItemDTO shoppingListItem) {
+    private ShoppingListItemDTO imageLink(String shoppingListId, String shoppingListGroupId, ShoppingListItemDTO shoppingListItem) {
 	    if (shoppingListItem.hasImage()) {
             return ((ShoppingListItemDTO) shoppingListItem.add(Link.of("/api/shoppingLists/" + shoppingListId + "/shoppingListGroups/" + shoppingListGroupId + "/shoppingListItems/" + shoppingListItem.getDatabaseId(), "image")))
                     .removeImage();

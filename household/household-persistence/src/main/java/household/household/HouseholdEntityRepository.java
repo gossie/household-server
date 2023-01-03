@@ -1,7 +1,7 @@
 package household.household;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface HouseholdEntityRepository extends JpaRepository<HouseholdEntity, Long> {
+public interface HouseholdEntityRepository extends MongoRepository<HouseholdEntity, String> {
 
 }

@@ -11,7 +11,7 @@ public class Recipe extends AbstractModel {
 	private List<Ingredient> ingredients;
     private String url;
 
-	Recipe(Long id, String name, String description, List<Ingredient> ingredients, String url) {
+	Recipe(String id, String name, String description, List<Ingredient> ingredients, String url) {
 		super(id);
 		this.name = name;
 		this.description = description;
@@ -19,7 +19,7 @@ public class Recipe extends AbstractModel {
 		this.url = url;
 	}
 
-	private Recipe(Long id, String name) {
+	private Recipe(String id, String name) {
 		this(id, name, "", Collections.emptyList(), "");
 	}
 

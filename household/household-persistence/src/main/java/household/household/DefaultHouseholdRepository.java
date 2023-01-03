@@ -10,7 +10,7 @@ class DefaultHouseholdRepository implements HouseholdRepository {
 	private final HouseholdMapper householdMapper;
 
 	@Override
-	public Household determineHousehold(Long householdId) {
+	public Household determineHousehold(String householdId) {
 		return householdMapper.map(householdEntityRepository.findById(householdId).orElseThrow(IllegalStateException::new));
 	}
 
@@ -20,7 +20,7 @@ class DefaultHouseholdRepository implements HouseholdRepository {
     }
 
     @Override
-    public void deleteHousehold(Long householdId) {
+    public void deleteHousehold(String householdId) {
         householdEntityRepository.deleteById(householdId);
     }
 

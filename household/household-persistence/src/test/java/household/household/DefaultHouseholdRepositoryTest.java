@@ -12,8 +12,8 @@ public class DefaultHouseholdRepositoryTest {
         HouseholdEntityRepository householdEntityRepository = mock(HouseholdEntityRepository.class);
 
         HouseholdRepository householdRepository = new DefaultHouseholdRepository(householdEntityRepository, null);
-        householdRepository.deleteHousehold(7L);
+        householdRepository.deleteHousehold("7L");
 
-        verify(householdEntityRepository).deleteById(7L);
+        verify(householdEntityRepository).deleteById("7L");
     }
 }

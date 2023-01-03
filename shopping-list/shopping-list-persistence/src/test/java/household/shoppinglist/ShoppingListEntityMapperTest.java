@@ -15,9 +15,9 @@ public class ShoppingListEntityMapperTest {
 	public void testMap_toShoppingListTO() throws Exception {
 		shoppingListMapper = new ShoppingListEntityMapper(new ShoppingListGroupEntityMapper(new ShoppingListItemEntityMapper()));
 
-		List<ShoppingListItemEntity> shoppingListItems = asList(new ShoppingListItemEntity(1L, "item1", true, null), new ShoppingListItemEntity(2L, "item2", false, "image".getBytes()));
+		List<ShoppingListItemEntity> shoppingListItems = asList(new ShoppingListItemEntity("1L", "item1", true, null), new ShoppingListItemEntity("2L", "item2", false, "image".getBytes()));
 		List<ShoppingListGroupEntity> shoppingListGroups = asList(new ShoppingListGroupEntity(null, "group", shoppingListItems));
-		ShoppingListEntity shoppingList = new ShoppingListEntity(3L, shoppingListGroups);
+		ShoppingListEntity shoppingList = new ShoppingListEntity("3L", shoppingListGroups);
 
 		ShoppingList result = shoppingListMapper.map(shoppingList);
 

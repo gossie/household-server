@@ -17,7 +17,7 @@ public class FoodPlanTOAssert extends AbstractAssert<FoodPlanTOAssert, FoodPlanD
 		return this;
 	}
 
-	public FoodPlanTOAssert hasDatabaseId(long id) {
+	public FoodPlanTOAssert hasDatabaseId(String id) {
 		Assertions.assertThat(actual.getDatabaseId()).isSameAs(id);
 		return this;
 	}

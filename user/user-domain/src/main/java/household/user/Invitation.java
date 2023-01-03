@@ -4,16 +4,16 @@ import household.AbstractModel;
 
 public class Invitation extends AbstractModel {
 
-	private final Long householdId;
+	private final String householdId;
 	private final String sender;
 	
-	Invitation(Long id, Long householdId, String sender) {
+	Invitation(String id, String householdId, String sender) {
 	    super(id);
 		this.householdId = householdId;
 		this.sender = sender;
 	}
 	
-	public Long getHouseholdId() {
+	public String getHouseholdId() {
 		return householdId;
 	}
 	

@@ -11,7 +11,7 @@ public class ShoppingListItem extends AbstractModel {
 	private boolean selected;
 	private byte[] image;
 
-	ShoppingListItem(Long id, String name, boolean selected, byte[] image) {
+	ShoppingListItem(String id, String name, boolean selected, byte[] image) {
 		super(id);
 		this.name = name;
 		this.selected = selected;

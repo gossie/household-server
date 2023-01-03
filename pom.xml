@@ -14,7 +14,7 @@
 
     <groupId>household</groupId>
     <artifactId>plan-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${app.version}</version>
     <packaging>pom</packaging>
 
     <name>plan-parent</name>
@@ -24,6 +24,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>17</java.version>
+        <app.version>1.0.0</app.version>
     </properties>
 
     <modules>

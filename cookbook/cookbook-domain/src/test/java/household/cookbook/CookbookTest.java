@@ -12,15 +12,15 @@ public class CookbookTest {
 
 	@Test
 	public void testEditRecipe() throws Exception {
-		Recipe recipe1 = new Recipe(1L, "Recipe1", "", emptyList(), "");
+		Recipe recipe1 = new Recipe("1L", "Recipe1", "", emptyList(), "");
 
-		Recipe recipe2 = new Recipe(2L, "Recipe2", "", emptyList(), "");
+		Recipe recipe2 = new Recipe("2L", "Recipe2", "", emptyList(), "");
 
-		Cookbook cookbook = new Cookbook(3L, asList(recipe1, recipe2));
+		Cookbook cookbook = new Cookbook("3L", asList(recipe1, recipe2));
 
-		Recipe changedRecipe = new Recipe(2L, "Recipe2_changed", "description", singletonList(mock(Ingredient.class)), "link_to_recipe");
+		Recipe changedRecipe = new Recipe("2L", "Recipe2_changed", "description", singletonList(mock(Ingredient.class)), "link_to_recipe");
 
-		cookbook.editRecipe(2L, changedRecipe);
+		cookbook.editRecipe("2L", changedRecipe);
 
 		assertThat(cookbook)
 		    .hasSize(2)
@@ -30,13 +30,13 @@ public class CookbookTest {
 
     @Test
 	public void testDeleteRecipe() throws Exception {
-		Recipe recipe1 = new Recipe(1L, "Recipe1", "", emptyList(), "");
+		Recipe recipe1 = new Recipe("1L", "Recipe1", "", emptyList(), "");
 
-		Recipe recipe2 = new Recipe(2L, "Recipe2", "", emptyList(), "");
+		Recipe recipe2 = new Recipe("2L", "Recipe2", "", emptyList(), "");
 
-		Cookbook cookbook = new Cookbook(3L, asList(recipe1, recipe2));
+		Cookbook cookbook = new Cookbook("3L", asList(recipe1, recipe2));
 
-		cookbook.deleteRecipe(2L);
+		cookbook.deleteRecipe("2L");
 
 		assertThat(cookbook)
 		    .hasSize(1)

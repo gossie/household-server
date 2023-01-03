@@ -10,7 +10,7 @@ class DefaultFoodPlanRepository implements FoodPlanRepository {
 	private final FoodPlanMapper foodPlanMapper;
 
 	@Override
-	public FoodPlan determineFoodPlan(long foodPlanId) {
+	public FoodPlan determineFoodPlan(String foodPlanId) {
 		return foodPlanMapper.map(foodPlanEntityRepository.findById(foodPlanId).orElseThrow(IllegalStateException::new));
 	}
 
@@ -25,7 +25,7 @@ class DefaultFoodPlanRepository implements FoodPlanRepository {
 	}
 
 	@Override
-    public void deleteFoodPlan(Long foodPlanId) {
+    public void deleteFoodPlan(String foodPlanId) {
 	    foodPlanEntityRepository.deleteById(foodPlanId);
     }
 

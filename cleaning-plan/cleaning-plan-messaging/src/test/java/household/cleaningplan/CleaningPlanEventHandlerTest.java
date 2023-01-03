@@ -18,8 +18,8 @@ public class CleaningPlanEventHandlerTest {
 		var cleaningPlanService = mock(CleaningPlanService.class);
 
 		cleaningPlanEventHandler = new CleaningPlanEventHandler(mock(EventBus.class), cleaningPlanService);
-		cleaningPlanEventHandler.onHouseholdDeleted(new HouseholdDeletedEvent(1L, 2L, 3L, 4L, 5L));
+		cleaningPlanEventHandler.onHouseholdDeleted(new HouseholdDeletedEvent("1L", "2L", "3L", "4L", "5L"));
 
-		verify(cleaningPlanService).deleteCleaningPlan(3L);
+		verify(cleaningPlanService).deleteCleaningPlan("3L");
 	}
 }

@@ -15,7 +15,7 @@ class TaskDTOMapper {
         return new Task(from.getDatabaseId(), from.getName(), from.isDone());
     }
 
-    Task map(Long choreId, TaskDTO from) {
+    Task map(String choreId, TaskDTO from) {
         return new Task(choreId, from.getName(), from.isDone());
     }
 

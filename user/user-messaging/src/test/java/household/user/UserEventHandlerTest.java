@@ -18,8 +18,8 @@ public class UserEventHandlerTest {
 		var userService = mock(UserService.class);
 
 		userEventHandler = new UserEventHandler(mock(EventBus.class), userService);
-		userEventHandler.onHouseholdDeletion(new HouseholdDeletedEvent(1L, 2L, 3L, 4L, 5L));
+		userEventHandler.onHouseholdDeletion(new HouseholdDeletedEvent("1L", "2L", "3L", "4L", "5L"));
 
-		verify(userService).removeHouseholdFromUsers(1L);
+		verify(userService).removeHouseholdFromUsers("1L");
 	}
 }

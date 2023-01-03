@@ -5,7 +5,7 @@ public class Task extends AbstractModel {
     private String name;
     private boolean done;
 
-    Task(Long id, String name, boolean done) {
+    Task(String id, String name, boolean done) {
         super(id);
         this.name = name;
         this.done = done;

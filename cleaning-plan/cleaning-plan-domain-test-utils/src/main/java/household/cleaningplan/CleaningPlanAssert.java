@@ -16,7 +16,7 @@ public class CleaningPlanAssert extends AbstractAssert<CleaningPlanAssert, Clean
 		return new CleaningPlanAssert(actual);
 	}
 
-	public CleaningPlanAssert hasId(Long id) {
+	public CleaningPlanAssert hasId(String id) {
 		assertEquals(id, actual.getId());
 		return this;
 	}

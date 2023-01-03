@@ -12,8 +12,8 @@ public class DefaultCleaningPlanRepositoryTest {
         CleaningPlanEntityRepository cleaningPlanEntityRepository = mock(CleaningPlanEntityRepository.class);
 
         CleaningPlanRepository cleaningPlanRepository = new DefaultCleaningPlanRepository(cleaningPlanEntityRepository, null);
-        cleaningPlanRepository.deleteCleaningPlan(6L);
+        cleaningPlanRepository.deleteCleaningPlan("6L");
 
-        verify(cleaningPlanEntityRepository).deleteById(6L);
+        verify(cleaningPlanEntityRepository).deleteById("6L");
     }
 }

@@ -13,7 +13,7 @@ public class HouseholdDTOAssert extends AbstractAssert<HouseholdDTOAssert, House
 		return new HouseholdDTOAssert(actual);
 	}
 	
-	public HouseholdDTOAssert hasDatabaseId(Long id) {
+	public HouseholdDTOAssert hasDatabaseId(String id) {
 		Assertions.assertThat(actual.getDatabaseId()).isSameAs(id);
 		return this;
 	}

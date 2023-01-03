@@ -12,13 +12,13 @@ import lombok.RequiredArgsConstructor;
 @Getter
 class UserDTO extends AbstractDTO {
 
-	private final Long databaseId;
+	private final String databaseId;
 	private final String email;
-	private final Long householdId;
+	private final String householdId;
 	private final List<InvitationDTO> invitations;
 
 	@JsonIgnore
-	public Long getHouseholdId() {
+	public String getHouseholdId() {
 		return householdId;
 	}
 

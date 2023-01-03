@@ -19,10 +19,10 @@ public class CookbookServiceTest {
 	public void testGetMinifiedRecipes() throws Exception {
 	    Cookbook cookbook = createCookbook();
 		CookbookRepository cookbookRepository = mock(CookbookRepository.class);
-		when(cookbookRepository.determineCookbook(6L)).thenReturn(cookbook);
+		when(cookbookRepository.determineCookbook("6L")).thenReturn(cookbook);
 
 		cookbookService = new CookbookService(cookbookRepository);
-		Cookbook actualCookbook = cookbookService.getMinifiedCookbook(6L);
+		Cookbook actualCookbook = cookbookService.getMinifiedCookbook("6L");
 
 		assertThat(actualCookbook).hasSize(2);
 
@@ -37,10 +37,10 @@ public class CookbookServiceTest {
 	public void testGetRecipe() throws Exception {
 		Cookbook cookbook = createCookbook();
 		CookbookRepository cookbookRepository = mock(CookbookRepository.class);
-		when(cookbookRepository.determineCookbook(6L)).thenReturn(cookbook);
+		when(cookbookRepository.determineCookbook("6L")).thenReturn(cookbook);
 
 		cookbookService = new CookbookService(cookbookRepository);
-		Recipe result = cookbookService.getRecipe(6L, 2L);
+		Recipe result = cookbookService.getRecipe("6L", "2L");
 
 		assertThat(result).hasName("Recipe2").hasSize(2);
 	}
@@ -49,13 +49,13 @@ public class CookbookServiceTest {
 	public void testAddRecipe() throws Exception {
 		Cookbook cookbook = createCookbook();
 		CookbookRepository cookbookRepository = mock(CookbookRepository.class);
-		when(cookbookRepository.determineCookbook(18L)).thenReturn(cookbook);
+		when(cookbookRepository.determineCookbook("18L")).thenReturn(cookbook);
 		when(cookbookRepository.saveCookbook(cookbook)).thenReturn(cookbook);
 
-		Recipe recipeToAdd = new Recipe(1L, "Recipe3", "Description", asList(mock(Ingredient.class), mock(Ingredient.class)), "");
+		Recipe recipeToAdd = new Recipe("1L", "Recipe3", "Description", asList(mock(Ingredient.class), mock(Ingredient.class)), "");
 
 		cookbookService = new CookbookService(cookbookRepository);
-		Cookbook result = cookbookService.addRecipe(18L, recipeToAdd);
+		Cookbook result = cookbookService.addRecipe("18L", recipeToAdd);
 
         assertThat(result)
             .hasSize(3)
@@ -68,11 +68,11 @@ public class CookbookServiceTest {
 	public void testEditRecipe() throws Exception {
 		Cookbook cookbook = createCookbook();
 		CookbookRepository cookbookRepository = mock(CookbookRepository.class);
-		when(cookbookRepository.determineCookbook(8L)).thenReturn(cookbook);
+		when(cookbookRepository.determineCookbook("8L")).thenReturn(cookbook);
 		when(cookbookRepository.saveCookbook(cookbook)).thenReturn(cookbook);
 
 		cookbookService = new CookbookService(cookbookRepository);
-		Cookbook result = cookbookService.editRecipe(8L, 15L, new Recipe(1L, "Recipe1", "", asList(mock(Ingredient.class), mock(Ingredient.class), mock(Ingredient.class)), ""));
+		Cookbook result = cookbookService.editRecipe("8L", "15L", new Recipe("1L", "Recipe1", "", asList(mock(Ingredient.class), mock(Ingredient.class), mock(Ingredient.class)), ""));
 
 		assertThat(result)
 		    .hasSize(2)
@@ -85,16 +85,16 @@ public class CookbookServiceTest {
         CookbookRepository cookbookRepository = mock(CookbookRepository.class);
 
         cookbookService = new CookbookService(cookbookRepository);
-        cookbookService.deleteCookbook(3L);
+        cookbookService.deleteCookbook("3L");
 
-        verify(cookbookRepository).deleteCookbook(3L);
+        verify(cookbookRepository).deleteCookbook("3L");
     }
 
 	private Cookbook createCookbook() {
-		Recipe recipe1 = new Recipe(1L, "Recipe1", "", asList(mock(Ingredient.class), mock(Ingredient.class)), "");
-		Recipe recipe2 = new Recipe(2L, "Recipe2", "", asList(mock(Ingredient.class), mock(Ingredient.class)), "");
+		Recipe recipe1 = new Recipe("1L", "Recipe1", "", asList(mock(Ingredient.class), mock(Ingredient.class)), "");
+		Recipe recipe2 = new Recipe("2L", "Recipe2", "", asList(mock(Ingredient.class), mock(Ingredient.class)), "");
 
-		Cookbook cookbook = new Cookbook(6L, new ArrayList<>(asList(recipe1, recipe2)));
+		Cookbook cookbook = new Cookbook("6L", new ArrayList<>(asList(recipe1, recipe2)));
 		return cookbook;
 	}
 

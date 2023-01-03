@@ -8,7 +8,7 @@
     <parent>
         <groupId>household</groupId>
         <artifactId>household-parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${app.version}</version>
     </parent>
 
     <artifactId>household-rest</artifactId>
@@ -21,32 +21,32 @@
         <dependency>
             <groupId>household</groupId>
             <artifactId>shopping-list-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${app.version}</version>
         </dependency>
         <dependency>
             <groupId>household</groupId>
             <artifactId>cleaning-plan-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${app.version}</version>
         </dependency>
         <dependency>
             <groupId>household</groupId>
             <artifactId>food-plan-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${app.version}</version>
         </dependency>
         <dependency>
             <groupId>household</groupId>
             <artifactId>cookbook-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${app.version}</version>
         </dependency>
         <dependency>
             <groupId>household</groupId>
             <artifactId>user-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${app.version}</version>
         </dependency>
         <dependency>
             <groupId>household</groupId>
             <artifactId>household-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${app.version}</version>
         </dependency>
 
         <dependency>
@@ -77,7 +77,7 @@
         <dependency>
             <groupId>household</groupId>
             <artifactId>household-domain-test-utils</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${app.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

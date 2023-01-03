@@ -14,18 +14,18 @@ import lombok.NoArgsConstructor;
 @Getter
 public class MealDTO extends AbstractDTO {
 
-    private Long databaseId;
+    private String databaseId;
     private String name;
     @JsonIgnore
-    private Long cookbookId;
+    private String cookbookId;
     @JsonIgnore
-    private Long recipeId;
+    private String recipeId;
 
-    public Optional<Long> getCookbookId() {
+    public Optional<String> getCookbookId() {
         return Optional.ofNullable(cookbookId);
     }
 
-    public Optional<Long> getRecipeId() {
+    public Optional<String> getRecipeId() {
         return Optional.ofNullable(recipeId);
     }
 }

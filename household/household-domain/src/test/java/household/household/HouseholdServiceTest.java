@@ -18,10 +18,10 @@ public class HouseholdServiceTest {
 		Household expected = mock(Household.class);
 
 		HouseholdRepository householdRepository = mock(HouseholdRepository.class);
-		when(householdRepository.determineHousehold(7L)).thenReturn(expected);
+		when(householdRepository.determineHousehold("7L")).thenReturn(expected);
 
 		householdService = new HouseholdService(householdRepository, Collections.emptyList());
-		Household result = householdService.getHousehold(7L);
+		Household result = householdService.getHousehold("7L");
 
 		assertThat(result).isSameAs(expected);
 	}

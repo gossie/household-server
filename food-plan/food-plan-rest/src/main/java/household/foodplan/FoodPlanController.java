@@ -23,17 +23,17 @@ public class FoodPlanController {
     private final FoodPlanService foodPlanService;
 
     @GetMapping(path="/{id}", produces={"application/vnd.household.v1+json"})
-    public FoodPlanDTO getFoodPlan(@PathVariable Long id) {
+    public FoodPlanDTO getFoodPlan(@PathVariable String id) {
         return addLinks(createResource(foodPlanService.getFoodPlan(id)));
     }
 
     @DeleteMapping(path="/{id}/meals", produces={"application/vnd.household.v1+json"})
-    public FoodPlanDTO clear(@PathVariable Long id) {
+    public FoodPlanDTO clear(@PathVariable String id) {
         return addLinks(createResource(foodPlanService.clear(id)));
     }
 
     @PutMapping(path="/{id}/meals/{mealId}", produces={"application/vnd.household.v1+json"}, consumes={"application/vnd.household.v1+json"})
-    public FoodPlanDTO updateMeal(@PathVariable Long id, @PathVariable Long mealId, @RequestBody ChangeMealRequest request) {
+    public FoodPlanDTO updateMeal(@PathVariable String id, @PathVariable String mealId, @RequestBody ChangeMealRequest request) {
         return addLinks(createResource(foodPlanService.updateMeal(id, mealId, createRecipe(request) , mealMapper.map(request.getMeal()))));
     }
 
@@ -59,7 +59,7 @@ public class FoodPlanController {
         return (FoodPlanDTO) foodPlan.add(Link.of("/api/foodPlans/" + foodPlan.getDatabaseId()));
     }
 
-    private MealDTO addMealSelfLink(Long foodPlanId, MealDTO meal) {
+    private MealDTO addMealSelfLink(String foodPlanId, MealDTO meal) {
         return (MealDTO) meal.add(Link.of("/api/foodPlans/" + foodPlanId + "/meals/" + meal.getDatabaseId()));
     }
 

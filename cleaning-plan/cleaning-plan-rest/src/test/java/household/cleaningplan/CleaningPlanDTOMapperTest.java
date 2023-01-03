@@ -14,16 +14,16 @@ public class CleaningPlanDTOMapperTest {
 	public void testMap() {
         CleaningPlanDTOMapper cleaningPlanMapper = new CleaningPlanDTOMapper(new ChoreDTOMapper(), new TaskDTOMapper());
 
-		Chore chore1 = new Chore(2L, "chore1", 12345);
-		Chore chore2 = new Chore(3L, "chore2", 12346);
+		Chore chore1 = new Chore("2L", "chore1", 12345);
+		Chore chore2 = new Chore("3L", "chore2", 12346);
 
 		List<Chore> chores = asList(chore1, chore2);
-		CleaningPlan from = new CleaningPlan(1L, chores, new ArrayList<>());
+		CleaningPlan from = new CleaningPlan("1L", chores, new ArrayList<>());
 
 		CleaningPlanDTO result = cleaningPlanMapper.map(from);
 
 		assertThat(result)
-		        .hasDatabaseId(1L)
+		        .hasDatabaseId("1L")
 		        .hasSize(2)
 		        .chore(0, choreAssert -> choreAssert.hasName("chore1").wasLastChangedAt(12345))
 		        .chore(1, choreAssert -> choreAssert.hasName("chore2").wasLastChangedAt(12346));

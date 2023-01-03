@@ -12,15 +12,15 @@ public class HouseholdService {
 	private final HouseholdRepository householdRepository;
 	private final List<HouseholdObserver> householdObservers;
 
-	public Household getHousehold(Long householdId) {
+	public Household getHousehold(String householdId) {
 		return householdRepository.determineHousehold(householdId);
 	}
 
-	public Household createHousehold(Long shoppingListId, Long cleaningPlanId, Long foodPlanId, Long cookbookId) {
+	public Household createHousehold(String shoppingListId, String cleaningPlanId, String foodPlanId, String cookbookId) {
 		return householdRepository.saveHousehold(new Household(null, shoppingListId, cleaningPlanId, foodPlanId, cookbookId));
 	}
 
-	public void deleteHousehold(Long householdId) {
+	public void deleteHousehold(String householdId) {
         Household household = householdRepository.determineHousehold(householdId);
         householdRepository.deleteHousehold(householdId);
         householdObservers.forEach(observer -> observer.onHouseholdDeletion(

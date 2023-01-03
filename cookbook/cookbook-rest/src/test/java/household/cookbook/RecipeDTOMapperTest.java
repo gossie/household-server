@@ -17,8 +17,8 @@ public class RecipeDTOMapperTest {
 	public void testMap_toRecipeDTO() throws Exception {
 		recipeMapper = new RecipeDTOMapper(new IngredientDTOMapper());
 
-		List<Ingredient> ingredients = asList(new Ingredient(1L, 500, "g", "Hack"), new Ingredient(2L, 500, "ml", "Gemüsebrühe"));
-		Recipe recipe = new Recipe(3L, "Chili", "", ingredients, "");
+		List<Ingredient> ingredients = asList(new Ingredient("1L", 500, "g", "Hack"), new Ingredient("2L", 500, "ml", "Gemüsebrühe"));
+		Recipe recipe = new Recipe("3L", "Chili", "", ingredients, "");
 
 		RecipeDTO result = recipeMapper.map(recipe);
 

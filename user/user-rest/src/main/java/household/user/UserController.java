@@ -29,7 +29,7 @@ public class UserController {
     private final UserDTOMapper userMapper;
 
     @PutMapping(path="/{userId}",  consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
-    public UserDTO changePassword(@PathVariable Long userId, @RequestBody Map<String, String> data) {
+    public UserDTO changePassword(@PathVariable String userId, @RequestBody Map<String, String> data) {
         // TODO make safe
         User user = userService.changePassword(userId, data.get("currentPassword"), data.get("newPassword"));
         return addLinks(createResource(user));
@@ -39,7 +39,7 @@ public class UserController {
     public ResponseEntity<UserDTO> getCurrentUser(Principal principal) {
         // TODO
         try {
-            return ResponseEntity.of(userService.determineUser(principal.getName())
+            return ResponseEntity.of(userService.determineUserByEmail(principal.getName())
                 .map(this::createResource)
                 .map(this::addLinks));
         } catch(IllegalStateException e) {
@@ -49,8 +49,8 @@ public class UserController {
 
     @PostMapping(path="/{userId}/invitations", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.v1+json"})
     @ResponseStatus(value = HttpStatus.OK)
-    public UserDTO invite(@PathVariable Long userId, @RequestBody InvitationRequestDTO invitation) {
-        User invitingUser = userService.determineUser(userId);
+    public UserDTO invite(@PathVariable String userId, @RequestBody InvitationRequestDTO invitation) {
+        User invitingUser = userService.determineUserById(userId);
         try {
             userService.invite(invitation.getEmail(), invitingUser);
             return addLinks(createResource(invitingUser));
@@ -61,16 +61,16 @@ public class UserController {
 
     @PostMapping(path="/{userId}/invitations/{invitationId}", produces={"application/vnd.household.v1+json"})
     @ResponseStatus(value = HttpStatus.OK)
-    public UserDTO acceptInvitation(@PathVariable Long userId, @PathVariable Long invitationId) {
+    public UserDTO acceptInvitation(@PathVariable String userId, @PathVariable String invitationId) {
         userService.acceptInvitation(userId, invitationId);
-        return addLinks(createResource(userService.determineUser(userId)));
+        return addLinks(createResource(userService.determineUserById(userId)));
     }
 
     @DeleteMapping(path="/{userId}/invitations/{invitationId}", produces={"application/vnd.household.v1+json"})
     @ResponseStatus(value = HttpStatus.OK)
-    public UserDTO rejectInvitation(@PathVariable Long userId, @PathVariable Long invitationId) {
+    public UserDTO rejectInvitation(@PathVariable String userId, @PathVariable String invitationId) {
         userService.rejectInvitation(userId, invitationId);
-        return addLinks(createResource(userService.determineUser(userId)));
+        return addLinks(createResource(userService.determineUserById(userId)));
     }
 
     private UserDTO createResource(User user) {

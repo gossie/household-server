@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class ChangeMealRequest {
 
-    private Long cookbookId;
-    private Long recipeId;
+    private String cookbookId;
+    private String recipeId;
     private MealDTO meal;
 
 }

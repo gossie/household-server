@@ -9,10 +9,10 @@ import lombok.RequiredArgsConstructor;
 @EqualsAndHashCode
 public class HouseholdDeletedEvent {
 
-	private final Long householdId;
-	private final Long shoppingListId;
-	private final Long cleaningPlanId;
-	private final Long foodPlanId;
-	private final Long cookbookId;
+	private final String householdId;
+	private final String shoppingListId;
+	private final String cleaningPlanId;
+	private final String foodPlanId;
+	private final String cookbookId;
 
 }

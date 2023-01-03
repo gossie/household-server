@@ -44,7 +44,7 @@ public class HouseholdController {
 		Cookbook cookbook = cookbookService.createCookbook();
 
 		Household household = householdService.createHousehold(shoppingList.getId(), cleaningPlan.getId(), foodPlan.getId(), cookbook.getId());
-		return userService.determineUser(principal.getName())
+		return userService.determineUserByEmail(principal.getName())
             .map(currentUser -> {
                 currentUser.setHouseholdId(household.getId());
                 userService.updateUser(currentUser);
@@ -56,7 +56,7 @@ public class HouseholdController {
 	}
 
 	@GetMapping(path="/{id}", produces={"application/vnd.household.v1+json"})
-	public HouseholdDTO getHousehold(@PathVariable Long id) {
+	public HouseholdDTO getHousehold(@PathVariable String id) {
 		return addLinks(createResource(householdService.getHousehold(id)));
 	}
 

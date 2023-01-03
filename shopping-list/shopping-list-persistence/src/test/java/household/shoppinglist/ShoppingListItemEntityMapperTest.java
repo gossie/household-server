@@ -13,7 +13,7 @@ public class ShoppingListItemEntityMapperTest {
 	public void testMap_toSelectedShoppingListItemTO() throws Exception {
 		shoppingListItemMapper = new ShoppingListItemEntityMapper();
 
-		ShoppingListItemEntity shoppingListItem = new ShoppingListItemEntity(1L, "item", true, "image".getBytes());
+		ShoppingListItemEntity shoppingListItem = new ShoppingListItemEntity("1L", "item", true, "image".getBytes());
 		ShoppingListItem result = shoppingListItemMapper.map(shoppingListItem);
 
 		assertThat(result)
@@ -26,7 +26,7 @@ public class ShoppingListItemEntityMapperTest {
 	public void testMap_toDeselectedShoppingListItemTO() throws Exception {
 		shoppingListItemMapper = new ShoppingListItemEntityMapper();
 
-		ShoppingListItemEntity shoppingListItem = new ShoppingListItemEntity(1L, "item", false, "image".getBytes());
+		ShoppingListItemEntity shoppingListItem = new ShoppingListItemEntity("1L", "item", false, "image".getBytes());
 		ShoppingListItem result = shoppingListItemMapper.map(shoppingListItem);
 
 		assertThat(result)
@@ -39,7 +39,7 @@ public class ShoppingListItemEntityMapperTest {
 	public void testMap_toSelectedShoppingListItem() throws Exception {
 		shoppingListItemMapper = new ShoppingListItemEntityMapper();
 
-		ShoppingListItem shoppingListItem = new ShoppingListItem(1L, "item", true, "image".getBytes());
+		ShoppingListItem shoppingListItem = new ShoppingListItem("1L", "item", true, "image".getBytes());
 		ShoppingListItemEntity result = shoppingListItemMapper.map(shoppingListItem);
 
 		assertThat(result)
@@ -52,7 +52,7 @@ public class ShoppingListItemEntityMapperTest {
 	public void testMap_toDeselectedShoppingListItem() throws Exception {
 		shoppingListItemMapper = new ShoppingListItemEntityMapper();
 
-		ShoppingListItem shoppingListItem = new ShoppingListItem(1L, "item", false, "image".getBytes());
+		ShoppingListItem shoppingListItem = new ShoppingListItem("1L", "item", false, "image".getBytes());
 		ShoppingListItemEntity result = shoppingListItemMapper.map(shoppingListItem);
 
 		assertThat(result)

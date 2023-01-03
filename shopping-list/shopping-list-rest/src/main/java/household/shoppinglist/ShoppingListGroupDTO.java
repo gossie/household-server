@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ShoppingListGroupDTO extends AbstractDTO {
 
-    private Long databaseId;
+    private String databaseId;
     private String name;
     private List<ShoppingListItemDTO> shoppingListItems;
 

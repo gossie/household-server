@@ -9,12 +9,12 @@
     <parent>
         <groupId>household</groupId>
         <artifactId>plan-parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${app.version}</version>
     </parent>
 
     <groupId>household</groupId>
     <artifactId>household-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${app.version}</version>
     <packaging>pom</packaging>
 
     <name>household-parent</name>

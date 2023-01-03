@@ -17,17 +17,17 @@ public class ShoppingListDTOMapperTest {
 		shoppingListMapper = new ShoppingListDTOMapper(new ShoppingListGroupDTOMapper(new ShoppingListItemDTOMapper()));
 
 		List<ShoppingListItem> items1 = new ArrayList<>();
-        items1.add(new ShoppingListItem(1L, "one", false, new byte[]{}));
-        items1.add(new ShoppingListItem(2L, "two", true, new byte[]{}));
+        items1.add(new ShoppingListItem("1L", "one", false, new byte[]{}));
+        items1.add(new ShoppingListItem("2L", "two", true, new byte[]{}));
 
         List<ShoppingListItem> items2 = new ArrayList<>();
-        items2.add(new ShoppingListItem(3L, "three", false, new byte[]{}));
-        items2.add(new ShoppingListItem(4L, "four", true, new byte[]{}));
+        items2.add(new ShoppingListItem("3L", "three", false, new byte[]{}));
+        items2.add(new ShoppingListItem("4L", "four", true, new byte[]{}));
 
-        ShoppingListGroup group1 = new ShoppingListGroup(8L, "group1", items1);
-        ShoppingListGroup group2 = new ShoppingListGroup(9L, "group2", items2);
+        ShoppingListGroup group1 = new ShoppingListGroup("8L", "group1", items1);
+        ShoppingListGroup group2 = new ShoppingListGroup("9L", "group2", items2);
 
-        ShoppingList shoppingList = new ShoppingList(5L, asList(group1, group2));
+        ShoppingList shoppingList = new ShoppingList("5L", asList(group1, group2));
 
 		ShoppingListDTO result = shoppingListMapper.map(shoppingList);
 

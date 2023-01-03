@@ -13,7 +13,7 @@ public class FoodPlanAssert extends AbstractAssert<FoodPlanAssert, FoodPlan> {
 		return new FoodPlanAssert(actual);
 	}
 
-	public FoodPlanAssert hasId(Long id) {
+	public FoodPlanAssert hasId(String id) {
 		Assertions.assertThat(actual.getId()).isEqualTo(id);
 		return this;
 	}

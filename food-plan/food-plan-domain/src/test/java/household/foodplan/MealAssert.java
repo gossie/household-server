@@ -13,8 +13,8 @@ public class MealAssert extends AbstractAssert<MealAssert, Meal> {
         return new MealAssert(actual);
     }
 
-    public MealAssert hasId(Long id) {
-        Assertions.assertThat(actual.getId()).isEqualTo(id);
+    public MealAssert hasId(String id) {
+    Assertions.assertThat(actual.getId()).isEqualTo(id);
         return this;
     }
     

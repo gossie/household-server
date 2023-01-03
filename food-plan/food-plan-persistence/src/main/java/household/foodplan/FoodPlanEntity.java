@@ -3,32 +3,24 @@ package household.foodplan;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import lombok.Data;
 
-@Entity
+@Document(collection = "foodPlans")
+@Data
 @AllArgsConstructor(access=AccessLevel.PACKAGE)
-@Getter
-@ToString
 class FoodPlanEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private final Long id;
+	private String id;
 
-	@ElementCollection
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SUBSELECT)
 	private Map<String, MealEntity> meals = new HashMap<>();
 
 	FoodPlanEntity() {
-	    id = null;
 	    meals.put("monday", new MealEntity());
 	    meals.put("tuesday", new MealEntity());
 	    meals.put("wednesday", new MealEntity());

@@ -18,8 +18,8 @@ public class ShoppingListEventHandlerTest {
 		var shoppingListService = mock(ShoppingListService.class);
 
 		shoppingListEventHandler = new ShoppingListEventHandler(mock(EventBus.class), shoppingListService);
-		shoppingListEventHandler.onHouseholdDeleted(new HouseholdDeletedEvent(1L, 2L, 3L, 4L, 5L));
+		shoppingListEventHandler.onHouseholdDeleted(new HouseholdDeletedEvent("1L", "2L", "3L", "4L", "5L"));
 
-		verify(shoppingListService).deleteShoppingList(2L);
+		verify(shoppingListService).deleteShoppingList("2L");
 	}
 }

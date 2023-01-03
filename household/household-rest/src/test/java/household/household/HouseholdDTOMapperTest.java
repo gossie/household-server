@@ -14,12 +14,12 @@ public class HouseholdDTOMapperTest {
 	public void testMap_toHouseholdDTO() throws Exception {
 		householdMapper = new HouseholdDTOMapper();
 
-		Household household = spy(new Household(1L, null, null, null, null));
-		when(household.getId()).thenReturn(2L);
+		Household household = spy(new Household("1L", null, null, null, null));
+		when(household.getId()).thenReturn("2L");
 
 		HouseholdDTO result = householdMapper.map(household);
 
-		assertThat(result).isNotNull().hasDatabaseId(2L);
+		assertThat(result).isNotNull().hasDatabaseId("2L");
 	}
 
 }

@@ -13,7 +13,7 @@ public class ChoreDTOAssert extends AbstractAssert<ChoreDTOAssert, ChoreDTO> {
 		return new ChoreDTOAssert(actual);
 	}
 
-	public ChoreDTOAssert hasDatabaseId(long id) {
+	public ChoreDTOAssert hasDatabaseId(String id) {
 		Assertions.assertThat(actual.getDatabaseId()).isEqualTo(id);
 		return this;
 	}

@@ -23,13 +23,13 @@ class DefaultUserRepository implements UserRepository {
     }
 
     @Override
-    public User determineUser(Long userId) {
+    public User determineUserById(String userId) {
         UserEntity user = userEntityRepository.findById(userId).orElseThrow(IllegalStateException::new);
         return userMapper.map(user);
     }
 
     @Override
-    public Optional<User> determineUser(String email) {
+    public Optional<User> determineUserByEmail(String email) {
         List<UserEntity> users = userEntityRepository.findByEmailIgnoreCase(email);
         if (users.isEmpty()) {
             return Optional.empty();
@@ -41,7 +41,7 @@ class DefaultUserRepository implements UserRepository {
     }
 
     @Override
-    public List<User> determineUsers(Long householdId) {
+    public List<User> determineUsers(String householdId) {
         return userEntityRepository.findByHouseholdId(householdId)
                 .stream()
                 .map(userMapper::map)

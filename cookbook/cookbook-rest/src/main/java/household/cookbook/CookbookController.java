@@ -25,27 +25,27 @@ public class CookbookController {
 	private final CookbookService cookbookService;
 
 	@GetMapping(path="/{cookbookId}", produces={"application/vnd.household.min.v1+json"})
-	public CookbookDTO getMinifiedRecipes(@PathVariable Long cookbookId) {
+	public CookbookDTO getMinifiedRecipes(@PathVariable String cookbookId) {
 		return addLinks(createResource(cookbookService.getMinifiedCookbook(cookbookId)));
 	}
 
 	@GetMapping(path="/{cookbookId}/recipes/{recipeId}", produces={"application/vnd.household.v1+json"})
-	public RecipeDTO getRecipe(@PathVariable Long cookbookId, @PathVariable Long recipeId) {
+	public RecipeDTO getRecipe(@PathVariable String cookbookId, @PathVariable String recipeId) {
 		return addRecipeSelfLink(cookbookId, createResource(cookbookService.getRecipe(cookbookId, recipeId)));
 	}
 
 	@PutMapping(path="/{cookbookId}/recipes/{recipeId}", produces={"application/vnd.household.min.v1+json"}, consumes={"application/vnd.household.v1+json"})
-	public CookbookDTO editRecipe(@PathVariable Long cookbookId, @PathVariable Long recipeId, @RequestBody RecipeDTO recipe) {
+	public CookbookDTO editRecipe(@PathVariable String cookbookId, @PathVariable String recipeId, @RequestBody RecipeDTO recipe) {
 		return addLinks(createResource(cookbookService.editRecipe(cookbookId, recipeId, recipeMapper.map(recipe))));
 	}
 
     @DeleteMapping(path="/{cookbookId}/recipes/{recipeId}", produces={"application/vnd.household.min.v1+json"})
-	public CookbookDTO deleteRecipe(@PathVariable Long cookbookId, @PathVariable Long recipeId) {
+	public CookbookDTO deleteRecipe(@PathVariable String cookbookId, @PathVariable String recipeId) {
 		return addLinks(createResource(cookbookService.deleteRecipe(cookbookId, recipeId)));
 	}
 
 	@PostMapping(path="/{cookbookId}/recipes", consumes={"application/vnd.household.v1+json"}, produces={"application/vnd.household.min.v1+json"})
-	public CookbookDTO addRecipe(@PathVariable Long cookbookId, @RequestBody RecipeDTO recipe) {
+	public CookbookDTO addRecipe(@PathVariable String cookbookId, @RequestBody RecipeDTO recipe) {
 		return addLinks(createResource(cookbookService.addRecipe(cookbookId, recipeMapper.map(recipe))));
 	}
 
@@ -63,7 +63,7 @@ public class CookbookController {
             .reduce(cookbook, (c, r) -> c, (r, c) -> c);
     }
 
-    private RecipeDTO addRecipeSelfLink(Long cookbookId, RecipeDTO recipe) {
+    private RecipeDTO addRecipeSelfLink(String cookbookId, RecipeDTO recipe) {
         return (RecipeDTO) recipe.add(Link.of("/api/cookbooks/" + cookbookId + "/recipes/" + recipe.getDatabaseId()));
     }
 

@@ -8,7 +8,7 @@
     <parent>
         <groupId>household</groupId>
         <artifactId>cleaning-plan-parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${app.version}</version>
     </parent>
 
     <artifactId>cleaning-plan-rest</artifactId>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>household</groupId>
             <artifactId>cleaning-plan-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${app.version}</version>
         </dependency>
 
         <dependency>
@@ -52,7 +52,7 @@
         <dependency>
             <groupId>household</groupId>
             <artifactId>cleaning-plan-domain-test-utils</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${app.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

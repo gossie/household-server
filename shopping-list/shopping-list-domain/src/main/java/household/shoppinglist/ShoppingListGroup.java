@@ -16,7 +16,7 @@ public class ShoppingListGroup extends AbstractModel {
     private final String name;
     private final List<ShoppingListItem> shoppingListItems;
 
-    ShoppingListGroup(Long id, String name, List<ShoppingListItem> shoppingListItems) {
+    ShoppingListGroup(String id, String name, List<ShoppingListItem> shoppingListItems) {
         super(id);
         this.name = name;
         this.shoppingListItems = new ArrayList<>(shoppingListItems);
@@ -37,14 +37,14 @@ public class ShoppingListGroup extends AbstractModel {
         shoppingListItems.forEach(item -> item.setSelected(deselected));
     }
 
-    public void toogleItem(Long shoppingListItemId) {
+    public void toogleItem(String shoppingListItemId) {
         shoppingListItems.stream()
                 .filter(item -> Objects.equals(item.getId(), shoppingListItemId))
                 .findFirst()
                 .ifPresent(item -> item.setSelected(!item.isSelected()));
     }
 
-    public void editItem(Long shoppingListItemId, ShoppingListItem changedItem) {
+    public void editItem(String shoppingListItemId, ShoppingListItem changedItem) {
         shoppingListItems.stream()
                 .filter(item -> Objects.equals(item.getId(), shoppingListItemId))
                 .findFirst()
@@ -63,7 +63,7 @@ public class ShoppingListGroup extends AbstractModel {
         return Collections.unmodifiableList(shoppingListItems);
     }
 
-    public Optional<ShoppingListItem> getShoppingListItem(Long itemId) {
+    public Optional<ShoppingListItem> getShoppingListItem(String itemId) {
         return shoppingListItems.stream()
             .filter(item -> Objects.equals(item.getId(), itemId))
             .findFirst();

@@ -10,7 +10,7 @@ class DefaultShoppingListRepository implements ShoppingListRepository {
 	private final ShoppingListEntityMapper shoppingListMapper;
 
 	@Override
-	public ShoppingList determineShoppingList(Long shoppingListId) {
+	public ShoppingList determineShoppingList(String shoppingListId) {
 		return shoppingListMapper.map(shoppingListEntityRepository.findById(shoppingListId).orElseThrow(IllegalStateException::new));
 	}
 
@@ -20,7 +20,7 @@ class DefaultShoppingListRepository implements ShoppingListRepository {
 	}
 
 	@Override
-    public void deleteShoppingList(Long shoppingListId) {
+    public void deleteShoppingList(String shoppingListId) {
 	    shoppingListEntityRepository.deleteById(shoppingListId);
     }
 

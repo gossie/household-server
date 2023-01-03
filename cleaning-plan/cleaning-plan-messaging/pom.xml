@@ -9,7 +9,7 @@
     <parent>
         <groupId>household</groupId>
         <artifactId>cleaning-plan-parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${app.version}</version>
     </parent>
 
     <artifactId>cleaning-plan-messaging</artifactId>
@@ -22,12 +22,12 @@
         <dependency>
             <groupId>household</groupId>
             <artifactId>cleaning-plan-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${app.version}</version>
         </dependency>
         <dependency>
             <groupId>household</groupId>
             <artifactId>household-events</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${app.version}</version>
         </dependency>
 
         <dependency>

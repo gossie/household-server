@@ -17,17 +17,17 @@ public class DefaultUserRepositoryTest {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         UserEntityRepository userEntityRepository = mock(UserEntityRepository.class);
-        UserEntity userEntity = new UserEntity(5L, "test@user.de");
+        UserEntity userEntity = new UserEntity("5L", "test@user.de");
         userEntity.setPassword(passwordEncoder.encode("secret"));
-        when(userEntityRepository.findById(5L)).thenReturn(Optional.of(userEntity));
+        when(userEntityRepository.findById("5L")).thenReturn(Optional.of(userEntity));
         when(userEntityRepository.save(any(UserEntity.class))).thenAnswer(invocation -> invocation.getArguments()[0]);
 
         DefaultUserRepository repository = new DefaultUserRepository(userEntityRepository, new UserMapper(new InvitationEntityMapper()), passwordEncoder);
 
-        User result = repository.saveUserAndHashPassword(new User(5L, "test@user.de", "newSecret"), "secret");
+        User result = repository.saveUserAndHashPassword(new User("5L", "test@user.de", "newSecret"), "secret");
 
         assertThat(result)
-            .hasId(5L)
+            .hasId("5L")
             .hasEmail("test@user.de")
             .hasPassword(password -> passwordEncoder.matches("newSecret", password));
     }

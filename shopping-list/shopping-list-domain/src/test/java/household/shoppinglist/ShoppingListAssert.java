@@ -16,7 +16,7 @@ public class ShoppingListAssert extends AbstractAssert<ShoppingListAssert, Shopp
 		return new ShoppingListAssert(actual);
 	}
 
-    public ShoppingListAssert hasId(Long id) {
+    public ShoppingListAssert hasId(String id) {
         assertEquals(id, actual.getId());
         return this;
     }

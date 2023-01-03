@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 @Getter
 public class ShoppingListItemDTO extends AbstractDTO {
 
-    private Long databaseId;
+    private String databaseId;
 	private String name;
 	private boolean selected;
 	private String image;

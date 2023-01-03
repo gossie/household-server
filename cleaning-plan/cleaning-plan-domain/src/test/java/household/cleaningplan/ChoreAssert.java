@@ -14,7 +14,7 @@ public class ChoreAssert extends AbstractAssert<ChoreAssert, Chore> {
 		return new ChoreAssert(actual);
 	}
 
-	public ChoreAssert hasId(Long id) {
+	public ChoreAssert hasId(String id) {
 		assertEquals(id, actual.getId());
 		return this;
 	}

@@ -9,11 +9,11 @@
     <parent>
         <groupId>household</groupId>
         <artifactId>plan-parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${app.version}</version>
     </parent>
 
     <artifactId>cookbook-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${app.version}</version>
     <packaging>pom</packaging>
 
     <name>cookbook-parent</name>
