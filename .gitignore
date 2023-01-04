@@ -101,7 +101,7 @@ Thumbs.db
 
 
 # specific
-web/src/main/web/dist
-web/src/main/web/node
+web/dist
+web/node
 web/src/main/web/coverage
-web/src/main/web/.angular
+web/.angular
