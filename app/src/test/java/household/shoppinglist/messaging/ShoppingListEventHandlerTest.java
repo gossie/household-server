@@ -5,7 +5,8 @@ import static org.mockito.Mockito.verify;
 
 import com.google.common.eventbus.EventBus;
 
-import household.household.HouseholdDeletedEvent;
+import household.household.events.HouseholdDeletedEvent;
+import household.shoppinglist.domain.ShoppingListService;
 
 import org.junit.jupiter.api.Test;
 

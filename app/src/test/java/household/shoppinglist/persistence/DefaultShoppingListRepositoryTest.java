@@ -1,14 +1,18 @@
 package household.shoppinglist.persistence;
 
+import static household.shoppinglist.domain.ShoppingListAssert.assertThat;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
-import java.util.List;
+import household.shoppinglist.domain.ShoppingList;
+import household.shoppinglist.domain.ShoppingListGroup;
+import household.shoppinglist.domain.ShoppingListItem;
 
-import static household.shoppinglist.ShoppingListAssert.assertThat;
+import java.util.List;
 
 @DataJpaTest
 @Import(ShoppingListPersistenceContext.class)

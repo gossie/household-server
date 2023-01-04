@@ -2,8 +2,8 @@ package household.shoppinglist.messaging;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import household.household.HouseholdDeletedEvent;
-
+import household.household.events.HouseholdDeletedEvent;
+import household.shoppinglist.domain.ShoppingListService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

@@ -1,13 +1,16 @@
 package household.cookbook.rest;
 
-import static household.cookbook.RecipeAssert.assertThat;
-import static household.cookbook.RecipeDTOAssert.assertThat;
+import static household.cookbook.domain.RecipeAssert.assertThat;
+import static household.cookbook.rest.RecipeDTOAssert.assertThat;
 import static java.util.Arrays.asList;
 
 import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
+import household.cookbook.domain.Ingredient;
+import household.cookbook.domain.Recipe;
 
 public class RecipeDTOMapperTest {
 

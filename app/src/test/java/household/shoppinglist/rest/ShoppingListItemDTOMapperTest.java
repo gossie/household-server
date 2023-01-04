@@ -1,9 +1,11 @@
 package household.shoppinglist.rest;
 
-import static household.shoppinglist.ShoppingListItemAssert.assertThat;
-import static household.shoppinglist.ShoppingListItemDTOAssert.assertThat;
+import static household.shoppinglist.domain.ShoppingListItemAssert.assertThat;
+import static household.shoppinglist.rest.ShoppingListItemDTOAssert.assertThat;
 
 import org.junit.jupiter.api.Test;
+
+import household.shoppinglist.domain.ShoppingListItem;
 
 public class ShoppingListItemDTOMapperTest {
 

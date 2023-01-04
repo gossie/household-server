@@ -1,9 +1,11 @@
 package household.foodplan.rest;
 
-import static household.foodplan.MealAssert.assertThat;
-import static household.foodplan.MealTOAssert.assertThat;
+import static household.foodplan.domain.MealAssert.assertThat;
+import static household.foodplan.rest.MealTOAssert.assertThat;
 
 import org.junit.jupiter.api.Test;
+
+import household.foodplan.domain.Meal;
 
 public class MealDTOMapperTest {
 

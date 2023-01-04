@@ -1,5 +1,6 @@
 package household.shoppinglist.persistence;
 
+import household.shoppinglist.domain.ShoppingListItem;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 

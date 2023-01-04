@@ -1,12 +1,15 @@
 package household.cookbook.persistence;
 
-import static household.cookbook.RecipeAssert.assertThat;
-import static household.cookbook.RecipeEntityAssert.assertThat;
+import static household.cookbook.domain.RecipeAssert.assertThat;
+import static household.cookbook.persistence.RecipeEntityAssert.assertThat;
 
 import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
+import household.cookbook.domain.Ingredient;
+import household.cookbook.domain.Recipe;
 
 public class RecipeMapperTest {
 

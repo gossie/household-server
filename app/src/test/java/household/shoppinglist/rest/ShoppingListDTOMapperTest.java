@@ -1,12 +1,16 @@
 package household.shoppinglist.rest;
 
-import static household.shoppinglist.ShoppingListTOAssert.assertThat;
+import static household.shoppinglist.rest.ShoppingListTOAssert.assertThat;
 import static java.util.Arrays.asList;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
+import household.shoppinglist.domain.ShoppingList;
+import household.shoppinglist.domain.ShoppingListGroup;
+import household.shoppinglist.domain.ShoppingListItem;
 
 public class ShoppingListDTOMapperTest {
 

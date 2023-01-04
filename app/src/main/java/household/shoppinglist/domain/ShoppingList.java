@@ -15,7 +15,7 @@ public class ShoppingList extends AbstractModel {
 
 	private final List<ShoppingListGroup> shoppingListGroups;
 
-    ShoppingList(String id, List<ShoppingListGroup> shoppingListGroups) {
+    public ShoppingList(String id, List<ShoppingListGroup> shoppingListGroups) {
     	super(id);
 		this.shoppingListGroups = new ArrayList<>(shoppingListGroups);
 	}

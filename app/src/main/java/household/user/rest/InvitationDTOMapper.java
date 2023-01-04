@@ -2,6 +2,7 @@ package household.user.rest;
 
 import org.springframework.stereotype.Component;
 
+import household.user.domain.Invitation;
 import lombok.RequiredArgsConstructor;
 
 @Component

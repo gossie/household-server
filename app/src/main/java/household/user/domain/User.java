@@ -14,7 +14,7 @@ public class User extends AbstractModel {
 	private String householdId;
 	private final List<Invitation> invitations;
 
-	User(String id, String email, String password) {
+	public User(String id, String email, String password) {
 		super(id);
 		this.email = email;
 		this.password = password;

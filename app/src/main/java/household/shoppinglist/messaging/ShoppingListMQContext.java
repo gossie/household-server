@@ -2,6 +2,8 @@ package household.shoppinglist.messaging;
 
 import com.google.common.eventbus.EventBus;
 
+import household.shoppinglist.domain.ShoppingListService;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

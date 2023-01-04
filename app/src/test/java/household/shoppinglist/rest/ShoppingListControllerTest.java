@@ -1,6 +1,6 @@
 package household.shoppinglist.rest;
 
-import static household.shoppinglist.ShoppingListTOAssert.assertThat;
+import static household.shoppinglist.rest.ShoppingListTOAssert.assertThat;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Disabled;
@@ -12,6 +12,11 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
+
+import household.shoppinglist.domain.ShoppingList;
+import household.shoppinglist.domain.ShoppingListGroup;
+import household.shoppinglist.domain.ShoppingListItem;
+import household.shoppinglist.domain.ShoppingListService;
 
 import java.util.Base64;
 import java.util.List;

@@ -2,6 +2,8 @@ package household.user.messaging;
 
 import com.google.common.eventbus.EventBus;
 
+import household.user.domain.UserService;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

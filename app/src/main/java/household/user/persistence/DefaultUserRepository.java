@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import household.user.domain.User;
+import household.user.domain.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 

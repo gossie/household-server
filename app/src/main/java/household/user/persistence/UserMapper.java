@@ -1,5 +1,6 @@
 package household.user.persistence;
 
+import household.user.domain.User;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

@@ -3,6 +3,8 @@ package household.shoppinglist.persistence;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import household.shoppinglist.domain.ShoppingList;
+import household.shoppinglist.domain.ShoppingListGroup;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 

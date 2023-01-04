@@ -1,6 +1,6 @@
 package household.foodplan.domain;
 
-import static household.foodplan.MealAssert.assertThat;
+import static household.foodplan.domain.MealAssert.assertThat;
 
 import org.junit.jupiter.api.Test;
 

@@ -5,6 +5,8 @@ import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.Test;
 
+import household.foodplan.domain.FoodPlanRepository;
+
 public class DefaultFoodPlanRepositoryTest {
 
     @Test

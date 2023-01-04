@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.StringUtils;
 
+import household.shoppinglist.domain.ShoppingListItem;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;

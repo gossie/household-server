@@ -1,6 +1,6 @@
 package household.user.persistence;
 
-import static household.user.UserAssert.assertThat;
+import static household.user.domain.UserAssert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -9,6 +9,8 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import household.user.domain.User;
 
 public class DefaultUserRepositoryTest {
 

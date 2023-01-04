@@ -1,6 +1,6 @@
 package household.shoppinglist.domain;
 
-import static household.shoppinglist.ShoppingListAssert.assertThat;
+import static household.shoppinglist.domain.ShoppingListAssert.assertThat;
 import static java.util.Arrays.asList;
 
 import java.util.ArrayList;

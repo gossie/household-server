@@ -1,9 +1,11 @@
 package household.cookbook.rest;
 
-import static household.cookbook.IngredientAssert.assertThat;
-import static household.cookbook.IngredientDTOAssert.assertThat;
+import static household.cookbook.domain.IngredientAssert.assertThat;
+import static household.cookbook.rest.IngredientDTOAssert.assertThat;
 
 import org.junit.jupiter.api.Test;
+
+import household.cookbook.domain.Ingredient;
 
 public class IngredientDTOMapperTest {
 

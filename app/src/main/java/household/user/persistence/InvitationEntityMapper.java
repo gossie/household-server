@@ -1,5 +1,6 @@
 package household.user.persistence;
 
+import household.user.domain.Invitation;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

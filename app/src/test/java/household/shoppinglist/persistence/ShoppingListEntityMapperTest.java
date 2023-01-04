@@ -1,11 +1,13 @@
 package household.shoppinglist.persistence;
 
-import static household.shoppinglist.ShoppingListAssert.assertThat;
+import static household.shoppinglist.domain.ShoppingListAssert.assertThat;
 import static java.util.Arrays.asList;
 
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
+import household.shoppinglist.domain.ShoppingList;
 
 public class ShoppingListEntityMapperTest {
 

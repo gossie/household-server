@@ -1,10 +1,12 @@
 package household.household.rest;
 
-import static household.household.HouseholdDTOAssert.assertThat;
+import static household.household.rest.HouseholdDTOAssert.assertThat;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
+
+import household.household.domain.Household;
 
 public class HouseholdDTOMapperTest {
 

@@ -1,7 +1,7 @@
 package household.cookbook.domain;
 
-import static household.cookbook.CookbookAssert.assertThat;
-import static household.cookbook.RecipeAssert.assertThat;
+import static household.cookbook.domain.CookbookAssert.assertThat;
+import static household.cookbook.domain.RecipeAssert.assertThat;
 import static java.util.Arrays.asList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;

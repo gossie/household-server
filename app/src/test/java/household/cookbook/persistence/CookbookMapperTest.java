@@ -1,10 +1,12 @@
 package household.cookbook.persistence;
 
-import static household.cookbook.CookbookAssert.assertThat;
+import static household.cookbook.domain.CookbookAssert.assertThat;
 import static java.util.Arrays.asList;
 import static org.mockito.Mockito.mock;
 
 import org.junit.jupiter.api.Test;
+
+import household.cookbook.domain.Cookbook;
 
 public class CookbookMapperTest {
 

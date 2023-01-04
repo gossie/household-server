@@ -1,6 +1,6 @@
 package household.shoppinglist.domain;
 
-import static household.shoppinglist.ShoppingListAssert.assertThat;
+import static household.shoppinglist.domain.ShoppingListAssert.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;

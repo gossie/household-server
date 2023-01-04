@@ -1,6 +1,6 @@
 package household.cookbook.domain;
 
-import static household.cookbook.CookbookAssert.assertThat;
+import static household.cookbook.domain.CookbookAssert.assertThat;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;

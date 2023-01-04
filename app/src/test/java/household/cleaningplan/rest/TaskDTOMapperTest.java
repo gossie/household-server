@@ -2,7 +2,9 @@ package household.cleaningplan.rest;
 
 import org.junit.jupiter.api.Test;
 
-import static household.cleaningplan.TaskAssert.assertThat;
+import household.cleaningplan.domain.Task;
+
+import static household.cleaningplan.domain.TaskAssert.assertThat;
 import static household.cleaningplan.rest.TaskDTOAssert.assertThat;
 
 public class TaskDTOMapperTest {

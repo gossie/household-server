@@ -1,6 +1,6 @@
 package household.household.domain;
 
-import static household.household.HouseholdAssert.assertThat;
+import static household.household.domain.HouseholdAssert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

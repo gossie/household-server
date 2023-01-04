@@ -2,7 +2,7 @@ package household;
 
 import com.google.common.eventbus.EventBus;
 
-import household.user.JwtService;
+import household.user.rest.JwtService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

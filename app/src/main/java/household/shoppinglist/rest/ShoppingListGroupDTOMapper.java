@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import household.shoppinglist.domain.ShoppingListGroup;
+import household.shoppinglist.domain.ShoppingListItem;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 

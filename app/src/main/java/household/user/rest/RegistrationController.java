@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import household.user.domain.User;
+import household.user.domain.UserService;
 import lombok.RequiredArgsConstructor;
 
 @RestController

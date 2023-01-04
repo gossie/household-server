@@ -1,9 +1,12 @@
 package household.foodplan.persistence;
 
-import static household.foodplan.MealAssert.assertThat;
-import static household.foodplan.MealEntityAssert.assertThat;
+import static household.foodplan.domain.MealAssert.assertThat;
+import static household.foodplan.persistence.MealEntityAssert.assertThat;
 
 import org.junit.jupiter.api.Test;
+
+import household.foodplan.domain.Meal;
+import household.foodplan.domain.Recipe;
 
 public class MealMapperTest {
 
