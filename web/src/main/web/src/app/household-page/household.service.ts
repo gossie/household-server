@@ -21,7 +21,7 @@ export class HouseholdService extends AbstractNetworkService {
 
     public createHousehold(): Observable<Household> {
         const url: string = this.determineUrl(this.userService.getUser(), 'create');
-        return this.httpClient.post<Household>('http://localhost:5000/' + url, null, {
+        return this.httpClient.post<Household>(url, null, {
             headers: {
                 Accept: 'application/vnd.household.v1+json'
             }

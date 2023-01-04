@@ -3,7 +3,7 @@ import { browser, by, element } from 'protractor';
 export class RegistrationPage {
 
     public async navigateTo() {
-        await browser.get('http://localhost:5000/registration.html');
+        await browser.get('http://localhost:8080/registration.html');
         return browser.driver.manage().window().maximize();
     }
 
