@@ -7,118 +7,27 @@
 
     <parent>
         <groupId>household</groupId>
-        <artifactId>plan-parent</artifactId>
-        <version>${app.version}</version>
+        <artifactId>household-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>plan-app</artifactId>
+    <artifactId>household-app</artifactId>
     <packaging>jar</packaging>
 
     <name>plan-app</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
-        <app.version>1.0.0</app.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>household</groupId>
-            <artifactId>shopping-list-rest</artifactId>
-            <version>${app.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>shopping-list-messaging</artifactId>
-            <version>${app.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>shopping-list-persistence</artifactId>
-            <version>${app.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>cleaning-plan-rest</artifactId>
-            <version>${app.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>cleaning-plan-messaging</artifactId>
-            <version>${app.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>cleaning-plan-persistence</artifactId>
-            <version>${app.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>food-plan-rest</artifactId>
-            <version>${app.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>food-plan-messaging</artifactId>
-            <version>${app.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>food-plan-persistence</artifactId>
-            <version>${app.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>cookbook-rest</artifactId>
-            <version>${app.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>cookbook-messaging</artifactId>
-            <version>${app.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>cookbook-persistence</artifactId>
-            <version>${app.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>user-rest</artifactId>
-            <version>${app.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>user-messaging</artifactId>
-            <version>${app.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>user-persistence</artifactId>
-            <version>${app.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>household-rest</artifactId>
-            <version>${app.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>household-messaging</artifactId>
-            <version>${app.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
-            <artifactId>household-persistence</artifactId>
-            <version>${app.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>household</groupId>
             <artifactId>plan-web</artifactId>
-            <version>${app.version}</version>
+            <version>1.0.0-SNAPSHOT</version>
             <scope>runtime</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
@@ -131,21 +40,33 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>org.springframework.boot</groupId>-->
             <!--<artifactId>spring-boot-starter-actuator</artifactId>-->
         <!--</dependency>-->
-
         <dependency>
-            <groupId>de.flapdoodle.embed</groupId>
-            <artifactId>de.flapdoodle.embed.mongo</artifactId>
-            <scope>test</scope>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>de.flapdoodle.embed</groupId>
+            <artifactId>de.flapdoodle.embed.mongo</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -169,6 +90,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

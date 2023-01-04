@@ -4,11 +4,11 @@
 
     <parent>
         <groupId>household</groupId>
-        <artifactId>plan-parent</artifactId>
-        <version>${app.version}</version>
+        <artifactId>household-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-	<artifactId>plan-web</artifactId>
+	<artifactId>household-web</artifactId>
 
     <properties>
         <node.version>v16.13.1</node.version>
