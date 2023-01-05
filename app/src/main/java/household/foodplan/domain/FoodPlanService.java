@@ -26,7 +26,7 @@ public class FoodPlanService {
     }
 
     public FoodPlan createFoodPlan() {
-        return foodPlanRepository.createFoodPlan();
+        return foodPlanRepository.createFoodPlan(new FoodPlan(null));
     }
 
     public void deleteFoodPlan(String foodPlanId) {

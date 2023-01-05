@@ -4,9 +4,9 @@ public interface ShoppingListRepository {
 
 	ShoppingList determineShoppingList(String shoppingListId);
 
-	ShoppingList saveShoppingList(ShoppingList shoppingList);
+	ShoppingList createShoppingList(ShoppingList shoppingList);
 
-//	ShoppingList createShoppingList();
+	ShoppingList saveShoppingList(ShoppingList shoppingList);
 
     void deleteShoppingList(String shoppingListId);
 

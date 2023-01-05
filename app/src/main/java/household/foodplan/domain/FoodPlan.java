@@ -20,6 +20,18 @@ public class FoodPlan extends AbstractModel {
         this.meals = new HashMap<>(meals);
     }
 
+    public FoodPlan(String id) {
+        super(id);
+        this.meals = new HashMap<>();
+        meals.put("monday", new Meal());
+	    meals.put("tuesday", new Meal());
+	    meals.put("wednesday", new Meal());
+	    meals.put("thursday", new Meal());
+	    meals.put("friday", new Meal());
+	    meals.put("saturday", new Meal());
+	    meals.put("sunday", new Meal());
+    }
+
     public void clear() {
         meals.keySet().forEach(key -> meals.compute(key, (k, saved) -> new Meal(saved.getId(), "")));
     }

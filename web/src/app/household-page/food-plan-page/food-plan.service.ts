@@ -45,18 +45,18 @@ export class FoodPlanService extends AbstractNetworkService {
         });
     }
 
-    private determineCookbookId(recipe: Recipe): number {
+    private determineCookbookId(recipe: Recipe): string {
         if (ObjectUtils.isObject(recipe)) {
             const urlComponents: Array<string> = this.determineUrl(recipe, 'self').split('/');
-            return parseInt(urlComponents[urlComponents.length - 3], 10);
+            return urlComponents[urlComponents.length - 3];
         }
         return null;
     }
 
-    private determineRecipeId(recipe: Recipe): number {
+    private determineRecipeId(recipe: Recipe): string {
         if (ObjectUtils.isObject(recipe)) {
             const urlComponents: Array<string> = this.determineUrl(recipe, 'self').split('/');
-            return parseInt(urlComponents[urlComponents.length - 1], 10);
+            return urlComponents[urlComponents.length - 1];
         }
         return null;
     }

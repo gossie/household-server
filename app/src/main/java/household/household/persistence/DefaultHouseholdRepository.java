@@ -17,6 +17,13 @@ class DefaultHouseholdRepository implements HouseholdRepository {
 	}
 
     @Override
+    public Household createHousehold(Household household) {
+        var householdEntity = householdMapper.map(household);
+        householdEntity.setId(null);
+        return householdMapper.map(householdEntityRepository.save(householdEntity));
+    }
+
+    @Override
     public Household saveHousehold(Household household) {
         return householdMapper.map(householdEntityRepository.save(householdMapper.map(household)));
     }

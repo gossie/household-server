@@ -33,10 +33,10 @@ public class FoodPlanServiceTest {
         when(foodPlanRepository.saveFoodPlan(saved)).thenReturn(expected);
 
         foodPlanService = new FoodPlanService(foodPlanRepository );
-        FoodPlan actual = foodPlanService.updateMeal("1L", "3L", new Recipe("2L", "17L"), new Meal(null, "name", null));
+        FoodPlan actual = foodPlanService.updateMeal("1L", "3L", new Recipe("2L", "17L"), new Meal("meal-4", "name", null));
 
         assertThat(actual).isSameAs(expected);
-        verify(saved).updateMeal("3L", new Recipe("2L", "17L"), new Meal(null, "name", null));
+        verify(saved).updateMeal("3L", new Recipe("2L", "17L"), new Meal("meal-4", "name", null));
     }
 
     @Test

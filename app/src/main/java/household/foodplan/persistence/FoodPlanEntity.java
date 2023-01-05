@@ -9,26 +9,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Document(collection = "foodPlans")
 @Data
-@AllArgsConstructor(access=AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 class FoodPlanEntity {
 
 	@Id
 	private String id;
 
 	private Map<String, MealEntity> meals = new HashMap<>();
-
-	FoodPlanEntity() {
-	    meals.put("monday", new MealEntity());
-	    meals.put("tuesday", new MealEntity());
-	    meals.put("wednesday", new MealEntity());
-	    meals.put("thursday", new MealEntity());
-	    meals.put("friday", new MealEntity());
-	    meals.put("saturday", new MealEntity());
-	    meals.put("sunday", new MealEntity());
-	}
 
 	void clear() {
 		meals.values().forEach(MealEntity::clear);

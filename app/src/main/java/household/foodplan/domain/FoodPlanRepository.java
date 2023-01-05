@@ -6,7 +6,7 @@ public interface FoodPlanRepository {
 
 	FoodPlan saveFoodPlan(FoodPlan foodPlan);
 
-	FoodPlan createFoodPlan();
+	FoodPlan createFoodPlan(FoodPlan foodPlan);
 
     void deleteFoodPlan(String foodPlanId);
 }

@@ -12,7 +12,7 @@ public class MealMapper {
 
     MealEntity map(Meal meal) {
         String recipeReference = meal.getRecipe()
-                .map(recipe -> "" + recipe.getCookbookId() + "_" + recipe.getId())
+                .map(recipe -> recipe.getCookbookId() + "_" + recipe.getId())
                 .orElse(null);
 
         return new MealEntity(meal.getId(), meal.getName(), recipeReference);

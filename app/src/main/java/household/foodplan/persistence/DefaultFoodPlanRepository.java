@@ -22,8 +22,10 @@ class DefaultFoodPlanRepository implements FoodPlanRepository {
 	}
 
 	@Override
-	public FoodPlan createFoodPlan() {
-		return foodPlanMapper.map(foodPlanEntityRepository.save(new FoodPlanEntity()));
+	public FoodPlan createFoodPlan(FoodPlan foodPlan) {
+		var foodPlanEntity = foodPlanMapper.map(foodPlan);
+		foodPlanEntity.setId(null);
+		return foodPlanMapper.map(foodPlanEntityRepository.save(foodPlanEntity));
 	}
 
 	@Override

@@ -18,7 +18,7 @@ public class HouseholdService {
 	}
 
 	public Household createHousehold(String shoppingListId, String cleaningPlanId, String foodPlanId, String cookbookId) {
-		return householdRepository.saveHousehold(new Household(null, shoppingListId, cleaningPlanId, foodPlanId, cookbookId));
+		return householdRepository.createHousehold(new Household(null, shoppingListId, cleaningPlanId, foodPlanId, cookbookId));
 	}
 
 	public void deleteHousehold(String householdId) {

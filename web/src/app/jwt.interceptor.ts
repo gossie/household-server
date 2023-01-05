@@ -14,7 +14,17 @@ export class JwtInterceptor implements HttpInterceptor {
     }
 
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        req = req.clone({headers: req.headers.set('Authorization', this.jwt)});
+        if (!this.isRegistration(req) && !this.isLogin(req)) {
+            req = req.clone({headers: req.headers.set('Authorization', this.jwt)});
+        }
         return next.handle(req);
+    }
+
+    private isRegistration(req: HttpRequest<any>): boolean {
+        return req.url === 'api/registrations' && req.method === 'POST'
+    }
+
+    private isLogin(req: HttpRequest<any>): boolean {
+        return req.url === 'api/auth/login' && req.method === 'POST'
     }
 }

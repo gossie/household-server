@@ -47,7 +47,6 @@ export class ShoppingListPageComponent implements OnInit, OnDestroy {
     }
 
     public addShoppingListGroup(): void {
-        console.log("hallo")
         this.loading = true;
         const name: string = this.shoppingListGroupForm.get('name').value;
         this.shoppingListService.addShoppingListGroup(this.shoppingList, name)

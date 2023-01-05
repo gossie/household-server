@@ -58,7 +58,7 @@ public class ShoppingListService {
     }
 
 	public ShoppingList createShoppingList() {
-		return shoppingListRepository.saveShoppingList(new ShoppingList(null));
+		return shoppingListRepository.createShoppingList(new ShoppingList(null));
 	}
 
     public void deleteShoppingList(String shoppingListId) {

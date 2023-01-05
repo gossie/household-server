@@ -33,14 +33,9 @@ export class LoginPageComponent implements OnInit {
         }).subscribe(
             (loginResponse: LoginResponse) => {
                 this.tokenService.publishToken(loginResponse.token);
-                this.router.navigateByUrl(`/${Page.Household}`)
-                    .then(b => console.log(b))
-                    .catch(e => console.error(e));
+                this.router.navigateByUrl(`/${Page.Household}`);
             },
-            e => {
-                console.error('error', e);
-                this.errorMessage = 'Der Login ist fehlgeschlagen.'
-            }
+            () => this.errorMessage = 'Der Login ist fehlgeschlagen.'
         );
     }
 

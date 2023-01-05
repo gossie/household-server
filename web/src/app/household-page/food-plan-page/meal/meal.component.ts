@@ -116,10 +116,11 @@ export class MealComponent implements OnInit, OnDestroy {
     }
 
     public jumpToRecipe(): void {
-        this.router.navigate(['/cookbook'])
+        this.router.navigateByUrl('/household/cookbook')
             .then(() => {
                 const url: string = this.meal.links.find(link => link.rel === 'recipe').href;
                 this.cookbookService.determineRecipeByUrl(url);
-            });
+            })
+            .catch(e => console.error(e));
     }
 }

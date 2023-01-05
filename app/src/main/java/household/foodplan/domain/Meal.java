@@ -22,6 +22,10 @@ public class Meal extends AbstractModel {
         this(id, name, null);
     }
 
+    public Meal() {
+        this(null, null);
+    }
+
     public Optional<Recipe> getRecipe() {
         return Optional.ofNullable(recipe);
     }

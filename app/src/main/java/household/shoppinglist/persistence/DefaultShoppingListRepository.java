@@ -22,6 +22,13 @@ class DefaultShoppingListRepository implements ShoppingListRepository {
 	}
 
 	@Override
+	public ShoppingList createShoppingList(ShoppingList shoppingList) {
+		var shoppingListEntity = shoppingListMapper.map(shoppingList);
+		shoppingListEntity.setId(null);
+		return shoppingListMapper.map(shoppingListEntityRepository.save(shoppingListEntity));
+	}
+
+	@Override
     public void deleteShoppingList(String shoppingListId) {
 	    shoppingListEntityRepository.deleteById(shoppingListId);
     }
