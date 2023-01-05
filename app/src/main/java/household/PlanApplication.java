@@ -1,6 +1,9 @@
 package household;
 
 import com.google.common.eventbus.EventBus;
+
+import household.user.rest.JwtService;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.hateoas.HypermediaAutoConfiguration;
@@ -16,8 +19,13 @@ public class PlanApplication {
 	}
 
 	@Bean
-    public EventBus eventBus() {
+    EventBus eventBus() {
 	    return new EventBus();
     }
+
+	@Bean
+	JwtAuthFilter jwtAuthFilter(JwtService jwtService) {
+		return new JwtAuthFilter(jwtService);
+	}
 
 }

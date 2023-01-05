@@ -1,0 +1,57 @@
+<div class="container">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a id="registration-tab" class="button is-primary">
+                        <strong>Sign up</strong>
+                    </a>
+                    <a routerLink="/login"  id="login-tab" class="button is-light">
+                        Log in
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="columns">
+        <div class="column">
+            <form [formGroup]="registerForm">
+                <div class="field">
+                    <p class="control has-icons-left has-icons-right">
+                        <input id="email-field" name="email" class="input" type="email" placeholder="E-Mail" formControlName="email" />
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                    </p>
+                </div>
+                <div class="field">
+                    <p class="control has-icons-left">
+                        <input id="password-field" name="password" class="input" type="password" placeholder="Passwort" formControlName="password" />
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </p>
+                </div>
+                <div class="field">
+                    <p class="control has-icons-left">
+                        <input id="password-again-field" name="passwordAgain" class="input" type="password" placeholder="Passwort wiederholen" formControlName="passwordAgain" />
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </p>
+                </div>
+
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button id="login-button" class="button is-link" (click)="performRegistration()">Register</button>
+                    </div>
+                </div>
+                
+                <div *ngIf="hasError()" class="notification is-warning">
+                    <button class="delete" (click)="resetErrorState()"></button>
+                    <span>{{errorMessage}}</span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

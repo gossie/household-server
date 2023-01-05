@@ -1,0 +1,69 @@
+<div *ngIf="user">
+    <div *ngIf="household" class="container">
+        <app-loading></app-loading>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <div [routerLink]="['cover']" class="navbar-item">
+                    <span class="icon">
+                        <i class="fas fa-home"></i>
+                    </span>
+                </div>
+
+                <a (click)="toggleNavbar()" role="button" class="navbar-burger burger" [ngClass]="{'is-active': expanded}" aria-label="menu" aria-expanded="false" data-target="householdNavbar">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="householdNavbar" class="navbar-menu" [ngClass]="{'is-active': expanded}">
+                <div class="navbar-start">
+                    <a [routerLink]="['shopping-list']" id="shopping-list-tab" class="navbar-item">
+                        <span class="icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </span>
+                        Einkaufsliste
+                    </a>
+
+                    <a [routerLink]="['cleaning-plan']" id="cleaning-plan-tab" class="navbar-item">
+                        <span class="icon">
+                            <i class="fas fa-broom"></i>
+                        </span>
+                        TODO-Liste
+                    </a>
+
+                    <a [routerLink]="['food-plan']" id="food-plan-tab" class="navbar-item">
+                        <span class="icon">
+                            <i class="fas fa-utensils"></i>
+                        </span>
+                        Essensplan
+                    </a>
+
+                    <a [routerLink]="['cookbook']" id="cookbook-tab" class="navbar-item">
+                        <span class="icon">
+                            <i class="fas fa-book"></i>
+                        </span>
+                        Kochbuch
+                    </a>
+                </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <a id="logout-button" (click)="logout()" class="button is-light">
+                            Log out
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="container is-fluid">
+            <router-outlet></router-outlet>
+            <app-undo-hint></app-undo-hint>
+        </div>
+    </div>
+
+    <div *ngIf="userHasNoHousehold">
+        <app-no-household [user]="user"></app-no-household>
+        <app-undo-hint></app-undo-hint>
+    </div>
+</div>
