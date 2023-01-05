@@ -20,7 +20,7 @@ public class JwtService {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(Date.from(Instant.now()))
-                .setExpiration(Date.from(Instant.now().plus(Duration.ofDays(8))))
+                .setExpiration(Date.from(Instant.now().plus(Duration.ofDays(7))))
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }

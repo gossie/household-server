@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { Observable, Subscription } from 'rxjs';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import { Observable, of, throwError, NEVER } from 'rxjs';
 import { TokenService } from './token.service';
+import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { Page } from './page.enum';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
     private jwt: string;
 
-    constructor(tokenService: TokenService) {
+    constructor(tokenService: TokenService, private router: Router) {
         tokenService.observeToken()
             .subscribe(token => this.jwt = token);
     }
@@ -17,7 +20,17 @@ export class JwtInterceptor implements HttpInterceptor {
         if (!this.isRegistration(req) && !this.isLogin(req)) {
             req = req.clone({headers: req.headers.set('Authorization', this.jwt)});
         }
-        return next.handle(req);
+        return next.handle(req)
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    if (error.status === 401) {
+                        this.router.navigateByUrl(`/${Page.Login}`);
+                    } else {
+                        return throwError(error);
+                    }
+                    return NEVER;
+                })
+            )
     }
 
     private isRegistration(req: HttpRequest<any>): boolean {

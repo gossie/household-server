@@ -36,12 +36,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         try {
             var claims = jwtService.extractClaims(token);
             setSecurityContext(claims.getSubject());
+            filterChain.doFilter(request, response);
         } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException | IllegalArgumentException e) {
-            e.printStackTrace();
             response.setStatus(401);
         }
-
-        filterChain.doFilter(request, response);
     }
 
     private void setSecurityContext(String subject) {
