@@ -1,12 +1,21 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { inject, NgModule } from '@angular/core';
+import { Routes, RouterModule, Router } from '@angular/router';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { Page } from './page.enum';
 import { RegistrationPageComponent } from './registration-page/registration-page.component';
 
 const routes: Routes = [{
         path: '',
-        redirectTo: Page.Login,
+        canActivate: [() => {
+            const router = inject(Router);
+            const jwt = localStorage.getItem('jwt');
+            if (jwt) {
+                return router.parseUrl(`/${Page.Household}/${Page.Cover}`)
+            } else {
+                return router.parseUrl(`/${Page.Login}`)
+            }
+        }],
+        component: LoginPageComponent,
         pathMatch: 'full'
     },
     {

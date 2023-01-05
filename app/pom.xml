@@ -226,6 +226,11 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <image>
+                        <env>
+                            <BP_OCI_SOURCE>https://github.com/gossie/household-server</BP_OCI_SOURCE>
+                        </env>
+                    </image>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
