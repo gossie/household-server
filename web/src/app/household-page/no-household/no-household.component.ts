@@ -6,7 +6,6 @@ import { User } from '../../user';
 import { CommonModule } from '@angular/common';
 import { InvitationComponent } from 'src/app/common-elements/invitation/invitation.component';
 import { Router, RouterModule } from '@angular/router';
-import { TokenService } from 'src/app/token.service';
 import { Page } from 'src/app/page.enum';
 
 @Component({
@@ -27,7 +26,6 @@ export class NoHouseholdComponent implements OnInit, OnDestroy {
 
     constructor(private userService: UserService,
                 private householdService: HouseholdService,
-                private tokenService: TokenService,
                 private router: Router) { }
 
     public ngOnInit(): void {
@@ -49,6 +47,6 @@ export class NoHouseholdComponent implements OnInit, OnDestroy {
     }
 
     public logout(): void {
-        this.tokenService.publishToken('')
+        this.userService.logout();
     }
 }

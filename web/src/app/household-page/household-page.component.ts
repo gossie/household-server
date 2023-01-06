@@ -10,7 +10,6 @@ import { CommonElementsModule } from '../common-elements/common-elements.module'
 import { NoHouseholdComponent } from './no-household/no-household.component';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from './loading/loading.component';
-import { TokenService } from '../token.service';
 import { Page } from '../page.enum';
 
 @Component({
@@ -37,7 +36,6 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
 
     constructor(private householdService: HouseholdService,
                 private userService: UserService,
-                private tokenService: TokenService,
                 private router: Router) { }
 
     public ngOnInit(): void {
@@ -86,6 +84,6 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
     }
 
     public logout(): void {
-        this.tokenService.publishToken('')
+        this.userService.logout();
     }
 }

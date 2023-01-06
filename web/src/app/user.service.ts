@@ -6,6 +6,9 @@ import { User } from './user';
 import { HttpClient } from '@angular/common/http';
 import { AbstractNetworkService } from './abstract-network.service';
 import { environment } from '../environments/environment';
+import { Router } from '@angular/router';
+import { TokenService } from './token.service';
+import { Page } from './page.enum';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +17,9 @@ export class UserService extends AbstractNetworkService {
 
     private userStream: BehaviorSubject<User> = new BehaviorSubject(null);
 
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient,
+                private router: Router,
+                private tokenService: TokenService) {
         super();
     }
 
@@ -71,7 +76,8 @@ export class UserService extends AbstractNetworkService {
         return this.httpClient.put<User>(url, body, options);
     }
 
-    public logout(): Observable<void> {
-        return this.httpClient.post<void>('/logout', {}, {});
+    public logout() {
+        this.tokenService.publishToken('');
+        this.router.navigateByUrl(`/${Page.Login}`);
     }
 }
