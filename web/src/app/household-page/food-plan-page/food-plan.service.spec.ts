@@ -13,13 +13,13 @@ describe('FoodPlanService', () => {
     }));
 
     it('should be created', () => {
-        const service: FoodPlanService = TestBed.get(FoodPlanService);
+        const service: FoodPlanService = TestBed.inject(FoodPlanService);
         expect(service).toBeTruthy();
     });
 
     it('should save meal', () => {
-        const service: FoodPlanService = TestBed.get(FoodPlanService);
-        const httpTestingController: HttpTestingController = TestBed.get(HttpTestingController);
+        const service: FoodPlanService = TestBed.inject(FoodPlanService);
+        const httpTestingController: HttpTestingController = TestBed.inject(HttpTestingController);
 
         const expectedFoodPlan: FoodPlan = {
             meals: {

@@ -46,7 +46,7 @@ describe('ShoppingListItemComponent', () => {
     });
 
     it('should switch to edit mode', (done) => {
-        const shoppingListService: ShoppingListService = TestBed.get(ShoppingListService);
+        const shoppingListService: ShoppingListService = TestBed.inject(ShoppingListService);
 
         const shoppingListEmitter = new EventEmitter();
         shoppingListEmitter.subscribe((shoppingList: ShoppingList) => {

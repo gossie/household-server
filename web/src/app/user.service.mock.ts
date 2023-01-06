@@ -2,9 +2,7 @@ import { Observable, of } from 'rxjs/index';
 import { Injectable } from '@angular/core';
 import { User } from './user';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class UserServiceMock {
 
     private user: User = {

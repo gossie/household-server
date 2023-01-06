@@ -7,9 +7,7 @@ import { AbstractNetworkService } from '../abstract-network.service';
 import { User } from '../user';
 import { tap } from 'rxjs/internal/operators';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class HouseholdService extends AbstractNetworkService {
 
     private subject: Subject<Household> = new BehaviorSubject(undefined);

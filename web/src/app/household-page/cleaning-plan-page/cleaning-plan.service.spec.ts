@@ -10,7 +10,7 @@ describe('CleaningPlanService', () => {
     }));
 
     it('should be created', () => {
-        const service: CleaningPlanService = TestBed.get(CleaningPlanService);
+        const service: CleaningPlanService = TestBed.inject(CleaningPlanService);
         expect(service).toBeTruthy();
     });
 });

@@ -10,7 +10,7 @@ describe('HouseholdService', () => {
     }));
 
     it('should be created', () => {
-        const service: HouseholdService = TestBed.get(HouseholdService);
+        const service: HouseholdService = TestBed.inject(HouseholdService);
         expect(service).toBeTruthy();
     });
 });

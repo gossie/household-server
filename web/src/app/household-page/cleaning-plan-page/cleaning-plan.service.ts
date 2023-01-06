@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/index';
 import { HttpClient } from '@angular/common/http';
-import { UserService } from '../../user.service';
 import { CleaningPlan } from './cleaning-plan';
 import { AbstractNetworkService } from '../../abstract-network.service';
 import { Chore } from './chore/chore';
 import { Household } from '../household';
 import { Task } from './task/task';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class CleaningPlanService extends AbstractNetworkService {
 
     constructor(private httpClient: HttpClient) {

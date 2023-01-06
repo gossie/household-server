@@ -4,9 +4,7 @@ import { User } from './user';
 import { Observable } from 'rxjs';
 import { UserService } from "./user.service";
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class UserResolverService implements Resolve<User> {
 
     constructor(private userService: UserService) { }

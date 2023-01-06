@@ -11,7 +11,7 @@ describe('CustomXsrfInterceptor', () => {
     }));
 
     it('should be created', () => {
-        const service: CustomXsrfInterceptor = TestBed.get(CustomXsrfInterceptor);
+        const service: CustomXsrfInterceptor = TestBed.inject(CustomXsrfInterceptor);
         expect(service).toBeTruthy();
     });
 });
