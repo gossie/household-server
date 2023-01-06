@@ -1,18 +1,18 @@
 import { inject, NgModule } from '@angular/core';
-import { Routes, RouterModule, Router } from '@angular/router';
+import { Routes, RouterModule, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { Page } from './page.enum';
 import { RegistrationPageComponent } from './registration-page/registration-page.component';
 
 const routes: Routes = [{
         path: '',
-        canActivate: [() => {
+        canActivate: [(_: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
             const router = inject(Router);
             const jwt = localStorage.getItem('jwt');
             if (jwt) {
-                return router.parseUrl(`/${Page.Household}/${Page.Cover}`)
+                return router.parseUrl(state.url);
             } else {
-                return router.parseUrl(`/${Page.Login}`)
+                return router.parseUrl(`/${Page.Login}`);
             }
         }],
         component: LoginPageComponent,
