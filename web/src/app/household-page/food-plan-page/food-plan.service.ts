@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UserService } from '../../user.service';
 import { FoodPlan } from './food-plan';
 import { Observable } from 'rxjs/index';
 import { AbstractNetworkService } from '../../abstract-network.service';
@@ -9,13 +8,10 @@ import { Meal } from './meal/meal';
 import { Recipe } from '../cookbook-page/recipe/recipe';
 import { ObjectUtils } from 'src/app/object.utils';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class FoodPlanService extends AbstractNetworkService {
 
-    constructor(private userService: UserService,
-                private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient) {
         super();
     }
 

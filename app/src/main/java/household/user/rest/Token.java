@@ -1,4 +1,4 @@
 package household.user.rest;
 
-record Token(String token) {
+public record Token(String token) {
 }

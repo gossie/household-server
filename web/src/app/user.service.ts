@@ -10,9 +10,7 @@ import { Router } from '@angular/router';
 import { TokenService } from './token.service';
 import { Page } from './page.enum';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class UserService extends AbstractNetworkService {
 
     private userStream: BehaviorSubject<User> = new BehaviorSubject(null);

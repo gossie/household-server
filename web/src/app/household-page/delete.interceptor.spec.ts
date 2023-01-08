@@ -11,7 +11,7 @@ describe('DeleteInterceptor', () => {
     }));
 
     it('should be created', () => {
-        const service: DeleteInterceptor = TestBed.get(HTTP_INTERCEPTORS);
+        const service: DeleteInterceptor = TestBed.inject(HTTP_INTERCEPTORS);
         expect(service).toBeTruthy();
     });
 });

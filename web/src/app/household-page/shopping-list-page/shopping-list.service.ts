@@ -5,19 +5,15 @@ import { HttpClient } from '@angular/common/http';
 import { ShoppingListGroup } from './shopping-list-group/shopping-list-group';
 import { ShoppingListItem } from './shopping-list-group/shopping-list-item/shopping-list-item';
 import { AbstractNetworkService } from '../../abstract-network.service';
-import { UserService } from '../../user.service';
 import { Household } from '../household';
 import {tap} from 'rxjs/internal/operators';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class ShoppingListService extends AbstractNetworkService {
 
     private subject: Subject<ShoppingList> = new BehaviorSubject(null);
 
-    constructor(private userService: UserService,
-                private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient) {
         super();
     }
 

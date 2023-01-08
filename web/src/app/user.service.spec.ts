@@ -14,12 +14,12 @@ describe('UserService', () => {
     }));
 
     it('should be created', () => {
-        const service: UserService = TestBed.get(UserService);
+        const service: UserService = TestBed.inject(UserService);
         expect(service).toBeTruthy();
     });
 
     it('should provide user', done => {
-        const userService: UserService = TestBed.get(UserService);
+        const userService: UserService = TestBed.inject(UserService);
 
         const expectedUser: User = {
             email: 'user@email.de',

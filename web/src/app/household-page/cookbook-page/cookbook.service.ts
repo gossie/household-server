@@ -9,9 +9,7 @@ import { Recipe } from './recipe/recipe';
 import { filter, tap } from 'rxjs/internal/operators';
 import { ObjectUtils } from '../../object.utils';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class CookbookService extends AbstractNetworkService {
 
     private cookbookSubject: Subject<Cookbook> = new BehaviorSubject(null);

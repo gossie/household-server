@@ -5,12 +5,12 @@ describe('DeleteHintService', () => {
     beforeEach(() => TestBed.configureTestingModule({}));
 
     it('should be created', () => {
-        const service: DeleteHintService = TestBed.get(DeleteHintService);
+        const service: DeleteHintService = TestBed.inject(DeleteHintService);
         expect(service).toBeTruthy();
     });
 
     it('should show hint', done => {
-        const service: DeleteHintService = TestBed.get(DeleteHintService);
+        const service: DeleteHintService = TestBed.inject(DeleteHintService);
         service.onVisibilityChange()
             .subscribe((value: boolean) => {
                 expect(value).toBeTruthy();
@@ -21,7 +21,7 @@ describe('DeleteHintService', () => {
     });
 
     it('should hide hint', done => {
-        const service: DeleteHintService = TestBed.get(DeleteHintService);
+        const service: DeleteHintService = TestBed.inject(DeleteHintService);
         service.onVisibilityChange()
             .subscribe((value: boolean) => {
                 expect(value).toBeFalsy();
@@ -33,7 +33,7 @@ describe('DeleteHintService', () => {
 
     it('should undo deletion', () => {
         let undoHandlerCalled: boolean = false;
-        const service: DeleteHintService = TestBed.get(DeleteHintService);
+        const service: DeleteHintService = TestBed.inject(DeleteHintService);
         service.onVisibilityChange()
             .subscribe((value: boolean) => expect(value).toBeFalsy());
         service.onUndo()

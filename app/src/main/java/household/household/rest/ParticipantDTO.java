@@ -1,13 +1,15 @@
 package household.household.rest;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class ParticipantDTO extends AbstractDTO {
 
-    private final String databaseId;
-	private final String email;
+    private String databaseId;
+	private String email;
 
 }

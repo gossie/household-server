@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable, Subject} from "rxjs/index";
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class DeleteHintService {
 
     private undoneSubject: Subject<void> = new Subject();

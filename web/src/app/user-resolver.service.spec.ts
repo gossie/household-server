@@ -11,7 +11,7 @@ describe('UserResolverService', () => {
     }));
 
     it('should be created', () => {
-        const service: UserResolverService = TestBed.get(UserResolverService);
+        const service: UserResolverService = TestBed.inject(UserResolverService);
         expect(service).toBeTruthy();
     });
 });

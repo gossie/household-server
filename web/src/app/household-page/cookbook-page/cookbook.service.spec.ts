@@ -15,7 +15,7 @@ describe('CookbookService', () => {
     }));
 
     it('should be created', () => {
-        const service: CookbookService = TestBed.get(CookbookService);
+        const service: CookbookService = TestBed.inject(CookbookService);
         expect(service).toBeTruthy();
     });
 });

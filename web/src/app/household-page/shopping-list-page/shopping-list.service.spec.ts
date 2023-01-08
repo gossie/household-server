@@ -29,13 +29,13 @@ describe('ShoppingListService', () => {
     }));
 
     it('should be created', () => {
-        const service: ShoppingListService = TestBed.get(ShoppingListService);
+        const service: ShoppingListService = TestBed.inject(ShoppingListService);
         expect(service).toBeTruthy();
     });
 
     it('should collect data', done => {
-        const service: ShoppingListService = TestBed.get(ShoppingListService);
-        const httpTestingController: HttpTestingController = TestBed.get(HttpTestingController);
+        const service: ShoppingListService = TestBed.inject(ShoppingListService);
+        const httpTestingController: HttpTestingController = TestBed.inject(HttpTestingController);
 
         const household: Household = {
             participants: [],
@@ -56,8 +56,8 @@ describe('ShoppingListService', () => {
     });
 
     it('should add ShoppingListGroup', done => {
-        const service: ShoppingListService = TestBed.get(ShoppingListService);
-        const httpTestingController: HttpTestingController = TestBed.get(HttpTestingController);
+        const service: ShoppingListService = TestBed.inject(ShoppingListService);
+        const httpTestingController: HttpTestingController = TestBed.inject(HttpTestingController);
 
         const currentShoppingList: ShoppingList = {
             shoppingListGroups: [],
@@ -79,8 +79,8 @@ describe('ShoppingListService', () => {
     });
 
     it('should add ShoppingListItem', done => {
-        const service: ShoppingListService = TestBed.get(ShoppingListService);
-        const httpTestingController: HttpTestingController = TestBed.get(HttpTestingController);
+        const service: ShoppingListService = TestBed.inject(ShoppingListService);
+        const httpTestingController: HttpTestingController = TestBed.inject(HttpTestingController);
 
         const currentShoppingListGroup: ShoppingListGroup = {
             name: 'Gruppe',
@@ -103,8 +103,8 @@ describe('ShoppingListService', () => {
     });
 
     it('should edit shoppingListItem', (done) => {
-        const service: ShoppingListService = TestBed.get(ShoppingListService);
-        const httpTestingController: HttpTestingController = TestBed.get(HttpTestingController);
+        const service: ShoppingListService = TestBed.inject(ShoppingListService);
+        const httpTestingController: HttpTestingController = TestBed.inject(HttpTestingController);
 
         const shoppingListItem: ShoppingListItem = {
             name: 'Nudeln',
