@@ -1,5 +1,7 @@
 package household.user.rest;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,10 +22,10 @@ public class RegistrationController {
     private final UserDTOMapper userMapper;
 
 	@PostMapping(consumes = {"application/vnd.household.v1+json"}, produces = {"application/vnd.household.v1+json"})
-	public UserDTO createUser(@RequestBody UserRegistrationData registrationData) {
-	    return userMapper.map(
+	public ResponseEntity<UserDTO> createUser(@RequestBody UserRegistrationData registrationData) {
+	    return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.map(
             userService.createUser(new User(null, registrationData.email(), registrationData.password()))
-        );
+        ));
     }
 
 }

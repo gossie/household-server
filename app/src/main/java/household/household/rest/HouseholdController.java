@@ -14,6 +14,8 @@ import household.shoppinglist.domain.ShoppingList;
 import household.shoppinglist.domain.ShoppingListService;
 import household.user.domain.UserService;
 import org.springframework.hateoas.Link;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,7 +41,7 @@ public class HouseholdController {
 	private final HouseholdDTOMapper householdMapper;
 
 	@PostMapping(produces={"application/vnd.household.v1+json"})
-	public HouseholdDTO createHousehold(Principal principal) {
+	public ResponseEntity<HouseholdDTO> createHousehold(Principal principal) {
 		ShoppingList shoppingList = shoppingListService.createShoppingList();
 		CleaningPlan cleaningPlan = cleaningPlanService.createCleaningPlan();
 		FoodPlan foodPlan = foodPlanService.createFoodPlan();
@@ -54,6 +56,7 @@ public class HouseholdController {
             })
             .map(this::createResource)
             .map(this::addLinks)
+            .map(dto -> ResponseEntity.status(HttpStatus.CREATED).body(dto))
             .orElseThrow();
 	}
 
