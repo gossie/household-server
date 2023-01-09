@@ -6,7 +6,9 @@ import { AbstractNetworkService} from '../../abstract-network.service';
 import { User } from '../../user';
 import { Invitation } from '../../invitation';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class InvitationService extends AbstractNetworkService {
 
     constructor(private userService: UserService,

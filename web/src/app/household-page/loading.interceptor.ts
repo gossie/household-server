@@ -7,7 +7,9 @@ import {Observable, throwError} from 'rxjs/index';
 import {catchError, tap} from 'rxjs/internal/operators';
 import { LoadingService } from './loading.service';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class LoadingInterceptor implements HttpInterceptor {
 
     constructor(private loadingService: LoadingService) { }

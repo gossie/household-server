@@ -5,7 +5,9 @@ import { filter, mergeMap, tap } from 'rxjs/internal/operators';
 import { DeleteHintService } from './delete-hint.service';
 import { LoadingService } from './loading.service';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class DeleteInterceptor implements HttpInterceptor {
 
     constructor(private deleteHintService: DeleteHintService,

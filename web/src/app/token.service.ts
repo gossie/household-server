@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class TokenService {
 
     private subject = new BehaviorSubject(localStorage.getItem('jwt') ?? '');

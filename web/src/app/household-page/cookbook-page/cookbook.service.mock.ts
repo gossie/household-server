@@ -5,7 +5,9 @@ import { Household } from '../household';
 import {Recipe} from './recipe/recipe';
 import {tap} from 'rxjs/internal/operators';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class CookbookServiceMock {
 
     private subject: Subject<Cookbook> = new Subject();

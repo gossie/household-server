@@ -4,7 +4,9 @@ import { Observable, of } from 'rxjs/index';
 import { Household } from '../household';
 import { ShoppingListItem } from './shopping-list-group/shopping-list-item/shopping-list-item';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class ShoppingListServiceMock {
 
     constructor() { }
