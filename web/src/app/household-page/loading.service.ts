@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Observable, Subject} from "rxjs/index";
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class LoadingService {
 
     private subject: Subject<boolean> = new Subject();
