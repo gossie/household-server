@@ -6,12 +6,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,10 +27,9 @@ public class SecurityConfig {
     // private static final String CSRF_COOKIE_NAME = "XSRF-TOKEN";
 
     private final JwtAuthFilter jwtAuthFilter;
-    private final UserDetailsService userDetailsService;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .cors()
                 .configurationSource(corsConfigurationSource())
@@ -42,11 +39,11 @@ public class SecurityConfig {
             //.and()
                 //.addFilterAfter(this::csrfFilter, SecurityWebFiltersOrder.CSRF)
                 //.requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
-                .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/", "/index.html", "/*.js", "/*.css", "/*.png").permitAll()
-                .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .antMatchers(HttpMethod.POST, "/api/registrations", "/api/auth/login").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/status").permitAll()
+                .authorizeHttpRequests()
+                .requestMatchers(HttpMethod.GET, "/", "/index.html", "/*.js", "/*.css", "/*.png").permitAll()
+                .requestMatchers(HttpMethod.OPTIONS).permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/registrations", "/api/auth/login").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/status").permitAll()
                 .anyRequest().authenticated()
             .and()
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
