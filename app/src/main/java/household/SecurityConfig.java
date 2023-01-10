@@ -6,15 +6,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -23,16 +22,15 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
     // private static final String CSRF_COOKIE_NAME = "XSRF-TOKEN";
 
     private final JwtAuthFilter jwtAuthFilter;
-    private final UserDetailsService userDetailsService;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
+    @Bean
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
                 .cors()
                 .configurationSource(corsConfigurationSource())
             .and()
@@ -41,15 +39,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             //.and()
                 //.addFilterAfter(this::csrfFilter, SecurityWebFiltersOrder.CSRF)
                 //.requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
-                .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/", "/index.html", "/*.js", "/*.css", "/*.png").permitAll()
-                .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .antMatchers(HttpMethod.POST, "/api/registrations", "/api/auth/login").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/status").permitAll()
+                .authorizeHttpRequests()
+                .requestMatchers(HttpMethod.GET, "/", "/index.html", "/*.js", "/*.css", "/*.png").permitAll()
+                .requestMatchers(HttpMethod.OPTIONS).permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/registrations", "/api/auth/login").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/status").permitAll()
                 .anyRequest().authenticated()
             .and()
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+                .build();
     }
 
     private CorsConfigurationSource corsConfigurationSource() {
@@ -62,15 +62,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return source;
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
-    }
-
     @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
     // private ServerCsrfTokenRepository csrfTokenRepository() {

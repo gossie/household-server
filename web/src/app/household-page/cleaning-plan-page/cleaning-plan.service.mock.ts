@@ -5,7 +5,9 @@ import { Chore } from './chore/chore';
 import { Household } from '../household';
 import { Task } from './task/task';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class CleaningPlanServiceMock {
 
     constructor() { }

@@ -3,7 +3,9 @@ import { Observable, of } from 'rxjs/index';
 import { Household } from './household';
 import { User } from '../user';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class HouseholdServiceMock {
 
     constructor() {}

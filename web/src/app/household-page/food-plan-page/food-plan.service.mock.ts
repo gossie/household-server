@@ -5,7 +5,9 @@ import { Household } from '../household';
 import { Meal } from './meal/meal';
 import { Recipe } from '../cookbook-page/recipe/recipe';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class FoodPlanServiceMock {
 
     constructor() { }

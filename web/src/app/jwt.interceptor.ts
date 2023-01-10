@@ -6,7 +6,9 @@ import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Page } from './page.enum';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class JwtInterceptor implements HttpInterceptor {
 
     private jwt: string;
