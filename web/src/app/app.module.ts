@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { JwtInterceptor } from './jwt.interceptor';
+import { RefreshJwtInterceptor } from './refresh-jwt.interceptor';
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import { JwtInterceptor } from './jwt.interceptor';
         { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: DeleteInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: CustomXsrfInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: RefreshJwtInterceptor, multi: true }
     ],
     bootstrap: [AppComponent]
 })
