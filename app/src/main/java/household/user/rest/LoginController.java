@@ -1,5 +1,6 @@
 package household.user.rest;
 
+import java.security.Principal;
 import java.util.HashMap;
 
 import org.springframework.http.HttpStatus;
@@ -14,14 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/auth/login")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class LoginController {
 
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    @PostMapping(consumes = {"application/vnd.household.v1+json"}, produces = {"application/vnd.household.v1+json"})
+    @PostMapping(path = "/login", consumes = {"application/vnd.household.v1+json"}, produces = {"application/vnd.household.v1+json"})
     public ResponseEntity<Token> login(@RequestBody LoginData loginData) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginData.email(), loginData.password()));
@@ -29,7 +30,11 @@ public class LoginController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+    }
 
+    @PostMapping(path = "/refresh", produces = {"application/vnd.household.v1+json"})
+    public ResponseEntity<Token> refreshToken(Principal principal) {
+        return ResponseEntity.ok(new Token(jwtService.createToken(new HashMap<>(), principal.getName())));
     }
 
 }
