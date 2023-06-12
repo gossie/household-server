@@ -10,7 +10,6 @@ import { CommonElementsModule } from '../common-elements/common-elements.module'
 import { NoHouseholdComponent } from './no-household/no-household.component';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from './loading/loading.component';
-import { Page } from '../page.enum';
 
 @Component({
     selector: 'app-household-page',
@@ -63,11 +62,8 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
             .pipe(
                 tap((household: Household) => this.userHasNoHousehold = household === null)
             )
-            .subscribe((household: Household) =>{
-                this.household = household;
-                this.router.navigateByUrl(`/${Page.Household}/${Page.Cover}`)
-            })
-            );
+            .subscribe((household: Household) => this.household = household)
+        );
     }
 
     private observeRouter(): void {
