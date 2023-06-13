@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ShoppingList } from './shopping-list';
-import { BehaviorSubject, Observable, Subject } from 'rxjs/index';
+import { Observable, Subject } from 'rxjs/index';
 import { HttpClient } from '@angular/common/http';
 import { ShoppingListGroup } from './shopping-list-group/shopping-list-group';
 import { ShoppingListItem } from './shopping-list-group/shopping-list-item/shopping-list-item';
 import { AbstractNetworkService } from '../../abstract-network.service';
 import { Household } from '../household';
-import {tap} from 'rxjs/internal/operators';
+import { tap } from 'rxjs/internal/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ShoppingListService extends AbstractNetworkService {
 
-    private subject: Subject<ShoppingList> = new BehaviorSubject(null);
+    private subject: Subject<ShoppingList> = new Subject();
 
     constructor(private httpClient: HttpClient) {
         super();

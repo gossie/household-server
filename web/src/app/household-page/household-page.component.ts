@@ -39,9 +39,13 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.activatedRoute.data
                 .pipe(
-                    tap(({household}) => this.userHasNoHousehold = household === null)
+                    tap(({household}) => {
+                        console.debug('checking if household exists', household)
+                        this.userHasNoHousehold = household === 'no-household';
+                    })
                 )
                 .subscribe(({household, user}) => {
+                    console.debug('got user and household', user, household);
                     this.household = household;
                     this.user = user;
                 });

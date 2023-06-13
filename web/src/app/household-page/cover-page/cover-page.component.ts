@@ -6,6 +6,7 @@ import { Household } from "../household";
 import { HouseholdService } from "../household.service";
 import { UserService } from "../../user.service";
 import { User } from "../../user";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-cover-page',
@@ -22,32 +23,21 @@ export class CoverPageComponent implements OnInit, OnDestroy {
     private loading: boolean = false;
     private errorVisible: boolean = false;
 
-    constructor(private userService: UserService,
-                private householdService: HouseholdService,
-                private invitationService: InvitationService,
+    constructor(private invitationService: InvitationService,
+                private activatedRoute: ActivatedRoute,
                 private formBuilder: UntypedFormBuilder) { }
 
     public ngOnInit(): void {
-        this.observeUser();
-        this.observeHousehold();
+        this.subscriptions.push(this.activatedRoute.data
+                .subscribe(({user, household}) => {
+                    this.user = user;
+                    this.household = household;
+                }));
         this.createForm();
     }
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
-    }
-
-    private observeUser(): void {
-        this.subscriptions.push(this.userService.observeUser()
-            .subscribe((user: User) => this.user = user)
-        );
-    }
-
-    private observeHousehold(): void {
-        this.subscriptions.push(this.householdService.observeHousehold()
-            .subscribe((household: Household) => {
-                this.household = household;
-            }));
     }
 
     private createForm(): void {

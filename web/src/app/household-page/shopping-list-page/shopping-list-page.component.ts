@@ -2,8 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ShoppingList } from "./shopping-list";
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { ShoppingListService } from "./shopping-list.service";
-import { HouseholdService } from "../household.service";
-import { Household } from "../household";
 import { Subscription } from "rxjs/index";
 import { ActivatedRoute } from '@angular/router';
 
@@ -25,9 +23,10 @@ export class ShoppingListPageComponent implements OnInit, OnDestroy {
                 private formBuilder: UntypedFormBuilder) { }
 
     public ngOnInit(): void {
-        this.activatedRoute.data.subscribe(({shoppingList}) => {
+        this.subscriptions.push(this.activatedRoute.data.subscribe(({shoppingList}) => {
+            console.debug('got shopping list', shoppingList);
             this.shoppingList = shoppingList;
-        });
+        }));
         this.createForm();
     }
 

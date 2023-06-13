@@ -78,6 +78,11 @@ export class UserService extends AbstractNetworkService {
 
     public logout() {
         this.tokenService.publishToken('');
-        this.router.navigateByUrl(`/${Page.Login}`);
+        this.router.navigateByUrl(`/${Page.Login}`)
+            .then(finished => {
+                if (finished) {
+                    location.reload();
+                }
+            });
     }
 }

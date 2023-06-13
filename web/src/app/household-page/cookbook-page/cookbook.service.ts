@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Cookbook } from './cookbook';
 import { UserService } from '../../user.service';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, Subject } from 'rxjs/index';
+import { Observable, Subject } from 'rxjs/index';
 import { AbstractNetworkService } from '../../abstract-network.service';
 import { Household } from '../household';
 import { Recipe } from './recipe/recipe';
@@ -15,11 +15,10 @@ import { environment } from 'src/environments/environment';
 })
 export class CookbookService extends AbstractNetworkService {
 
-    private cookbookSubject: Subject<Cookbook> = new BehaviorSubject(null);
-    private recipeSubject: Subject<Recipe> = new BehaviorSubject(null);
+    private cookbookSubject: Subject<Cookbook> = new Subject();
+    private recipeSubject: Subject<Recipe> = new Subject();
 
-    constructor(private userService: UserService,
-                private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient) {
         super();
     }
 
