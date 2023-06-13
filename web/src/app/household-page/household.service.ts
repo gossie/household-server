@@ -5,14 +5,15 @@ import { UserService } from '../user.service';
 import { HttpClient } from '@angular/common/http';
 import { AbstractNetworkService } from '../abstract-network.service';
 import { User } from '../user';
-import { tap } from 'rxjs/internal/operators';
+import { filter, tap } from 'rxjs/internal/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class HouseholdService extends AbstractNetworkService {
 
-    private subject: Subject<Household> = new BehaviorSubject(undefined);
+    private subject: BehaviorSubject<Household | string> = new BehaviorSubject(undefined);
 
     constructor(private userService: UserService,
                 private httpClient: HttpClient) {
@@ -21,7 +22,7 @@ export class HouseholdService extends AbstractNetworkService {
 
     public createHousehold(): Observable<Household> {
         const url: string = this.determineUrl(this.userService.getUser(), 'create');
-        return this.httpClient.post<Household>(url, null, {
+        return this.httpClient.post<Household>(`${environment.apiUrl}${url}`, null, {
             headers: {
                 Accept: 'application/vnd.household.v1+json'
             }
@@ -34,7 +35,7 @@ export class HouseholdService extends AbstractNetworkService {
         const user: User = this.userService.getUser();
         const url: string = this.determineUrl(user, 'household');
         if (url !== undefined) {
-            return this.httpClient.get<Household>(url, {
+            return this.httpClient.get<Household>(`${environment.apiUrl}${url}`, {
                 headers: {
                     Accept: 'application/vnd.household.v1+json'
                 }
@@ -48,18 +49,27 @@ export class HouseholdService extends AbstractNetworkService {
 
     public updateHousehold(user: User): void {
         const url: string = this.determineUrl(user, 'household');
+        console.debug('determine household for user', user, url)
         if (url !== undefined) {
-            this.httpClient.get<Household>(url, {
+            this.httpClient.get<Household>(`${environment.apiUrl}${url}`, {
                 headers: {
                     Accept: 'application/vnd.household.v1+json'
                 }
-            }).subscribe((household: Household) => this.subject.next(household));
+            })
+            .subscribe((household: Household) => {
+                console.debug('got household for user', user, household)
+                this.subject.next(household)
+            });
         } else {
-            this.subject.next(null);
+            console.debug('user does not have a household yet, sending no-household', user);
+            this.subject.next('no-household');
         }
     }
 
-    public observeHousehold(): Observable<Household> {
-        return this.subject.asObservable();
+    public observeHousehold(): Observable<Household | string> {
+        return this.subject.asObservable()
+            .pipe(
+                filter(household => household !== undefined)
+            );
     }
 }

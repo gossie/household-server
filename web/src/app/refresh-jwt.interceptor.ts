@@ -14,7 +14,7 @@ export class RefreshJwtInterceptor implements HttpInterceptor {
 
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (!this.isRegistration(req) && !this.isLogin(req) && !this.isRefresh(req)) {
-            this.httpClient.post<RefreshResponse>(`${environment.apiUrl}/auth/refresh`, null, {
+            this.httpClient.post<RefreshResponse>(`${environment.apiUrl}/api/auth/refresh`, null, {
                 headers: {
                     'Accepts': 'application/vnd.household.v1+json'
                 }
@@ -25,14 +25,14 @@ export class RefreshJwtInterceptor implements HttpInterceptor {
     }
 
     private isRegistration(req: HttpRequest<any>): boolean {
-        return req.url === 'api/registrations' && req.method === 'POST'
+        return req.url.endsWith('api/registrations') && req.method === 'POST'
     }
 
     private isLogin(req: HttpRequest<any>): boolean {
-        return req.url === 'api/auth/login' && req.method === 'POST'
+        return req.url.endsWith('api/auth/login') && req.method === 'POST'
     }
 
     private isRefresh(req: HttpRequest<any>): boolean {
-        return req.url === 'api/auth/refresh' && req.method === 'POST'
+        return req.url.endsWith('api/auth/refresh') && req.method === 'POST'
     }
 }

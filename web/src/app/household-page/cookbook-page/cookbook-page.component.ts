@@ -1,14 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Cookbook } from './cookbook';
-import { HouseholdService } from '../household.service';
 import { Subscription } from 'rxjs/index';
-import { Household } from '../household';
-import { CookbookService } from './cookbook.service';
 import { Recipe } from './recipe/recipe';
 import { ShoppingListService } from '../shopping-list-page/shopping-list.service';
 import { ShoppingList } from '../shopping-list-page/shopping-list';
-import {CookbookEvent} from './cookbook-event';
-import {CookbookAction} from './cookbook-action.enum';
+import { CookbookEvent } from './cookbook-event';
+import { CookbookAction } from './cookbook-action.enum';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-cookbook-page',
@@ -24,32 +22,18 @@ export class CookbookPageComponent implements OnInit, OnDestroy {
     private shoppingList: ShoppingList;
     private subscriptions: Array<Subscription> = [];
 
-    constructor(private householdService: HouseholdService,
-                private cookbookService: CookbookService,
-                private shoppingListService: ShoppingListService) { }
+    constructor(private shoppingListService: ShoppingListService,
+                private activatedRoute: ActivatedRoute) { }
 
     public ngOnInit() {
-        this.observeHousehold();
-        this.observeShoppingList();
+        this.activatedRoute.data.subscribe(({cookbook, shoppingList}) => {
+            this.cookbook = cookbook;
+            this.shoppingList = shoppingList;
+        });
     }
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
-    }
-
-    private observeHousehold(): void {
-        this.subscriptions.push(this.householdService.observeHousehold()
-            .subscribe((household: Household) => {
-                this.cookbookService.determineCookbook(household)
-                    .subscribe(this.handleCookbook.bind(this));
-                this.shoppingListService.determineShoppingList(household)
-                    .subscribe((shoppingList: ShoppingList) => this.shoppingList = shoppingList);
-            }));
-    }
-
-    private observeShoppingList(): void {
-        this.subscriptions.push(this.shoppingListService.observeShoppingList()
-            .subscribe((shoppingList: ShoppingList) => this.shoppingList = shoppingList));
     }
 
     public onIngredientSelection(ingredients: Set<string>): void {

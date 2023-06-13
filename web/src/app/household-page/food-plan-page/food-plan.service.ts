@@ -7,6 +7,7 @@ import { Household } from '../household';
 import { Meal } from './meal/meal';
 import { Recipe } from '../cookbook-page/recipe/recipe';
 import { ObjectUtils } from 'src/app/object.utils';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root',
@@ -19,7 +20,7 @@ export class FoodPlanService extends AbstractNetworkService {
 
     public determineFoodPlan(household: Household): Observable<FoodPlan> {
         const url: string = this.determineUrl(household, 'foodPlan');
-        return this.httpClient.get<FoodPlan>(url, {
+        return this.httpClient.get<FoodPlan>(`${environment.apiUrl}${url}`, {
             headers: {
                 Accept: 'application/vnd.household.v1+json'
             }
@@ -35,7 +36,7 @@ export class FoodPlanService extends AbstractNetworkService {
             recipeId: this.determineRecipeId(recipe)
         };
 
-        return this.httpClient.put<FoodPlan>(url, body, {
+        return this.httpClient.put<FoodPlan>(`${environment.apiUrl}${url}`, body, {
             headers: {
                 'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.v1+json'
@@ -61,7 +62,7 @@ export class FoodPlanService extends AbstractNetworkService {
 
     public clearFoodPlan(foodPlan: FoodPlan): Observable<FoodPlan> {
         const url: string = this.determineUrl(foodPlan, 'clear');
-        return this.httpClient.delete<FoodPlan>(url, {
+        return this.httpClient.delete<FoodPlan>(`${environment.apiUrl}${url}`, {
             headers: {
                 Accept: 'application/vnd.household.v1+json'
             }

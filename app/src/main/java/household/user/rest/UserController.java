@@ -91,9 +91,9 @@ public class UserController {
 
     private UserDTO addHouseholdLinkLink(UserDTO user) {
         if (user.getHouseholdId() != null) {
-            return (UserDTO) user.add(Link.of("api/households/" + user.getHouseholdId(), "household"));
+            return (UserDTO) user.add(Link.of("/api/households/" + user.getHouseholdId(), "household"));
         } else {
-            return (UserDTO) user.add(Link.of("api/households", "create"));
+            return (UserDTO) user.add(Link.of("/api/households", "create"));
         }
     }
 

@@ -2,9 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ShoppingList } from "./shopping-list";
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { ShoppingListService } from "./shopping-list.service";
-import { HouseholdService } from "../household.service";
-import { Household } from "../household";
 import { Subscription } from "rxjs/index";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-shopping-list-page',
@@ -19,25 +18,20 @@ export class ShoppingListPageComponent implements OnInit, OnDestroy {
     private subscriptions: Array<Subscription> = [];
     private loading: boolean = false;
 
-    constructor(private householdService: HouseholdService,
-                private shoppingListService: ShoppingListService,
+    constructor(private shoppingListService: ShoppingListService,
+                private activatedRoute: ActivatedRoute,
                 private formBuilder: UntypedFormBuilder) { }
 
     public ngOnInit(): void {
-        this.observeHousehold();
+        this.subscriptions.push(this.activatedRoute.data.subscribe(({shoppingList}) => {
+            console.debug('got shopping list', shoppingList);
+            this.shoppingList = shoppingList;
+        }));
         this.createForm();
     }
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
-    }
-
-    private observeHousehold(): void {
-        this.subscriptions.push(this.householdService.observeHousehold()
-            .subscribe((household: Household) => {
-                this.shoppingListService.determineShoppingList(household)
-                    .subscribe((shoppingList: ShoppingList) => this.shoppingList = shoppingList);
-            }));
     }
 
     private createForm(): void {

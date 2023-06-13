@@ -1,12 +1,11 @@
-import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CleaningPlan } from './cleaning-plan';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CleaningPlanService } from './cleaning-plan.service';
 import { Chore } from './chore/chore';
 import { Task } from './task/task';
 import { Subscription } from 'rxjs/index';
-import { Household } from '../household';
-import { HouseholdService } from '../household.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-cleaning-plan-page',
@@ -22,25 +21,17 @@ export class CleaningPlanPageComponent implements OnInit, OnDestroy {
     private subscriptions: Array<Subscription> = [];
     private loading = false;
 
-    constructor(private householdService: HouseholdService,
-                private cleaningPlanService: CleaningPlanService,
-                private formBuilder: UntypedFormBuilder) { }
+    constructor(private cleaningPlanService: CleaningPlanService,
+                private formBuilder: UntypedFormBuilder,
+                private activatedRoute: ActivatedRoute) { }
 
     public ngOnInit(): void {
-        this.observeHousehold();
+        this.activatedRoute.data.subscribe(({cleaningPlan}) => this.cleaningPlan = cleaningPlan);
         this.createForms();
     }
 
     public ngOnDestroy(): void {
         this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
-    }
-
-    private observeHousehold(): void {
-        this.subscriptions.push(this.householdService.observeHousehold()
-            .subscribe((household: Household) => {
-                this.cleaningPlanService.determineCleaningPlan(household)
-                    .subscribe((this.handleCleaningPlan.bind(this)));
-            }));
     }
 
     private createForms(): void {
