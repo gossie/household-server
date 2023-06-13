@@ -12,7 +12,7 @@ export class RegistrationService {
     constructor(private httpClient: HttpClient) { }
 
     public registerUser(registrationData: RegistrationData): Observable<void> {
-        return this.httpClient.post<void>(`${environment.apiUrl}/registrations`, registrationData, {
+        return this.httpClient.post<void>(`${environment.apiUrl}/api/registrations`, registrationData, {
             headers: {
                 'Content-Type': 'application/vnd.household.v1+json',
                 'Accepts': 'application/vnd.household.v1+json'

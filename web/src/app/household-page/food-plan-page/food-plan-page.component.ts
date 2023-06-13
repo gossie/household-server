@@ -4,7 +4,6 @@ import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { FoodPlanService } from './food-plan.service';
 import { Subscription } from 'rxjs/index';
 import { HouseholdService } from '../household.service';
-import { Household } from '../household';
 import { Recipe } from '../cookbook-page/recipe/recipe';
 import { ShoppingListService } from '../shopping-list-page/shopping-list.service';
 import { ShoppingList } from '../shopping-list-page/shopping-list';
@@ -13,6 +12,7 @@ import { Cookbook } from '../cookbook-page/cookbook';
 import { DeleteHintService } from '../delete-hint.service';
 import { Meal } from './meal/meal';
 import { RecipeSelectionEvent } from './meal/recipe-selection.event';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-food-plan-page',
@@ -32,18 +32,19 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
     private subscriptions: Array<Subscription> = [];
     private loading = false;
 
-    constructor(private householdService: HouseholdService,
-                private cookbookService: CookbookService,
-                private shoppingListService: ShoppingListService,
+    constructor(private shoppingListService: ShoppingListService,
                 private foodPlanService: FoodPlanService,
                 private deleteHintService: DeleteHintService,
+                private activatedRoute: ActivatedRoute,
                 private formBuilder: UntypedFormBuilder) { }
 
     public ngOnInit(): void {
+        this.activatedRoute.data.subscribe(({shoppingList, cookbook, foodPlan}) => {
+            this.shoppingList = shoppingList;
+            this.cookbook = cookbook;
+            this.foodPlan = foodPlan;
+        });
         this.observeUndo();
-        this.observeHousehold();
-        this.observeCookbook();
-        this.observeShoppingList();
         this.createForm();
         this.createDates();
     }
@@ -55,30 +56,6 @@ export class FoodPlanPageComponent implements OnInit, OnDestroy {
     private observeUndo(): void {
         this.subscriptions.push(this.deleteHintService.onUndo()
             .subscribe(() => this.loading = false));
-    }
-
-    private observeHousehold(): void {
-        this.subscriptions.push(this.householdService.observeHousehold()
-            .subscribe((household: Household) => {
-                this.foodPlanService.determineFoodPlan(household)
-                    .subscribe((foodPlan: FoodPlan) => this.foodPlan = foodPlan);
-
-                this.shoppingListService.determineShoppingList(household)
-                    .subscribe((shoppingList: ShoppingList) => this.shoppingList = shoppingList);
-
-                this.cookbookService.determineCookbook(household)
-                    .subscribe((cookbook: Cookbook) => this.cookbook = cookbook);
-            }));
-    }
-
-    private observeShoppingList(): void {
-        this.subscriptions.push(this.shoppingListService.observeShoppingList()
-            .subscribe((shoppingList: ShoppingList) => this.shoppingList = shoppingList));
-    }
-
-    private observeCookbook(): void {
-        this.subscriptions.push(this.cookbookService.observeCookbook()
-            .subscribe((cookbook: Cookbook) => this.cookbook = cookbook));
     }
 
     private createForm(): void {

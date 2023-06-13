@@ -6,6 +6,7 @@ import { AbstractNetworkService } from '../../abstract-network.service';
 import { Chore } from './chore/chore';
 import { Household } from '../household';
 import { Task } from './task/task';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root',
@@ -18,7 +19,7 @@ export class CleaningPlanService extends AbstractNetworkService {
 
     public determineCleaningPlan(household: Household): Observable<CleaningPlan> {
         const url: string = this.determineUrl(household, 'cleaningPlan');
-        return this.httpClient.get<CleaningPlan>(url, {
+        return this.httpClient.get<CleaningPlan>(`${environment.apiUrl}${url}`, {
             headers: {
                 Accept: 'application/vnd.household.v1+json'
             }
@@ -28,7 +29,7 @@ export class CleaningPlanService extends AbstractNetworkService {
     public addChore(cleaningPlan: CleaningPlan, chore: Chore): Observable<CleaningPlan> {
         const url: string = this.determineUrl(cleaningPlan, 'addChore');
 
-        return this.httpClient.post<CleaningPlan>(url, chore, {
+        return this.httpClient.post<CleaningPlan>(`${environment.apiUrl}${url}`, chore, {
             headers: {
                 'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.v1+json'
@@ -40,7 +41,7 @@ export class CleaningPlanService extends AbstractNetworkService {
         const url: string = this.determineUrl(chore, 'select');
         chore.lastPerformed = Date.now();
 
-        return this.httpClient.put<CleaningPlan>(url, chore, {
+        return this.httpClient.put<CleaningPlan>(`${environment.apiUrl}${url}`, chore, {
             headers: {
                 'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.v1+json'
@@ -51,7 +52,7 @@ export class CleaningPlanService extends AbstractNetworkService {
     public saveChore(chore: Chore): Observable<CleaningPlan> {
         const url: string = this.determineUrl(chore, 'save');
 
-        return this.httpClient.put<CleaningPlan>(url, chore, {
+        return this.httpClient.put<CleaningPlan>(`${environment.apiUrl}${url}`, chore, {
             headers: {
                 'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.v1+json'
@@ -61,7 +62,7 @@ export class CleaningPlanService extends AbstractNetworkService {
 
     public deleteChore(chore: Chore): Observable<CleaningPlan> {
         const url: string = this.determineUrl(chore, 'delete');
-        return this.httpClient.delete<CleaningPlan>(url, {
+        return this.httpClient.delete<CleaningPlan>(`${environment.apiUrl}${url}`, {
             headers: {
                 Accept: 'application/vnd.household.v1+json'
             }
@@ -71,7 +72,7 @@ export class CleaningPlanService extends AbstractNetworkService {
     public addTask(cleaningPlan: CleaningPlan, task: Task): Observable<CleaningPlan> {
         const url: string = this.determineUrl(cleaningPlan, 'addTask');
 
-        return this.httpClient.post<CleaningPlan>(url, task, {
+        return this.httpClient.post<CleaningPlan>(`${environment.apiUrl}${url}`, task, {
             headers: {
                 'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.v1+json'
@@ -82,7 +83,7 @@ export class CleaningPlanService extends AbstractNetworkService {
     public saveTask(task: Task): Observable<CleaningPlan> {
         const url: string = this.determineUrl(task, 'select');
 
-        return this.httpClient.put<CleaningPlan>(url, task, {
+        return this.httpClient.put<CleaningPlan>(`${environment.apiUrl}${url}`, task, {
             headers: {
                 'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.v1+json'

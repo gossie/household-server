@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { AbstractNetworkService } from '../abstract-network.service';
 import { User } from '../user';
 import { tap } from 'rxjs/internal/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root',
@@ -21,7 +22,7 @@ export class HouseholdService extends AbstractNetworkService {
 
     public createHousehold(): Observable<Household> {
         const url: string = this.determineUrl(this.userService.getUser(), 'create');
-        return this.httpClient.post<Household>(url, null, {
+        return this.httpClient.post<Household>(`${environment.apiUrl}${url}`, null, {
             headers: {
                 Accept: 'application/vnd.household.v1+json'
             }
@@ -34,7 +35,7 @@ export class HouseholdService extends AbstractNetworkService {
         const user: User = this.userService.getUser();
         const url: string = this.determineUrl(user, 'household');
         if (url !== undefined) {
-            return this.httpClient.get<Household>(url, {
+            return this.httpClient.get<Household>(`${environment.apiUrl}${url}`, {
                 headers: {
                     Accept: 'application/vnd.household.v1+json'
                 }
@@ -49,7 +50,7 @@ export class HouseholdService extends AbstractNetworkService {
     public updateHousehold(user: User): void {
         const url: string = this.determineUrl(user, 'household');
         if (url !== undefined) {
-            this.httpClient.get<Household>(url, {
+            this.httpClient.get<Household>(`${environment.apiUrl}${url}`, {
                 headers: {
                     Accept: 'application/vnd.household.v1+json'
                 }

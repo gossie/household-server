@@ -5,6 +5,7 @@ import { UserService } from '../../user.service';
 import { AbstractNetworkService} from '../../abstract-network.service';
 import { User } from '../../user';
 import { Invitation } from '../../invitation';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root',
@@ -22,7 +23,7 @@ export class InvitationService extends AbstractNetworkService {
             email
         };
 
-        return this.httpClient.post<User>(url, body, {
+        return this.httpClient.post<User>(`${environment.apiUrl}${url}`, body, {
             headers: {
                 'Content-Type': 'application/vnd.household.v1+json',
                 Accept: 'application/vnd.household.v1+json'
@@ -32,7 +33,7 @@ export class InvitationService extends AbstractNetworkService {
 
     public acceptInvitation(invitation: Invitation): Observable<User> {
         const url: string = this.determineUrl(invitation, 'accept');
-        return this.httpClient.post<User>(url, null, {
+        return this.httpClient.post<User>(`${environment.apiUrl}${url}`, null, {
             headers: {
                 Accept: 'application/vnd.household.v1+json'
             }
@@ -41,7 +42,7 @@ export class InvitationService extends AbstractNetworkService {
 
     public rejectInvitation(invitation: Invitation): Observable<User> {
         const url: string = this.determineUrl(invitation, 'reject');
-        return this.httpClient.delete<User>(url, {
+        return this.httpClient.delete<User>(`${environment.apiUrl}${url}`, {
             headers: {
                 Accept: 'application/vnd.household.v1+json'
             }

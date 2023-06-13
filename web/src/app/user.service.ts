@@ -39,7 +39,7 @@ export class UserService extends AbstractNetworkService {
     }
 
     public determineCurrentUser(): Observable<User> {
-        return this.httpClient.get<User>(`${environment.apiUrl}/users/current`, {
+        return this.httpClient.get<User>(`${environment.apiUrl}/api/users/current`, {
             headers: {
                 Accept: 'application/vnd.household.v1+json'
             }
@@ -49,7 +49,7 @@ export class UserService extends AbstractNetworkService {
     }
 
     public updateUser(): void {
-        this.httpClient.get<User>(`${environment.apiUrl}/users/current`, {
+        this.httpClient.get<User>(`${environment.apiUrl}/api/users/current`, {
             headers: {
                 Accept: 'application/vnd.household.v1+json'
             }
@@ -73,7 +73,7 @@ export class UserService extends AbstractNetworkService {
                 Accept: 'application/vnd.household.v1+json'
             }
         };
-        return this.httpClient.put<User>(url, body, options);
+        return this.httpClient.put<User>(`${environment.apiUrl}${url}`, body, options);
     }
 
     public logout() {

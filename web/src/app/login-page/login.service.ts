@@ -12,7 +12,7 @@ export class LoginService {
     constructor(private httpClient: HttpClient) { }
 
     public loginUser(loginData: LoginRequest): Observable<LoginResponse> {
-        return this.httpClient.post<LoginResponse>(`${environment.apiUrl}/auth/login`, loginData, {
+        return this.httpClient.post<LoginResponse>(`${environment.apiUrl}/api/auth/login`, loginData, {
             headers: {
                 'Content-Type': 'application/vnd.household.v1+json',
                 'Accepts': 'application/vnd.household.v1+json'

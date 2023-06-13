@@ -38,10 +38,10 @@ export class JwtInterceptor implements HttpInterceptor {
     }
 
     private isRegistration(req: HttpRequest<any>): boolean {
-        return req.url === 'api/registrations' && req.method === 'POST'
+        return req.url.endsWith('api/registrations') && req.method === 'POST'
     }
 
     private isLogin(req: HttpRequest<any>): boolean {
-        return req.url === 'api/auth/login' && req.method === 'POST'
+        return req.url.endsWith('api/auth/login') && req.method === 'POST'
     }
 }

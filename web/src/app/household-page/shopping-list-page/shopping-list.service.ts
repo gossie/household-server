@@ -7,6 +7,7 @@ import { ShoppingListItem } from './shopping-list-group/shopping-list-item/shopp
 import { AbstractNetworkService } from '../../abstract-network.service';
 import { Household } from '../household';
 import {tap} from 'rxjs/internal/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root',
@@ -21,7 +22,7 @@ export class ShoppingListService extends AbstractNetworkService {
 
     public determineShoppingList(household: Household): Observable<ShoppingList> {
         const url: string = this.determineUrl(household, 'shoppingList');
-        return this.httpClient.get<ShoppingList>(url, {
+        return this.httpClient.get<ShoppingList>(`${environment.apiUrl}${url}`, {
             headers: {
                 Accept: 'application/vnd.household.v2+json'
             }
@@ -39,7 +40,7 @@ export class ShoppingListService extends AbstractNetworkService {
             links: []
         };
 
-        return this.httpClient.post<ShoppingList>(url, body, {
+        return this.httpClient.post<ShoppingList>(`${environment.apiUrl}${url}`, body, {
             headers: {
                 'Content-Type': 'application/vnd.household.v2+json',
                 Accept: 'application/vnd.household.v2+json'
@@ -52,7 +53,7 @@ export class ShoppingListService extends AbstractNetworkService {
 
     public deleteShoppingListGroup(shoppingListGroup: ShoppingListGroup): Observable<ShoppingList> {
         const url: string = this.determineUrl(shoppingListGroup, 'delete');
-        return this.httpClient.delete<ShoppingList>(url, {
+        return this.httpClient.delete<ShoppingList>(`${environment.apiUrl}${url}`, {
             headers: {
                 Accept: 'application/vnd.household.v2+json'
             }
@@ -64,7 +65,7 @@ export class ShoppingListService extends AbstractNetworkService {
 
     public toggleShoppingListGroup(shoppingListGroup: ShoppingListGroup): Observable<ShoppingList> {
         const url: string = this.determineUrl(shoppingListGroup, 'toggle');
-        return this.httpClient.put<ShoppingList>(url, null, {
+        return this.httpClient.put<ShoppingList>(`${environment.apiUrl}${url}`, null, {
             headers: {
                 Accept: 'application/vnd.household.v2+json'
             }
@@ -76,7 +77,7 @@ export class ShoppingListService extends AbstractNetworkService {
 
     public clearShoppingListGroup(shoppingListGroup: ShoppingListGroup): Observable<ShoppingList> {
         const url: string = this.determineUrl(shoppingListGroup, 'clear');
-        return this.httpClient.delete<ShoppingList>(url, {
+        return this.httpClient.delete<ShoppingList>(`${environment.apiUrl}${url}`, {
             headers: {
                 Accept: 'application/vnd.household.v2+json'
             }
@@ -96,7 +97,7 @@ export class ShoppingListService extends AbstractNetworkService {
             }
         });
 
-        return this.httpClient.post<ShoppingList>(url, body, {
+        return this.httpClient.post<ShoppingList>(`${environment.apiUrl}${url}`, body, {
             headers: {
                 'Content-Type': 'application/vnd.household.v2+json',
                 Accept: 'application/vnd.household.v2+json'
@@ -109,7 +110,7 @@ export class ShoppingListService extends AbstractNetworkService {
 
     public toggleShoppingListItem(shoppingListItem: ShoppingListItem): Observable<ShoppingList> {
         const url: string = this.determineUrl(shoppingListItem, 'toggle');
-        return this.httpClient.patch<ShoppingList>(url, null, {
+        return this.httpClient.patch<ShoppingList>(`${environment.apiUrl}${url}`, null, {
             headers: {
                 Accept: 'application/vnd.household.v2+json'
             }
@@ -121,7 +122,7 @@ export class ShoppingListService extends AbstractNetworkService {
 
     public editShoppingListItem(shoppingListItem: ShoppingListItem): Observable<ShoppingList> {
         const url: string = this.determineUrl(shoppingListItem, 'edit');
-        return this.httpClient.put<ShoppingList>(url, shoppingListItem, {
+        return this.httpClient.put<ShoppingList>(`${environment.apiUrl}${url}`, shoppingListItem, {
             headers: {
                 Accept: 'application/vnd.household.v2+json',
                 'Content-Type': 'application/vnd.household.v2+json'
