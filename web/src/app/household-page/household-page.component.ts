@@ -27,7 +27,7 @@ export class HouseholdPageComponent implements OnInit, OnDestroy {
 
     public userHasNoHousehold = false;
     public user: User;
-    public household: Household;
+    public household: Household | string;
     public expanded = false;
 
     private subscriptions: Array<Subscription> = [];
