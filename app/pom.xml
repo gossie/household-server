@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.2</version>
+        <version>3.1.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -25,9 +25,7 @@
         <npm.version>8.1.2</npm.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>17</java.version>
-        <repackage.classifier/>
-        <spring-native.version>0.12.2</spring-native.version>
+        <java.version>20</java.version>
     </properties>
 
     <dependencyManagement>
@@ -116,8 +114,8 @@
                 <artifactId>native-maven-plugin</artifactId>
                 <!--configuration>
                     <jvmArgs>
-                        <arg>-Xmx5g</arg>
-                        <arg>-Xms5g</arg>
+                        <arg>-Xms12g</arg>
+                        <arg>-Xmx12g</arg>
                     </jvmArgs> 
                 </configuration-->
             </plugin>
