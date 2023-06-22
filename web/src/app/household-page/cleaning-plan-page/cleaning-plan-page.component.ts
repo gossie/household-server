@@ -26,7 +26,7 @@ export class CleaningPlanPageComponent implements OnInit, OnDestroy {
                 private activatedRoute: ActivatedRoute) { }
 
     public ngOnInit(): void {
-        this.activatedRoute.data.subscribe(({cleaningPlan}) => this.cleaningPlan = cleaningPlan);
+        this.activatedRoute.data.subscribe(({cleaningPlan}) => this.handleCleaningPlan(cleaningPlan));
         this.createForms();
     }
 
