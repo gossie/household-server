@@ -114,6 +114,12 @@
             <plugin>
                 <groupId>org.graalvm.buildtools</groupId>
                 <artifactId>native-maven-plugin</artifactId>
+                <!--configuration>
+                    <jvmArgs>
+                        <arg>-Xmx5g</arg>
+                        <arg>-Xms5g</arg>
+                    </jvmArgs> 
+                </configuration-->
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
