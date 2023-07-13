@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -25,7 +25,7 @@
         <npm.version>8.1.2</npm.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>20</java.version>
+        <java.version>17</java.version>
     </properties>
 
     <dependencyManagement>
@@ -112,12 +112,6 @@
             <plugin>
                 <groupId>org.graalvm.buildtools</groupId>
                 <artifactId>native-maven-plugin</artifactId>
-                <!--configuration>
-                    <jvmArgs>
-                        <arg>-Xms12g</arg>
-                        <arg>-Xmx12g</arg>
-                    </jvmArgs> 
-                </configuration-->
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
