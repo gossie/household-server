@@ -6,7 +6,7 @@ kill_timeout = 5
 processes = []
 
 [build]
-  image = "ghcr.io/gossie/household-app:1.6.3"
+  image = "ghcr.io/gossie/household-app:1.6.4"
 
 [env]
 
