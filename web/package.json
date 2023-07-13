@@ -1,6 +1,6 @@
 {
   "name": "web-frontend",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "scripts": {
     "postinstall": "ngcc",
     "ng": "ng",
