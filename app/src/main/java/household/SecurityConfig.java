@@ -40,7 +40,7 @@ public class SecurityConfig {
                 //.addFilterAfter(this::csrfFilter, SecurityWebFiltersOrder.CSRF)
                 //.requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.GET, "/", "/index.html", "/*.js", "/*.css", "/*.png").permitAll()
+                .requestMatchers(HttpMethod.GET, "/", "/index.html", "/error", "/*.js", "/*.css", "/*.png").permitAll()
                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/registrations", "/api/auth/login").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/status").permitAll()
