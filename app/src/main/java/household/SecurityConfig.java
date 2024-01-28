@@ -6,9 +6,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
 import lombok.RequiredArgsConstructor;
@@ -31,24 +33,20 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                .cors()
-                .configurationSource(corsConfigurationSource())
-            .and()
-                .csrf().disable()
+                .cors(corsConfigurer -> corsConfigurer.configurationSource(corsConfigurationSource()))
+                .csrf(AbstractHttpConfigurer::disable)
                 //.csrfTokenRepository(csrfTokenRepository())
             //.and()
                 //.addFilterAfter(this::csrfFilter, SecurityWebFiltersOrder.CSRF)
                 //.requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
-                .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.GET, "/", "/index.html", "/error", "/*.js", "/*.css", "/*.png").permitAll()
-                .requestMatchers(HttpMethod.OPTIONS).permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/registrations", "/api/auth/login").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/status").permitAll()
-                .anyRequest().authenticated()
-            .and()
+                .authorizeHttpRequests(configurer -> configurer
+                    .requestMatchers(HttpMethod.GET, "/", "/index.html", "/error", "/*.js", "/*.css", "/*.png").permitAll()
+                    .requestMatchers(HttpMethod.OPTIONS).permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/registrations", "/api/auth/login").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/status").permitAll()
+                    .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
+                .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();
     }
 
